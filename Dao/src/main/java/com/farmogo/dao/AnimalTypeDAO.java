@@ -3,11 +3,10 @@ package com.farmogo.dao;
 import com.farmono.model.AnimalType;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.Dependent;
 import java.util.ArrayList;
 import java.util.List;
 
-@Dependent
+@Stateless
 public class AnimalTypeDAO {
 
 
