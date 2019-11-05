@@ -27,6 +27,14 @@
                             <groupId>${project.groupId}</groupId>
                             <contextRoot>api</contextRoot>
                         </webModule>
+                        <ejbModule>
+                            <artifactId>Services</artifactId>
+                            <groupId>${project.groupId}</groupId>
+                        </ejbModule>
+                        <ejbModule>
+                            <artifactId>Dao</artifactId>
+                            <groupId>${project.groupId}</groupId>
+                        </ejbModule>
                     </modules>
                 </configuration>
             </plugin>
@@ -41,6 +49,20 @@
             <version>${project.version}</version>
             <scope>runtime</scope>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <artifactId>Services</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <artifactId>Dao</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+            <type>ejb</type>
         </dependency>
     </dependencies>
 
