@@ -17,4 +17,8 @@ public class AnimalTypesService {
     public List<AnimalType> getAll() {
         return animalTypeDAO.getAll();
     }
+
+    public void save(AnimalType animalType){
+        animalTypeDAO.save(animalType);
+    }
 }
