@@ -18,8 +18,8 @@ public class AnimalTypeDAO {
         for (int i = 0; i < 10; i++) {
             AnimalType animalType = new AnimalType();
             animalType.setAnimalType(i + 1);
-            animalType.setDescription("ANIMAL TYPE: " + i + 1);
-            animalType.setIcon("ICON + " + i + 1);
+            animalType.setDescription("ANIMAL TYPE: " + (i + 1));
+            animalType.setIcon("ICON + " + (i + 1));
             animalTypeList.add(animalType);
         }
     }
@@ -45,4 +45,7 @@ public class AnimalTypeDAO {
     }
 
 
+    public void delete(AnimalType animalType) {
+        animalTypeList.remove(animalType);
+    }
 }

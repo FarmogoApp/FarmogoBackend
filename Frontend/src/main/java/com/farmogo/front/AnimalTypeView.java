@@ -52,20 +52,17 @@ public class AnimalTypeView implements Serializable {
         animalTypesService.save((AnimalType) event.getObject());
     }
 
-    public void newAnimalType() {
-        System.out.println("new animal");
+
+    public void clearSelection(){
         animalType = new AnimalType();
-        Map<String,Object> options = new HashMap<>();
-        options.put("modal", true);
-        options.put("width", 640);
-        options.put("height", 340);
-        options.put("contentWidth", "100%");
-        options.put("contentHeight", "100%");
-        options.put("headerElement", "customheader");
     }
 
     public void save(){
         animalTypesService.save(animalType);
+    }
+
+    public void delete(){
+        animalTypesService.delete(animalType);
     }
 
 }

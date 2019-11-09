@@ -21,4 +21,8 @@ public class AnimalTypesService {
     public void save(AnimalType animalType){
         animalTypeDAO.save(animalType);
     }
+
+    public void delete(AnimalType animalType) {
+        animalTypeDAO.delete(animalType);
+    }
 }
