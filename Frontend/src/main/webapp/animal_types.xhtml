@@ -57,8 +57,15 @@
         <p:contextMenu for="animalTypesTable">
             <p:menuitem value="Edit" update="newAnimalTypeDialog"
                         oncomplete="PF('newAnimalTypeDialog').show()"/>
-            <p:menuitem value="Delete" update="animalTypesTable" action="#{animalTypeView.delete}"/>
+            <p:menuitem value="Delete" update="animalTypesTable" action="#{animalTypeView.delete}">
+                <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
+            </p:menuitem>
         </p:contextMenu>
+
+        <p:confirmDialog global="true">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+        </p:confirmDialog>
     </h:form>
 
 
