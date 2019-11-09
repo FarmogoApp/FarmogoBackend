@@ -17,13 +17,24 @@
 
 <h:head>
     <title>Animal Types</title>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 </h:head>
 
 <h:body>
-    <h:form id="form">
-        <p:growl id="msgs" showDetail="true"/>
-        <p:dataTable value="#{animalTypeView.animalTypeList}" var="elem" editable="true">
-            <p:ajax event="rowEdit" listener="#{animalTypeView.onRowEdit}" update=":form:msgs"/>
+    <p:growl id="msgs" showDetail="true"/>
+    <h:form id="listAnimalForm">
+        <p:commandButton value="Add"
+                         icon="pi pi-plus-circle"
+                         actionListener="#{animalTypeView.newAnimalType}"
+                         update="newAnimalTypeDialog"
+                         oncomplete="PF('newAnimalTypeDialog').show()"
+        />
+
+
+        <p:dataTable
+                id="animalTypesTable"
+                value="#{animalTypeView.animalTypeList}" var="elem" editable="true">
+            <p:ajax event="rowEdit" listener="#{animalTypeView.onRowEdit}" update="msgs"/>
             <p:column headerText="Id">
                 <h:outputText value="#{elem.animalType}"/>
             </p:column>
@@ -44,6 +55,30 @@
             </p:column>
         </p:dataTable>
     </h:form>
+
+
+    <p:dialog modal="true" closable="true" id="newAnimalTypeDialog" widgetVar="newAnimalTypeDialog">
+        <f:facet name="header">
+            New Animal Type
+        </f:facet>
+        <h:form id="newAnimal">
+            <p:panelGrid columns="2">
+
+                <h:outputLabel value="Description"/>
+                <p:inputText value="#{animalTypeView.animalType.description}"/>
+
+                <h:outputLabel value="Icon"/>
+                <p:inputText value="#{animalTypeView.animalType.icon}"/>
+
+                <p:column/>
+                <p:commandButton value="Save" icon="pi pi-save"
+                                 actionListener="#{animalTypeView.save}"
+                                 update=":listAnimalForm:animalTypesTable"
+                                 oncomplete="PF('newAnimalTypeDialog').hide()"/>
+            </p:panelGrid>
+        </h:form>
+
+    </p:dialog>
 
 </h:body>
 
