@@ -2,13 +2,20 @@ package com.farmono.model;
 
 import java.io.Serializable;
 
-public class AnimalType implements Serializable {
+public class AnimalType extends BaseMongoDO implements Serializable {
 
     private int animalType;
     private String description;
     private String icon;
 
     public AnimalType() {
+    }
+
+
+    public AnimalType(int animalType, String description, String icon) {
+        this.animalType = animalType;
+        this.description = description;
+        this.icon = icon;
     }
 
     public int getAnimalType() {
