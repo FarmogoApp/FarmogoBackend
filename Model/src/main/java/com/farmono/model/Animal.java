@@ -3,6 +3,7 @@ package com.farmono.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class Animal implements Serializable {
     private String uuid;
@@ -18,6 +19,11 @@ public class Animal implements Serializable {
     private String motherId;
     private Timestamp createdTimestamp;
     private String origin;
+    private List<AnimalType> animalTypeList;
+    private List<Races> racesList;
+    private List<Farm> farmList;
+    private List<Divisions> divisionsList;
+
 
     public Animal(){
 
@@ -126,6 +132,36 @@ public class Animal implements Serializable {
         this.origin = origin;
     }
 
+    public List<AnimalType> getAnimalTypeList() {
+        return animalTypeList;
+    }
 
+    public void setAnimalTypeList(List<AnimalType> animalTypeList) {
+        this.animalTypeList = animalTypeList;
+    }
+
+    public List<Races> getRacesList() {
+        return racesList;
+    }
+
+    public void setRacesList(List<Races> racesList) {
+        this.racesList = racesList;
+    }
+
+    public List<Farm> getFarmList() {
+        return farmList;
+    }
+
+    public void setFarmList(List<Farm> farmList) {
+        this.farmList = farmList;
+    }
+
+    public List<Divisions> getDivisionsList() {
+        return divisionsList;
+    }
+
+    public void setDivisionsList(List<Divisions> divisionsList) {
+        this.divisionsList = divisionsList;
+    }
 
 }
