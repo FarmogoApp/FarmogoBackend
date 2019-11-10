@@ -32,6 +32,7 @@ public class MongoConnection {
                     .maxConnectionIdleTime((60 * 1_000))
                     .maxConnectionLifeTime((120 * 1_000));
 
+            // TODO: Use a config file
             MongoClientURI uri = new MongoClientURI("mongodb://localhost:27017/test", options);
 
             logger.info("About to connect to MongoDB @ " + uri.toString());
