@@ -8,6 +8,7 @@ public class MarketHistory implements Serializable {
     private Date date;
     private int animalTyupe;
     private BigDecimal price;
+    private AnimalType animalType;
     public MarketHistory(){
 
     }
@@ -34,5 +35,12 @@ public class MarketHistory implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+    public AnimalType getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(AnimalType animalType) {
+        this.animalType = animalType;
     }
 }

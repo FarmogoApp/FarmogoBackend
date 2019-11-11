@@ -12,7 +12,7 @@ public class Incidences implements Serializable {
     private String userId;
     private Timestamp createdTimestamp;
     private List<Animal> animalList;
-    private List<IncidenceTypes>incidenceTypesList;
+    private IncidenceTypes incidenceTypes;
 
     public Incidences(){
 
@@ -72,12 +72,12 @@ public class Incidences implements Serializable {
         this.animalList = animalList;
     }
 
-    public List<IncidenceTypes> getIncidenceTypesList() {
-        return incidenceTypesList;
+    public IncidenceTypes getIncidenceTypes() {
+        return incidenceTypes;
     }
 
-    public void setIncidenceTypesList(List<IncidenceTypes> incidenceTypesList) {
-        this.incidenceTypesList = incidenceTypesList;
+    public void setIncidenceTypes(IncidenceTypes incidenceTypesList) {
+        this.incidenceTypes = incidenceTypesList;
     }
 
 }

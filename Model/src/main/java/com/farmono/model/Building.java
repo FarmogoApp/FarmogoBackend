@@ -8,6 +8,7 @@ public class Building implements Serializable {
     private String idFarm;
     private String name;
      private List<Divisions> divisionsList;
+     private Farm farm;
     public Building(){
 
     }
@@ -42,5 +43,11 @@ public class Building implements Serializable {
     public void setDivisionsList(List<Divisions> divisionsList) {
         this.divisionsList = divisionsList;
     }
+    public Farm getFarm() {
+        return farm;
+    }
 
+    public void setFarm(Farm farm) {
+        this.farm = farm;
+    }
 }

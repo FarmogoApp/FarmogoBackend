@@ -11,6 +11,8 @@ public class Divisions implements Serializable {
     private JSObject coordGpsTopLeft;
     private JSObject coordGpsBottomRight;
 
+
+    private Building building;
     public Divisions(){
 
     }
@@ -54,4 +56,12 @@ public class Divisions implements Serializable {
     public void setCoordGpsBottomRight(JSObject coordGpsBottomRight) {
         this.coordGpsBottomRight = coordGpsBottomRight;
     }
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
 }

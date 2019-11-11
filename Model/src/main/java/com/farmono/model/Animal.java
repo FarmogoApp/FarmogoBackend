@@ -19,10 +19,9 @@ public class Animal implements Serializable {
     private String motherId;
     private Timestamp createdTimestamp;
     private String origin;
-    private List<AnimalType> animalTypeList;
-    private List<Races> racesList;
-    private List<Farm> farmList;
-    private List<Divisions> divisionsList;
+    private Races races;
+    private Farm farm;
+    private Divisions divisions;
 
 
     public Animal(){
@@ -36,13 +35,6 @@ public class Animal implements Serializable {
         this.uuid = uuid;
     }
 
-    public AnimalType getAnimalType() {
-        return animalType;
-    }
-
-    public void setAnimalType(AnimalType animalType) {
-        this.animalType = animalType;
-    }
 
     public String getOfficialId() {
         return officialId;
@@ -132,36 +124,47 @@ public class Animal implements Serializable {
         this.origin = origin;
     }
 
-    public List<AnimalType> getAnimalTypeList() {
-        return animalTypeList;
+    public AnimalType getAnimalType() {
+        return animalType;
     }
 
-    public void setAnimalTypeList(List<AnimalType> animalTypeList) {
-        this.animalTypeList = animalTypeList;
+    public void setAnimalType(AnimalType animalType) {
+        this.animalType= animalType;
     }
 
-    public List<Races> getRacesList() {
-        return racesList;
+    public Races getRaces() {
+        return races;
     }
 
-    public void setRacesList(List<Races> racesList) {
-        this.racesList = racesList;
+    public void setRacesList(Races races) {
+        this.races = races;
     }
 
-    public List<Farm> getFarmList() {
-        return farmList;
+    public Farm getFarm() {
+        return farm;
     }
 
-    public void setFarmList(List<Farm> farmList) {
-        this.farmList = farmList;
+    public void setFarm(Farm farm) {
+        this.farm = farm;
     }
 
-    public List<Divisions> getDivisionsList() {
-        return divisionsList;
+    public Divisions getDivisionsList() {
+        return divisions;
     }
 
-    public void setDivisionsList(List<Divisions> divisionsList) {
-        this.divisionsList = divisionsList;
+    public void setDivisionsList(Divisions divisions) {
+        this.divisions = divisions;
+    }
+    public void setRaces(Races races) {
+        this.races = races;
+    }
+
+    public Divisions getDivisions() {
+        return divisions;
+    }
+
+    public void setDivisions(Divisions divisions) {
+        this.divisions = divisions;
     }
 
 }
