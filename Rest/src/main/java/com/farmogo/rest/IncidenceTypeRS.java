@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
-import com.farmogo.services.GrantAccesService;
-import com.farmono.model.GrantAcces;
+import com.farmogo.services.IncidenceTypeService;
+import com.farmono.model.IncidenceTypes;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,14 +12,14 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestScoped
-@Path("grantAcces")
-public class GrantAccesRS {
+@Path("incidenceType")
+public class IncidenceTypeRS {
     @Inject
-    GrantAccesService grantAccesService;
+    IncidenceTypeService incidenceTypeService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GrantAcces> getAll() {
-        return grantAccesService.getAll();
+    public List<IncidenceTypes> getAll() {
+        return incidenceTypeService.getAll();
     }
 }

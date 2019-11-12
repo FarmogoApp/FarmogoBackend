@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestScoped
-@Path("animal")
+@Path("divisions")
 public class DivisionsRS {
     @Inject
     DivisionService divisionService;

@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestScoped
-@Path("MarketHistory")
+@Path("marketHistory")
 public class MarketHistoryRS {
     @Inject
     MarketHistoryService marketHistoryService;
