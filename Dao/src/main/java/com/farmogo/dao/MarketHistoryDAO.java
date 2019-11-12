@@ -11,10 +11,10 @@ public class MarketHistoryDAO {
 
 
     public List<MarketHistory> getAll() {
-        List<MarketHistory> MarketHistoryList = new ArrayList<>();
+        List<MarketHistory> marketHistoryList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-
+            MarketHistory marketHistory = new MarketHistory();
         }
-        return MarketHistoryList;
+        return marketHistoryList;
     }
 }
