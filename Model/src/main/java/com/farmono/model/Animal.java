@@ -2,6 +2,7 @@ package com.farmono.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Animal implements Serializable {
     private String  idFarm;
     private String idDivision;
     private String motherId;
-    private Timestamp createdTimestamp;
+    private LocalDateTime createdLocalDateTime;
     private String origin;
     private Races races;
     private Farm farm;
@@ -108,12 +109,12 @@ public class Animal implements Serializable {
         this.motherId = motherId;
     }
 
-    public Timestamp getCreatedTimestamp() {
-        return createdTimestamp;
+    public LocalDateTime getCreatedLocalDateTime() {
+        return createdLocalDateTime;
     }
 
-    public void setCreatedTimestamp(Timestamp createdTimestamp) {
-        this.createdTimestamp = createdTimestamp;
+    public void setCreatedLocalDateTime(LocalDateTime createdLocalDateTime) {
+        this.createdLocalDateTime = createdLocalDateTime;
     }
 
     public String getOrigin() {
