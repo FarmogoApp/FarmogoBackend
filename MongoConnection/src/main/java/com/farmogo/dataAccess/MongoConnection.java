@@ -13,6 +13,10 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.WriteConcern;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class MongoConnection {
 
     private static Logger logger = Logger.getLogger(MongoConnection.class);
@@ -21,11 +25,13 @@ public class MongoConnection {
     private MongoClient mongo = null;
     private Datastore dataStore = null;
     private Morphia morphia = null;
+    private Properties config = null;
 
     private MongoConnection() {}
 
     public MongoClient getMongo() throws RuntimeException {
         if (mongo == null) {
+            if(config == null) getMongoConfiguration();
             logger.debug("Starting Mongo");
             MongoClientOptions.Builder options = MongoClientOptions.builder()
                     .connectionsPerHost(4)
@@ -33,7 +39,7 @@ public class MongoConnection {
                     .maxConnectionLifeTime((120 * 1_000));
 
             // TODO: Use a config file
-            MongoClientURI uri = new MongoClientURI("mongodb://localhost:27017/test", options);
+            MongoClientURI uri = new MongoClientURI("mongodb://" + config.getProperty("host") +  ":" + config.getProperty("port") + "/", options);
 
             logger.info("About to connect to MongoDB @ " + uri.toString());
 
@@ -67,16 +73,42 @@ public class MongoConnection {
 
     public Datastore getDatastore() {
         if (dataStore == null) {
-            String dbName = "testdb";
-            logger.debug(format("Starting DataStore on DB: %s", dbName));
-            dataStore = getMorphia().createDatastore(getMongo(), dbName);
+            if(config == null) getMongoConfiguration();
+            logger.debug(format("Starting DataStore on DB: %s", config.getProperty("dbName")));
+            dataStore = getMorphia().createDatastore(getMongo(), config.getProperty("dbName"));
         }
 
         return dataStore;
     }
 
+    private void getMongoConfiguration(){
+
+        try (InputStream input = MongoConnection.class.getClassLoader().getResourceAsStream("config.properties")) {
+
+            config = new Properties();
+
+            if (input == null) {
+                logger.info("Config file not found");
+                return;
+            }
+            logger.info("MongoDB config found");
+            logger.info("host : " + config.getProperty("host"));
+            logger.info("port : " + config.getProperty("port"));
+            logger.info("dbName : " + config.getProperty("dbName"));
+
+
+            config.load(input);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public void init() {
-        logger.debug("Bootstraping");
+        logger.info("Init MongoConnection");
+        getMongoConfiguration();
         getMongo();
         getMorphia();
         getDatastore();
