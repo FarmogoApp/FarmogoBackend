@@ -21,6 +21,7 @@
 </h:head>
 
 <h:body>
+
     <p:growl id="msgs" showDetail="true"/>
     <h:form id="listAnimalForm">
         <p:commandButton value="Add"
@@ -69,7 +70,7 @@
     </h:form>
 
 
-    <p:dialog modal="true" closable="true" id="newAnimalTypeDialog" widgetVar="newAnimalTypeDialog">
+    <p:dialog modal="false" closable="true" id="newAnimalTypeDialog" widgetVar="newAnimalTypeDialog">
         <f:facet name="header">
             New Animal Type
         </f:facet>
@@ -77,7 +78,10 @@
             <p:panelGrid columns="2">
 
                 <h:outputLabel value="Description"/>
-                <p:inputText value="#{animalTypeView.animalType.description}"/>
+                <p:column id="descriptioncolumn">
+                 <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true" />
+                    <p:message for="desc"/>
+                </p:column>
 
                 <h:outputLabel value="Icon"/>
                 <p:inputText value="#{animalTypeView.animalType.icon}"/>
@@ -85,7 +89,7 @@
                 <p:column/>
                 <p:commandButton value="Save" icon="pi pi-save"
                                  actionListener="#{animalTypeView.save}"
-                                 update=":listAnimalForm:animalTypesTable"
+                                 update=":listAnimalForm:animalTypesTable,descriptioncolumn"
                                  oncomplete="PF('newAnimalTypeDialog').hide()"/>
             </p:panelGrid>
         </h:form>
