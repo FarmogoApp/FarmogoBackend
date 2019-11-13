@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.services.RacesService;
-import com.farmono.model.Races;
+import com.farmogo.model.Races;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

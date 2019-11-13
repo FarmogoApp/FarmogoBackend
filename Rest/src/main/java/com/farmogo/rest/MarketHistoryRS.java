@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.services.MarketHistoryService;
-import com.farmono.model.MarketHistory;
+import com.farmogo.model.MarketHistory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

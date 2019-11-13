@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.services.BuildingService;
-import com.farmono.model.Building;
+import com.farmogo.model.Building;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

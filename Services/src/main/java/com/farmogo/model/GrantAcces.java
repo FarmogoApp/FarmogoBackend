@@ -1,4 +1,4 @@
-package com.farmono.model;
+package com.farmogo.model;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.services.GrantAccesService;
-import com.farmono.model.GrantAcces;
+import com.farmogo.model.GrantAcces;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

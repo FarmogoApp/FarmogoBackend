@@ -1,6 +1,6 @@
 package com.farmogo.dao;
 
-import com.farmono.model.GrantAcces;
+import com.farmogo.model.GrantAcces;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;

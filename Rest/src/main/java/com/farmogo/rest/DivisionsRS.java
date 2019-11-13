@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.services.DivisionService;
-import com.farmono.model.Divisions;
+import com.farmogo.model.Divisions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

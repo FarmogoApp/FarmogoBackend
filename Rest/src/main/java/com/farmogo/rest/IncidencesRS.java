@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.services.IncidencesService;
-import com.farmono.model.Incidences;
+import com.farmogo.model.Incidence;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ public class IncidencesRS {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Incidences> getAll() {
+    public List<Incidence> getAll() {
         return incidencesService.getAll();
     }
 }

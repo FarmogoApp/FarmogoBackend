@@ -1,17 +1,16 @@
-package com.farmono.model;
+package com.farmogo.model;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class IncidenceTypes implements Serializable {
+public class IncidenceType implements Serializable {
+    
     private  int incidenceType;
     private String description;
     private String icon;
-    private List<Incidences> incidencesList;
+    private List<Incidence> incidencesList;
 
-    public IncidenceTypes(){
 
-    }
     public int getIncidenceType() {
         return incidenceType;
     }
@@ -35,11 +34,11 @@ public class IncidenceTypes implements Serializable {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-    public List<Incidences> getIncidencesList() {
+    public List<Incidence> getIncidencesList() {
         return incidencesList;
     }
 
-    public void setIncidencesList(List<Incidences> incidencesList) {
+    public void setIncidencesList(List<Incidence> incidencesList) {
         this.incidencesList = incidencesList;
     }
 
