@@ -1,23 +1,28 @@
-package com.farmono.model;
+package com.farmogo.model;
+
+
+import org.bson.codecs.pojo.annotations.BsonId;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.UUID;
+
 
 public class AnimalType implements Serializable {
 
-    private int animalType;
+    @BsonId
+    private String animalType;
     private String description;
     private String icon;
-     private MarketHistory marketHistory;
 
     public AnimalType() {
+        animalType = UUID.randomUUID().toString();
     }
 
-    public int getAnimalType() {
+    public String getAnimalType() {
         return animalType;
     }
 
-    public void setAnimalType(int animalType) {
+    public void setAnimalType(String animalType) {
         this.animalType = animalType;
     }
 
@@ -36,12 +41,4 @@ public class AnimalType implements Serializable {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-    public MarketHistory getMarketHistory() {
-        return marketHistory;
-    }
-
-    public void setMarketHistory(MarketHistory marketHistory) {
-        this.marketHistory = marketHistory;
-    }
-
 }

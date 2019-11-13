@@ -1,51 +1,53 @@
 package com.farmogo.dao;
 
-import com.farmono.model.AnimalType;
+import com.farmogo.model.AnimalType;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import org.bson.codecs.configuration.CodecRegistry;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import java.util.ArrayList;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-@Singleton
+@Stateless
 public class AnimalTypeDAO {
 
-    private List<AnimalType> animalTypeList;
+    @Inject
+    CodecRegistry codecRegistry;
+
+    @Inject
+    MongoDatabase mongoDatabase;
+
+    MongoCollection<AnimalType> mongoCollection;
 
     @PostConstruct
     public void init() {
-        animalTypeList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            AnimalType animalType = new AnimalType();
-            animalType.setAnimalType(i + 1);
-            animalType.setDescription("ANIMAL TYPE: " + (i + 1));
-            animalType.setIcon("ICON + " + (i + 1));
-            animalTypeList.add(animalType);
-        }
+        mongoCollection = mongoDatabase.getCollection("AnimalTypes", AnimalType.class).withCodecRegistry(codecRegistry);
+    }
+
+    public AnimalType get(String id) {
+        return mongoCollection.find(Filters.eq("_id", id)).first();
     }
 
 
     public List<AnimalType> getAll() {
-        return animalTypeList;
+        return StreamSupport.stream(mongoCollection.find().spliterator(), false).collect(Collectors.toList());
     }
 
     public void save(AnimalType animalType) {
-        // try update
-        for (int i = 0; i < animalTypeList.size(); i++) {
-            if (animalTypeList.get(i).getAnimalType() == animalType.getAnimalType()) {
-                animalTypeList.set(i, animalType);
-                return;
-            }
+        AnimalType obj = get(animalType.getAnimalType());
+        if (obj == null) {
+            mongoCollection.insertOne(animalType);
+        }else{
+            mongoCollection.replaceOne(Filters.eq("_id", animalType.getAnimalType()),animalType);
         }
-
-        // new
-        int max = animalTypeList.stream().mapToInt(AnimalType::getAnimalType).max().orElse(0);
-        animalType.setAnimalType(max + 1);
-        animalTypeList.add(animalType);
     }
 
-
     public void delete(AnimalType animalType) {
-        animalTypeList.remove(animalType);
+        mongoCollection.deleteOne(Filters.eq("_id", animalType.getAnimalType()));
     }
 }

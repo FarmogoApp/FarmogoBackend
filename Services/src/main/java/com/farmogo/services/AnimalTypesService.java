@@ -1,7 +1,7 @@
 package com.farmogo.services;
 
 import com.farmogo.dao.AnimalTypeDAO;
-import com.farmono.model.AnimalType;
+import com.farmogo.model.AnimalType;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -23,6 +23,8 @@ public class AnimalTypesService {
     }
 
     public void delete(AnimalType animalType) {
-        animalTypeDAO.delete(animalType);
+        AnimalType animalType1 = animalTypeDAO.get(animalType.getAnimalType());
+        if (animalType1.getDescription().startsWith("n")) return;
+                animalTypeDAO.delete(animalType);
     }
 }

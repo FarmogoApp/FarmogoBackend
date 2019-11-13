@@ -1,8 +1,7 @@
 package com.farmogo.front;
 
 import com.farmogo.services.AnimalTypesService;
-import com.farmono.model.AnimalType;
-import org.primefaces.PrimeFaces;
+import com.farmogo.model.AnimalType;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -10,9 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Named
 //@RequestScoped
@@ -50,6 +47,7 @@ public class AnimalTypeView implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         animalTypesService.save((AnimalType) event.getObject());
+        init();
     }
 
 
@@ -59,10 +57,13 @@ public class AnimalTypeView implements Serializable {
 
     public void save(){
         animalTypesService.save(animalType);
+        init();
     }
 
     public void delete(){
+
         animalTypesService.delete(animalType);
+        init();
     }
 
 }
