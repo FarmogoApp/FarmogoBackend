@@ -13,6 +13,7 @@
         <module>Rest</module>
         <module>Farmogo-Ear</module>
         <module>Model</module>
+        <module>Frontend</module>
     </modules>
     <packaging>pom</packaging>
 
