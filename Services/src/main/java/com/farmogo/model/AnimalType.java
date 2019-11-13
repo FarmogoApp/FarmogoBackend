@@ -1,7 +1,7 @@
 package com.farmogo.model;
 
 
-import org.bson.codecs.pojo.annotations.BsonId;
+
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class AnimalType implements Serializable {
 
-    @BsonId
+
     private String animalType;
     private String description;
     private String icon;

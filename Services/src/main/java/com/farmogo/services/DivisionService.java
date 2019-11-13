@@ -1,19 +1,21 @@
 package com.farmogo.services;
 
-import com.farmogo.dao.DivisionDAO;
-import com.farmono.model.Divisions;
+import com.farmogo.model.Divisions;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.util.List;
 
 @Stateless
 public class DivisionService {
 
-    @Inject
-    DivisionDAO divisionsDAO;
+
+  //  @Inject
+  //  DivisionDAO divisionsDAO;
 
     public List<Divisions> getAll() {
-        return divisionsDAO.getAll();
+        return null;
+      //  return divisionsDAO.getAll();
     }
+
+
 }

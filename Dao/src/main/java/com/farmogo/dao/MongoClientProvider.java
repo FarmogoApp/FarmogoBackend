@@ -5,7 +5,6 @@ import com.farmogo.model.AnimalType;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -15,8 +14,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -57,7 +54,7 @@ public class MongoClientProvider {
     public CodecRegistry  getCodecRegistry() {
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().
                 conventions(Arrays.asList(Conventions.ANNOTATION_CONVENTION)).
-                register(AnimalType.class).build();
+                register("com.farmogo.dao.mongo.dto").build();
         return fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
     }
 }

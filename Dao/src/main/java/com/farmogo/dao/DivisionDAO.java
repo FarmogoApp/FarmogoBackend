@@ -1,6 +1,6 @@
 package com.farmogo.dao;
 
-import com.farmono.model.Divisions;
+import com.farmogo.model.Divisions;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;

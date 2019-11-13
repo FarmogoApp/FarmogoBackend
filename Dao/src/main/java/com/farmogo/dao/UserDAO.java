@@ -1,6 +1,6 @@
 package com.farmogo.dao;
 
-import com.farmono.model.User;
+import com.farmogo.model.User;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;

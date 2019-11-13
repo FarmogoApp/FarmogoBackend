@@ -1,6 +1,6 @@
 package com.farmogo.dao;
 
-import com.farmono.model.Races;
+import com.farmogo.model.Races;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;

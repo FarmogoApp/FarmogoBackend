@@ -1,4 +1,4 @@
-package com.farmono.model;
+package com.farmogo.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String name;
     private String password;
     private String billData;
-    private List<Incidences> incidencesList;
+    private List<Incidence> incidencesList;
 
     public User(){
 
@@ -54,11 +54,11 @@ public class User implements Serializable {
     public void setBillData(String billData) {
         this.billData = billData;
     }
-    public List<Incidences> getIncidencesList() {
+    public List<Incidence> getIncidencesList() {
         return incidencesList;
     }
 
-    public void setIncidencesList(List<Incidences> incidencesList) {
+    public void setIncidencesList(List<Incidence> incidencesList) {
         this.incidencesList = incidencesList;
     }
 }

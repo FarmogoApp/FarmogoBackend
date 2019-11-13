@@ -1,10 +1,8 @@
-package com.farmono.model;
+package com.farmogo.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 public class Animal implements Serializable {
     private String uuid;

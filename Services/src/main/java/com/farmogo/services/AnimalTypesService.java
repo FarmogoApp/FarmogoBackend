@@ -1,6 +1,7 @@
 package com.farmogo.services;
 
-import com.farmogo.dao.AnimalTypeDAO;
+
+import com.farmogo.dao.AnimalTypeDao;
 import com.farmogo.model.AnimalType;
 
 import javax.ejb.Stateless;
@@ -12,7 +13,7 @@ import java.util.List;
 public class AnimalTypesService {
 
     @Inject
-    AnimalTypeDAO animalTypeDAO;
+    AnimalTypeDao animalTypeDAO;
 
     public List<AnimalType> getAll() {
         return animalTypeDAO.getAll();

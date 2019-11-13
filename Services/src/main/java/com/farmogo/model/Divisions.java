@@ -1,6 +1,6 @@
-package com.farmono.model;
+package com.farmogo.model;
 
-import netscape.javascript.JSObject;
+
 
 import java.io.Serializable;
 
@@ -8,8 +8,8 @@ public class Divisions implements Serializable {
     private String uuid;
     private String idBuild;
     private String name;
-    private JSObject coordGpsTopLeft;
-    private JSObject coordGpsBottomRight;
+  //  private JSObject coordGpsTopLeft;
+   // private JSObject coordGpsBottomRight;
 
 
     private Building building;
@@ -41,21 +41,6 @@ public class Divisions implements Serializable {
         this.name = name;
     }
 
-    public JSObject getCoordGpsTopLeft() {
-        return coordGpsTopLeft;
-    }
-
-    public void setCoordGpsTopLeft(JSObject coordGpsTopLeft) {
-        this.coordGpsTopLeft = coordGpsTopLeft;
-    }
-
-    public JSObject getCoordGpsBottomRight() {
-        return coordGpsBottomRight;
-    }
-
-    public void setCoordGpsBottomRight(JSObject coordGpsBottomRight) {
-        this.coordGpsBottomRight = coordGpsBottomRight;
-    }
     public Building getBuilding() {
         return building;
     }

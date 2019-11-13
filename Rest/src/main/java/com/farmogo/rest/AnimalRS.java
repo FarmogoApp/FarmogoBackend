@@ -2,7 +2,7 @@ package com.farmogo.rest;
 
 
 import com.farmogo.services.AnimalService;
-import com.farmono.model.Animal;
+import com.farmogo.model.Animal;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

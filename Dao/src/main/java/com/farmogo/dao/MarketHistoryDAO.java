@@ -1,6 +1,6 @@
 package com.farmogo.dao;
 
-import com.farmono.model.MarketHistory;
+import com.farmogo.model.MarketHistory;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;
