@@ -54,7 +54,7 @@ public class MongoClientProvider {
     public CodecRegistry  getCodecRegistry() {
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().
                 conventions(Arrays.asList(Conventions.ANNOTATION_CONVENTION)).
-                register("com.farmogo.dao.mongo.dto").build();
+                register("com.farmogo.dao.mongo.dto","com.farmogo.model.incidences").build();
         return fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
     }
 }
