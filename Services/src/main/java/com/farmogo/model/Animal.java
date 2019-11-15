@@ -154,6 +154,7 @@ public class Animal implements Serializable {
     public void setDivisionsList(Divisions divisions) {
         this.divisions = divisions;
     }
+
     public void setRaces(Races races) {
         this.races = races;
     }
