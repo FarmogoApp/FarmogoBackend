@@ -1,8 +1,10 @@
 package com.farmogo.front;
 
 import com.farmogo.model.Animal;
+import com.farmogo.model.AnimalType;
 import com.farmogo.model.Race;
 import com.farmogo.services.AnimalService;
+import com.farmogo.services.AnimalTypesService;
 import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
@@ -25,8 +27,12 @@ public class AnimalListView implements Serializable {
     @Inject
     RaceService raceService;
 
+    @Inject
+    AnimalTypesService animalTypesService;
+
     private List<Animal> animalList;
     private List<Race> raceList;
+    private List<AnimalType> animalTypeList;
 
     private Animal animal;
 
@@ -34,6 +40,7 @@ public class AnimalListView implements Serializable {
     public void init() {
         animalList = animalService.getAll();
         raceList = raceService.getAll();
+        animalTypeList = animalTypesService.getAll();
         animal = new Animal();
     }
 
@@ -55,6 +62,14 @@ public class AnimalListView implements Serializable {
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
+    }
+
+    public List<AnimalType> getAnimalTypeList() {
+        return animalTypeList;
+    }
+
+    public void setAnimalTypeList(List<AnimalType> animalTypeList) {
+        this.animalTypeList = animalTypeList;
     }
 
     public void onRowEdit(RowEditEvent event) {
@@ -92,10 +107,17 @@ public class AnimalListView implements Serializable {
         return race.isPresent() ? race.get().getName() : "";
     }
 
+    public String animalTypeToDescription(String animalType){
+        Optional<AnimalType> at = animalTypeList.stream()
+                .filter(p -> p.getAnimalType().equals(animalType))
+                .findFirst();
+
+        return at.isPresent() ? at.get().getDescription() : "";
+    }
+
     public List<Animal> getMothersList(){
         return animalList.stream()
                 .filter(p -> p.getSex().equals("Female"))
                 .collect(Collectors.toList());
     }
-
 }

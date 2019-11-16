@@ -11,7 +11,7 @@ public class AnimalMongoDTO {
 
     @BsonId
     private String uuid;
-    private AnimalType animalType;
+    private String animalTypeId;
     private String officialId;
     private String tagId;
     private String sex;
@@ -30,7 +30,7 @@ public class AnimalMongoDTO {
 
     public AnimalMongoDTO(Animal animal) {
         this.uuid = animal.getUuid();
-        this.animalType = animal.getAnimalType();
+        this.animalTypeId = animal.getAnimalTypeId();
         this.officialId = animal.getOfficialId();
         this.tagId = animal.getTagId();
         this.sex = animal.getSex();
@@ -52,7 +52,7 @@ public class AnimalMongoDTO {
         Animal animal = new Animal();
 
         animal.setUuid(this.uuid);
-        animal.setAnimalType(this.animalType);
+        animal.setAnimalTypeId(this.animalTypeId);
         animal.setOfficialId(this.officialId);
         animal.setTagId(this.tagId);
         animal.setSex(this.sex);
@@ -78,12 +78,12 @@ public class AnimalMongoDTO {
         this.uuid = uuid;
     }
 
-    public AnimalType getAnimalType() {
-        return animalType;
+    public String getAnimalTypeId() {
+        return animalTypeId;
     }
 
-    public void setAnimalType(AnimalType animalType) {
-        this.animalType = animalType;
+    public void setAnimalTypeId(String animalTypeId) {
+        this.animalTypeId = animalTypeId;
     }
 
     public String getOfficialId() {

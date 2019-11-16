@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class Animal implements Serializable {
     private String uuid;
-    private AnimalType animalType;
+    private String animalTypeId;
     private String officialId;
     private String tagId;
     private String sex;
@@ -125,14 +125,6 @@ public class Animal implements Serializable {
         this.origin = origin;
     }
 
-    public AnimalType getAnimalType() {
-        return animalType;
-    }
-
-    public void setAnimalType(AnimalType animalType) {
-        this.animalType= animalType;
-    }
-
     public Farm getFarm() {
         return farm;
     }
@@ -157,4 +149,11 @@ public class Animal implements Serializable {
         this.divisions = divisions;
     }
 
+    public String getAnimalTypeId() {
+        return animalTypeId;
+    }
+
+    public void setAnimalTypeId(String animalTypeId) {
+        this.animalTypeId = animalTypeId;
+    }
 }

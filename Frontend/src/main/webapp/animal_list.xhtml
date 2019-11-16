@@ -69,6 +69,15 @@
                 </p:column>
 
 
+                <!-- Animal Type -->
+                <p:column headerText="Animal type">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
                 <!-- Origin-->
                 <p:column headerText="Origin">
                     <p:cellEditor>
@@ -151,6 +160,16 @@
                         </p:selectOneMenu>
                         <p:message for="sexSelect"/>
                     </p:column>
+
+                    <!-- Animal type-->
+                    <h:outputLabel value="Animal type"/>
+                    <p:column id="animalTypeColumn">
+                        <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
+                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}" />
+                        </p:selectOneMenu>
+                        <p:message for="raceSelect"/>
+                    </p:column>
+
 
                     <!-- Race -->
                     <h:outputLabel value="Race"/>
