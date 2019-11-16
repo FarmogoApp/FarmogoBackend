@@ -19,12 +19,15 @@ public class Animal implements Serializable {
     private String motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
-    private Races races;
     private Farm farm;
     private Divisions divisions;
 
 
-    public Animal(){ uuid = UUID.randomUUID().toString(); }
+    public Animal(){
+        uuid = UUID.randomUUID().toString();
+        createdLocalDateTime = LocalDateTime.now();
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -130,14 +133,6 @@ public class Animal implements Serializable {
         this.animalType= animalType;
     }
 
-    public Races getRaces() {
-        return races;
-    }
-
-    public void setRacesList(Races races) {
-        this.races = races;
-    }
-
     public Farm getFarm() {
         return farm;
     }
@@ -152,10 +147,6 @@ public class Animal implements Serializable {
 
     public void setDivisionsList(Divisions divisions) {
         this.divisions = divisions;
-    }
-
-    public void setRaces(Races races) {
-        this.races = races;
     }
 
     public Divisions getDivisions() {

@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
-import com.farmogo.services.RacesService;
-import com.farmogo.model.Races;
+import com.farmogo.model.Race;
+import com.farmogo.services.RaceService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,11 +15,11 @@ import java.util.List;
 @Path("races")
 public class RacesRS {
     @Inject
-    RacesService racesService;
+    RaceService raceService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Races> getAll() {
-        return racesService.getAll();
+    public List<Race> getAll() {
+        return raceService.getAll();
     }
 }

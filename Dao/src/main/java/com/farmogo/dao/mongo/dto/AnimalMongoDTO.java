@@ -23,7 +23,6 @@ public class AnimalMongoDTO {
     private String motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
-    private Races races;
     private Farm farm;
     private Divisions divisions;
 
@@ -43,7 +42,6 @@ public class AnimalMongoDTO {
         this.motherId = animal.getMotherId();
         this.createdLocalDateTime = animal.getCreatedLocalDateTime();
         this.origin = animal.getOrigin();
-        this.races = animal.getRaces();
         this.farm = animal.getFarm();
         this.divisions = animal.getDivisions();
     }
@@ -66,7 +64,6 @@ public class AnimalMongoDTO {
         animal.setMotherId(this.motherId);
         animal.setCreatedLocalDateTime(this.createdLocalDateTime);
         animal.setOrigin(this.origin);
-        animal.setRaces(this.races);
         animal.setFarm(this.farm);
         animal.setDivisions(this.divisions);
 
@@ -175,14 +172,6 @@ public class AnimalMongoDTO {
 
     public void setOrigin(String origin) {
         this.origin = origin;
-    }
-
-    public Races getRaces() {
-        return races;
-    }
-
-    public void setRaces(Races races) {
-        this.races = races;
     }
 
     public Farm getFarm() {

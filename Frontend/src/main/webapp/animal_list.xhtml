@@ -52,6 +52,15 @@
                     </p:cellEditor>
                 </p:column>
 
+                <!-- Race -->
+                <p:column headerText="Race">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.raceIdToName(elem.raceId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.raceIdToName(elem.raceId)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
                 <!-- Origin-->
                 <p:column headerText="Origin">
                     <p:cellEditor>
@@ -92,9 +101,8 @@
                     </p:cellEditor>
                 </p:column>
 
-
-
             </p:dataTable>
+
 
             <p:contextMenu for="animalTable">
                 <p:menuitem value="Edit" update="newAnimalDialog"
@@ -122,7 +130,7 @@
                     <!-- Origin -->
                     <h:outputLabel value="Origin"/>
                     <p:column id="originColumn">
-                        <p:inputText id="origin" value="#{animalListView.animal.origin}" required="true" />
+                        <p:inputText id="origin" value="#{animalListView.animal.origin}" />
                         <p:message for="origin"/>
                     </p:column>
 
@@ -135,6 +143,16 @@
                         </p:selectOneMenu>
                         <p:message for="sexSelect"/>
                     </p:column>
+
+                    <!-- Race -->
+                    <h:outputLabel value="Race"/>
+                    <p:column id="raceColumn">
+                        <p:selectOneMenu id="raceSelect" value="#{animalListView.animal.raceId}">
+                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.uuid}" />
+                        </p:selectOneMenu>
+                        <p:message for="raceSelect"/>
+                    </p:column>
+
 
                     <!-- Birth date -->
                     <h:outputLabel value="Birth date"/>
@@ -153,7 +171,7 @@
                     <!-- Official ID -->
                     <h:outputLabel value="Official ID"/>
                     <p:column id="officialIdColumn">
-                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" required="true" />
+                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" />
                         <p:message for="officialID"/>
                     </p:column>
 
