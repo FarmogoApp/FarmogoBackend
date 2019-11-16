@@ -1,0 +1,41 @@
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="content">
+        <h:head>
+            <title>Animal List</title>
+        </h:head>
+
+        <p:growl id="msgs" showDetail="true"/>
+
+        <h1>Animal List</h1>
+        <h:form id="animalListForm">
+
+            <p:dataTable
+                    id="animalTable"
+                    value="#{animalListView.animalList}"
+                    var="elem"
+                    rowKey="#{elem.uuid}"
+                    selectionMode="single"
+                    selection="#{animalListView.animal}">
+
+                <p:column headerText="UUID">
+                    <h:outputText value="#{elem.uuid}"/>
+                </p:column>
+
+                <p:column headerText="Origin">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -27,6 +27,7 @@ public class AnimalMongoDTO {
     private Farm farm;
     private Divisions divisions;
 
+    public AnimalMongoDTO(){}
 
     public AnimalMongoDTO(Animal animal) {
         this.uuid = animal.getUuid();
