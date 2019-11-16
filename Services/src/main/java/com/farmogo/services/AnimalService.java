@@ -1,23 +1,31 @@
 package com.farmogo.services;
 
+import com.farmogo.dao.AnimalDao;
 import com.farmogo.model.Animal;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.List;
 
 
 @Stateless
 public class AnimalService {
-    /*
-        @Inject
-        AnimalDAO animalDAO;
-    */
+
+    @Inject
+    AnimalDao animalTypeDAO;
+
     public List<Animal> getAll() {
-        return null;
-        //return animalDAO.getAll();
+        return animalTypeDAO.getAll();
     }
 
+    public void save(Animal animal){
+        animalTypeDAO.save(animal);
+    }
 
+    public void delete(Animal animal) {
+        Animal animalToDelete = animalTypeDAO.get(animal.getUuid());
+        animalTypeDAO.delete(animalToDelete);
+    }
 }
 
 
