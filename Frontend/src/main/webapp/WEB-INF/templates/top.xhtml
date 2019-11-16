@@ -14,9 +14,10 @@
     <div class="ui-g-2">
         <h:form id="farmSwitch">
             <p:outputLabel for="@next" value="Farm:"/>
-            <p:selectOneMenu value="#{farmSwitcherView.farm}">
+            <p:selectOneMenu value="#{farmSwitcherView.farm}" converter="#{farmConverter}">
                 <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId}"
                                itemValue="#{farm}"/>
+                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect"/>
             </p:selectOneMenu>
         </h:form>
     </div>

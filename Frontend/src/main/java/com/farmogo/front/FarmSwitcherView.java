@@ -2,13 +2,14 @@ package com.farmogo.front;
 
 
 import com.farmogo.model.Farm;
+import com.farmogo.services.FarmService;
+import com.farmogo.services.GlobalSessionService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @ViewScoped
@@ -16,9 +17,10 @@ import java.util.List;
 public class FarmSwitcherView implements Serializable {
 
     @Inject
-    GlobalSession globalSession;
+    FarmService farmService;
 
-
+    @Inject
+    GlobalSessionService globalSessionService;
 
     private Farm farm;
 
@@ -26,22 +28,11 @@ public class FarmSwitcherView implements Serializable {
 
     @PostConstruct
     public void init() {
-        farm = globalSession.getFarm();
-
-
-        // TODO: Pendint to get from Service layer
-        farmList = new ArrayList<>();
-        for (int i = 1_000_000; i < 1_000_008; i++) {
-            Farm f = new Farm();
-            f.setName("Farm " + i);
-            f.setOfficialId( "xx" + i);
-            farmList.add(f);
-        }
+        farm = globalSessionService.getFarm();
+        System.out.println(farm);
+        farmList = farmService.getFarms(globalSessionService.getUser());
     }
 
-    public void changeFarm(){
-        globalSession.setFarm(farm);
-    }
 
     public Farm getFarm() {
         return farm;
@@ -57,5 +48,9 @@ public class FarmSwitcherView implements Serializable {
 
     public void setFarmList(List<Farm> farmList) {
         this.farmList = farmList;
+    }
+
+    public void changeSessionFarm(){
+        globalSessionService.setFarm(farm);
     }
 }

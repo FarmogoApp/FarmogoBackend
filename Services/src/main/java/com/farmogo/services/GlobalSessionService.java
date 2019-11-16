@@ -1,4 +1,4 @@
-package com.farmogo.front;
+package com.farmogo.services;
 
 import com.farmogo.model.Farm;
 import com.farmogo.model.User;
@@ -7,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 
 @SessionScoped
-public class GlobalSession  implements Serializable {
+public class GlobalSessionService implements Serializable {
 
     private User user;
     private Farm farm;
