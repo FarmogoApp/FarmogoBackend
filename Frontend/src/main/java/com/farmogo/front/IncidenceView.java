@@ -1,6 +1,7 @@
 package com.farmogo.front;
 
 import com.farmogo.model.incidences.Incidence;
+import com.farmogo.model.incidences.IncidenceType;
 import com.farmogo.services.IncidencesService;
 
 import javax.annotation.PostConstruct;
@@ -24,7 +25,7 @@ public class IncidenceView implements Serializable {
     Incidence incidence;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         // Todo: get Incidences from all of farm or by animal
         incidenceList = incidencesService.getAll();
     }
@@ -45,8 +46,12 @@ public class IncidenceView implements Serializable {
         this.incidence = incidence;
     }
 
-    public String formatDate(LocalDateTime dateTime){
+    public String formatDate(LocalDateTime dateTime) {
         if (dateTime == null) return "";
         return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+    }
+
+    public IncidenceType[] getTypes() {
+        return IncidenceType.values();
     }
 }

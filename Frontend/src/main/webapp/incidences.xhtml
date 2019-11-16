@@ -24,15 +24,17 @@
                     var="elem"
                     rowKey="#{elem.uuid}"
                     selectionMode="single"
+                    sortMode="multiple"
+                    widgetVar="incidencesTable"
                     selection="#{incidenceView.incidence}">
                 <f:facet name="header">Incidences</f:facet>
                 <p:column headerText="Id">
                     <h:outputText value="#{elem.uuid}"/>
                 </p:column>
-                <p:column headerText="Type">
+                <p:column headerText="Type" sortBy="#{elem.type}" filterBy="#{elem.type}">
                     <h:outputText value="#{elem.type}"/>
                 </p:column>
-                <p:column headerText="Created">
+                <p:column headerText="Created" sortBy="#{elem.created}">
                     <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
                 </p:column>
             </p:dataTable>
