@@ -31,16 +31,68 @@
                     selectionMode="single"
                     selection="#{animalListView.animal}">
 
+                <!-- UUID (Only for development)-->
                 <p:column headerText="UUID">
                     <h:outputText value="#{elem.uuid}"/>
                 </p:column>
 
+                <!-- Tag ID (Only for development)-->
+                <p:column headerText="Tag ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Official ID -->
+                <p:column headerText="Official ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Origin-->
                 <p:column headerText="Origin">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
+
+                <!-- Sex -->
+                <p:column headerText="Sex">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.sex}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.sex}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Birth date -->
+                <p:column headerText="Birth date">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{elem.birthDay}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.birthDay}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Discharge Date -->
+                <p:column headerText="Discharge date">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{elem.dischargeDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
 
             </p:dataTable>
 
@@ -67,10 +119,42 @@
             <h:form id="newAnimal">
                 <p:panelGrid columns="2">
 
+                    <!-- Origin -->
                     <h:outputLabel value="Origin"/>
                     <p:column id="originColumn">
                         <p:inputText id="origin" value="#{animalListView.animal.origin}" required="true" />
                         <p:message for="origin"/>
+                    </p:column>
+
+                    <!-- Sex -->
+                    <h:outputLabel value="Sex"/>
+                    <p:column id="sexColumn">
+                        <p:selectOneMenu id="sexSelect" value="#{animalListView.animal.sex}">
+                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                        </p:selectOneMenu>
+                        <p:message for="sexSelect"/>
+                    </p:column>
+
+                    <!-- Birth date -->
+                    <h:outputLabel value="Birth date"/>
+                    <p:column id="birthDateColumn">
+                        <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true" pattern="dd/MM/yyyy"/>
+                        <p:message for="birthDate"/>
+                    </p:column>
+
+                    <!-- Discharge date -->
+                    <h:outputLabel value="Discharge Date"/>
+                    <p:column id="dischargeDateColumn">
+                        <p:datePicker id="dischargeDate" value="#{animalListView.animal.dischargeDate}" monthNavigator="true" pattern="dd/MM/yyyy"/>
+                        <p:message for="dischargeDate"/>
+                    </p:column>
+
+                    <!-- Official ID -->
+                    <h:outputLabel value="Official ID"/>
+                    <p:column id="officialIdColumn">
+                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" required="true" />
+                        <p:message for="officialID"/>
                     </p:column>
 
                     <p:column/>
