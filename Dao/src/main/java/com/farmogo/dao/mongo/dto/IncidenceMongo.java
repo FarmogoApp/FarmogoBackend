@@ -1,5 +1,7 @@
 package com.farmogo.dao.mongo.dto;
 
+import com.farmogo.model.AnimalType;
+import com.farmogo.model.incidences.Incidence;
 import com.farmogo.model.incidences.IncidenceType;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonId;
@@ -57,5 +59,15 @@ public abstract class IncidenceMongo {
         this.done = done;
     }
 
+
+
+
+    public static IncidenceMongo convert(Incidence incidence) {
+        return Mapper.getInstance().map(incidence, IncidenceMongo.class);
+    }
+
+    public static Incidence convert(IncidenceMongo incidenceMongo) {
+        return Mapper.getInstance().map(incidenceMongo, Incidence.class);
+    }
 
 }
