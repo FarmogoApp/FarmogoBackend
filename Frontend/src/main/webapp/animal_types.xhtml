@@ -22,8 +22,6 @@
                              update="newAnimalTypeDialog"
                              oncomplete="PF('newAnimalTypeDialog').show()"
             />
-
-
             <p:dataTable
                     id="animalTypesTable"
                     value="#{animalTypeView.animalTypeList}"
@@ -31,6 +29,9 @@
                     rowKey="#{elem.animalType}"
                     selectionMode="single"
                     selection="#{animalTypeView.animalType}">
+                <f:facet name="header">
+                    Animal types
+                </f:facet>
                 <p:column headerText="Id">
                     <h:outputText value="#{elem.animalType}"/>
                 </p:column>
@@ -56,8 +57,8 @@
             </p:contextMenu>
 
             <p:confirmDialog global="true">
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
             </p:confirmDialog>
         </h:form>
 
@@ -71,7 +72,7 @@
 
                     <h:outputLabel value="Description"/>
                     <p:column id="descriptioncolumn">
-                        <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true" />
+                        <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true"/>
                         <p:message for="desc"/>
                     </p:column>
 

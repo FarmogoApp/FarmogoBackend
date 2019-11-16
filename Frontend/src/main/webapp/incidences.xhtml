@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <h:head>
+        <title>AnimalTypes</title>
+    </h:head>
+    <ui:define name="content">
+        <h:form id="listAnimalForm">
+
+
+            <p:dataTable
+                    id="incidencesTable"
+                    value="#{incidenceView.incidenceList}"
+                    var="elem"
+                    rowKey="#{elem.uuid}"
+                    selectionMode="single"
+                    selection="#{incidenceView.incidence}">
+                <f:facet name="header">Incidences</f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{elem.uuid}"/>
+                </p:column>
+                <p:column headerText="Type">
+                    <h:outputText value="#{elem.type}"/>
+                </p:column>
+                <p:column headerText="Created">
+                    <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
+                </p:column>
+            </p:dataTable>
+            <p:contextMenu for="incidencesTable">
+
+            </p:contextMenu>
+
+            <p:confirmDialog global="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+            </p:confirmDialog>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

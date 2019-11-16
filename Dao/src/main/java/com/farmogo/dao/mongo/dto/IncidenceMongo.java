@@ -9,6 +9,7 @@ import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @BsonDiscriminator(key = "type", value = "##")
@@ -20,6 +21,7 @@ public abstract class IncidenceMongo {
     private String observations;
     private LocalDate dueDate;
     private boolean done;
+    private LocalDateTime created;
 
     public IncidenceMongo(IncidenceType incidenceType) {
         type = incidenceType;
@@ -59,8 +61,13 @@ public abstract class IncidenceMongo {
         this.done = done;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
 
-
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
 
     public static IncidenceMongo convert(Incidence incidence) {
         return Mapper.getInstance().map(incidence, IncidenceMongo.class);

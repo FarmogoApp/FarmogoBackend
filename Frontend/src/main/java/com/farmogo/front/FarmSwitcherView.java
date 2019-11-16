@@ -29,7 +29,6 @@ public class FarmSwitcherView implements Serializable {
     @PostConstruct
     public void init() {
         farm = globalSessionService.getFarm();
-        System.out.println(farm);
         farmList = farmService.getFarms(globalSessionService.getUser());
     }
 
