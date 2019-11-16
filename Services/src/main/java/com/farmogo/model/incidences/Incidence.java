@@ -13,6 +13,9 @@ public abstract class Incidence {
         type = incidenceType;
     }
 
+    public IncidenceType getType() {
+        return type;
+    }
 
     public String getUuid() {
         return uuid;
@@ -20,14 +23,6 @@ public abstract class Incidence {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public IncidenceType getType() {
-        return type;
-    }
-
-    public void setType(IncidenceType type) {
-        this.type = type;
     }
 
     public String getObservations() {

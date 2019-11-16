@@ -18,6 +18,7 @@ import java.util.stream.StreamSupport;
 @Stateless
 public class AnimalTypeMongoDao implements AnimalTypeDao {
 
+    public static final String COLLECTION = "AnimalTypes";
     @Inject
     CodecRegistry codecRegistry;
 
@@ -28,7 +29,7 @@ public class AnimalTypeMongoDao implements AnimalTypeDao {
 
     @PostConstruct
     public void init() {
-        mongoCollection = mongoDatabase.getCollection("AnimalTypes", AnimalTypeMongo.class).withCodecRegistry(codecRegistry);
+        mongoCollection = mongoDatabase.getCollection(COLLECTION, AnimalTypeMongo.class).withCodecRegistry(codecRegistry);
     }
 
     public AnimalType get(String id) {
