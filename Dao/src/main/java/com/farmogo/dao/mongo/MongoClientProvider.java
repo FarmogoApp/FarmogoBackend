@@ -1,6 +1,7 @@
-package com.farmogo.dao;
+package com.farmogo.dao.mongo;
 
 
+import com.farmogo.dao.mongo.dto.AnimalTypeMongo;
 import com.farmogo.model.AnimalType;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -54,7 +55,13 @@ public class MongoClientProvider {
     public CodecRegistry  getCodecRegistry() {
         CodecProvider pojoCodecProvider = PojoCodecProvider.builder().
                 conventions(Arrays.asList(Conventions.ANNOTATION_CONVENTION)).
-                register("com.farmogo.dao.mongo.dto").build();
+                register(com.farmogo.dao.mongo.dto.AnimalTypeMongo.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongo.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongoPregnancy.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongoTreatment.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongoWeight.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongoGetoff.class).
+                automatic(true).build();
         return fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
     }
 }
