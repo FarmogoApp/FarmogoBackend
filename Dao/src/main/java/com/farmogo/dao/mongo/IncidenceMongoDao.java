@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.types.ObjectId;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -24,6 +25,7 @@ public class IncidenceMongoDao implements IncidenceDao {
     public static final String COLLECTION = "Incidences";
     @Inject
     CodecRegistry codecRegistry;
+
     @Inject
     MongoDatabase mongoDatabase;
     MongoCollection<IncidenceMongo> mongoCollection;
@@ -35,11 +37,14 @@ public class IncidenceMongoDao implements IncidenceDao {
 
     @Override
     public void save(Incidence incidence) {
-        IncidenceMongo obj = mongoCollection.find(Filters.eq("_id", incidence.getUuid())).first();
-        if (obj == null) {
+        ObjectId key = null;
+        if(incidence.getUuid() != null){
+            key = new ObjectId(incidence.getUuid());
+        }
+        if (key == null){
             mongoCollection.insertOne(IncidenceMongo.convert(incidence));
         } else {
-            mongoCollection.replaceOne(Filters.eq("_id", incidence.getUuid()), IncidenceMongo.convert(incidence));
+            mongoCollection.replaceOne(Filters.eq("_id", key), IncidenceMongo.convert(incidence));
         }
     }
 

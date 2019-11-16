@@ -12,29 +12,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
-<h:head>
-    <title>Test</title>
-</h:head>
 
-<h:body>
-    <p:panel header="TEST">
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit semper orci, ultrices arcu potenti volutpat ac bibendum
-            lacus porta cras, dictumst nostra malesuada euismod id in leo suscipit. Hendrerit dis sociosqu justo ridiculus
-            donec consequat neque duis potenti malesuada quis quisque eros imperdiet etiam, tristique nunc urna scelerisque
-            proin ante metus placerat libero auctor molestie rutrum dapibus litora. Accumsan nulla quam etiam suspendisse
-            nascetur nibh malesuada phasellus torquent, imperdiet platea fermentum per dictumst auctor iaculis ridiculus
-            sapien, eros mauris primis sed feugiat arcu proin porta.</p>
-        <p>Dis class mus vehicula porttitor himenaeos dictum dapibus integer magnis platea penatibus convallis litora
-            montes, a tempor gravida libero euismod etiam rutrum potenti magna eros volutpat orci laoreet. Cum aenean
-            taciti convallis aliquam posuere magnis nec, vulputate proin quis hendrerit purus consequat eros, urna interdum
-            ultricies nam quam ad. Quis dis tellus venenatis faucibus semper senectus morbi pellentesque scelerisque
-            vulputate leo mi, inceptos hendrerit pulvinar non pretium mollis mattis porta vitae est.</p>
-    </p:panel>
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <h:head>
+        <title>Test</title>
+    </h:head>
+    <ui:define name="content">
+        <p:panel header="TEST">
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit semper orci, ultrices arcu potenti volutpat ac bibendum
+                lacus porta cras, dictumst nostra malesuada euismod id in leo suscipit. Hendrerit dis sociosqu justo ridiculus
+                donec consequat neque duis potenti malesuada quis quisque eros imperdiet etiam, tristique nunc urna scelerisque
+                proin ante metus placerat libero auctor molestie rutrum dapibus litora. Accumsan nulla quam etiam suspendisse
+                nascetur nibh malesuada phasellus torquent, imperdiet platea fermentum per dictumst auctor iaculis ridiculus
+                sapien, eros mauris primis sed feugiat arcu proin porta.</p>
+            <p>Dis class mus vehicula porttitor himenaeos dictum dapibus integer magnis platea penatibus convallis litora
+                montes, a tempor gravida libero euismod etiam rutrum potenti magna eros volutpat orci laoreet. Cum aenean
+                taciti convallis aliquam posuere magnis nec, vulputate proin quis hendrerit purus consequat eros, urna interdum
+                ultricies nam quam ad. Quis dis tellus venenatis faucibus semper senectus morbi pellentesque scelerisque
+                vulputate leo mi, inceptos hendrerit pulvinar non pretium mollis mattis porta vitae est.</p>
+        </p:panel>
 
-    <p:link outcome="animal_types" value="AnimalTypes"/>
-
-</h:body>
-
+        <p:link outcome="animal_types" value="AnimalTypes"/>
+    </ui:define>
+</ui:composition>
 </html>
