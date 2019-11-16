@@ -15,6 +15,14 @@
         <h1>Animal List</h1>
         <h:form id="animalListForm">
 
+            <p:commandButton value="Add"
+                             icon="pi pi-plus-circle"
+                             actionListener="#{animalListView.clearSelection}"
+                             update="newAnimalDialog"
+                             oncomplete="PF('newAnimalDialog').show()"
+            />
+
+
             <p:dataTable
                     id="animalTable"
                     value="#{animalListView.animalList}"
@@ -35,7 +43,33 @@
                 </p:column>
 
             </p:dataTable>
+
+
         </h:form>
+
+        <p:dialog modal="false" closable="true" id="newAnimalDialog" widgetVar="newAnimalDialog">
+            <f:facet name="header">
+                New Animal
+            </f:facet>
+            <h:form id="newAnimal">
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel value="Origin"/>
+                    <p:column id="originColumn">
+                        <p:inputText id="origin" value="#{animalListView.animal.origin}" required="true" />
+                        <p:message for="origin"/>
+                    </p:column>
+
+
+                    <p:column/>
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{animalListView.save}"
+                                     update=":animalListForm:animalTable,originColumn"
+                                     oncomplete="PF('newAnimalDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
 
     </ui:define>
 </ui:composition>

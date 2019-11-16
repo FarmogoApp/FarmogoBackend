@@ -3,6 +3,7 @@ package com.farmogo.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 public class Animal implements Serializable {
     private String uuid;
@@ -23,9 +24,7 @@ public class Animal implements Serializable {
     private Divisions divisions;
 
 
-    public Animal(){
-
-    }
+    public Animal(){ uuid = UUID.randomUUID().toString(); }
     public String getUuid() {
         return uuid;
     }
