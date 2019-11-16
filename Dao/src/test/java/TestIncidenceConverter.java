@@ -1,3 +1,4 @@
+import com.farmogo.dao.mongo.IncidenceMongoDao;
 import com.farmogo.dao.mongo.dto.IncidenceMongo;
 import com.farmogo.dao.mongo.dto.IncidenceMongoGetoff;
 import com.farmogo.model.incidences.GetoffType;
@@ -25,14 +26,14 @@ public class TestIncidenceConverter {
         Incidence generic = origen;
 
 
-        IncidenceMongo map = IncidenceMongo.convert(origen);
+        IncidenceMongo map = IncidenceMongoDao.convert(origen);
         System.out.println();
         Assert.assertEquals(origen.getUuid(), map.getUuid().toString());
         Assert.assertEquals(origen.getObservations(), map.getObservations());
         IncidenceMongoGetoff mapWithType = (IncidenceMongoGetoff) map;
         Assert.assertEquals(origen.getGetoffType(), mapWithType.getGetoffType());
 
-        Incidence original = IncidenceMongo.convert(map);
+        Incidence original = IncidenceMongoDao.convert(map);
 
         Assert.assertEquals(origen.getUuid(), original.getUuid());
         Assert.assertEquals(origen.getObservations(), original.getObservations());
