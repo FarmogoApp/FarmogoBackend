@@ -11,9 +11,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -76,11 +76,26 @@ public class AnimalListView implements Serializable {
         init();
     }
 
+    public String motherIdToOfficialId(String motherId){
+        Optional<Animal> animalMother = animalList.stream()
+                .filter(p -> p.getUuid().equals(motherId))
+                .findFirst();
+
+        return animalMother.isPresent() ? animalMother.get().getOfficialId() : "";
+    }
+
     public String raceIdToName(String raceId){
-        for (Race race: raceList){
-            if(race.getUuid().equals(raceId))return race.getName();
-        }
-        return "";
+        Optional<Race> race = raceList.stream()
+                .filter(p -> p.getUuid().equals(raceId))
+                .findFirst();
+
+        return race.isPresent() ? race.get().getName() : "";
+    }
+
+    public List<Animal> getMothersList(){
+        return animalList.stream()
+                .filter(p -> p.getSex().equals("Female"))
+                .collect(Collectors.toList());
     }
 
 }
