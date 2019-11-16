@@ -3,6 +3,7 @@ package com.farmogo.dao.mongo;
 import com.farmogo.dao.IncidenceDao;
 import com.farmogo.dao.mongo.dto.IncidenceMongo;
 import com.farmogo.dao.mongo.dto.Mapper;
+import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.Incidence;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -55,5 +56,13 @@ public class IncidenceMongoDao implements IncidenceDao {
                 .collect(Collectors.toList());
     }
 
-
+    @Override
+    public List<Incidence> getAll(Animal animal) {
+        return StreamSupport.stream(
+                mongoCollection.find()
+                        .filter(Filters.eq("animalId", new ObjectId(animal.getUuid())))
+                        .spliterator(), false)
+                .map(IncidenceMongo::convert)
+                .collect(Collectors.toList());
+    }
 }

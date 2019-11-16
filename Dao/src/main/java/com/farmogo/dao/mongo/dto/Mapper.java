@@ -23,15 +23,19 @@ public class Mapper {
                 .byDefault()
                 .register();
         mapperFactory.classMap(IncidenceGetoff.class, IncidenceMongoGetoff.class)
+                .field("animal.uuid", "animalId")
                 .byDefault()
                 .register();
         mapperFactory.classMap(IncidencePregnancy.class, IncidenceMongoPregnancy.class)
+                .field("animal.uuid", "animalId")
                 .byDefault()
                 .register();
         mapperFactory.classMap(IncidenceTreatment.class, IncidenceMongoTreatment.class)
+                .field("animal.uuid", "animalId")
                 .byDefault()
                 .register();
         mapperFactory.classMap(IncidenceWeight.class, IncidenceMongoWeight.class)
+                .field("animal.uuid", "animalId")
                 .byDefault()
                 .register();
         mapperFacade = mapperFactory.getMapperFacade();

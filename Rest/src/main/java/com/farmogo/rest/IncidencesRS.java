@@ -1,5 +1,6 @@
 package com.farmogo.rest;
 
+import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.*;
 import com.farmogo.services.IncidencesService;
 
@@ -28,9 +29,14 @@ public class IncidencesRS {
     @GET
     @Path("test")
     public String test() {
+
+        Animal animal = new Animal();
+        animal.setUuid("5dd0227098aa388b4499f5b9");
+
         IncidenceWeight incidence = new IncidenceWeight();
         incidence.setDone(true);
         incidence.setWeight(100);
+        incidence.setAnimal(animal);
         incidencesService.save(incidence);
 
 
@@ -38,11 +44,13 @@ public class IncidencesRS {
         incidenceGetoff.setHealthRegister("test register");
         incidenceGetoff.setGetoffType(GetoffType.Slaughterhouse);
         incidenceGetoff.setObservations("observations");
-        incidence.setDone(false);
+        incidenceGetoff.setDone(false);
+        incidenceGetoff.setAnimal(animal);
         incidencesService.save(incidenceGetoff);
 
         incidenceGetoff.setHealthRegister("test register updated");
         incidenceGetoff.setDueDate(LocalDate.now());
+        incidenceGetoff.setAnimal(animal);
         incidencesService.save(incidenceGetoff);
 
         return "ok";
