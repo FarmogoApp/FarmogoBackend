@@ -22,34 +22,34 @@
                     <defaultLibBundleDir>lib/</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
                     <modules>
-                        <ejbModule>
-                            <artifactId>Dao</artifactId>
-                            <groupId>${project.groupId}</groupId>
-                        </ejbModule>
-                        <ejbModule>
-                            <artifactId>Services</artifactId>
-                            <groupId>${project.groupId}</groupId>
-                        </ejbModule>
                         <webModule>
                             <artifactId>Rest</artifactId>
                             <groupId>${project.groupId}</groupId>
                             <contextRoot>api</contextRoot>
                         </webModule>
-                        <webModule>
-                            <artifactId>Frontend</artifactId>
+                        <ejbModule>
+                            <artifactId>Services</artifactId>
                             <groupId>${project.groupId}</groupId>
-                            <contextRoot>front</contextRoot>
-                        </webModule>
+                        </ejbModule>
+                        <ejbModule>
+                            <artifactId>Dao</artifactId>
+                            <groupId>${project.groupId}</groupId>
+                        </ejbModule>
                     </modules>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
 
     <dependencies>
-
+        <dependency>
+            <artifactId>Rest</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+            <type>war</type>
+        </dependency>
         <dependency>
             <artifactId>Services</artifactId>
             <groupId>${project.groupId}</groupId>
@@ -63,20 +63,6 @@
             <version>${project.version}</version>
             <scope>runtime</scope>
             <type>ejb</type>
-        </dependency>
-        <dependency>
-            <artifactId>Rest</artifactId>
-            <groupId>${project.groupId}</groupId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <artifactId>Frontend</artifactId>
-            <groupId>${project.groupId}</groupId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-            <type>war</type>
         </dependency>
     </dependencies>
 
