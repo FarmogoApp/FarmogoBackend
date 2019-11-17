@@ -39,6 +39,14 @@ public class AnimalMongoDao implements AnimalDao {
     }
 
     @Override
+    public List<Animal> getAnimalsByFarmId(String farmId) {
+        return StreamSupport.stream(mongoCollection.find().spliterator(), false)
+                .map(AnimalMongoDTO::getObject)
+                .filter(p -> p.getFarmId().equals(farmId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void save(Animal animal) {
         AnimalMongoDTO obj = mongoCollection.find(Filters.eq("_id", animal.getUuid())).first();
 

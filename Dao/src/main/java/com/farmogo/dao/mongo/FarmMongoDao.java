@@ -48,7 +48,7 @@ public class FarmMongoDao implements FarmDao {
 
     @Override
     public Farm get(String id) {
-        return null;
+        return FarmMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
     }
 
     @Override

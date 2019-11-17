@@ -4,10 +4,7 @@ import com.farmogo.model.Animal;
 import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.farmogo.model.Race;
-import com.farmogo.services.AnimalService;
-import com.farmogo.services.AnimalTypesService;
-import com.farmogo.services.FarmService;
-import com.farmogo.services.RaceService;
+import com.farmogo.services.*;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -35,6 +32,11 @@ public class AnimalListView implements Serializable {
     @Inject
     FarmService farmService;
 
+    @Inject
+    GlobalSessionService globalSessionService;
+
+    private Farm farm;
+
     private List<Animal> animalList;
     private List<Farm> farmList;
     private List<Race> raceList;
@@ -44,7 +46,11 @@ public class AnimalListView implements Serializable {
 
     @PostConstruct
     public void init() {
-        animalList = animalService.getAll();
+        farm = globalSessionService.getFarm();
+        // TODO: Only for development
+        if(farm == null) animalList = animalService.getAll();
+        else animalList = animalService.getAnimalsByFarmId(farm.getUuid());
+
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
         farmList = farmService.getAll();

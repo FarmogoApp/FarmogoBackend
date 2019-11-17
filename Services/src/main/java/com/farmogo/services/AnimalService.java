@@ -18,6 +18,10 @@ public class AnimalService {
         return animalTypeDAO.getAll();
     }
 
+    public List<Animal> getAnimalsByFarmId(String farmId){
+        return animalTypeDAO.getAnimalsByFarmId(farmId);
+    }
+
     public void save(Animal animal){
         animalTypeDAO.save(animal);
     }
