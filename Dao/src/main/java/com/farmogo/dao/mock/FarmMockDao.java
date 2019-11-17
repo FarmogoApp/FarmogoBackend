@@ -5,10 +5,11 @@ import com.farmogo.model.Farm;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.enterprise.inject.Typed;
 import java.util.ArrayList;
 import java.util.List;
 
-@Singleton
+@Typed({})
 public class FarmMockDao implements FarmDao {
 
     private List<Farm> farmList;
@@ -31,7 +32,17 @@ public class FarmMockDao implements FarmDao {
     }
 
     @Override
+    public List<Farm> getAll() {
+        return null;
+    }
+
+    @Override
     public Farm get(String id) {
         return farmList.stream().filter(f -> f.getUuid().equals(id)).findFirst().orElse(null);
+    }
+
+    @Override
+    public void save(Farm farm) {
+
     }
 }

@@ -14,6 +14,10 @@ public class FarmService {
     @Inject
     FarmDao farmDao;
 
+    public List<Farm> getAll(){
+        return farmDao.getAll();
+    }
+
     public List<Farm> getFarms(User user) {
         // Todo: change to real user id
         // return farmDao.getFarmByUser(user.getUuid());
@@ -22,5 +26,9 @@ public class FarmService {
 
     public Farm get(String id) {
         return farmDao.get(id);
+    }
+
+    public void save(Farm farm){
+        farmDao.save(farm);
     }
 }

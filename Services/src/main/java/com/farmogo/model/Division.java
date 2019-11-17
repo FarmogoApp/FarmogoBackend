@@ -1,13 +1,16 @@
 package com.farmogo.model;
 
-import java.io.Serializable;
-import java.util.List;
 
-public class Building implements Serializable {
+
+import java.io.Serializable;
+
+public class Division implements Serializable {
     private String uuid;
     private String name;
-    private List<Division> divisions;
 
+    public Division(){
+
+    }
 
     public String getUuid() {
         return uuid;
@@ -25,12 +28,5 @@ public class Building implements Serializable {
         this.name = name;
     }
 
-    public List<Division> getDivisions() {
-        return divisions;
-    }
-
-    public void setDivisions(List<Division> divisions) {
-        this.divisions = divisions;
-    }
 
 }

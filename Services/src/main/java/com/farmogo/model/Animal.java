@@ -20,7 +20,7 @@ public class Animal implements Serializable {
     private String origin;
     private Races races;
     private Farm farm;
-    private Divisions divisions;
+    private Division division;
 
 
     public Animal(){
@@ -147,23 +147,23 @@ public class Animal implements Serializable {
         this.farm = farm;
     }
 
-    public Divisions getDivisionsList() {
-        return divisions;
+    public Division getDivisionsList() {
+        return division;
     }
 
-    public void setDivisionsList(Divisions divisions) {
-        this.divisions = divisions;
+    public void setDivisionsList(Division division) {
+        this.division = division;
     }
     public void setRaces(Races races) {
         this.races = races;
     }
 
-    public Divisions getDivisions() {
-        return divisions;
+    public Division getDivision() {
+        return division;
     }
 
-    public void setDivisions(Divisions divisions) {
-        this.divisions = divisions;
+    public void setDivision(Division division) {
+        this.division = division;
     }
 
 }
