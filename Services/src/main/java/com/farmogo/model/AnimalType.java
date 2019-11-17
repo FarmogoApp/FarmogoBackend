@@ -1,21 +1,28 @@
-package com.farmono.model;
+package com.farmogo.model;
+
+
+
 
 import java.io.Serializable;
+import java.util.UUID;
+
 
 public class AnimalType implements Serializable {
 
-    private int animalType;
+
+    private String animalType;
     private String description;
     private String icon;
 
     public AnimalType() {
+        animalType = UUID.randomUUID().toString();
     }
 
-    public int getAnimalType() {
+    public String getAnimalType() {
         return animalType;
     }
 
-    public void setAnimalType(int animalType) {
+    public void setAnimalType(String animalType) {
         this.animalType = animalType;
     }
 

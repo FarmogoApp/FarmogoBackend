@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
-import com.farmogo.services.AnimalTypesService;
-import com.farmogo.model.AnimalType;
+import com.farmogo.services.IncidenceTypeService;
+import com.farmogo.model.IncidenceType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,14 +12,14 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestScoped
-@Path("animalTypes")
-public class AnimalTypesRS {
+@Path("incidenceType")
+public class IncidenceTypeRS {
     @Inject
-    AnimalTypesService animalTypesService;
+    IncidenceTypeService incidenceTypeService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AnimalType> getAll() {
-        return animalTypesService.getAll();
+    public List<IncidenceType> getAll() {
+        return incidenceTypeService.getAll();
     }
 }
