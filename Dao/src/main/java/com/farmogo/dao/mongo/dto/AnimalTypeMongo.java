@@ -2,29 +2,21 @@ package com.farmogo.dao.mongo.dto;
 
 import com.farmogo.model.AnimalType;
 import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.types.ObjectId;
 
 public class AnimalTypeMongo {
 
     @BsonId
-    private String animalType;
+    private ObjectId animalType;
     private String description;
     private String icon;
 
-    public AnimalTypeMongo() {
-    }
 
-    public AnimalTypeMongo(AnimalType animalType){
-        this.animalType = animalType.getAnimalType();
-        this.description = animalType.getDescription();
-        this.icon = animalType.getIcon();
-    }
-
-    public String getAnimalType() {
+    public ObjectId getAnimalType() {
         return animalType;
     }
 
-    public void setAnimalType(String animalType) {
+    public void setAnimalType(ObjectId animalType) {
         this.animalType = animalType;
     }
 
@@ -44,12 +36,13 @@ public class AnimalTypeMongo {
         this.icon = icon;
     }
 
-    @BsonIgnore
-    public AnimalType getObject(){
-        AnimalType animalType = new AnimalType();
-        animalType.setAnimalType(this.animalType);
-        animalType.setDescription(this.description);
-        animalType.setIcon(this.icon);
-        return animalType;
+    public static AnimalTypeMongo convert(AnimalType incidence){
+        if (incidence == null) return null;
+        return Mapper.getInstance().map(incidence, AnimalTypeMongo.class);
+    }
+
+    public static AnimalType convert(AnimalTypeMongo incidenceMongo){
+        if (incidenceMongo == null) return null;
+        return Mapper.getInstance().map(incidenceMongo, AnimalType.class);
     }
 }

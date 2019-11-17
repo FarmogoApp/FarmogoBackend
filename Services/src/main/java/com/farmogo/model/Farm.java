@@ -7,10 +7,7 @@ public class Farm implements Serializable {
     private String uuid;
     private String name;
     private String officialId;
-    private List<Building> buildingList;
-    public Farm(){
-
-    }
+    private List<Building> buildings;
 
     public String getUuid() {
         return uuid;
@@ -35,12 +32,12 @@ public class Farm implements Serializable {
     public void setOfficialId(String officialId) {
         this.officialId = officialId;
     }
-    public List<Building> getBuildingList() {
-        return buildingList;
+
+    public List<Building> getBuildings() {
+        return buildings;
     }
 
-    public void setBuildingList(List<Building> buildingList) {
-        this.buildingList = buildingList;
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
     }
-
 }

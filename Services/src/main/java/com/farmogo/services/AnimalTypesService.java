@@ -19,13 +19,11 @@ public class AnimalTypesService {
         return animalTypeDAO.getAll();
     }
 
-    public void save(AnimalType animalType){
+    public void save(AnimalType animalType) {
         animalTypeDAO.save(animalType);
     }
 
     public void delete(AnimalType animalType) {
-        AnimalType animalType1 = animalTypeDAO.get(animalType.getAnimalType());
-        if (animalType1.getDescription().startsWith("n")) return;
-                animalTypeDAO.delete(animalType);
+        animalTypeDAO.delete(animalType);
     }
 }

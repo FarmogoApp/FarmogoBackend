@@ -9,14 +9,9 @@ import java.util.UUID;
 
 public class AnimalType implements Serializable {
 
-
     private String animalType;
     private String description;
     private String icon;
-
-    public AnimalType() {
-        animalType = UUID.randomUUID().toString();
-    }
 
     public String getAnimalType() {
         return animalType;

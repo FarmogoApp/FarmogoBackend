@@ -1,5 +1,7 @@
 package com.farmogo.model;
 
+import com.farmogo.model.incidences.Incidence;
+
 import java.io.Serializable;
 import java.util.List;
 
