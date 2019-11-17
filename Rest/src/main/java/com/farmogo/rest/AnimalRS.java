@@ -23,4 +23,5 @@ public class AnimalRS {
     public List<Animal> getAll() {
         return animalService.getAll();
     }
+
 }
