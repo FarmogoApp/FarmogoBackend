@@ -20,6 +20,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,8 @@ public class AnimalDataView implements Serializable {
     private Animal animal;
     private AnimalUtils animalUtils;
 
+    // Exporter needs a list...
+    private ArrayList<Animal> animalData;
 
     @PostConstruct
     public void init() {
@@ -55,6 +58,7 @@ public class AnimalDataView implements Serializable {
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
         farmList = farmService.getAll();
+        animalData = new ArrayList<>();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
@@ -65,6 +69,9 @@ public class AnimalDataView implements Serializable {
         } else {
             animal = new Animal();
         }
+        animalData.add(animal);
+
+
 
         animalUtils = new AnimalUtils(animalList, raceList, animalTypeList, farmList);
     }
@@ -137,4 +144,13 @@ public class AnimalDataView implements Serializable {
     public void setAnimalList(List<Animal> animalList) {
         this.animalList = animalList;
     }
+
+    public ArrayList<Animal> getAnimalData() {
+        return animalData;
+    }
+
+    public void setAnimalData(ArrayList<Animal> animalData) {
+        this.animalData = animalData;
+    }
+
 }

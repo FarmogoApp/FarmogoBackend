@@ -14,9 +14,24 @@
 
         <h:form id="animalDataForm">
 
+            <p:commandButton value="Export as XML" ajax="false" >
+                <p:dataExporter type="xml" target="animalTable" fileName="Farmogo Animal data"/>
+            </p:commandButton>
+            <p:commandButton value="Export as CSV" ajax="false" >
+                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal data"/>
+            </p:commandButton>
+
+            <!-- TODO: Excel doesn't work -->
+            <p:commandButton value="Export Table as Excel" ajax="false" >
+                <p:dataExporter type="xls" target="animalTable" fileName="Farmogo Animal data"/>
+            </p:commandButton>
+            <p:commandButton value="Export Table as PDF" ajax="false" >
+                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal data"/>
+            </p:commandButton>
+
             <p:dataTable
                     id="animalTable"
-                    value="#{animalDataView.animal}"
+                    value="#{animalDataView.animalData}"
                     var="elem"
                     rowKey="#{elem.uuid}"
                     selection="#{animalDataView.animal}">
@@ -138,6 +153,8 @@
 
             </p:dataTable>
         </h:form>
+
+        <h1>Incidences</h1>
 
 
     </ui:define>

@@ -6,6 +6,7 @@ import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.farmogo.model.Race;
 import com.farmogo.services.*;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -35,6 +36,7 @@ public class AnimalListView implements Serializable {
 
     @Inject
     GlobalSessionService globalSessionService;
+
 
 
     private AnimalUtils animalUtils;
