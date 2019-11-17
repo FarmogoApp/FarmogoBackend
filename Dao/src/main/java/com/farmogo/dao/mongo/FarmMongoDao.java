@@ -9,6 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
+import sun.util.resources.cldr.id.CurrencyNames_id;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -48,7 +49,7 @@ public class FarmMongoDao implements FarmDao {
 
     @Override
     public Farm get(String id) {
-        return null;
+        return FarmMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
     }
 
     @Override
