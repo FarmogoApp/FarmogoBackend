@@ -53,6 +53,16 @@ public class IncidencesRS {
         incidenceGetoff.setAnimal(animal);
         incidencesService.save(incidenceGetoff);
 
+        IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
+        incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
+        incidencesService.save(incidencePregnancy);
+
+        IncidenceTreatment incidenceTreatment = new IncidenceTreatment();
+        incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
+        incidenceTreatment.setMedicine("tetanus");
+        incidenceTreatment.setDose("100mg");
+        incidencesService.save(incidenceTreatment);
+
         return "ok";
     }
 }

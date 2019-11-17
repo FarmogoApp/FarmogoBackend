@@ -25,3 +25,9 @@ button.leftmenu{
     width: 240px;
     text-align: left;
 }
+.preformatted {
+    white-space: pre-wrap;
+}
+.bold{
+    font-weight: bold;
+}

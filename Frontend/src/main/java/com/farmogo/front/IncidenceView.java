@@ -1,8 +1,7 @@
 package com.farmogo.front;
 
 import com.farmogo.model.Animal;
-import com.farmogo.model.incidences.Incidence;
-import com.farmogo.model.incidences.IncidenceType;
+import com.farmogo.model.incidences.*;
 import com.farmogo.services.IncidencesService;
 
 import javax.annotation.PostConstruct;
@@ -67,7 +66,19 @@ public class IncidenceView implements Serializable {
         return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 
-    public IncidenceType[] getTypes() {
-        return IncidenceType.values();
+    public void save(){
+        incidencesService.save(incidence);
     }
+
+    public PregnancyType[] getPregnancyTypes(){
+        return PregnancyType.values();
+    }
+    public TreatmentType[] getTreatmentTypes(){
+        return TreatmentType.values();
+    }
+    public GetoffType[] getGetoffTypes(){
+        return GetoffType.values();
+    }
+
+
 }

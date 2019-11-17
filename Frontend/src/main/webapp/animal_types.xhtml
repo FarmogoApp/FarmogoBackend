@@ -70,14 +70,13 @@
             <h:form id="newAnimal">
                 <p:panelGrid columns="2">
 
-                    <h:outputLabel value="Description"/>
-                    <p:column id="descriptioncolumn">
-                        <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true"/>
-                        <p:message for="desc"/>
-                    </p:column>
+                    <h:outputLabel value="Description" for="desc"/>
+                    <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true"/>
 
-                    <h:outputLabel value="Icon"/>
-                    <p:inputText value="#{animalTypeView.animalType.icon}"/>
+
+                    <h:outputLabel value="Icon" for="icon"/>
+                    <p:inputText value="#{animalTypeView.animalType.icon}" id="icon"/>
+
 
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
