@@ -26,30 +26,6 @@
                          oncomplete="PF('newAnimalTypeDialog').show()"
         />
 
-
-        <p:dataTable
-                id="animalTypesTable"
-                value="#{animalTypeView.animalTypeList}"
-                var="elem"
-                rowKey="#{elem.animalType}"
-                selectionMode="single"
-                selection="#{animalTypeView.animalType}">
-            <p:column headerText="Id">
-                <h:outputText value="#{elem.animalType}"/>
-            </p:column>
-            <p:column headerText="Description">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{elem.description}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{elem.description}" style="width:100%"/></f:facet>
-                </p:cellEditor>
-            </p:column>
-            <p:column headerText="Icon">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{elem.icon}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{elem.icon}" style="width:100%"/></f:facet>
-                </p:cellEditor>
-            </p:column>
-        </p:dataTable>
         <p:contextMenu for="animalTypesTable">
             <p:menuitem value="Edit" update="newAnimalTypeDialog"
                         oncomplete="PF('newAnimalTypeDialog').show()"/>
