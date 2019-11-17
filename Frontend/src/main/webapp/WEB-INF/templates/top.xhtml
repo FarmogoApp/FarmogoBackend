@@ -4,7 +4,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
 <div class="ui-g top">
@@ -24,7 +27,9 @@
     <div class="ui-g-2"/>
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
-            <h:outputText value="User: The lonely farmer" style="padding-right: 4px"/>
+            <pe:letterAvatar value="Lonely Farmer" height="40" width="40"  rounded="true"
+                             style="display:inline; vertical-align:middle; margin-right: 5px;"/>
+            <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
             <p:commandButton type="button" icon="pi pi-home" value="Logout" action="logout?faces-redirect=true"/>
         </h:form>
     </div>

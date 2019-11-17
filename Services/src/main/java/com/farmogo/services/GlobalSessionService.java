@@ -3,6 +3,7 @@ package com.farmogo.services;
 import com.farmogo.model.Farm;
 import com.farmogo.model.User;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 
@@ -11,6 +12,13 @@ public class GlobalSessionService implements Serializable {
 
     private User user;
     private Farm farm;
+    @PostConstruct
+    public void init(){
+
+        // TODO: mock data. Remove when login are implemented
+        user = new User();
+        user.setName("The Lonely Farmer");
+    }
 
     public User getUser() {
         return user;

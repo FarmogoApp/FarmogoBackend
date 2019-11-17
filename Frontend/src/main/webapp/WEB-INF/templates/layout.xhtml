@@ -17,11 +17,10 @@
 <h:body>
     <p:growl id="msgs" showDetail="true"/>
     <p:layout style="min-width:400px;min-height:200px;" fullPage="true">
-        <p:layoutUnit position="west" resizable="false" size="275px" >
+        <p:layoutUnit position="west" resizable="false" size="275px" id="menu">
             <ui:include src="menu.xhtml"/>
         </p:layoutUnit>
-
-        <p:layoutUnit position="north" size="50">
+        <p:layoutUnit position="north" size="50" id="top">
             <ui:include src="top.xhtml"/>
         </p:layoutUnit>
         <p:layoutUnit position="center" style="z-index:999" id="content">
