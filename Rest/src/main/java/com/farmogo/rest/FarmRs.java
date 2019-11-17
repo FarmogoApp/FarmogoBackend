@@ -57,7 +57,12 @@ public class FarmRs {
 
         f1.setBuildings(Arrays.asList(b11,b12));
 
-        farmService.save(f1);
+        for (int i = 1; i < 11; i++) {
+            f1.setName("Farm " + i);
+            f1.setOfficialId("ID " + i);
+            farmService.save(f1);
+        }
+
 
         f1 = new Farm();
         f1.setOfficialId("5678");
