@@ -30,17 +30,20 @@
                     selection="#{animalListView.animal}">
 
                 <!-- UUID (Only for development)-->
-<!--                <p:column headerText="UUID">-->
-<!--                    <h:outputText value="#{elem.uuid}"/>-->
-<!--                </p:column>-->
+                <p:column headerText="UUID (Dev)">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
                 <!-- Tag ID (Only for development)-->
-<!--                <p:column headerText="Tag ID">-->
-<!--                    <p:cellEditor>-->
-<!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
-<!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
-<!--                    </p:cellEditor>-->
-<!--                </p:column>-->
+                <p:column headerText="Tag ID (Dev)">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
                 <!-- Official ID -->
                 <p:column headerText="Official ID">
@@ -53,24 +56,24 @@
                 <!-- Farm ID -->
                 <p:column headerText="Farm ID">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.farmIdToOfficialId(elem.farmId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.farmIdToOfficialId(elem.farmId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.farmIdToOfficialId(elem.farmId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.farmIdToOfficialId(elem.farmId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Mother ID -->
                 <p:column headerText="Mother official ID">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.motherIdToOfficialId(elem.motherId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Race -->
                 <p:column headerText="Race">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.raceIdToName(elem.raceId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.raceIdToName(elem.raceId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -78,8 +81,8 @@
                 <!-- Animal Type -->
                 <p:column headerText="Animal type">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -128,6 +131,14 @@
 
 
             <p:contextMenu for="animalTable">
+
+                <p:menuitem value="View animal data" outcome="animal_data">
+                     <f:param name="animal" value="712aeeca-1253-4f5f-b8dd-dfeb6541b668"/>
+
+                        <!-- TODO:  Doesn't work... Why?-->
+                        <!-- <f:param name="animal" value="#{animalListView.animal.uuid}"/>-->
+                </p:menuitem>
+
                 <p:menuitem value="Edit" update="newAnimalDialog"
                             oncomplete="PF('newAnimalDialog').show()"/>
 
@@ -199,7 +210,7 @@
                     <h:outputLabel value="Mother ID"/>
                     <p:column id="motherIdColumn">
                         <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}">
-                            <f:selectItems value="#{animalListView.mothersList}" var="mother" itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}" />
+                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother" itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}" />
                         </p:selectOneMenu>
                         <p:message for="motherIdSelect"/>
                     </p:column>

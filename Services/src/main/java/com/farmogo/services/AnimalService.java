@@ -12,23 +12,27 @@ import java.util.List;
 public class AnimalService {
 
     @Inject
-    AnimalDao animalTypeDAO;
+    AnimalDao animalDao;
 
     public List<Animal> getAll() {
-        return animalTypeDAO.getAll();
+        return animalDao.getAll();
     }
 
     public List<Animal> getAnimalsByFarmId(String farmId){
-        return animalTypeDAO.getAnimalsByFarmId(farmId);
+        return animalDao.getAnimalsByFarmId(farmId);
     }
 
     public void save(Animal animal){
-        animalTypeDAO.save(animal);
+        animalDao.save(animal);
     }
 
     public void delete(Animal animal) {
-        Animal animalToDelete = animalTypeDAO.get(animal.getUuid());
-        animalTypeDAO.delete(animalToDelete);
+        Animal animalToDelete = animalDao.get(animal.getUuid());
+        animalDao.delete(animalToDelete);
+    }
+
+    public Animal getAnimalById(String animalId){
+        return animalDao.get(animalId);
     }
 }
 
