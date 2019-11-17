@@ -26,14 +26,14 @@ public class TestIncidenceConverter {
         Incidence generic = origen;
 
 
-        IncidenceMongo map = IncidenceMongoDao.convert(origen);
+        IncidenceMongo map = IncidenceMongo.convert(origen);
         System.out.println();
         Assert.assertEquals(origen.getUuid(), map.getUuid().toString());
         Assert.assertEquals(origen.getObservations(), map.getObservations());
         IncidenceMongoGetoff mapWithType = (IncidenceMongoGetoff) map;
         Assert.assertEquals(origen.getGetoffType(), mapWithType.getGetoffType());
 
-        Incidence original = IncidenceMongoDao.convert(map);
+        Incidence original = IncidenceMongo.convert(map);
 
         Assert.assertEquals(origen.getUuid(), original.getUuid());
         Assert.assertEquals(origen.getObservations(), original.getObservations());

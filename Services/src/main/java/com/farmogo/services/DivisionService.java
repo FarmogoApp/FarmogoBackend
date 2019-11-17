@@ -1,6 +1,6 @@
 package com.farmogo.services;
 
-import com.farmogo.model.Divisions;
+import com.farmogo.model.Division;
 
 import javax.ejb.Stateless;
 import java.util.List;
@@ -12,7 +12,7 @@ public class DivisionService {
   //  @Inject
   //  DivisionDAO divisionsDAO;
 
-    public List<Divisions> getAll() {
+    public List<Division> getAll() {
         return null;
       //  return divisionsDAO.getAll();
     }
