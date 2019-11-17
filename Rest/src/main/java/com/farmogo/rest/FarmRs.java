@@ -59,6 +59,32 @@ public class FarmRs {
 
         farmService.save(f1);
 
+        f1 = new Farm();
+        f1.setOfficialId("5678");
+        f1.setName("farm 2");
+
+        b11 = new Building();
+        b11.setName("build 2.1");
+
+        b12 = new Building();
+        b12.setName("build 2.2");
+
+        d111 = new Division();
+        d111.setName("division 2.1.1");
+
+        d112 = new Division();
+        d112.setName("division 2.1.2");
+
+        d121 = new Division();
+        d121.setName("division 2.2.1");
+
+        b11.setDivisions(Arrays.asList(d111,d112));
+        b12.setDivisions(Arrays.asList(d121));
+
+        f1.setBuildings(Arrays.asList(b11,b12));
+
+        farmService.save(f1);
+
         return "ok";
     }
 }

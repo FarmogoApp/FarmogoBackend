@@ -18,13 +18,11 @@ public class AnimalMongoDTO {
     private String raceId;
     private Date birthDay;
     private Date dischargeDate;
-    private String  idFarm;
-    private String idDivision;
+    private String farmId;
+    private String divisionId;
     private String motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
-    private Farm farm;
-    private Divisions divisions;
 
     public AnimalMongoDTO(){}
 
@@ -37,13 +35,11 @@ public class AnimalMongoDTO {
         this.raceId = animal.getRaceId();
         this.birthDay = animal.getBirthDay();
         this.dischargeDate = animal.getDischargeDate();
-        this.idFarm = animal.getIdFarm();
-        this.idDivision = animal.getIdDivision();
+        this.farmId = animal.getFarmId();
+        this.divisionId = animal.getDivisionId();
         this.motherId = animal.getMotherId();
         this.createdLocalDateTime = animal.getCreatedLocalDateTime();
         this.origin = animal.getOrigin();
-        this.farm = animal.getFarm();
-        this.divisions = animal.getDivisions();
     }
 
 
@@ -59,13 +55,11 @@ public class AnimalMongoDTO {
         animal.setRaceId(this.raceId);
         animal.setBirthDay(this.birthDay);
         animal.setDischargeDate(this.dischargeDate);
-        animal.setIdFarm(this.idFarm);
-        animal.setIdDivision(this.idDivision);
+        animal.setFarmId(this.farmId);
+        animal.setDivisionId(this.divisionId);
         animal.setMotherId(this.motherId);
         animal.setCreatedLocalDateTime(this.createdLocalDateTime);
         animal.setOrigin(this.origin);
-        animal.setFarm(this.farm);
-        animal.setDivisions(this.divisions);
 
         return animal;
     }
@@ -134,20 +128,20 @@ public class AnimalMongoDTO {
         this.dischargeDate = dischargeDate;
     }
 
-    public String getIdFarm() {
-        return idFarm;
+    public String getFarmId() {
+        return farmId;
     }
 
-    public void setIdFarm(String idFarm) {
-        this.idFarm = idFarm;
+    public void setFarmId(String farmId) {
+        this.farmId = farmId;
     }
 
-    public String getIdDivision() {
-        return idDivision;
+    public String getDivisionId() {
+        return divisionId;
     }
 
-    public void setIdDivision(String idDivision) {
-        this.idDivision = idDivision;
+    public void setDivisionId(String divisionId) {
+        this.divisionId = divisionId;
     }
 
     public String getMotherId() {
@@ -174,19 +168,4 @@ public class AnimalMongoDTO {
         this.origin = origin;
     }
 
-    public Farm getFarm() {
-        return farm;
-    }
-
-    public void setFarm(Farm farm) {
-        this.farm = farm;
-    }
-
-    public Divisions getDivisions() {
-        return divisions;
-    }
-
-    public void setDivisions(Divisions divisions) {
-        this.divisions = divisions;
-    }
 }

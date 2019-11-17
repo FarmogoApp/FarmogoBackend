@@ -1,4 +1,4 @@
-<ui:composition template="layout.xhtml"
+<ui:composition template="WEB-INF/templates/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -9,8 +9,6 @@
         <h:head>
             <title>Animal List</title>
         </h:head>
-
-        <p:growl id="msgs" showDetail="true"/>
 
         <h1>Animal List</h1>
         <h:form id="animalListForm">
@@ -49,6 +47,14 @@
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Farm ID -->
+                <p:column headerText="Farm ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.farmIdToOfficialId(elem.farmId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.farmIdToOfficialId(elem.farmId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -168,6 +174,15 @@
                             <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}" />
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
+                    </p:column>
+
+                    <!-- Farm -->
+                    <h:outputLabel value="Farm"/>
+                    <p:column id="farmColumn">
+                        <p:selectOneMenu id="farmSelect" value="#{animalListView.animal.farmId}">
+                            <f:selectItems value="#{animalListView.farmList}" var="farm" itemLabel="#{farm.officialId}" itemValue="#{farm.uuid}" />
+                        </p:selectOneMenu>
+                        <p:message for="farmSelect"/>
                     </p:column>
 
 

@@ -14,13 +14,11 @@ public class Animal implements Serializable {
     private String raceId;
     private Date birthDay;
     private Date dischargeDate;
-    private String  idFarm;
-    private String idDivision;
     private String motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
-    private Farm farm;
-    private Division division;
+    private String divisionId;
+    private String farmId;
 
 
     public Animal(){
@@ -85,20 +83,20 @@ public class Animal implements Serializable {
         this.dischargeDate = dischargeDate;
     }
 
-    public String getIdFarm() {
-        return idFarm;
+    public String getFarmId() {
+        return farmId;
     }
 
-    public void setIdFarm(String idFarm) {
-        this.idFarm = idFarm;
+    public void setFarmId(String farmId) {
+        this.farmId = farmId;
     }
 
-    public String getIdDivision() {
-        return idDivision;
+    public String getDivisionId() {
+        return divisionId;
     }
 
-    public void setIdDivision(String idDivision) {
-        this.idDivision = idDivision;
+    public void setDivisionId(String divisionId) {
+        this.divisionId = divisionId;
     }
 
     public String getMotherId() {
@@ -123,30 +121,6 @@ public class Animal implements Serializable {
 
     public void setOrigin(String origin) {
         this.origin = origin;
-    }
-
-    public Farm getFarm() {
-        return farm;
-    }
-
-    public void setFarm(Farm farm) {
-        this.farm = farm;
-    }
-
-    public Division getDivisionsList() {
-        return division;
-    }
-
-    public void setDivisionsList(Division division) {
-        this.division = division;
-    }
-
-    public Division getDivision() {
-        return division;
-    }
-
-    public void setDivision(Division division) {
-        this.division = division;
     }
 
     public String getAnimalTypeId() {

@@ -21,7 +21,9 @@ public class FarmService {
     public List<Farm> getFarms(User user) {
         // Todo: change to real user id
         // return farmDao.getFarmByUser(user.getUuid());
-        return farmDao.getFarmByUser(null);
+        // return farmDao.getFarmByUser(null);
+        // TODO: Return all farms just for development
+        return getAll();
     }
 
     public Farm get(String id) {

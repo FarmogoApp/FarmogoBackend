@@ -2,9 +2,11 @@ package com.farmogo.front;
 
 import com.farmogo.model.Animal;
 import com.farmogo.model.AnimalType;
+import com.farmogo.model.Farm;
 import com.farmogo.model.Race;
 import com.farmogo.services.AnimalService;
 import com.farmogo.services.AnimalTypesService;
+import com.farmogo.services.FarmService;
 import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
@@ -30,7 +32,11 @@ public class AnimalListView implements Serializable {
     @Inject
     AnimalTypesService animalTypesService;
 
+    @Inject
+    FarmService farmService;
+
     private List<Animal> animalList;
+    private List<Farm> farmList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
 
@@ -41,6 +47,7 @@ public class AnimalListView implements Serializable {
         animalList = animalService.getAll();
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
+        farmList = farmService.getAll();
         animal = new Animal();
     }
 
@@ -72,6 +79,14 @@ public class AnimalListView implements Serializable {
         this.animalTypeList = animalTypeList;
     }
 
+    public List<Farm> getFarmList() {
+        return farmList;
+    }
+
+    public void setFarmList(List<Farm> farmList) {
+        this.farmList = farmList;
+    }
+
     public void onRowEdit(RowEditEvent event) {
         animalService.save((Animal) event.getObject());
         init();
@@ -89,6 +104,12 @@ public class AnimalListView implements Serializable {
     public void delete(){
         animalService.delete(animal);
         init();
+    }
+
+    public List<Animal> getMothersList(){
+        return animalList.stream()
+                .filter(p -> p.getSex().equals("Female"))
+                .collect(Collectors.toList());
     }
 
     public String motherIdToOfficialId(String motherId){
@@ -115,9 +136,13 @@ public class AnimalListView implements Serializable {
         return at.isPresent() ? at.get().getDescription() : "";
     }
 
-    public List<Animal> getMothersList(){
-        return animalList.stream()
-                .filter(p -> p.getSex().equals("Female"))
-                .collect(Collectors.toList());
+    public String farmIdToOfficialId(String farmId){
+        Optional<Farm> farm = farmList.stream()
+                .filter(p -> p.getUuid().equals(farmId))
+                .findFirst();
+
+        return farm.isPresent() ? farm.get().getOfficialId() : "";
     }
+
+
 }
