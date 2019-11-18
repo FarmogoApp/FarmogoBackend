@@ -37,26 +37,26 @@ public class AnimalListView implements Serializable {
     @Inject
     GlobalSessionService globalSessionService;
 
-
-
     private AnimalUtils animalUtils;
-
     private Farm farm;
+    private Animal animal;
 
     private List<Animal> animalList;
     private List<Farm> farmList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
 
-    private Animal animal;
 
     @PostConstruct
     public void init() {
         // TODO: Doesn't update the farm
-        // farm = globalSessionService.getFarm();
-        // animalList = animalService.getAnimalsByFarmId(farm.getUuid());
+        farm = globalSessionService.getFarm();
+        if(farm == null) animalList = animalService.getAll();
+        else animalList = animalService.getAnimalsByFarmId(farm.getUuid());
 
-        animalList = animalService.getAll();
+        // animalList = animalService.getAnimalsByFarmId("5dd152f709043b27fc169968");
+        // animalList = animalService.getAll();
+
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
         farmList = farmService.getAll();
@@ -111,11 +111,6 @@ public class AnimalListView implements Serializable {
 
     public void save(){
         animalService.save(animal);
-        init();
-    }
-
-    public void delete(){
-        animalService.delete(animal);
         init();
     }
 

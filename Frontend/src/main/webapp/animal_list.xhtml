@@ -156,9 +156,6 @@
                 <p:menuitem value="Edit" update="newAnimalDialog"
                             oncomplete="PF('newAnimalDialog').show()"/>
 
-                <p:menuitem value="Delete" update="animalTable" action="#{animalListView.delete}">
-                    <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
-                </p:menuitem>
             </p:contextMenu>
 
             <p:confirmDialog global="true">
