@@ -3,7 +3,6 @@ package com.farmogo.front;
 
 import com.farmogo.model.Farm;
 import com.farmogo.services.FarmService;
-import com.farmogo.services.GlobalSessionService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,25 +18,23 @@ public class FarmSwitcherView implements Serializable {
     @Inject
     FarmService farmService;
 
-    @Inject
-    GlobalSessionService globalSessionService;
-
     private Farm farm;
 
     private List<Farm> farmList;
 
     @PostConstruct
     public void init() {
-        farm = globalSessionService.getFarm();
-        farmList = farmService.getFarms(globalSessionService.getUser());
+        farm = farmService.getCurrentFarm();
+        farmList = farmService.getFarms();
     }
-
 
     public Farm getFarm() {
         return farm;
     }
 
     public void setFarm(Farm farm) {
+
+        System.out.println("setfarm" + farm);
         this.farm = farm;
     }
 
@@ -49,7 +46,8 @@ public class FarmSwitcherView implements Serializable {
         this.farmList = farmList;
     }
 
-    public void changeSessionFarm(){
-        globalSessionService.setFarm(farm);
+    public void changeSessionFarm() {
+        System.out.println("changefarm" + farm);
+        farmService.setCurrentFarm(farm);
     }
 }
