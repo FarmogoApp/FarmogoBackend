@@ -33,8 +33,6 @@ public class FarmSwitcherView implements Serializable {
     }
 
     public void setFarm(Farm farm) {
-
-        System.out.println("setfarm" + farm);
         this.farm = farm;
     }
 
@@ -47,7 +45,6 @@ public class FarmSwitcherView implements Serializable {
     }
 
     public void changeSessionFarm() {
-        System.out.println("changefarm" + farm);
         farmService.setCurrentFarm(farm);
     }
 }
