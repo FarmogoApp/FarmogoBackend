@@ -14,16 +14,18 @@ public class FarmService {
     @Inject
     FarmDao farmDao;
 
+    @Inject
+    GlobalSessionService globalSessionService;
+
+
     public List<Farm> getAll(){
         return farmDao.getAll();
     }
 
-    public List<Farm> getFarms(User user) {
+    public List<Farm> getFarms() {
         // Todo: change to real user id
-        // return farmDao.getFarmByUser(user.getUuid());
-        // return farmDao.getFarmByUser(null);
-        // TODO: Return all farms just for development
-        return getAll();
+         //return farmDao.getFarmByUser(globalSessionService.getUser().getUuid());
+         return farmDao.getAll();
     }
 
     public Farm get(String id) {
@@ -32,5 +34,13 @@ public class FarmService {
 
     public void save(Farm farm){
         farmDao.save(farm);
+    }
+
+    public void setCurrentFarm(Farm farm){
+        globalSessionService.setFarm(farm);
+    }
+
+    public Farm getCurrentFarm(){
+        return globalSessionService.getFarm();
     }
 }

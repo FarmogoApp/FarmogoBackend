@@ -1,6 +1,8 @@
 package com.farmogo.model.incidences;
 
 import com.farmogo.model.Animal;
+import com.farmogo.model.Farm;
+import com.farmogo.model.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +14,9 @@ public abstract class Incidence {
     private LocalDate dueDate;
     private boolean done;
     private LocalDateTime created;
+    private User createdBy;
     private Animal animal;
+    private Farm farm;
 
     public Incidence(IncidenceType incidenceType) {
         type = incidenceType;
@@ -70,6 +74,22 @@ public abstract class Incidence {
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Farm getFarm() {
+        return farm;
+    }
+
+    public void setFarm(Farm farm) {
+        this.farm = farm;
     }
 
     public abstract void accept(IncidenceVisitor visitor);
