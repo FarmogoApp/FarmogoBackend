@@ -19,6 +19,10 @@ public class AnimalTypesService {
         return animalTypeDAO.getAll();
     }
 
+    public AnimalType get(String id) {
+        return animalTypeDAO.get(id);
+    }
+
     public void save(AnimalType animalType) {
         animalTypeDAO.save(animalType);
     }

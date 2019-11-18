@@ -1,5 +1,6 @@
 package com.farmogo.dao.mongo.dto;
 
+import com.farmogo.model.AnimalCounter;
 import com.farmogo.model.Farm;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
@@ -14,6 +15,7 @@ public class FarmMongo implements Serializable {
     private String name;
     private String officialId;
     private List<BuildingMongo> buildings;
+    private AnimalCounter animalCounter;
 
     public static FarmMongo convert(Farm farm) {
         return Mapper.getInstance().map(farm, FarmMongo.class);
@@ -54,4 +56,8 @@ public class FarmMongo implements Serializable {
     public void setBuildings(List<BuildingMongo> buildings) {
         this.buildings = buildings;
     }
+
+    public AnimalCounter getAnimalCounter() { return animalCounter;}
+
+    public void setAnimalCounter(AnimalCounter animalCounter) {this.animalCounter = animalCounter;}
 }
