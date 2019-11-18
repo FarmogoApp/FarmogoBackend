@@ -11,61 +11,19 @@
 </f:view>
 
 <h:head>
-    <title>Animal Types</title>
+    <title>Farm Counter Configuration</title>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 </h:head>
 
 <h:body>
+    <h:form>
+        <h3>Farm Counter Configuration</h3>
+        <p:inputText />
 
-    <p:growl id="msgs" showDetail="true"/>
-    <h:form id="listAnimalForm">
-        <p:commandButton value="Add"
-                         icon="pi pi-plus-circle"
-                         actionListener="#{animalTypeView.clearSelection}"
-                         update="newAnimalTypeDialog"
-                         oncomplete="PF('newAnimalTypeDialog').show()"
-        />
 
-        <p:contextMenu for="animalTypesTable">
-            <p:menuitem value="Edit" update="newAnimalTypeDialog"
-                        oncomplete="PF('newAnimalTypeDialog').show()"/>
-            <p:menuitem value="Delete" update="animalTypesTable" action="#{animalTypeView.delete}">
-                <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
-            </p:menuitem>
-        </p:contextMenu>
 
-        <p:confirmDialog global="true">
-            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-        </p:confirmDialog>
+
     </h:form>
-
-
-    <p:dialog modal="false" closable="true" id="newAnimalTypeDialog" widgetVar="newAnimalTypeDialog">
-        <f:facet name="header">
-            New Animal Type
-        </f:facet>
-        <h:form id="newAnimal">
-            <p:panelGrid columns="2">
-
-                <h:outputLabel value="Description"/>
-                <p:column id="descriptioncolumn">
-                    <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true" />
-                    <p:message for="desc"/>
-                </p:column>
-
-                <h:outputLabel value="Icon"/>
-                <p:inputText value="#{animalTypeView.animalType.icon}"/>
-
-                <p:column/>
-                <p:commandButton value="Save" icon="pi pi-save"
-                                 actionListener="#{animalTypeView.save}"
-                                 update=":listAnimalForm:animalTypesTable,descriptioncolumn"
-                                 oncomplete="PF('newAnimalTypeDialog').hide()"/>
-            </p:panelGrid>
-        </h:form>
-
-    </p:dialog>
 
 </h:body>
 
