@@ -6,10 +6,7 @@ import com.farmogo.model.Animal;
 import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.farmogo.model.Race;
-import com.farmogo.services.AnimalService;
-import com.farmogo.services.AnimalTypesService;
-import com.farmogo.services.FarmService;
-import com.farmogo.services.RaceService;
+import com.farmogo.services.*;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.ManagedBean;
@@ -38,28 +35,29 @@ public class AnimalDataView implements Serializable {
     AnimalTypesService animalTypesService;
 
     @Inject
-    FarmService farmService;
+    GlobalSessionService globalSessionService;
 
     private List<Animal> animalList;
-    private List<Farm> farmList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
 
     private Animal animal;
     private AnimalUtils animalUtils;
+    private Farm farm;
 
     // Exporter needs a list...
     private ArrayList<Animal> animalData;
 
+
     @PostConstruct
     public void init() {
+        farm = globalSessionService.getFarm();
 
-        animalList = animalService.getAll();
+        animalList = animalService.getAnimalsByFarmId(farm.getUuid());
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
-        farmList = farmService.getAll();
-        animalData = new ArrayList<>();
 
+        animalData = new ArrayList<>();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
 
@@ -71,9 +69,7 @@ public class AnimalDataView implements Serializable {
         }
         animalData.add(animal);
 
-
-
-        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList, farmList);
+        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList);
     }
 
 
@@ -101,14 +97,6 @@ public class AnimalDataView implements Serializable {
         this.raceList = raceList;
     }
 
-    public List<Farm> getFarmList() {
-        return farmList;
-    }
-
-    public void setFarmList(List<Farm> farmList) {
-        this.farmList = farmList;
-    }
-
     public void onRowEdit(RowEditEvent event) {
         animalService.save((Animal) event.getObject());
         init();
@@ -122,12 +110,6 @@ public class AnimalDataView implements Serializable {
         animalService.save(animal);
         init();
     }
-
-    public void delete(){
-        animalService.delete(animal);
-        init();
-    }
-
 
     public AnimalUtils getAnimalUtils() {
         return animalUtils;

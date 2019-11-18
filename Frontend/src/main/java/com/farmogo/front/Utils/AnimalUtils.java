@@ -14,17 +14,14 @@ public class AnimalUtils {
     private List<Animal> animalList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
-    private List<Farm> farmList;
 
     public AnimalUtils(){}
 
-    public AnimalUtils(List<Animal> animalList, List<Race> raceList, List<AnimalType> animalTypeList, List<Farm> farmList) {
+    public AnimalUtils(List<Animal> animalList, List<Race> raceList, List<AnimalType> animalTypeList) {
         this.animalList = animalList;
         this.raceList = raceList;
         this.animalTypeList = animalTypeList;
-        this.farmList = farmList;
     }
-
 
     public List<Animal> getMothersList(){
         return animalList.stream()
@@ -56,14 +53,6 @@ public class AnimalUtils {
         return at.isPresent() ? at.get().getDescription() : "";
     }
 
-    public String farmIdToOfficialId(String farmId){
-        Optional<Farm> farm = farmList.stream()
-                .filter(p -> p.getUuid().equals(farmId))
-                .findFirst();
-
-        return farm.isPresent() ? farm.get().getOfficialId() : "";
-    }
-
     public void setAnimalList(List<Animal> animalList) {
         this.animalList = animalList;
     }
@@ -74,10 +63,6 @@ public class AnimalUtils {
 
     public void setAnimalTypeList(List<AnimalType> animalTypeList) {
         this.animalTypeList = animalTypeList;
-    }
-
-    public void setFarmList(List<Farm> farmList) {
-        this.farmList = farmList;
     }
 
 

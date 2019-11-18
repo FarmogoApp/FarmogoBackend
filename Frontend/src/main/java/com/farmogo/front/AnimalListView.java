@@ -31,8 +31,6 @@ public class AnimalListView implements Serializable {
     @Inject
     AnimalTypesService animalTypesService;
 
-    @Inject
-    FarmService farmService;
 
     @Inject
     GlobalSessionService globalSessionService;
@@ -42,26 +40,20 @@ public class AnimalListView implements Serializable {
     private Animal animal;
 
     private List<Animal> animalList;
-    private List<Farm> farmList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
 
 
     @PostConstruct
     public void init() {
-        // TODO: Doesn't update the farm
         farm = globalSessionService.getFarm();
-        if(farm == null) animalList = animalService.getAll();
-        else animalList = animalService.getAnimalsByFarmId(farm.getUuid());
-
-        // animalList = animalService.getAnimalsByFarmId("5dd152f709043b27fc169968");
-        // animalList = animalService.getAll();
+        if(farm != null) animalList = animalService.getAnimalsByFarmId(farm.getUuid());
 
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
-        farmList = farmService.getAll();
+        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList);
+
         animal = new Animal();
-        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList, farmList);
     }
 
     public List<Animal> getAnimalList() {
@@ -92,16 +84,10 @@ public class AnimalListView implements Serializable {
         this.animalTypeList = animalTypeList;
     }
 
-    public List<Farm> getFarmList() {
-        return farmList;
-    }
-
-    public void setFarmList(List<Farm> farmList) {
-        this.farmList = farmList;
-    }
-
     public void onRowEdit(RowEditEvent event) {
-        animalService.save((Animal) event.getObject());
+        Animal animalEvent = (Animal) event.getObject();
+        animalEvent.setFarmId(farm.getUuid());
+        animalService.save(animalEvent);
         init();
     }
 
@@ -110,6 +96,8 @@ public class AnimalListView implements Serializable {
     }
 
     public void save(){
+
+        animal.setFarmId(farm.getUuid());
         animalService.save(animal);
         init();
     }

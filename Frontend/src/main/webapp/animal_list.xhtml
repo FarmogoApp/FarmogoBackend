@@ -67,14 +67,6 @@
                     </p:cellEditor>
                 </p:column>
 
-                <!-- Farm ID -->
-                <p:column headerText="Farm ID">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.farmIdToOfficialId(elem.farmId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.farmIdToOfficialId(elem.farmId)}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-
                 <!-- Mother ID -->
                 <p:column headerText="Mother official ID">
                     <p:cellEditor>
@@ -91,7 +83,6 @@
                     </p:cellEditor>
                 </p:column>
 
-
                 <!-- Animal Type -->
                 <p:column headerText="Animal type">
                     <p:cellEditor>
@@ -99,7 +90,6 @@
                         <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-
 
                 <!-- Origin-->
                 <p:column headerText="Origin">
@@ -196,15 +186,6 @@
                             <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}" />
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
-                    </p:column>
-
-                    <!-- Farm -->
-                    <h:outputLabel value="Farm"/>
-                    <p:column id="farmColumn">
-                        <p:selectOneMenu id="farmSelect" value="#{animalListView.animal.farmId}">
-                            <f:selectItems value="#{animalListView.farmList}" var="farm" itemLabel="#{farm.officialId}" itemValue="#{farm.uuid}" />
-                        </p:selectOneMenu>
-                        <p:message for="farmSelect"/>
                     </p:column>
 
 
