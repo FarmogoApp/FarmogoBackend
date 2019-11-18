@@ -1,5 +1,6 @@
 package com.farmogo.rest;
 
+import com.farmogo.model.AnimalCounter;
 import com.farmogo.model.Building;
 import com.farmogo.model.Farm;
 import com.farmogo.services.DivisionService;
@@ -36,6 +37,10 @@ public class FarmRs {
         Farm f1 = new Farm();
         f1.setOfficialId("1234");
         f1.setName("farm 1");
+        AnimalCounter AN1 = new AnimalCounter();
+        AN1.setCounter(5555);
+        AN1.setPrefix("SD");
+        f1.setAnimalCounter(AN1);
 
         Building b11 = new Building();
         b11.setName("build 1.1");
@@ -60,6 +65,7 @@ public class FarmRs {
         for (int i = 1; i < 11; i++) {
             f1.setName("Farm " + i);
             f1.setOfficialId("ID " + i);
+            f1.setAnimalCounter(new AnimalCounter("SD", i));
             farmService.save(f1);
         }
 
