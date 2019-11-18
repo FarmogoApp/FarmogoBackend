@@ -22,4 +22,20 @@ public class AnimalTypesRS {
     public List<AnimalType> getAll() {
         return animalTypesService.getAll();
     }
+
+    @GET
+    @Path("test")
+    public String test(){
+        AnimalType animalType = new AnimalType();
+        animalType.setDescription("Cow");
+
+        animalTypesService.save(animalType);
+
+        animalType = new AnimalType();
+        animalType.setDescription("Bull");
+
+        animalTypesService.save(animalType);
+
+        return "OK";
+    }
 }
