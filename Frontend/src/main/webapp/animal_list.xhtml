@@ -27,6 +27,7 @@
             <p:commandButton value="Export as CSV" ajax="false" >
                 <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
+
             <!-- TODO: Excel doesn't work -->
             <p:commandButton value="Export Table as Excel" ajax="false" >
                 <p:dataExporter type="xls" target="animalTable" fileName="Farmogo Animal list"/>
@@ -84,7 +85,7 @@
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type">
+                <p:column headerText="Animal type (Dev?)">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
@@ -130,23 +131,21 @@
                         <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
+                <p:column style="width: 16px;">
+                    <p:link outcome="animal_data">
+                        <li class="pi pi-info-circle"/>
+                        <f:param name="animal" value="#{elem.uuid}"/>
+                    </p:link>
+                </p:column>
+                <p:column style="width: 16px;">
+                    <p:commandLink update="newAnimalDialog"
+                                   oncomplete="PF('newAnimalDialog').show()"
+                                   actionListener="#{animalListView.setAnimal(elem)}">
+                        <li class="pi pi-pencil"/>
+                    </p:commandLink>
+                </p:column>
 
             </p:dataTable>
-
-
-            <p:contextMenu for="animalTable">
-
-                <p:menuitem value="View animal data" outcome="animal_data">
-                     <f:param name="animal" value="712aeeca-1253-4f5f-b8dd-dfeb6541b668"/>
-
-                        <!-- TODO:  Doesn't work... Why?-->
-                        <!-- <f:param name="animal" value="#{animalListView.animal.uuid}"/>-->
-                </p:menuitem>
-
-                <p:menuitem value="Edit" update="newAnimalDialog"
-                            oncomplete="PF('newAnimalDialog').show()"/>
-
-            </p:contextMenu>
 
             <p:confirmDialog global="true">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />

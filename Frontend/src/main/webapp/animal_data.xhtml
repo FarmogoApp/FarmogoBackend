@@ -63,11 +63,8 @@
                 <!-- Farm ID -->
                 <p:column headerText="Farm ID">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText
-                                value="#{animalDataView.animalUtils.farmIdToOfficialId(elem.farmId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText
-                                value="#{animalDataView.animalUtils.farmIdToOfficialId(elem.farmId)}"
-                                style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalDataView.farm.officialId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalDataView.farm.officialId}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -93,7 +90,6 @@
                     </p:cellEditor>
                 </p:column>
 
-
                 <!-- Animal Type -->
                 <p:column headerText="Animal type">
                     <p:cellEditor>
@@ -104,7 +100,6 @@
                                 style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
-
 
                 <!-- Origin-->
                 <p:column headerText="Origin">

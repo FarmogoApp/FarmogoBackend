@@ -49,6 +49,7 @@ public class AnimalDataView implements Serializable {
     private ArrayList<Animal> animalData;
 
 
+
     @PostConstruct
     public void init() {
         farm = globalSessionService.getFarm();
@@ -135,4 +136,11 @@ public class AnimalDataView implements Serializable {
         this.animalData = animalData;
     }
 
+    public Farm getFarm() {
+        return farm;
+    }
+
+    public void setFarm(Farm farm) {
+        this.farm = farm;
+    }
 }
