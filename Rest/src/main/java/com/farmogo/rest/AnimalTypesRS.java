@@ -2,40 +2,44 @@ package com.farmogo.rest;
 
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.model.AnimalType;
+import com.sun.tracing.dtrace.ProviderAttributes;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestScoped
 @Path("animalTypes")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class AnimalTypesRS {
     @Inject
     AnimalTypesService animalTypesService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<AnimalType> getAll() {
         return animalTypesService.getAll();
     }
 
     @GET
-    @Path("test")
-    public String test(){
-        AnimalType animalType = new AnimalType();
-        animalType.setDescription("Cow");
-
-        animalTypesService.save(animalType);
-
-        animalType = new AnimalType();
-        animalType.setDescription("Bull");
-
-        animalTypesService.save(animalType);
-
-        return "OK";
+    @Path("{id}")
+    public AnimalType get(@PathParam("id") String id) {
+        return animalTypesService.get(id);
     }
+
+    @POST
+    public AnimalType save(AnimalType animalType) {  return animalTypesService.save(animalType);}
+
+    @DELETE
+    @Path("{id}")
+    public AnimalType delete(@PathParam("id") String id) {
+        AnimalType animalType = animalTypesService.get(id);
+        if(animalType== null) throw new NotFoundException();
+        animalTypesService.delete(animalType);
+        return animalType;
+    }
+
+
 }

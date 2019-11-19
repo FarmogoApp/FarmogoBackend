@@ -9,6 +9,7 @@ public class Farm implements Serializable {
     private String name;
     private String officialId;
     private List<Building> buildings;
+    private AnimalCounter animalCounter;
 
     public String getUuid() {
         return uuid;
@@ -40,6 +41,14 @@ public class Farm implements Serializable {
 
     public void setBuildings(List<Building> buildings) {
         this.buildings = buildings;
+    }
+
+    public AnimalCounter getAnimalCounter() {
+        return animalCounter;
+    }
+
+    public void setAnimalCounter(AnimalCounter animalCounter) {
+        this.animalCounter = animalCounter;
     }
 
     @Override

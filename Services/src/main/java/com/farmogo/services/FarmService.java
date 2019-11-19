@@ -1,6 +1,7 @@
 package com.farmogo.services;
 
 import com.farmogo.dao.FarmDao;
+import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.farmogo.model.User;
 
@@ -32,8 +33,12 @@ public class FarmService {
         return farmDao.get(id);
     }
 
-    public void save(Farm farm){
-        farmDao.save(farm);
+    public Farm save(Farm farm){
+        return farmDao.save(farm);
+    }
+
+    public void delete(Farm farm) {
+        farmDao.delete(farm);
     }
 
     public void setCurrentFarm(Farm farm){

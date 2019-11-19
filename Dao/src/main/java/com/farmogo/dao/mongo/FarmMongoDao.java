@@ -3,6 +3,7 @@ package com.farmogo.dao.mongo;
 import com.farmogo.dao.FarmDao;
 import com.farmogo.dao.mongo.dto.AnimalTypeMongo;
 import com.farmogo.dao.mongo.dto.FarmMongo;
+import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -48,19 +49,32 @@ public class FarmMongoDao implements FarmDao {
 
     @Override
     public Farm get(String id) {
-        return FarmMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
+        if (id == null) return null;
+        ObjectId key = new ObjectId(id);
+        return FarmMongo.convert(mongoCollection.find(Filters.eq("_id", key)).first());
     }
 
     @Override
-    public void save(Farm farm) {
+    public Farm save(Farm farm) {
         ObjectId key = null;
         if (farm.getUuid() != null) {
             key = new ObjectId(farm.getUuid());
         }
         if (key == null) {
-            mongoCollection.insertOne(FarmMongo.convert(farm));
+            FarmMongo convert = FarmMongo.convert(farm);
+            convert.setUuid(new ObjectId());
+            mongoCollection.insertOne(convert);
+            return FarmMongo.convert(convert);
         } else {
             mongoCollection.replaceOne(Filters.eq("_id", key), FarmMongo.convert(farm));
+            return farm;
+        }
+    }
+
+    public void delete(Farm farm) {
+        if (farm.getUuid() != null) {
+            ObjectId key = new ObjectId(farm.getUuid());
+            mongoCollection.deleteOne(Filters.eq("_id", key));
         }
     }
 }

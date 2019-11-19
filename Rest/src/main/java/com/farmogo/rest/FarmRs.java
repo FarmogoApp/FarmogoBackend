@@ -1,32 +1,45 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.Building;
-import com.farmogo.model.Farm;
-import com.farmogo.services.DivisionService;
-import com.farmogo.model.Division;
+import com.farmogo.model.*;
 import com.farmogo.services.FarmService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 
 @RequestScoped
 @Path("farms")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class FarmRs {
     @Inject
     FarmService farmService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Farm> getAll() {
         return farmService.getAll();
     }
 
+    @GET
+    @Path("{id}")
+    public Farm get(@PathParam("id") String id) {
+        return farmService.get(id);
+    }
+
+    @POST
+    public Farm save(Farm farm) {  return farmService.save(farm);}
+
+    @DELETE
+    @Path("{id}")
+    public Farm delete(@PathParam("id") String id) {
+        Farm farm = farmService.get(id);
+        if(farm== null) throw new NotFoundException();
+        farmService.delete(farm);
+        return farm;
+    }
 
     @GET
     @Path("test")
@@ -36,6 +49,10 @@ public class FarmRs {
         Farm f1 = new Farm();
         f1.setOfficialId("1234");
         f1.setName("farm 1");
+        AnimalCounter AN1 = new AnimalCounter();
+        AN1.setCounter(5555);
+        AN1.setPrefix("SD");
+        f1.setAnimalCounter(AN1);
 
         Building b11 = new Building();
         b11.setName("build 1.1");
@@ -60,6 +77,7 @@ public class FarmRs {
         for (int i = 1; i < 11; i++) {
             f1.setName("Farm " + i);
             f1.setOfficialId("ID " + i);
+            f1.setAnimalCounter(new AnimalCounter("SD", i));
             farmService.save(f1);
         }
 

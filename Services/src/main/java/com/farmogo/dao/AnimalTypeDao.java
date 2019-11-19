@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AnimalTypeDao {
     List<AnimalType> getAll();
-    void save(AnimalType animalType);
+    AnimalType save(AnimalType animalType);
     void delete(AnimalType animalType);
     AnimalType get(String id);
 }
