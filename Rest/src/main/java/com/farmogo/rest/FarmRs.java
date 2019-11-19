@@ -1,33 +1,45 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.AnimalCounter;
-import com.farmogo.model.Building;
-import com.farmogo.model.Farm;
-import com.farmogo.services.DivisionService;
-import com.farmogo.model.Division;
+import com.farmogo.model.*;
 import com.farmogo.services.FarmService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 
 @RequestScoped
 @Path("farms")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class FarmRs {
     @Inject
     FarmService farmService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Farm> getAll() {
         return farmService.getAll();
     }
 
+    @GET
+    @Path("{id}")
+    public Farm get(@PathParam("id") String id) {
+        return farmService.get(id);
+    }
+
+    @POST
+    public Farm save(Farm farm) {  return farmService.save(farm);}
+
+    @DELETE
+    @Path("{id}")
+    public Farm delete(@PathParam("id") String id) {
+        Farm farm = farmService.get(id);
+        if(farm== null) throw new NotFoundException();
+        farmService.delete(farm);
+        return farm;
+    }
 
     @GET
     @Path("test")

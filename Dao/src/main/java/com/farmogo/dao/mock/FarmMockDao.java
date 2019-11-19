@@ -42,7 +42,13 @@ public class FarmMockDao implements FarmDao {
     }
 
     @Override
-    public void save(Farm farm) {
-
+    public void delete(Farm farm) {
     }
+
+    @Override
+    public Farm save(Farm farm) {
+        return null;
+    }
+
+
 }
