@@ -10,7 +10,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
-import sun.util.resources.cldr.id.CurrencyNames_id;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;

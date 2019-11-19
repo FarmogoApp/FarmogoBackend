@@ -22,7 +22,9 @@ public abstract class IncidenceMongo {
     private LocalDate dueDate;
     private boolean done;
     private LocalDateTime created;
+    private ObjectId createdBy;
     private ObjectId animalId;
+    private ObjectId farm;
 
     public IncidenceMongo(IncidenceType incidenceType) {
         type = incidenceType;
@@ -76,6 +78,22 @@ public abstract class IncidenceMongo {
 
     public void setAnimalId(ObjectId animalId) {
         this.animalId = animalId;
+    }
+
+    public ObjectId getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(ObjectId createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public ObjectId getFarm() {
+        return farm;
+    }
+
+    public void setFarm(ObjectId farm) {
+        this.farm = farm;
     }
 
     public static IncidenceMongo convert(Incidence incidence) {

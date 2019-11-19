@@ -2,6 +2,7 @@ package com.farmogo.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class Farm implements Serializable {
     private String uuid;
@@ -48,5 +49,20 @@ public class Farm implements Serializable {
 
     public void setAnimalCounter(AnimalCounter animalCounter) {
         this.animalCounter = animalCounter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Farm farm = (Farm) o;
+        return Objects.equals(uuid, farm.uuid) &&
+                name.equals(farm.name) &&
+                officialId.equals(farm.officialId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name, officialId);
     }
 }

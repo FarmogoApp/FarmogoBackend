@@ -18,6 +18,7 @@ public class GlobalSessionService implements Serializable {
         // TODO: mock data. Remove when login are implemented
         user = new User();
         user.setName("The Lonely Farmer");
+
     }
 
     public User getUser() {
