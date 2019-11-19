@@ -1,0 +1,241 @@
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="content">
+        <h:head>
+            <title>Animal List</title>
+        </h:head>
+
+        <h1>Animal List</h1>
+        <h:form id="animalListForm">
+
+            <p:commandButton value="Add"
+                             icon="pi pi-plus-circle"
+                             actionListener="#{animalListView.clearSelection}"
+                             update="newAnimalDialog"
+                             oncomplete="PF('newAnimalDialog').show()"
+            />
+
+
+            <p:commandButton value="Export as XML" ajax="false" >
+                <p:dataExporter type="xml" target="animalTable" fileName="Farmogo Animal list"/>
+            </p:commandButton>
+            <p:commandButton value="Export as CSV" ajax="false" >
+                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
+            </p:commandButton>
+
+            <!-- TODO: Excel doesn't work -->
+            <p:commandButton value="Export Table as Excel" ajax="false" >
+                <p:dataExporter type="xls" target="animalTable" fileName="Farmogo Animal list"/>
+            </p:commandButton>
+            <p:commandButton value="Export Table as PDF" ajax="false" >
+                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
+            </p:commandButton>
+
+            <p:dataTable
+                    id="animalTable"
+                    value="#{animalListView.animalList}"
+                    var="elem"
+                    rowKey="#{elem.uuid}"
+                    selectionMode="single"
+                    selection="#{animalListView.animal}">
+
+                <!-- UUID (Only for development)-->
+                <p:column headerText="UUID (Dev)">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Tag ID (Only for development)-->
+                <p:column headerText="Tag ID (Dev)">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Official ID -->
+                <p:column headerText="Official ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Mother ID -->
+                <p:column headerText="Mother official ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Race -->
+                <p:column headerText="Race">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Animal Type -->
+                <p:column headerText="Animal type (Dev?)">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Origin-->
+                <p:column headerText="Origin">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Sex -->
+                <p:column headerText="Sex">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.sex}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.sex}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Birth date -->
+                <p:column headerText="Birth date">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{elem.birthDay}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.birthDay}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Discharge Date -->
+                <p:column headerText="Discharge date">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{elem.dischargeDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column style="width: 16px;">
+                    <p:link outcome="animal_data">
+                        <li class="pi pi-info-circle"/>
+                        <f:param name="animal" value="#{elem.uuid}"/>
+                    </p:link>
+                </p:column>
+                <p:column style="width: 16px;">
+                    <p:commandLink update="newAnimalDialog"
+                                   oncomplete="PF('newAnimalDialog').show()"
+                                   actionListener="#{animalListView.setAnimal(elem)}">
+                        <li class="pi pi-pencil"/>
+                    </p:commandLink>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+            </p:confirmDialog>
+
+        </h:form>
+
+        <p:dialog modal="false" closable="true" id="newAnimalDialog" widgetVar="newAnimalDialog">
+            <f:facet name="header">
+                New Animal
+            </f:facet>
+            <h:form id="newAnimal">
+                <p:panelGrid columns="2">
+
+                    <!-- Origin -->
+                    <h:outputLabel value="Origin"/>
+                    <p:column id="originColumn">
+                        <p:inputText id="origin" value="#{animalListView.animal.origin}" />
+                        <p:message for="origin"/>
+                    </p:column>
+
+                    <!-- Sex -->
+                    <h:outputLabel value="Sex"/>
+                    <p:column id="sexColumn">
+                        <p:selectOneMenu id="sexSelect" value="#{animalListView.animal.sex}">
+                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                        </p:selectOneMenu>
+                        <p:message for="sexSelect"/>
+                    </p:column>
+
+                    <!-- Animal type-->
+                    <h:outputLabel value="Animal type"/>
+                    <p:column id="animalTypeColumn">
+                        <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
+                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}" />
+                        </p:selectOneMenu>
+                        <p:message for="raceSelect"/>
+                    </p:column>
+
+
+                    <!-- Race -->
+                    <h:outputLabel value="Race"/>
+                    <p:column id="raceColumn">
+                        <p:selectOneMenu id="raceSelect" value="#{animalListView.animal.raceId}">
+                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.uuid}" />
+                        </p:selectOneMenu>
+                        <p:message for="raceSelect"/>
+                    </p:column>
+
+                    <!-- Mother Id -->
+                    <h:outputLabel value="Mother ID"/>
+                    <p:column id="motherIdColumn">
+                        <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}">
+                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother" itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}" />
+                        </p:selectOneMenu>
+                        <p:message for="motherIdSelect"/>
+                    </p:column>
+
+                    <!-- Birth date -->
+                    <h:outputLabel value="Birth date"/>
+                    <p:column id="birthDateColumn">
+                        <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true" pattern="dd/MM/yyyy"/>
+                        <p:message for="birthDate"/>
+                    </p:column>
+
+                    <!-- Discharge date -->
+                    <h:outputLabel value="Discharge Date"/>
+                    <p:column id="dischargeDateColumn">
+                        <p:datePicker id="dischargeDate" value="#{animalListView.animal.dischargeDate}" monthNavigator="true" pattern="dd/MM/yyyy"/>
+                        <p:message for="dischargeDate"/>
+                    </p:column>
+
+                    <!-- Official ID -->
+                    <h:outputLabel value="Official ID"/>
+                    <p:column id="officialIdColumn">
+                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" />
+                        <p:message for="officialID"/>
+                    </p:column>
+
+                    <p:column/>
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{animalListView.save}"
+                                     update=":animalListForm:animalTable,originColumn"
+                                     oncomplete="PF('newAnimalDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>

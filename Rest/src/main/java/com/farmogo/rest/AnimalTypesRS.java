@@ -1,7 +1,7 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.AnimalType;
 import com.farmogo.services.AnimalTypesService;
+import com.farmogo.model.AnimalType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
