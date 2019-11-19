@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
+import static jdk.nashorn.internal.objects.NativeFunction.function;
+
 @Stateless
 public class AnimalTypeMongoDao implements AnimalTypeDao {
 
@@ -47,15 +50,20 @@ public class AnimalTypeMongoDao implements AnimalTypeDao {
                 .collect(Collectors.toList());
     }
 
-    public void save(AnimalType animalType) {
+    public AnimalType save(AnimalType animalType) {
         ObjectId key = null;
         if (animalType.getAnimalType() != null) {
             key = new ObjectId(animalType.getAnimalType());
         }
         if (key == null) {
-            mongoCollection.insertOne(AnimalTypeMongo.convert(animalType));
+
+            AnimalTypeMongo convert = AnimalTypeMongo.convert(animalType);
+            convert.setAnimalType(new ObjectId());
+            mongoCollection.insertOne(convert);
+            return AnimalTypeMongo.convert(convert);
         } else {
             mongoCollection.replaceOne(Filters.eq("_id", key), AnimalTypeMongo.convert(animalType));
+            return animalType;
         }
     }
 
