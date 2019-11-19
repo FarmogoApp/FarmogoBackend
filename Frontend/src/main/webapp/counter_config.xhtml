@@ -18,7 +18,7 @@
     <h:form id="counterForm">
         <h3>Farm Counter Configuration</h3>
         <p:inputText value="#{configView.animalCounter.counter}"/>
-        <p:commandButton value="Save" action="#{growlView.saveMessage}" actionListener="#{configView.save}"/>
+        <p:commandButton value="Save" actionListener="#{configView.save}" update=":growl"/>
 
     </h:form>
 

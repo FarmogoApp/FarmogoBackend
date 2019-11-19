@@ -12,30 +12,34 @@ import java.util.List;
 
 @RequestScoped
 @Path("animalTypes")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class AnimalTypesRS {
     @Inject
     AnimalTypesService animalTypesService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<AnimalType> getAll() {
         return animalTypesService.getAll();
     }
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public AnimalType get(@PathParam("id") String id) {
         return animalTypesService.get(id);
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void save(AnimalType animalType) { animalTypesService.save(animalType);}
+    public AnimalType save(AnimalType animalType) {  return animalTypesService.save(animalType);}
 
     @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void delete(AnimalType animalType) { animalTypesService.delete(animalType);}
+    @Path("{id}")
+    public AnimalType delete(@PathParam("id") String id) {
+        AnimalType animalType = animalTypesService.get(id);
+        if(animalType== null) throw new NotFoundException();
+        animalTypesService.delete(animalType);
+        return animalType;
+    }
 
 
 }

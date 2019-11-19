@@ -27,4 +27,8 @@ public class AnimalCounter {
     public void setCounter(int counter) {
         this.counter = counter;
     }
+
+    public String toString(){
+        return prefix + " " + counter;
+    }
 }

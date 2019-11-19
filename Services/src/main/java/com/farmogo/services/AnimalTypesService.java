@@ -23,8 +23,8 @@ public class AnimalTypesService {
         return animalTypeDAO.get(id);
     }
 
-    public void save(AnimalType animalType) {
-        animalTypeDAO.save(animalType);
+    public AnimalType save(AnimalType animalType) {
+        return animalTypeDAO.save(animalType);
     }
 
     public void delete(AnimalType animalType) {
