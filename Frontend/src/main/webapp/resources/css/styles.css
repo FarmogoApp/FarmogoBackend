@@ -18,6 +18,7 @@ div#top>.ui-layout-unit-content{
 div#menu>.ui-layout-unit-content,
 div#top>.ui-layout-unit-content{
     padding-left: 5px;
+    overflow: hidden;
 }
 
 button.leftmenu{
@@ -30,4 +31,9 @@ button.leftmenu{
 }
 .bold{
     font-weight: bold;
+}
+
+#panelCenter, #panelCenter_content{
+    padding: 0px !important;
+    margin: 0px !important;
 }

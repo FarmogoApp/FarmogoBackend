@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
-import static jdk.nashorn.internal.objects.NativeFunction.function;
 
 @Stateless
 public class AnimalTypeMongoDao implements AnimalTypeDao {

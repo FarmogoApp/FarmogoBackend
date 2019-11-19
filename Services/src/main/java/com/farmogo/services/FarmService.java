@@ -46,6 +46,13 @@ public class FarmService {
     }
 
     public Farm getCurrentFarm(){
-        return globalSessionService.getFarm();
+        Farm farm = globalSessionService.getFarm();
+        if (farm == null){
+            List<Farm> farms = getFarms();
+            if (!farms.isEmpty()){
+                farm = farms.get(0);
+            }
+        }
+        return farm;
     }
 }
