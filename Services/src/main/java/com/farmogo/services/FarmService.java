@@ -1,7 +1,6 @@
 package com.farmogo.services;
 
 import com.farmogo.dao.FarmDao;
-import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.farmogo.model.User;
 
@@ -25,7 +24,7 @@ public class FarmService {
          return farmDao.getAll();
     }
 
-    public Farm get(String id) {
+    public com.farmogo.model.Farm get(String id) {
         return farmDao.get(id);
     }
 

@@ -1,8 +1,7 @@
 package com.farmogo.rest;
 
-import com.farmogo.services.AnimalTypesService;
 import com.farmogo.model.AnimalType;
-import com.sun.tracing.dtrace.ProviderAttributes;
+import com.farmogo.services.AnimalTypesService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

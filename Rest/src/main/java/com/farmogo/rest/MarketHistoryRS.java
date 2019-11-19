@@ -5,6 +5,7 @@ import com.farmogo.model.MarketHistory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,6 +14,8 @@ import java.util.List;
 
 @RequestScoped
 @Path("marketHistory")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class MarketHistoryRS {
     @Inject
     MarketHistoryService marketHistoryService;
