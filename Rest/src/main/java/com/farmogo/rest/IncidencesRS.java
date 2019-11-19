@@ -8,9 +8,7 @@ import com.farmogo.services.IncidencesService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,7 +24,14 @@ public class IncidencesRS {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Incidence> getAll() {
         return incidencesService.getAll();
+    }@POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Incidence create(Incidence incidence){
+        System.out.println(incidence.getClass().getName());
+        return incidence;
     }
+
 
     @GET
     @Path("test")
