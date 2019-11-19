@@ -24,7 +24,7 @@ public class ConfigView implements Serializable {
 
     @PostConstruct
     public void init(){
-        farm = farmService.get("5dd2da5155d353e9ef6df9eb");
+        farm = farmService.getCurrentFarm();
     }
 
     public AnimalCounter getAnimalCounter() {
