@@ -16,17 +16,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+
 @Stateless
 public class AnimalTypeMongoDao implements AnimalTypeDao {
 
-    private static final String COLLECTION = "AnimalTypes";
+    public static final String COLLECTION = "AnimalTypes";
     @Inject
     CodecRegistry codecRegistry;
 
     @Inject
     MongoDatabase mongoDatabase;
 
-    private MongoCollection<AnimalTypeMongo> mongoCollection;
+    MongoCollection<AnimalTypeMongo> mongoCollection;
 
     @PostConstruct
     public void init() {

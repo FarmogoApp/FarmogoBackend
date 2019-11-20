@@ -28,7 +28,9 @@ public class IncidencesRS {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(Incidence incidence) { incidencesService.save(incidence);}
+    public void save(Incidence incidence) { 
+    	incidencesService.save(incidence);
+    }
 
     @GET
     @Path("test")

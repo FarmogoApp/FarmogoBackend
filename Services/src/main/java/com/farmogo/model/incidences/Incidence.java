@@ -3,10 +3,22 @@ package com.farmogo.model.incidences;
 import com.farmogo.model.Animal;
 import com.farmogo.model.Farm;
 import com.farmogo.model.User;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = IncidenceWeight.class, name = "WEIGHT"),
+        @JsonSubTypes.Type(value = IncidenceTreatment.class, name = "TREATMENT"),
+        @JsonSubTypes.Type(value = IncidencePregnancy.class, name = "PREGNANCY"),
+        @JsonSubTypes.Type(value = IncidenceGetoff.class, name = "GETOFF")
+})
 public abstract class Incidence {
     private String uuid;
     private IncidenceType type;

@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 public class AnimalListView implements Serializable {
 
     @Inject
+    FarmService farmService;
+
+    @Inject
     AnimalService animalService;
 
     @Inject
@@ -31,9 +34,6 @@ public class AnimalListView implements Serializable {
     @Inject
     AnimalTypesService animalTypesService;
 
-
-    @Inject
-    GlobalSessionService globalSessionService;
 
     private AnimalUtils animalUtils;
     private Farm farm;
@@ -46,7 +46,7 @@ public class AnimalListView implements Serializable {
 
     @PostConstruct
     public void init() {
-        farm = globalSessionService.getFarm();
+        farm = farmService.getCurrentFarm();
         if(farm != null) animalList = animalService.getAnimalsByFarmId(farm.getUuid());
 
         raceList = raceService.getAll();
