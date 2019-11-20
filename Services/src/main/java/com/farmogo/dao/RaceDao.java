@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RaceDao {
     List<Race> getAll();
-    void save(Race race);
+    Race save(Race race);
     void delete(Race race);
     Race get(String id);
 }
