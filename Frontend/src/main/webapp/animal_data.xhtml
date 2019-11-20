@@ -14,18 +14,11 @@
 
         <h:form id="animalDataForm">
 
-            <p:commandButton value="Export as XML" ajax="false" >
-                <p:dataExporter type="xml" target="animalTable" fileName="Farmogo Animal data"/>
-            </p:commandButton>
-            <p:commandButton value="Export as CSV" ajax="false" >
+            <p:commandButton value="CSV" ajax="false" >
                 <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal data"/>
             </p:commandButton>
 
-            <!-- TODO: Excel doesn't work -->
-            <p:commandButton value="Export Table as Excel" ajax="false" >
-                <p:dataExporter type="xls" target="animalTable" fileName="Farmogo Animal data"/>
-            </p:commandButton>
-            <p:commandButton value="Export Table as PDF" ajax="false" >
+            <p:commandButton value="PDF" ajax="false" >
                 <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal data"/>
             </p:commandButton>
 
@@ -57,14 +50,6 @@
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-
-                <!-- Farm ID -->
-                <p:column headerText="Farm ID">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalDataView.farm.officialId}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalDataView.farm.officialId}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 

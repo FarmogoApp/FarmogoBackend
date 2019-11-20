@@ -2,6 +2,7 @@ package com.farmogo.services;
 
 import com.farmogo.dao.AnimalDao;
 import com.farmogo.model.Animal;
+import com.farmogo.model.Farm;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -22,8 +23,12 @@ public class AnimalService {
         return animalDao.getAnimalsByFarmId(farmId);
     }
 
-    public void save(Animal animal){
-        animalDao.save(animal);
+    public Animal get(String id) {
+        return animalDao.get(id);
+    }
+
+    public Animal save(Animal animal){
+        return animalDao.save(animal);
     }
 
     public void delete(Animal animal) {
