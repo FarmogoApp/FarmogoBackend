@@ -1,7 +1,9 @@
 package com.farmogo.front;
 
-import com.farmogo.model.Animal;
-import com.farmogo.model.incidences.*;
+import com.farmogo.model.incidences.GetoffType;
+import com.farmogo.model.incidences.Incidence;
+import com.farmogo.model.incidences.PregnancyType;
+import com.farmogo.model.incidences.TreatmentType;
 import com.farmogo.services.IncidencesService;
 
 import javax.annotation.PostConstruct;
@@ -30,19 +32,13 @@ public class IncidenceView implements Serializable {
     public void init() {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map<String,String> params =
+        Map<String, String> params =
                 facesContext.getExternalContext().getRequestParameterMap();
-        if (params.containsKey("animal")){
-            Animal animal = new Animal();
-            animal.setUuid(params.get("animal"));
-            incidenceList = incidencesService.getAll(animal);
-        }else{
+        if (params.containsKey("animalId")) {
+            incidenceList = incidencesService.getAll(params.get("animalId"));
+        } else {
             incidenceList = incidencesService.getAll();
         }
-
-
-        String action = params.get("animalId");
-
     }
 
     public List<Incidence> getIncidenceList() {
@@ -66,17 +62,19 @@ public class IncidenceView implements Serializable {
         return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 
-    public void save(){
+    public void save() {
         incidencesService.save(incidence);
     }
 
-    public PregnancyType[] getPregnancyTypes(){
+    public PregnancyType[] getPregnancyTypes() {
         return PregnancyType.values();
     }
-    public TreatmentType[] getTreatmentTypes(){
+
+    public TreatmentType[] getTreatmentTypes() {
         return TreatmentType.values();
     }
-    public GetoffType[] getGetoffTypes(){
+
+    public GetoffType[] getGetoffTypes() {
         return GetoffType.values();
     }
 
