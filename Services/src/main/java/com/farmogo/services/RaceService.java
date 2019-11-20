@@ -18,8 +18,8 @@ public class RaceService {
         return raceDAO.getAll();
     }
 
-    public void save(Race race){
-        raceDAO.save(race);
+    public Race save(Race race){
+        return raceDAO.save(race);
     }
 
     public void delete(Race race) {
