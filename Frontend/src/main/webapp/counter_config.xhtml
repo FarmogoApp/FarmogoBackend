@@ -17,6 +17,9 @@
 <h:body>
     <h:form id="counterForm">
         <h3>Farm Counter Configuration</h3>
+        <p:outputLabel value="Prefix: "/>
+        <p:inputText value="#{configView.animalCounter.prefix}"/>
+        <p:outputLabel value="Counter: "/>
         <p:inputText value="#{configView.animalCounter.counter}"/>
         <p:commandButton value="Save" actionListener="#{configView.save}" update=":growl"/>
 
@@ -26,18 +29,5 @@
 
     </ui:define>
 </ui:composition>
-
-<h:form>
-    <p:growl id="growl" showDetail="true" sticky="true" />
-
-    <p:panel header="Growl">
-        <h:panelGrid columns="2" cellpadding="5">
-            <p:outputLabel for="msg" value="Message:" />
-            <p:inputText id="msg" value="#{growlView.message}" required="true" />
-        </h:panelGrid>
-
-        <p:commandButton value="Save" action="#{growlView.saveMessage}" update="@form" />
-    </p:panel>
-</h:form>
 
 </html>

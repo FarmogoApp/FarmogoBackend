@@ -16,20 +16,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
-import static jdk.nashorn.internal.objects.NativeFunction.function;
-
 @Stateless
 public class AnimalTypeMongoDao implements AnimalTypeDao {
 
-    public static final String COLLECTION = "AnimalTypes";
+    private static final String COLLECTION = "AnimalTypes";
     @Inject
     CodecRegistry codecRegistry;
 
     @Inject
     MongoDatabase mongoDatabase;
 
-    MongoCollection<AnimalTypeMongo> mongoCollection;
+    private MongoCollection<AnimalTypeMongo> mongoCollection;
 
     @PostConstruct
     public void init() {
