@@ -35,7 +35,8 @@ public class AnimalDataView implements Serializable {
     AnimalTypesService animalTypesService;
 
     @Inject
-    GlobalSessionService globalSessionService;
+    FarmService farmService;
+
 
     private List<Animal> animalList;
     private List<Race> raceList;
@@ -45,20 +46,17 @@ public class AnimalDataView implements Serializable {
     private AnimalUtils animalUtils;
     private Farm farm;
 
-    // Exporter needs a list...
     private ArrayList<Animal> animalData;
-
 
 
     @PostConstruct
     public void init() {
-        farm = globalSessionService.getFarm();
+        farm = farmService.getCurrentFarm();
+        if(farm != null) animalList = animalService.getAnimalsByFarmId(farm.getUuid());
 
-        animalList = animalService.getAnimalsByFarmId(farm.getUuid());
         raceList = raceService.getAll();
         animalTypeList = animalTypesService.getAll();
 
-        animalData = new ArrayList<>();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
 
@@ -68,6 +66,9 @@ public class AnimalDataView implements Serializable {
         } else {
             animal = new Animal();
         }
+
+        // Exporter needs a list...
+        animalData = new ArrayList<>();
         animalData.add(animal);
 
         animalUtils = new AnimalUtils(animalList, raceList, animalTypeList);
