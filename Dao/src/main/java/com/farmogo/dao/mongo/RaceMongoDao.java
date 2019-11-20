@@ -39,7 +39,7 @@ public class RaceMongoDao implements RaceDao {
     }
 
     @Override
-    public void save(Race race) {
+    public Race save(Race race) {
         RaceMongoDTO obj = mongoCollection.find(Filters.eq("_id", race.getUuid())).first();
 
         if (obj == null) {
@@ -48,6 +48,7 @@ public class RaceMongoDao implements RaceDao {
         } else{
             mongoCollection.replaceOne(Filters.eq("_id", race.getUuid()),new RaceMongoDTO(race));
         }
+        return race;
     }
 
     @Override

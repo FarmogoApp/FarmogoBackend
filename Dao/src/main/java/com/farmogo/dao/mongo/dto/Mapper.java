@@ -1,10 +1,7 @@
 package com.farmogo.dao.mongo.dto;
 
 import com.farmogo.dao.mongo.ObjectIdConverter;
-import com.farmogo.model.AnimalType;
-import com.farmogo.model.Building;
-import com.farmogo.model.Division;
-import com.farmogo.model.Farm;
+import com.farmogo.model.*;
 import com.farmogo.model.incidences.IncidenceGetoff;
 import com.farmogo.model.incidences.IncidencePregnancy;
 import com.farmogo.model.incidences.IncidenceTreatment;
@@ -50,6 +47,7 @@ public class Mapper {
         mapperFactory.classMap(Farm.class, FarmMongo.class).byDefault().register();
         mapperFactory.classMap(Building.class, BuildingMongo.class).byDefault().register();
         mapperFactory.classMap(Division.class, DivisionMongo.class).byDefault().register();
+        mapperFactory.classMap(MarketHistory.class, MarketHistoryMongo.class).byDefault().register();
         mapperFacade = mapperFactory.getMapperFacade();
     }
 
