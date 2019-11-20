@@ -20,19 +20,11 @@
                              oncomplete="PF('newAnimalDialog').show()"
             />
 
-
-            <p:commandButton value="Export as XML" ajax="false" >
-                <p:dataExporter type="xml" target="animalTable" fileName="Farmogo Animal list"/>
-            </p:commandButton>
-            <p:commandButton value="Export as CSV" ajax="false" >
+            <p:commandButton value="CSV" ajax="false" >
                 <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
 
-            <!-- TODO: Excel doesn't work -->
-            <p:commandButton value="Export Table as Excel" ajax="false" >
-                <p:dataExporter type="xls" target="animalTable" fileName="Farmogo Animal list"/>
-            </p:commandButton>
-            <p:commandButton value="Export Table as PDF" ajax="false" >
+            <p:commandButton value="PDF" ajax="false" >
                 <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
 
@@ -131,12 +123,16 @@
                         <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
+
+                <!-- Animal Data -->
                 <p:column style="width: 16px;">
                     <p:link outcome="animal_data">
                         <li class="pi pi-info-circle"/>
                         <f:param name="animal" value="#{elem.uuid}"/>
                     </p:link>
                 </p:column>
+
+                <!-- Edit Animal -->
                 <p:column style="width: 16px;">
                     <p:commandLink update="newAnimalDialog"
                                    oncomplete="PF('newAnimalDialog').show()"
@@ -160,6 +156,29 @@
             </f:facet>
             <h:form id="newAnimal">
                 <p:panelGrid columns="2">
+
+                    <!-- Official ID -->
+                    <h:outputLabel value="Official ID"/>
+                    <p:column id="officialIdColumn">
+                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" />
+                        <p:message for="officialID"/>
+                    </p:column>
+
+                    <!-- Birth date -->
+                    <h:outputLabel value="Birth date"/>
+                    <p:column id="birthDateColumn">
+                        <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true" pattern="dd/MM/yyyy"/>
+                        <p:message for="birthDate"/>
+                    </p:column>
+
+                    <!-- Mother Id -->
+                    <h:outputLabel value="Mother ID"/>
+                    <p:column id="motherIdColumn">
+                        <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}" editable="true">
+                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother" itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}" />
+                        </p:selectOneMenu>
+                        <p:message for="motherIdSelect"/>
+                    </p:column>
 
                     <!-- Origin -->
                     <h:outputLabel value="Origin"/>
@@ -195,36 +214,6 @@
                             <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.uuid}" />
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
-                    </p:column>
-
-                    <!-- Mother Id -->
-                    <h:outputLabel value="Mother ID"/>
-                    <p:column id="motherIdColumn">
-                        <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}">
-                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother" itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}" />
-                        </p:selectOneMenu>
-                        <p:message for="motherIdSelect"/>
-                    </p:column>
-
-                    <!-- Birth date -->
-                    <h:outputLabel value="Birth date"/>
-                    <p:column id="birthDateColumn">
-                        <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true" pattern="dd/MM/yyyy"/>
-                        <p:message for="birthDate"/>
-                    </p:column>
-
-                    <!-- Discharge date -->
-                    <h:outputLabel value="Discharge Date"/>
-                    <p:column id="dischargeDateColumn">
-                        <p:datePicker id="dischargeDate" value="#{animalListView.animal.dischargeDate}" monthNavigator="true" pattern="dd/MM/yyyy"/>
-                        <p:message for="dischargeDate"/>
-                    </p:column>
-
-                    <!-- Official ID -->
-                    <h:outputLabel value="Official ID"/>
-                    <p:column id="officialIdColumn">
-                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" />
-                        <p:message for="officialID"/>
                     </p:column>
 
                     <p:column/>
