@@ -47,7 +47,7 @@ public class AnimalMongoDao implements AnimalDao {
     }
 
     @Override
-    public void save(Animal animal) {
+    public Animal save(Animal animal) {
         AnimalMongoDTO obj = mongoCollection.find(Filters.eq("_id", animal.getUuid())).first();
 
         if (obj == null) {
@@ -56,6 +56,7 @@ public class AnimalMongoDao implements AnimalDao {
         } else{
             mongoCollection.replaceOne(Filters.eq("_id", animal.getUuid()),new AnimalMongoDTO(animal));
         }
+        return animal;
     }
 
     @Override
