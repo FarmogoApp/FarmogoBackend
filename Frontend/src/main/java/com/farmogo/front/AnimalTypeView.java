@@ -5,6 +5,8 @@ import com.farmogo.model.AnimalType;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,12 +59,16 @@ public class AnimalTypeView implements Serializable {
 
     public void save(){
         animalTypesService.save(animalType);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Created Successfully", animalType.getDescription()) );
         init();
     }
 
     public void delete(){
 
         animalTypesService.delete(animalType);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Deleted Successfully", animalType.getDescription()) );
         init();
     }
 

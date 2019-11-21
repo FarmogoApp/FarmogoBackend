@@ -51,7 +51,7 @@
             <p:contextMenu for="animalTypesTable">
                 <p:menuitem value="Edit" update="newAnimalTypeDialog"
                             oncomplete="PF('newAnimalTypeDialog').show()"/>
-                <p:menuitem value="Delete" update="animalTypesTable" action="#{animalTypeView.delete}">
+                <p:menuitem value="Delete" update="animalTypesTable :growl" action="#{animalTypeView.delete}">
                     <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
                 </p:menuitem>
             </p:contextMenu>
@@ -81,7 +81,7 @@
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{animalTypeView.save}"
-                                     update=":listAnimalForm:animalTypesTable"
+                                     update=":listAnimalForm:animalTypesTable :growl"
                                      oncomplete="PF('newAnimalTypeDialog').hide()"/>
                 </p:panelGrid>
             </h:form>

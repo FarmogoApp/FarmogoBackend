@@ -6,6 +6,8 @@ import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -56,12 +58,15 @@ public class RaceView implements Serializable {
 
     public void save(){
         raceService.save(race);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Created Successfully", race.getName()) );
         init();
     }
 
     public void delete(){
-
         raceService.delete(race);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Deleted Successfully", race.getName()) );
         init();
     }
 
