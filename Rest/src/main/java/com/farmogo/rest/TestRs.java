@@ -6,9 +6,11 @@ import com.farmogo.services.*;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.ws.soap.Addressing;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -18,6 +20,9 @@ import java.util.Arrays;
 @Produces(MediaType.APPLICATION_JSON)
 
 public class TestRs {
+    @Inject
+    AdminService adminService;
+
     @Inject
     AnimalTypesService animalTypesService;
 
@@ -36,6 +41,9 @@ public class TestRs {
     @GET
     @Path("database")
     public String test() {
+        /* Drop All database */
+        adminService.clearDatabase();
+
         /*Create animal types*/
         AnimalType animalType = new AnimalType();
         animalType.setDescription("Cow");
@@ -52,7 +60,7 @@ public class TestRs {
         AnimalType animalType3 = new AnimalType();
         animalType3.setDescription("Calf");
         animalType3.setIcon("CalfIcon");
-        AnimalType animalTypeId3= animalTypesService.save(animalType3);
+        AnimalType animalTypeId3 = animalTypesService.save(animalType3);
         animalTypesService.save(animalType3);
 
 
@@ -84,7 +92,7 @@ public class TestRs {
         d11.setName("division 1.1");
         Division d12 = new Division();
         d12.setName("division 1.2");
-        b1.setDivisions(Arrays.asList(d11,d12));
+        b1.setDivisions(Arrays.asList(d11, d12));
 
         Building b2 = new Building();
         b2.setName("Build 2");
@@ -92,8 +100,8 @@ public class TestRs {
         d21.setName("division 2.1");
         Division d22 = new Division();
         d22.setName("division 2.2");
-        b2.setDivisions(Arrays.asList(d21,d22));
-        farm.setBuildings(Arrays.asList(b1,b2));
+        b2.setDivisions(Arrays.asList(d21, d22));
+        farm.setBuildings(Arrays.asList(b1, b2));
         Farm farmA = farmService.save(farm);
 
         /*Create animals*/
@@ -103,7 +111,7 @@ public class TestRs {
         animal.setAnimalTypeId(animalTypeId.getAnimalType());
         animal.setRaceId(raceA.getUuid());
         animal.setFarmId(farmA.getUuid());
-        animal.setMotherId("");
+       // animal.setMotherId("");
         Animal animalA = animalService.save(animal);
 
         Animal animal2 = new Animal();
@@ -112,11 +120,11 @@ public class TestRs {
         animal2.setAnimalTypeId(animalTypeId.getAnimalType());
         animal2.setRaceId(raceB.getUuid());
         animal2.setFarmId(farmA.getUuid());
-        animal2.setMotherId("");
+        //animal2.setMotherId()
         Animal animalB = animalService.save(animal2);
 
         User user = new User();
-        user.setUuid("5dd0227098aa388b4499f5b0");
+        user.setUuid("1dd6e8a242811bf1eecf90ac");
 
         IncidenceWeight incidence = new IncidenceWeight();
         incidence.setDone(true);
@@ -158,9 +166,9 @@ public class TestRs {
         incidenceTreatment.setFarmId(farmA.getUuid());
         incidencesService.save(incidenceTreatment);
 
-    return "ok";
+        return "ok";
 
     }
 
 
-    }
+}

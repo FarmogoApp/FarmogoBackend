@@ -9,9 +9,6 @@ public class MarketHistory implements Serializable {
     private int animalTyupe;
     private BigDecimal price;
     private AnimalType animalType;
-    public MarketHistory(){
-
-    }
 
     public Date getDate() {
         return date;

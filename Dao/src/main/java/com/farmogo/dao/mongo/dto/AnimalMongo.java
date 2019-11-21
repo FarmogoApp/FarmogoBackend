@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class AnimalMongoDTO {
+public class AnimalMongo {
 
     @BsonId
     private ObjectId uuid;
@@ -24,12 +24,13 @@ public class AnimalMongoDTO {
     private LocalDateTime createdLocalDateTime;
     private String origin;
 
-    public static AnimalMongoDTO convert(Animal animal) {
-        return Mapper.getInstance().map(animal, AnimalMongoDTO.class);
+    public static AnimalMongo convert(Animal animal) {
+        System.out.println("animal id: " + animal.getUuid());
+        return Mapper.getInstance().map(animal, AnimalMongo.class);
     }
 
-    public static Animal convert(AnimalMongoDTO animalMongoDTO) {
-        return Mapper.getInstance().map(animalMongoDTO, Animal.class);
+    public static Animal convert(AnimalMongo animalMongo) {
+        return Mapper.getInstance().map(animalMongo, Animal.class);
     }
 
     public ObjectId getUuid() {

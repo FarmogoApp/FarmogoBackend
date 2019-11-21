@@ -1,8 +1,7 @@
 package com.farmogo.dao.mongo;
 
 import com.farmogo.dao.AnimalDao;
-import com.farmogo.dao.mongo.dto.AnimalMongoDTO;
-import com.farmogo.dao.mongo.dto.IncidenceMongo;
+import com.farmogo.dao.mongo.dto.AnimalMongo;
 import com.farmogo.model.Animal;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -20,23 +19,25 @@ import java.util.stream.StreamSupport;
 @Stateless
 public class AnimalMongoDao implements AnimalDao {
 
+    public static final String COLLECTION = "AnimalTypes";
+
     @Inject
     CodecRegistry codecRegistry;
 
     @Inject
     MongoDatabase mongoDatabase;
 
-    private MongoCollection<AnimalMongoDTO> mongoCollection;
+    private MongoCollection<AnimalMongo> mongoCollection;
 
     @PostConstruct
     public void init() {
-        mongoCollection = mongoDatabase.getCollection("Animal", AnimalMongoDTO.class).withCodecRegistry(codecRegistry);
+        mongoCollection = mongoDatabase.getCollection(COLLECTION, AnimalMongo.class).withCodecRegistry(codecRegistry);
     }
 
     @Override
     public List<Animal> getAll() {
         return StreamSupport.stream(mongoCollection.find().spliterator(), false)
-                .map(AnimalMongoDTO::convert)
+                .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
     }
 
@@ -44,7 +45,7 @@ public class AnimalMongoDao implements AnimalDao {
     public List<Animal> getAnimalsByFarmId(String farmId) {
         return StreamSupport.stream(mongoCollection.find()
                 .filter(Filters.eq("farmId", new ObjectId(farmId))).spliterator(), false)
-                .map(AnimalMongoDTO::convert)
+                .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
 
     }
@@ -57,12 +58,12 @@ public class AnimalMongoDao implements AnimalDao {
             key = new ObjectId(animal.getUuid());
         }
         if (key == null){
-            AnimalMongoDTO convert = AnimalMongoDTO.convert(animal);
+            AnimalMongo convert = AnimalMongo.convert(animal);
             convert.setUuid(new ObjectId());
             animal.setUuid(convert.getUuid().toString());
             mongoCollection.insertOne(convert);
         } else {
-            mongoCollection.replaceOne(Filters.eq("_id", key), AnimalMongoDTO.convert(animal));
+            mongoCollection.replaceOne(Filters.eq("_id", key), AnimalMongo.convert(animal));
         }
         return animal;
     }
@@ -74,6 +75,6 @@ public class AnimalMongoDao implements AnimalDao {
 
     @Override
     public Animal get(String id) {
-        return AnimalMongoDTO.convert(mongoCollection.find(Filters.eq("_id", id)).first());
+        return AnimalMongo.convert(mongoCollection.find(Filters.eq("_id", id)).first());
     }
 }

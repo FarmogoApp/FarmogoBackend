@@ -28,7 +28,8 @@ public class Mapper {
         mapperFactory.classMap(Building.class, BuildingMongo.class).byDefault().register();
         mapperFactory.classMap(Division.class, DivisionMongo.class).byDefault().register();
         mapperFactory.classMap(MarketHistory.class, MarketHistoryMongo.class).byDefault().register();
-        mapperFactory.classMap(Animal.class, AnimalMongoDTO.class).byDefault().register();
+        mapperFactory.classMap(Animal.class, AnimalMongo.class).byDefault().register();
+        mapperFactory.classMap(Race.class, RaceMongo.class).byDefault().register();
         mapperFacade = mapperFactory.getMapperFacade();
     }
 
