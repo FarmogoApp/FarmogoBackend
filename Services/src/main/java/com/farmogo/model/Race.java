@@ -8,11 +8,9 @@ public class Race implements Serializable {
     private String name;
 
     public Race(){
-        uuid = UUID.randomUUID().toString();
     }
 
     public Race(String name){
-        this.uuid = UUID.randomUUID().toString();
         this.name = name;
     }
 

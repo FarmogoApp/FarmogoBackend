@@ -62,12 +62,24 @@ public class FarmMongoDao implements FarmDao {
         }
         if (key == null) {
             FarmMongo convert = FarmMongo.convert(farm);
-            convert.setUuid(new ObjectId());
+            fillIds(convert);
             mongoCollection.insertOne(convert);
             return FarmMongo.convert(convert);
         } else {
             mongoCollection.replaceOne(Filters.eq("_id", key), FarmMongo.convert(farm));
             return farm;
+        }
+    }
+
+    private void fillIds(FarmMongo convert) {
+        convert.setUuid(new ObjectId());
+        if (convert.getBuildings()!=null){
+            convert.getBuildings().forEach( b ->{
+                b.setUuid(new ObjectId());
+                if (b.getDivisions()!= null){
+                    b.getDivisions().forEach(d -> d.setUuid(new ObjectId()));
+                }
+            });
         }
     }
 

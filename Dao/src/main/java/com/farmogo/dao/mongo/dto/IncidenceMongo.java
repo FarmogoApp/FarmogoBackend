@@ -21,10 +21,11 @@ public abstract class IncidenceMongo {
     private String observations;
     private LocalDate dueDate;
     private boolean done;
+    private boolean complete;
     private LocalDateTime created;
     private ObjectId createdBy;
     private ObjectId animalId;
-    private ObjectId farm;
+    private ObjectId farmId;
 
     public IncidenceMongo(IncidenceType incidenceType) {
         type = incidenceType;
@@ -88,12 +89,20 @@ public abstract class IncidenceMongo {
         this.createdBy = createdBy;
     }
 
-    public ObjectId getFarm() {
-        return farm;
+    public boolean isComplete() {
+        return complete;
     }
 
-    public void setFarm(ObjectId farm) {
-        this.farm = farm;
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public ObjectId getFarmId() {
+        return farmId;
+    }
+
+    public void setFarmId(ObjectId farmId) {
+        this.farmId = farmId;
     }
 
     public static IncidenceMongo convert(Incidence incidence) {

@@ -1,12 +1,13 @@
 package com.farmogo.dao.mongo;
 
 import com.farmogo.dao.RaceDao;
-import com.farmogo.dao.mongo.dto.RaceMongoDTO;
+import com.farmogo.dao.mongo.dto.RaceMongo;
 import com.farmogo.model.Race;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.types.ObjectId;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -18,46 +19,55 @@ import java.util.stream.StreamSupport;
 @Stateless
 public class RaceMongoDao implements RaceDao {
 
+    public static final String COLLECTION = "Races";
+
     @Inject
     CodecRegistry codecRegistry;
 
     @Inject
     MongoDatabase mongoDatabase;
 
-    private MongoCollection<RaceMongoDTO> mongoCollection;
+    MongoCollection<RaceMongo> mongoCollection;
 
     @PostConstruct
     public void init() {
-        mongoCollection = mongoDatabase.getCollection("Race", RaceMongoDTO.class).withCodecRegistry(codecRegistry);
+        mongoCollection = mongoDatabase.getCollection("Race", RaceMongo.class).withCodecRegistry(codecRegistry);
     }
 
     @Override
     public List<Race> getAll() {
         return StreamSupport.stream(mongoCollection.find().spliterator(), false)
-                .map(RaceMongoDTO::getObject)
+                .map(RaceMongo::convert)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Race save(Race race) {
-        RaceMongoDTO obj = mongoCollection.find(Filters.eq("_id", race.getUuid())).first();
-
-        if (obj == null) {
-            mongoCollection.insertOne(new RaceMongoDTO(race));
-
-        } else{
-            mongoCollection.replaceOne(Filters.eq("_id", race.getUuid()),new RaceMongoDTO(race));
+        ObjectId key = null;
+        if (race.getUuid() != null) {
+            key = new ObjectId(race.getUuid());
         }
-        return race;
+        if (key == null) {
+            RaceMongo convert = RaceMongo.convert(race);
+            convert.setUuid(new ObjectId());
+            mongoCollection.insertOne(convert);
+            return RaceMongo.convert(convert);
+        } else {
+            mongoCollection.replaceOne(Filters.eq("_id", key), RaceMongo.convert(race));
+            return race;
+        }
+
     }
 
     @Override
     public void delete(Race race) {
-        mongoCollection.deleteOne(Filters.eq("_id", race.getUuid()));
+        mongoCollection.deleteOne(Filters.eq("_id", new ObjectId(race.getUuid())));
     }
 
     @Override
     public Race get(String id) {
-        return mongoCollection.find(Filters.eq("_id", id)).first().getObject();
+        if (id == null) return null;
+        ObjectId key = new ObjectId(id);
+        return RaceMongo.convert(mongoCollection.find(Filters.eq("_id", key)).first());
     }
 }
