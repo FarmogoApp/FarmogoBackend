@@ -14,13 +14,14 @@
 
         <h:form id="animalDataForm">
 
-            <p:commandButton value="CSV" ajax="false" >
-                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal data"/>
+            <p:commandButton value="CSV" icon="fa fa-fw fa-file-excel-o" ajax="false">
+                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
 
-            <p:commandButton value="PDF" ajax="false" >
-                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal data"/>
+            <p:commandButton value="PDF" icon="fa fa-fw fa-file-pdf-o" ajax="false" >
+                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
+
 
             <p:dataTable
                     id="animalTable"
@@ -30,20 +31,20 @@
                     selection="#{animalDataView.animal}">
 
                 <!-- UUID (Only for development)-->
-                <p:column headerText="UUID (Dev)">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+<!--                <p:column headerText="UUID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
 
                 <!-- Tag ID (Only for development)-->
-                <p:column headerText="Tag ID (Dev)">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+<!--                <p:column headerText="Tag ID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
 
                 <!-- Official ID -->
                 <p:column headerText="Official ID">

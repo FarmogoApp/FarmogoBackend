@@ -20,11 +20,11 @@
                              oncomplete="PF('newAnimalDialog').show()"
             />
 
-            <p:commandButton value="CSV" ajax="false" >
+            <p:commandButton value="CSV" icon="fa fa-fw fa-file-excel-o" ajax="false">
                 <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
 
-            <p:commandButton value="PDF" ajax="false" >
+            <p:commandButton value="PDF" icon="fa fa-fw fa-file-pdf-o" ajax="false" >
                 <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
             </p:commandButton>
 
@@ -37,20 +37,20 @@
                     selection="#{animalListView.animal}">
 
                 <!-- UUID (Only for development)-->
-                <p:column headerText="UUID (Dev)">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+<!--                <p:column headerText="UUID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
 
                 <!-- Tag ID (Only for development)-->
-                <p:column headerText="Tag ID (Dev)">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+<!--                <p:column headerText="Tag ID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
 
                 <!-- Official ID -->
                 <p:column headerText="Official ID">
@@ -77,7 +77,7 @@
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type (Dev?)">
+                <p:column headerText="Animal type">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
@@ -125,7 +125,7 @@
                 </p:column>
 
                 <!-- Animal Data -->
-                <p:column style="width: 16px;">
+                <p:column exportable="false" style="width: 16px;">
                     <p:link outcome="animal_data">
                         <li class="pi pi-info-circle"/>
                         <f:param name="animal" value="#{elem.uuid}"/>
@@ -133,7 +133,7 @@
                 </p:column>
 
                 <!-- Edit Animal -->
-                <p:column style="width: 16px;">
+                <p:column exportable="false" style="width: 16px;">
                     <p:commandLink update="newAnimalDialog"
                                    oncomplete="PF('newAnimalDialog').show()"
                                    actionListener="#{animalListView.setAnimal(elem)}">
@@ -205,7 +205,6 @@
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>
-
 
                     <!-- Race -->
                     <h:outputLabel value="Race"/>
