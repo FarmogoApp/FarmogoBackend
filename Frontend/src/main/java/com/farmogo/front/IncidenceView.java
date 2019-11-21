@@ -9,6 +9,7 @@ import com.farmogo.services.IncidencesService;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -31,24 +32,28 @@ public class IncidenceView implements Serializable {
 
     @PostConstruct
     public void init() {
-
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map<String, String> params =
-                facesContext.getExternalContext().getRequestParameterMap();
-        if (params.containsKey("animalId")) {
-            incidenceList = incidencesService.getAll(params.get("animalId"));
+        FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+        String animalId = (String) faceletContext.getAttribute("animalId");
+        if (animalId == null) {
+            Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+            animalId = params.get("animalId");
+        }
+
+        if (animalId != null) {
+            incidenceList = incidencesService.getAll(animalId);
         } else {
             incidenceList = incidencesService.getAll();
         }
     }
 
-    public void setAnimalId(String animalId){
-        this.animalId = animalId;
-        incidenceList = incidencesService.getAll(animalId);
+    public String getAnimalId() {
+        return this.animalId;
     }
 
-    public String getAnimalId(){
-        return this.animalId;
+    public void setAnimalId(String animalId) {
+        this.animalId = animalId;
+        incidenceList = incidencesService.getAll(animalId);
     }
 
     public List<Incidence> getIncidenceList() {

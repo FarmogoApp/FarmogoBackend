@@ -25,7 +25,6 @@ public class AnimalMongo {
     private String origin;
 
     public static AnimalMongo convert(Animal animal) {
-        System.out.println("animal id: " + animal.getUuid());
         return Mapper.getInstance().map(animal, AnimalMongo.class);
     }
 
