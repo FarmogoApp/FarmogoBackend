@@ -1,74 +1,42 @@
 package com.farmogo.dao.mongo.dto;
 
-import com.farmogo.model.*;
+import com.farmogo.model.Animal;
 import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.types.ObjectId;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class AnimalMongoDTO {
 
     @BsonId
-    private String uuid;
+    private ObjectId uuid;
     private String animalTypeId;
     private String officialId;
     private String tagId;
     private String sex;
-    private String raceId;
-    private Date birthDay;
-    private Date dischargeDate;
-    private String farmId;
+    private ObjectId raceId;
+    private LocalDate birthDay;
+    private LocalDate dischargeDate;
+    private ObjectId farmId;
     private String divisionId;
-    private String motherId;
+    private ObjectId motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
 
-    public AnimalMongoDTO(){}
-
-    public AnimalMongoDTO(Animal animal) {
-        this.uuid = animal.getUuid();
-        this.animalTypeId = animal.getAnimalTypeId();
-        this.officialId = animal.getOfficialId();
-        this.tagId = animal.getTagId();
-        this.sex = animal.getSex();
-        this.raceId = animal.getRaceId();
-        this.birthDay = animal.getBirthDay();
-        this.dischargeDate = animal.getDischargeDate();
-        this.farmId = animal.getFarmId();
-        this.divisionId = animal.getDivisionId();
-        this.motherId = animal.getMotherId();
-        this.createdLocalDateTime = animal.getCreatedLocalDateTime();
-        this.origin = animal.getOrigin();
+    public static AnimalMongoDTO convert(Animal animal) {
+        return Mapper.getInstance().map(animal, AnimalMongoDTO.class);
     }
 
-
-    @BsonIgnore
-    public Animal getObject(){
-        Animal animal = new Animal();
-
-        animal.setUuid(this.uuid);
-        animal.setAnimalTypeId(this.animalTypeId);
-        animal.setOfficialId(this.officialId);
-        animal.setTagId(this.tagId);
-        animal.setSex(this.sex);
-        animal.setRaceId(this.raceId);
-        animal.setBirthDay(this.birthDay);
-        animal.setDischargeDate(this.dischargeDate);
-        animal.setFarmId(this.farmId);
-        animal.setDivisionId(this.divisionId);
-        animal.setMotherId(this.motherId);
-        animal.setCreatedLocalDateTime(this.createdLocalDateTime);
-        animal.setOrigin(this.origin);
-
-        return animal;
+    public static Animal convert(AnimalMongoDTO animalMongoDTO) {
+        return Mapper.getInstance().map(animalMongoDTO, Animal.class);
     }
 
-    public String getUuid() {
+    public ObjectId getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(ObjectId uuid) {
         this.uuid = uuid;
     }
 
@@ -104,35 +72,35 @@ public class AnimalMongoDTO {
         this.sex = sex;
     }
 
-    public String getRaceId() {
+    public ObjectId getRaceId() {
         return raceId;
     }
 
-    public void setRaceId(String raceId) {
+    public void setRaceId(ObjectId raceId) {
         this.raceId = raceId;
     }
 
-    public Date getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
-    public Date getDischargeDate() {
+    public LocalDate getDischargeDate() {
         return dischargeDate;
     }
 
-    public void setDischargeDate(Date dischargeDate) {
+    public void setDischargeDate(LocalDate dischargeDate) {
         this.dischargeDate = dischargeDate;
     }
 
-    public String getFarmId() {
+    public ObjectId getFarmId() {
         return farmId;
     }
 
-    public void setFarmId(String farmId) {
+    public void setFarmId(ObjectId farmId) {
         this.farmId = farmId;
     }
 
@@ -144,11 +112,11 @@ public class AnimalMongoDTO {
         this.divisionId = divisionId;
     }
 
-    public String getMotherId() {
+    public ObjectId getMotherId() {
         return motherId;
     }
 
-    public void setMotherId(String motherId) {
+    public void setMotherId(ObjectId motherId) {
         this.motherId = motherId;
     }
 
@@ -167,5 +135,4 @@ public class AnimalMongoDTO {
     public void setOrigin(String origin) {
         this.origin = origin;
     }
-
 }

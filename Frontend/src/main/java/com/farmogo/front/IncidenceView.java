@@ -27,6 +27,7 @@ public class IncidenceView implements Serializable {
     List<Incidence> incidenceList;
 
     Incidence incidence;
+    String animalId;
 
     @PostConstruct
     public void init() {
@@ -39,6 +40,15 @@ public class IncidenceView implements Serializable {
         } else {
             incidenceList = incidencesService.getAll();
         }
+    }
+
+    public void setAnimalId(String animalId){
+        this.animalId = animalId;
+        incidenceList = incidencesService.getAll(animalId);
+    }
+
+    public String getAnimalId(){
+        return this.animalId;
     }
 
     public List<Incidence> getIncidenceList() {

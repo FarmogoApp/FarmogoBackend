@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
->
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="content">
         <h:head>
             <title>Animal data</title>
@@ -135,7 +135,12 @@
         </h:form>
 
         <h1>Incidences</h1>
-
+        <p:button outcome="incidences" value="Incidences Animal" styleClass="leftmenu">
+            <f:param name="animal" value="#{animalDataView.animal.uuid}" styleClass="leftmenu"/>
+        </p:button>
+        <ui:include src="incidencesPanel.xhtml">
+            <ui:param name="animalId" value="5dd0227098aa388b4499f5b9"></ui:param>
+        </ui:include>
 
     </ui:define>
 </ui:composition>

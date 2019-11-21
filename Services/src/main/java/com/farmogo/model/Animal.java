@@ -1,9 +1,9 @@
 package com.farmogo.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.UUID;
 
 public class Animal implements Serializable {
     private String uuid;
@@ -12,8 +12,8 @@ public class Animal implements Serializable {
     private String tagId;
     private String sex;
     private String raceId;
-    private Date birthDay;
-    private Date dischargeDate;
+    private LocalDate birthDay;
+    private LocalDate dischargeDate;
     private String motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
@@ -21,8 +21,7 @@ public class Animal implements Serializable {
     private String farmId;
 
 
-    public Animal(){
-        uuid = UUID.randomUUID().toString();
+    public Animal() {
         createdLocalDateTime = LocalDateTime.now();
     }
 
@@ -67,19 +66,19 @@ public class Animal implements Serializable {
         this.raceId = raceId;
     }
 
-    public Date getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
-    public Date getDischargeDate() {
+    public LocalDate getDischargeDate() {
         return dischargeDate;
     }
 
-    public void setDischargeDate(Date dischargeDate) {
+    public void setDischargeDate(LocalDate dischargeDate) {
         this.dischargeDate = dischargeDate;
     }
 
