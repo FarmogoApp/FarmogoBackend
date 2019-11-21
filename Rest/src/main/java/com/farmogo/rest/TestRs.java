@@ -1,6 +1,7 @@
 package com.farmogo.rest;
 
 import com.farmogo.model.*;
+import com.farmogo.model.incidences.*;
 import com.farmogo.services.*;
 
 import javax.enterprise.context.RequestScoped;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.xml.ws.soap.Addressing;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @RequestScoped
@@ -28,31 +30,44 @@ public class TestRs {
     @Inject
     RaceService raceService;
 
+    @Inject
+    IncidencesService incidencesService;
+
     @GET
     @Path("database")
     public String test() {
-
-
         /*Create animal types*/
         AnimalType animalType = new AnimalType();
-        animalType.setDescription("test");
-        animalType.setIcon("icon");
+        animalType.setDescription("Cow");
+        animalType.setIcon("CowIcon");
         AnimalType animalTypeId = animalTypesService.save(animalType);
         animalTypesService.save(animalType);
+
+        AnimalType animalType2 = new AnimalType();
+        animalType2.setDescription("Bull");
+        animalType2.setIcon("BullIcon");
+        AnimalType animalTypeId2 = animalTypesService.save(animalType2);
+        animalTypesService.save(animalType2);
+
+        AnimalType animalType3 = new AnimalType();
+        animalType3.setDescription("Calf");
+        animalType3.setIcon("CalfIcon");
+        AnimalType animalTypeId3= animalTypesService.save(animalType3);
+        animalTypesService.save(animalType3);
 
 
         /*Create races*/
         Race race = new Race();
         race.setName("Blonda de Aquitania");
-        raceService.save(race);
+        Race raceA = raceService.save(race);
 
         Race race2 = new Race();
         race2.setName("Charolesa");
-        raceService.save(race2);
+        Race raceB = raceService.save(race2);
 
         Race race3 = new Race();
         race3.setName("Fleckvieh");
-        raceService.save(race3);
+        Race raceC = raceService.save(race3);
 
         /*Create Farms, Buildings and Divisions */
         Farm farm = new Farm();
@@ -79,18 +94,73 @@ public class TestRs {
         d22.setName("division 2.2");
         b2.setDivisions(Arrays.asList(d21,d22));
         farm.setBuildings(Arrays.asList(b1,b2));
-        farmService.save(farm);
+        Farm farmA = farmService.save(farm);
 
         /*Create animals*/
         Animal animal = new Animal();
         animal.setOrigin("Lleida");
         animal.setSex("Female");
         animal.setAnimalTypeId(animalTypeId.getAnimalType());
-        animal.setRaceId("");
+        animal.setRaceId(raceA.getUuid());
+        animal.setFarmId(farmA.getUuid());
         animal.setMotherId("");
-        animalService.save(animal);
+        Animal animalA = animalService.save(animal);
+
+        Animal animal2 = new Animal();
+        animal2.setOrigin("Ainsa");
+        animal2.setSex("Male");
+        animal2.setAnimalTypeId(animalTypeId.getAnimalType());
+        animal2.setRaceId(raceB.getUuid());
+        animal2.setFarmId(farmA.getUuid());
+        animal2.setMotherId("");
+        Animal animalB = animalService.save(animal2);
+
+        User user = new User();
+        user.setUuid("5dd0227098aa388b4499f5b0");
+
+        IncidenceWeight incidence = new IncidenceWeight();
+        incidence.setDone(true);
+        incidence.setWeight(100);
+        incidence.setAnimal(animalA);
+        incidence.setCreatedBy(user);
+        incidence.setFarm(farmA);
+        incidencesService.save(incidence);
+
+        IncidenceGetoff incidenceGetoff = new IncidenceGetoff();
+        incidenceGetoff.setHealthRegister("test register");
+        incidenceGetoff.setGetoffType(GetoffType.Slaughterhouse);
+        incidenceGetoff.setObservations("observations");
+        incidenceGetoff.setDone(false);
+        incidenceGetoff.setAnimal(animalA);
+        incidenceGetoff.setCreatedBy(user);
+        incidenceGetoff.setFarm(farmA);
+        incidencesService.save(incidenceGetoff);
+
+        incidenceGetoff.setHealthRegister("test register updated");
+        incidenceGetoff.setDueDate(LocalDate.now());
+        incidenceGetoff.setAnimal(animalB);
+        incidenceGetoff.setFarm(farmA);
+        incidencesService.save(incidenceGetoff);
+
+        IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
+        incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
+        incidencePregnancy.setCreatedBy(user);
+        incidencePregnancy.setFarm(farm);
+        incidencePregnancy.setAnimal(animalB);
+        incidencesService.save(incidencePregnancy);
+
+        IncidenceTreatment incidenceTreatment = new IncidenceTreatment();
+        incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
+        incidenceTreatment.setMedicine("tetanus");
+        incidenceTreatment.setDose("100mg");
+        incidenceTreatment.setCreatedBy(user);
+        incidenceTreatment.setAnimal(animalA);
+        incidenceTreatment.setFarm(farmA);
+        incidencesService.save(incidenceTreatment);
 
     return "ok";
+
     }
+
 
     }
