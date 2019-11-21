@@ -34,7 +34,7 @@ public class AnimalUtils {
                 .filter(p -> p.getUuid().equals(motherId))
                 .findFirst();
 
-        return animalMother.isPresent() ? animalMother.get().getOfficialId() : "";
+        return animalMother.isPresent() ? animalMother.get().getOfficialId() : motherId;
     }
 
     public String raceIdToName(String raceId){

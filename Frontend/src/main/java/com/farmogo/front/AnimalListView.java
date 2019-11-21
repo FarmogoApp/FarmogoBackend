@@ -10,6 +10,8 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -99,6 +101,9 @@ public class AnimalListView implements Serializable {
 
         animal.setFarmId(farm.getUuid());
         animalService.save(animal);
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Animal added successfully"));
         init();
     }
 
