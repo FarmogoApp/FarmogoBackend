@@ -121,9 +121,9 @@ public class TestRs {
         IncidenceWeight incidence = new IncidenceWeight();
         incidence.setDone(true);
         incidence.setWeight(100);
-        incidence.setAnimal(animalA);
-        incidence.setCreatedBy(user);
-        incidence.setFarm(farmA);
+        incidence.setAnimalId(animalA.getUuid());
+        incidence.setCreatedBy(user.getUuid());
+        incidence.setFarmId(farmA.getUuid());
         incidencesService.save(incidence);
 
         IncidenceGetoff incidenceGetoff = new IncidenceGetoff();
@@ -131,31 +131,31 @@ public class TestRs {
         incidenceGetoff.setGetoffType(GetoffType.Slaughterhouse);
         incidenceGetoff.setObservations("observations");
         incidenceGetoff.setDone(false);
-        incidenceGetoff.setAnimal(animalA);
-        incidenceGetoff.setCreatedBy(user);
-        incidenceGetoff.setFarm(farmA);
+        incidenceGetoff.setAnimalId(animalA.getUuid());
+        incidenceGetoff.setCreatedBy(user.getUuid());
+        incidenceGetoff.setFarmId(farmA.getUuid());
         incidencesService.save(incidenceGetoff);
 
         incidenceGetoff.setHealthRegister("test register updated");
         incidenceGetoff.setDueDate(LocalDate.now());
-        incidenceGetoff.setAnimal(animalB);
-        incidenceGetoff.setFarm(farmA);
+        incidenceGetoff.setAnimalId(animalB.getUuid());
+        incidenceGetoff.setFarmId(farmA.getUuid());
         incidencesService.save(incidenceGetoff);
 
         IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
         incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
-        incidencePregnancy.setCreatedBy(user);
-        incidencePregnancy.setFarm(farm);
-        incidencePregnancy.setAnimal(animalB);
+        incidencePregnancy.setCreatedBy(user.getUuid());
+        incidencePregnancy.setFarmId(farm.getUuid());
+        incidencePregnancy.setAnimalId(animalB.getUuid());
         incidencesService.save(incidencePregnancy);
 
         IncidenceTreatment incidenceTreatment = new IncidenceTreatment();
         incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
         incidenceTreatment.setMedicine("tetanus");
         incidenceTreatment.setDose("100mg");
-        incidenceTreatment.setCreatedBy(user);
-        incidenceTreatment.setAnimal(animalA);
-        incidenceTreatment.setFarm(farmA);
+        incidenceTreatment.setCreatedBy(user.getUuid());
+        incidenceTreatment.setAnimalId(animalA.getUuid());
+        incidenceTreatment.setFarmId(farmA.getUuid());
         incidencesService.save(incidenceTreatment);
 
     return "ok";
