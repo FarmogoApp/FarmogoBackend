@@ -21,18 +21,19 @@
             />
 
             <p:commandButton value="CSV" icon="fa fa-fw fa-file-excel-o" ajax="false">
-                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
+                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list" pageOnly="true"/>
             </p:commandButton>
 
             <p:commandButton value="PDF" icon="fa fa-fw fa-file-pdf-o" ajax="false" >
-                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
+                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list" pageOnly="true"/>
             </p:commandButton>
 
             <p:dataTable
                     id="animalTable"
                     value="#{animalListView.animalList}"
                     var="elem"
-                    rowKey="#{elem.uuid}">
+                    rowKey="#{elem.uuid}"
+                    widgetVar="animalTableWidget">
 
                 <!-- UUID (Only for development)-->
 <!--                <p:column headerText="UUID (Dev)">-->
@@ -51,7 +52,7 @@
 <!--                </p:column>-->
 
                 <!-- Official ID -->
-                <p:column headerText="Official ID">
+                <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
@@ -59,7 +60,7 @@
                 </p:column>
 
                 <!-- Mother ID -->
-                <p:column headerText="Mother official ID">
+                <p:column headerText="Mother ID" filterBy="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
@@ -67,7 +68,14 @@
                 </p:column>
 
                 <!-- Race -->
-                <p:column headerText="Race">
+                <p:column headerText="Race" filterBy="#{animalListView.animalUtils.raceIdToName(elem.raceId)}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.name}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}" style="width:100%"/></f:facet>
@@ -75,7 +83,13 @@
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type">
+                <p:column headerText="Animal type" filterBy="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.description}" />
+                        </p:selectOneMenu>
+                    </f:facet>
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
@@ -83,7 +97,7 @@
                 </p:column>
 
                 <!-- Origin-->
-                <p:column headerText="Origin">
+                <p:column headerText="Origin" filterBy="#{elem.origin}" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
@@ -91,7 +105,14 @@
                 </p:column>
 
                 <!-- Sex -->
-                <p:column headerText="Sex">
+                <p:column headerText="Sex" filterBy="#{elem.sex}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                        </p:selectOneMenu>
+                    </f:facet>
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.sex}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.sex}" style="width:100%"/></f:facet>
@@ -99,7 +120,7 @@
                 </p:column>
 
                 <!-- Birth date -->
-                <p:column headerText="Birth date">
+                <p:column headerText="Birth date" sortBy="#{elem.birthDay}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.birthDay}">
@@ -111,7 +132,7 @@
                 </p:column>
 
                 <!-- Discharge Date -->
-                <p:column headerText="Discharge date">
+                <p:column headerText="Discharge date" sortBy="#{elem.dischargeDate}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.dischargeDate}">
