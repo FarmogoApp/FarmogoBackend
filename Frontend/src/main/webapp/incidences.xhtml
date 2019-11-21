@@ -19,6 +19,15 @@
         <h:form id="listAnimalForm">
 
 
+            <p:commandButton value="CSV" icon="fa fa-fw fa-file-excel-o" ajax="false">
+                <p:dataExporter type="csv" target="incidencesTable" fileName="Farmogo Animal list" pageOnly="true"/>
+            </p:commandButton>
+
+            <p:commandButton value="PDF" icon="fa fa-fw fa-file-pdf-o" ajax="false" >
+                <p:dataExporter type="pdf" target="incidencesTable" fileName="Farmogo Animal list" pageOnly="true"/>
+            </p:commandButton>
+
+
             <p:dataTable
                     id="incidencesTable"
                     value="#{incidenceView.incidenceList}"
@@ -27,7 +36,7 @@
                     widgetVar="incidencesTable">
 
                 <f:facet name="header">Incidences</f:facet>
-                <p:column style="width: 16px;">
+                <p:column exportable="false" style="width: 16px;">
                     <p:rowToggler/>
                 </p:column>
                 <p:column headerText="Id">
@@ -39,7 +48,7 @@
                 <p:column headerText="Created" sortBy="#{elem.created}">
                     <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
                 </p:column>
-                <p:column style="width: 16px;">
+                <p:column exportable="false" style="width: 16px;">
                     <p:commandLink actionListener="#{incidenceView.setIncidence(elem)}"
                                    update="incidenceDialog"
                                    oncomplete="PF('incidenceDialog').show()">
