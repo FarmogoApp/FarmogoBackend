@@ -9,25 +9,7 @@
         <h:head>
             <title>Animal List</title>
         </h:head>
-
-        <h1>Animal List</h1>
         <h:form id="animalListForm">
-
-            <p:commandButton value="Add"
-                             icon="pi pi-plus-circle"
-                             actionListener="#{animalListView.clearSelection}"
-                             update="newAnimalDialog"
-                             oncomplete="PF('newAnimalDialog').show()"
-            />
-
-            <p:commandButton value="CSV" ajax="false" >
-                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
-            </p:commandButton>
-
-            <p:commandButton value="PDF" ajax="false" >
-                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
-            </p:commandButton>
-
             <p:dataTable
                     id="animalTable"
                     value="#{animalListView.animalList}"
@@ -35,6 +17,29 @@
                     rowKey="#{elem.uuid}"
                     selectionMode="single"
                     selection="#{animalListView.animal}">
+                <f:facet name="header">
+                    <div class="ui-g">
+                        <div class="ui-g-4" style="padding: 0; text-align: left;">
+                            <p:commandButton value="Add"
+                                             icon="pi pi-plus-circle"
+                                             actionListener="#{animalListView.clearSelection}"
+                                             update="newAnimalDialog"
+                                             oncomplete="PF('newAnimalDialog').show()"
+                            />
+                        </div>
+                        <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Animal data</div>
+                        <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
+                            <h:commandLink>
+                                <p:graphicImage name="/img/csv.png" width="25" height=""/>
+                                <p:dataExporter type="csv" target="animalTable" fileName="animal"/>
+                            </h:commandLink>
+                            <h:commandLink>
+                                <p:graphicImage name="/img/pdf.png" width="25"/>
+                                <p:dataExporter type="pdf" target="animalTable" fileName="animal"/>
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </f:facet>
 
                 <!-- UUID (Only for development)-->
                 <p:column headerText="UUID (Dev)">
@@ -63,24 +68,33 @@
                 <!-- Mother ID -->
                 <p:column headerText="Mother official ID">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText
+                                value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText
+                                value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"
+                                style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Race -->
                 <p:column headerText="Race">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText
+                                value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText
+                                value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"
+                                style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Animal Type -->
                 <p:column headerText="Animal type (Dev?)">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText
+                                value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText
+                                value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"
+                                style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -128,7 +142,7 @@
                 <p:column style="width: 16px;">
                     <p:link outcome="animal_data">
                         <li class="pi pi-info-circle"/>
-                        <f:param name="animal" value="#{elem.uuid}"/>
+                        <f:param name="animalId" value="#{elem.uuid}"/>
                     </p:link>
                 </p:column>
 
@@ -144,8 +158,8 @@
             </p:dataTable>
 
             <p:confirmDialog global="true">
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
             </p:confirmDialog>
 
         </h:form>
@@ -160,14 +174,15 @@
                     <!-- Official ID -->
                     <h:outputLabel value="Official ID"/>
                     <p:column id="officialIdColumn">
-                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}" />
+                        <p:inputText id="officialID" value="#{animalListView.animal.officialId}"/>
                         <p:message for="officialID"/>
                     </p:column>
 
                     <!-- Birth date -->
                     <h:outputLabel value="Birth date"/>
                     <p:column id="birthDateColumn">
-                        <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true" pattern="dd/MM/yyyy" />
+                        <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true"
+                                      pattern="dd/MM/yyyy"/>
                         <p:message for="birthDate"/>
                     </p:column>
 
@@ -175,7 +190,8 @@
                     <h:outputLabel value="Mother ID"/>
                     <p:column id="motherIdColumn">
                         <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}" editable="true">
-                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother" itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}" />
+                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother"
+                                           itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}"/>
                         </p:selectOneMenu>
                         <p:message for="motherIdSelect"/>
                     </p:column>
@@ -183,7 +199,7 @@
                     <!-- Origin -->
                     <h:outputLabel value="Origin"/>
                     <p:column id="originColumn">
-                        <p:inputText id="origin" value="#{animalListView.animal.origin}" />
+                        <p:inputText id="origin" value="#{animalListView.animal.origin}"/>
                         <p:message for="origin"/>
                     </p:column>
 
@@ -191,8 +207,8 @@
                     <h:outputLabel value="Sex"/>
                     <p:column id="sexColumn">
                         <p:selectOneMenu id="sexSelect" value="#{animalListView.animal.sex}">
-                            <f:selectItem itemLabel="Male" itemValue="Male" />
-                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                            <f:selectItem itemLabel="Male" itemValue="Male"/>
+                            <f:selectItem itemLabel="Female" itemValue="Female"/>
                         </p:selectOneMenu>
                         <p:message for="sexSelect"/>
                     </p:column>
@@ -201,7 +217,8 @@
                     <h:outputLabel value="Animal type"/>
                     <p:column id="animalTypeColumn">
                         <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
-                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}" />
+                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType"
+                                           itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}"/>
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>
@@ -211,7 +228,8 @@
                     <h:outputLabel value="Race"/>
                     <p:column id="raceColumn">
                         <p:selectOneMenu id="raceSelect" value="#{animalListView.animal.raceId}">
-                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.uuid}" />
+                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}"
+                                           itemValue="#{race.uuid}"/>
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>

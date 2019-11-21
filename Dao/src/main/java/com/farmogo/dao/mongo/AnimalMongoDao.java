@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 @Stateless
 public class AnimalMongoDao implements AnimalDao {
 
-    public static final String COLLECTION = "AnimalTypes";
+    public static final String COLLECTION = "Animals";
 
     @Inject
     CodecRegistry codecRegistry;
@@ -75,6 +75,6 @@ public class AnimalMongoDao implements AnimalDao {
 
     @Override
     public Animal get(String id) {
-        return AnimalMongo.convert(mongoCollection.find(Filters.eq("_id", id)).first());
+        return AnimalMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
     }
 }
