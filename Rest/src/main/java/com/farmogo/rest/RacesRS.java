@@ -1,13 +1,12 @@
 package com.farmogo.rest;
 
+import com.farmogo.model.Animal;
 import com.farmogo.model.Race;
 import com.farmogo.services.RaceService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -23,4 +22,37 @@ public class RacesRS {
     public List<Race> getAll() {
         return raceService.getAll();
     }
+
+    @GET
+    @Path("{id}")
+    public Race get(@PathParam("id") String id) {
+        return raceService.get(id);
+    }
+
+    @POST
+    public Race save(Race race) {  return raceService.save(race);}
+
+    @DELETE
+    @Path("{id}")
+    public Race delete(@PathParam("id") String id) {
+        Race race = raceService.get(id);
+        if(race== null) throw new NotFoundException();
+        raceService.delete(race);
+        return race;
+    }
+
+    @GET
+    @Path("test")
+    public String test(){
+
+        Race race = new Race();
+
+        race.setName("Pirenaica");
+        race.setUuid("555");
+
+        raceService.save(race);
+
+        return "ok";
+    }
+
 }
