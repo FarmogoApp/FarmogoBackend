@@ -30,6 +30,8 @@ public class ConfigView implements Serializable {
     private Farm farm;
     private List<Building> buildingsList;
     private Building building;
+    private Division division;
+    private List<Division> divisionList;
 
     @PostConstruct
     public void init() {
@@ -38,8 +40,16 @@ public class ConfigView implements Serializable {
         building = buildingsList.get(0);
     }
 
+    public void clearFarmSelection() {
+        farm = new Farm();
+    }
+
     public void clearBuildingSelection() {
         building = new Building();
+    }
+
+    public void clearDivisionSelection() {
+        division = new Division();
     }
 
     public Building getBuilding() {
@@ -54,6 +64,19 @@ public class ConfigView implements Serializable {
         return buildingsList;
     }
 
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public List<Division> getDivisionList() {
+        divisionList = this.building.getDivisions();
+        return divisionList;
+    }
+
     public AnimalCounter getAnimalCounter() {
         return farm.getAnimalCounter();
     }
@@ -66,16 +89,37 @@ public class ConfigView implements Serializable {
         return farm;
     }
 
+    public void saveNewFarm() {
+        clearBuildingSelection();
+        clearDivisionSelection();
+        division.setName("division 1.1");
+        building.setDivisions(Arrays.asList(division));
+        farm.setBuildings(Arrays.asList(building));
+        farmService.save(farm);
+        buildingsList = farm.getBuildings();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+    }
+
     public void saveBuilding() {
-        //this.building.setUuid("8888");
         Division d11 = new Division();
         d11.setName("division 1.1");
-        //d11.setUuid("5555");
 
         this.building.setDivisions(Arrays.asList(d11));
-
-        //farm.setBuildings(buildingsList);
         farm.getBuildings().add(this.building);
+        farm = farmService.save(farm);
+        buildingsList = farm.getBuildings();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+    }
+
+    public void saveDivision() {
+        divisionList = this.building.getDivisions();
+        divisionList.add(division);
+        this.building.setDivisions(divisionList);
+
         farm = farmService.save(farm);
         buildingsList = farm.getBuildings();
 
@@ -86,6 +130,6 @@ public class ConfigView implements Serializable {
     public void save() {
         farmService.save(farm);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+        context.addMessage(null, new FacesMessage("Farm saved") );
     }
 }
