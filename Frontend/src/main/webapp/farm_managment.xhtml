@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+<ui:composition template="/WEB-INF/templates/user/layout.xhtml">
+<h:head>
+    <title>Farm Managment</title>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+</h:head>
+    <ui:define name="content">
+        <h1>Farm Managment</h1>
+        <h2>Editing #{configView.farm.name}</h2>
+<h:body>
+    <h:form id="FarmInfo">
+        <p:panelGrid columns="2">
+
+            <h:outputLabel value="Prefix: "/>
+            <p:inputText id="desc" value="#{configView.animalCounter.prefix}" />
+
+
+            <h:outputLabel value="Counter: "/>
+            <p:inputText value="#{configView.animalCounter.counter}"/>
+
+            <h:outputLabel value="Name: "/>
+            <p:inputText value="#{configView.farm.name}"/>
+
+            <h:outputLabel value="OfficialId: "/>
+            <p:inputText value="#{configView.farm.officialId}"/>
+
+        </p:panelGrid>
+    </h:form>
+
+
+    <h:form id="Buildingform">
+        <p:dataTable value="#{configView.buildings}" var="Building">
+            <f:facet name="header">
+                <div class="ui-g">
+                    <div class="ui-g-4" style="padding: 0; text-align: left;">
+                        <p:commandButton value="Add"
+                                         icon="pi pi-plus-circle"
+                                         actionListener="#{configView.clearBuildingSelection}"
+                                         update="newBuildingDialog"
+                                         oncomplete="PF('newBuildingDialog').show()"
+                        />
+                    </div>
+                    <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Buildings</div>
+                    <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
+                    </div>
+                </div>
+            </f:facet>
+            <p:column headerText="Name">
+                <p:commandLink id="ajax" update="Divisionsform" action="#{configView.setBuilding(Building)}" style="margin-right:20px;">
+                    <h:outputText value="#{Building.name}" />
+                </p:commandLink>
+            </p:column>
+            <p:column headerText="UId">
+                <h:outputText value="#{Building.uuid}" />
+            </p:column>
+            <p:column style="width:24px">
+            </p:column>
+
+            <p:column style="width: 16px;">
+                <p:commandLink update="modifyBuildingDialog"
+                               oncomplete="PF('modifyBuildingDialog').show()"
+                               actionListener="#{configView.setBuilding(Building)}">
+                    <li class="pi pi-pencil"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+
+    <h:form id="Divisionsform">
+        <p:dataTable value="#{configView.building.divisions}" var="division">
+            <f:facet name="header">
+                Divisions #{configView.building.name}
+            </f:facet>
+            <p:column headerText="Name">
+                <h:outputText value="#{division.name}" />
+            </p:column>
+            <p:column headerText="UId">
+                <h:outputText value="#{division.uuid}" />
+            </p:column>
+            <p:column style="width:24px">
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+    </h:body>
+
+        <p:dialog modal="false" closable="true" id="newBuildingDialog" widgetVar="newBuildingDialog">
+            <f:facet name="header">
+                New/Modify Building
+            </f:facet>
+            <h:form id="newBuildingDialogBuilding">
+                <p:panelGrid columns="2">
+
+                    <!-- Name -->
+                    <h:outputLabel value="buildingName"/>
+                    <p:column id="newbuildingNameColumn">
+                        <p:inputText id="newbuildingName" value="#{configView.building.name}"/>
+                    </p:column>
+
+
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{configView.saveBuilding}"
+                                     update="Buildingform, Divisionsform"
+                                     oncomplete="PF('newBuildingDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+        <p:dialog modal="false" closable="true" id="modifyBuildingDialog" widgetVar="modifyBuildingDialog">
+            <f:facet name="header">
+                New/Modify Building
+            </f:facet>
+            <h:form id="modifyBuilding">
+                <p:panelGrid columns="2">
+
+                    <!-- Name -->
+                    <h:outputLabel value="buildingName"/>
+                    <p:column id="modifybuildingNameColumn">
+                        <p:inputText id="modifybuildingName" value="#{configView.building.name}"/>
+                    </p:column>
+
+
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{configView.save}"
+                                     update="Buildingform, Divisionsform"
+                                     oncomplete="PF('modifyBuildingDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+
+</html>
