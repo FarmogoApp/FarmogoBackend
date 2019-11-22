@@ -140,7 +140,7 @@
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.divisionList}" var="division" itemLabel="#{division.name}" itemValue="#{division.uuid}" />
+                            <f:selectItems value="#{animalListView.divisionList}" var="division" itemLabel="#{division.name}" itemValue="#{division.name}" />
                         </p:selectOneMenu>
                     </f:facet>
 
