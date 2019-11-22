@@ -1,9 +1,7 @@
 package com.farmogo.dao.mongo;
 
 import com.farmogo.dao.FarmDao;
-import com.farmogo.dao.mongo.dto.AnimalTypeMongo;
 import com.farmogo.dao.mongo.dto.FarmMongo;
-import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -56,28 +54,31 @@ public class FarmMongoDao implements FarmDao {
 
     @Override
     public Farm save(Farm farm) {
+        FarmMongo convert = FarmMongo.convert(farm);
+        fillIds(convert);
+
         ObjectId key = null;
         if (farm.getUuid() != null) {
             key = new ObjectId(farm.getUuid());
         }
         if (key == null) {
-            FarmMongo convert = FarmMongo.convert(farm);
-            fillIds(convert);
             mongoCollection.insertOne(convert);
-            return FarmMongo.convert(convert);
         } else {
-            mongoCollection.replaceOne(Filters.eq("_id", key), FarmMongo.convert(farm));
-            return farm;
+            mongoCollection.replaceOne(Filters.eq("_id", key), convert);
         }
+        return FarmMongo.convert(convert);
     }
 
     private void fillIds(FarmMongo convert) {
-        convert.setUuid(new ObjectId());
-        if (convert.getBuildings()!=null){
-            convert.getBuildings().forEach( b ->{
-                b.setUuid(new ObjectId());
-                if (b.getDivisions()!= null){
-                    b.getDivisions().forEach(d -> d.setUuid(new ObjectId()));
+        if (convert.getUuid() == null) convert.setUuid(new ObjectId());
+        if (convert.getBuildings() != null) {
+            convert.getBuildings().forEach(b -> {
+                if (b.getUuid() == null) b.setUuid(new ObjectId());
+                if (b.getDivisions() != null) {
+                    b.getDivisions().forEach(d -> {
+                        if (d.getUuid() == null)
+                            d.setUuid(new ObjectId());
+                    });
                 }
             });
         }
