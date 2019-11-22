@@ -1,9 +1,6 @@
 package com.farmogo.front.Utils;
 
-import com.farmogo.model.Animal;
-import com.farmogo.model.AnimalType;
-import com.farmogo.model.Farm;
-import com.farmogo.model.Race;
+import com.farmogo.model.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,13 +11,23 @@ public class AnimalUtils {
     private List<Animal> animalList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
+    private List<Division> divisionList;
 
     public AnimalUtils(){}
 
-    public AnimalUtils(List<Animal> animalList, List<Race> raceList, List<AnimalType> animalTypeList) {
+    public AnimalUtils(List<Animal> animalList, List<Race> raceList, List<AnimalType> animalTypeList, List<Division> divisionList) {
         this.animalList = animalList;
         this.raceList = raceList;
         this.animalTypeList = animalTypeList;
+        this.divisionList = divisionList;
+    }
+
+    public String divisionIdToName(String divisionId){
+        Optional<Division> division = divisionList.stream()
+                .filter(p -> p.getUuid().equals(divisionId))
+                .findFirst();
+
+        return division.isPresent() ? division.get().getName() : "";
     }
 
     public List<Animal> getMothersList(){

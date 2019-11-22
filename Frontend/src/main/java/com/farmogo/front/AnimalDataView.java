@@ -70,8 +70,8 @@ public class AnimalDataView implements Serializable {
         // Exporter needs a list...
         animalData = new ArrayList<>();
         animalData.add(animal);
-
-        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList);
+        // TODO
+        // animalUtils = new AnimalUtils(animalList, raceList, animalTypeList, );
     }
 
 

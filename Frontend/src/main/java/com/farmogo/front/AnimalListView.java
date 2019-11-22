@@ -1,10 +1,7 @@
 package com.farmogo.front;
 
 import com.farmogo.front.Utils.AnimalUtils;
-import com.farmogo.model.Animal;
-import com.farmogo.model.AnimalType;
-import com.farmogo.model.Farm;
-import com.farmogo.model.Race;
+import com.farmogo.model.*;
 import com.farmogo.services.*;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
@@ -44,19 +41,24 @@ public class AnimalListView implements Serializable {
     private List<Animal> animalList;
     private List<Race> raceList;
     private List<AnimalType> animalTypeList;
+    private List<Division> divisionList;
 
 
     @PostConstruct
     public void init() {
         farm = farmService.getCurrentFarm();
-        if(farm != null) animalList = animalService.getAnimalsByFarmId(farm.getUuid());
 
-        raceList = raceService.getAll();
-        animalTypeList = animalTypesService.getAll();
-        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList);
+        if(farm != null) {
+            animalList = animalService.getAnimalsByFarmId(farm.getUuid());
+            divisionList = farmService.getFarmDivisions(farm);
+            raceList = raceService.getAll();
+            animalTypeList = animalTypesService.getAll();
+            animalUtils = new AnimalUtils(animalList, raceList, animalTypeList, divisionList);
+        }
 
         animal = new Animal();
     }
+
 
     public List<Animal> getAnimalList() {
         return animalList;
@@ -114,5 +116,13 @@ public class AnimalListView implements Serializable {
 
     public void setAnimalUtils(AnimalUtils animalUtils) {
         this.animalUtils = animalUtils;
+    }
+
+    public List<Division> getDivisionList() {
+        return divisionList;
+    }
+
+    public void setDivisionList(List<Division> divisionList) {
+        this.divisionList = divisionList;
     }
 }

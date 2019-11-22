@@ -119,6 +119,21 @@
                     </p:cellEditor>
                 </p:column>
 
+                <!-- Division -->
+                <p:column headerText="Division" filterBy="#{animalListView.animalUtils.divisionIdToName(elem.divisionId)}" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{animalListView.divisionList}" var="division" itemLabel="#{division.name}" itemValue="#{division.uuid}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.divisionIdToName(elem.divisionId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.divisionIdToName(elem.divisionId)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
                 <!-- Birth date -->
                 <p:column headerText="Birth date" sortBy="#{elem.birthDay}">
                     <p:cellEditor>
@@ -232,6 +247,15 @@
                             <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.uuid}" />
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
+                    </p:column>
+
+                    <!-- Division -->
+                    <h:outputLabel value="Division"/>
+                    <p:column id="divisionColumn">
+                        <p:selectOneMenu id="divisionSelect" value="#{animalListView.animal.divisionId}">
+                            <f:selectItems value="#{animalListView.divisionList}" var="division" itemLabel="#{division.name}" itemValue="#{division.uuid}" />
+                        </p:selectOneMenu>
+                        <p:message for="divisionSelect"/>
                     </p:column>
 
                     <p:column/>
