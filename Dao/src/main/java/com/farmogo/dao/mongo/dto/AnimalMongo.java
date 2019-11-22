@@ -1,38 +1,52 @@
-package com.farmogo.model;
+package com.farmogo.dao.mongo.dto;
 
-import java.io.Serializable;
+import com.farmogo.model.Animal;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class Animal implements Serializable {
-    private String uuid;
+public class AnimalMongo {
+
+    @BsonId
+    private ObjectId uuid;
     private String animalTypeId;
     private String officialId;
     private String tagId;
     private String sex;
-    private String raceId;
+    private ObjectId raceId;
     private LocalDate birthDay;
     private LocalDate dischargeDate;
-    private String motherId;
+    private ObjectId farmId;
+    private String divisionId;
+    private ObjectId motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
-    private String divisionId;
-    private String farmId;
 
-
-    public Animal() {
-        createdLocalDateTime = LocalDateTime.now();
+    public static AnimalMongo convert(Animal animal) {
+        return Mapper.getInstance().map(animal, AnimalMongo.class);
     }
 
-    public String getUuid() {
+    public static Animal convert(AnimalMongo animalMongo) {
+        return Mapper.getInstance().map(animalMongo, Animal.class);
+    }
+
+    public ObjectId getUuid() {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(ObjectId uuid) {
         this.uuid = uuid;
     }
 
+    public String getAnimalTypeId() {
+        return animalTypeId;
+    }
+
+    public void setAnimalTypeId(String animalTypeId) {
+        this.animalTypeId = animalTypeId;
+    }
 
     public String getOfficialId() {
         return officialId;
@@ -58,11 +72,11 @@ public class Animal implements Serializable {
         this.sex = sex;
     }
 
-    public String getRaceId() {
+    public ObjectId getRaceId() {
         return raceId;
     }
 
-    public void setRaceId(String raceId) {
+    public void setRaceId(ObjectId raceId) {
         this.raceId = raceId;
     }
 
@@ -82,11 +96,11 @@ public class Animal implements Serializable {
         this.dischargeDate = dischargeDate;
     }
 
-    public String getFarmId() {
+    public ObjectId getFarmId() {
         return farmId;
     }
 
-    public void setFarmId(String farmId) {
+    public void setFarmId(ObjectId farmId) {
         this.farmId = farmId;
     }
 
@@ -98,11 +112,11 @@ public class Animal implements Serializable {
         this.divisionId = divisionId;
     }
 
-    public String getMotherId() {
+    public ObjectId getMotherId() {
         return motherId;
     }
 
-    public void setMotherId(String motherId) {
+    public void setMotherId(ObjectId motherId) {
         this.motherId = motherId;
     }
 
@@ -120,13 +134,5 @@ public class Animal implements Serializable {
 
     public void setOrigin(String origin) {
         this.origin = origin;
-    }
-
-    public String getAnimalTypeId() {
-        return animalTypeId;
-    }
-
-    public void setAnimalTypeId(String animalTypeId) {
-        this.animalTypeId = animalTypeId;
     }
 }

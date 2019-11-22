@@ -18,13 +18,14 @@ public class RaceService {
         return raceDAO.getAll();
     }
 
+    public Race get(String id) { return raceDAO.get(id); }
+
     public Race save(Race race){
         return raceDAO.save(race);
     }
 
     public void delete(Race race) {
-        Race raceToDelete = raceDAO.get(race.getUuid());
-        raceDAO.delete(raceToDelete);
+        /*Race raceToDelete = raceDAO.get(race.getUuid());*/
+        raceDAO.delete(race);
     }
-
 }

@@ -1,12 +1,15 @@
 package com.farmogo.front;
 
-import com.farmogo.model.Animal;
-import com.farmogo.model.incidences.*;
+import com.farmogo.model.incidences.GetoffType;
+import com.farmogo.model.incidences.Incidence;
+import com.farmogo.model.incidences.PregnancyType;
+import com.farmogo.model.incidences.TreatmentType;
 import com.farmogo.services.IncidencesService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -25,24 +28,32 @@ public class IncidenceView implements Serializable {
     List<Incidence> incidenceList;
 
     Incidence incidence;
+    String animalId;
 
     @PostConstruct
     public void init() {
-
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map<String,String> params =
-                facesContext.getExternalContext().getRequestParameterMap();
-        if (params.containsKey("animal")){
-            Animal animal = new Animal();
-            animal.setUuid(params.get("animal"));
-            incidenceList = incidencesService.getAll(animal);
-        }else{
-            incidenceList = incidencesService.getAll();
+        FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+        String animalId = (String) faceletContext.getAttribute("animalId");
+        if (animalId == null) {
+            Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+            animalId = params.get("animalId");
         }
 
+        if (animalId != null) {
+            incidenceList = incidencesService.getAll(animalId);
+        } else {
+            incidenceList = incidencesService.getAll();
+        }
+    }
 
-        String action = params.get("animalId");
+    public String getAnimalId() {
+        return this.animalId;
+    }
 
+    public void setAnimalId(String animalId) {
+        this.animalId = animalId;
+        incidenceList = incidencesService.getAll(animalId);
     }
 
     public List<Incidence> getIncidenceList() {
@@ -66,17 +77,19 @@ public class IncidenceView implements Serializable {
         return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 
-    public void save(){
+    public void save() {
         incidencesService.save(incidence);
     }
 
-    public PregnancyType[] getPregnancyTypes(){
+    public PregnancyType[] getPregnancyTypes() {
         return PregnancyType.values();
     }
-    public TreatmentType[] getTreatmentTypes(){
+
+    public TreatmentType[] getTreatmentTypes() {
         return TreatmentType.values();
     }
-    public GetoffType[] getGetoffTypes(){
+
+    public GetoffType[] getGetoffTypes() {
         return GetoffType.values();
     }
 

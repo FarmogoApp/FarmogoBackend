@@ -9,19 +9,12 @@
         <h:head>
             <title>Animal data</title>
         </h:head>
-
-        <h1>Animal data</h1>
-
+        <h:form>
+            <p:linkButton value="Back"
+                          icon="pi pi-arrow-circle-left"
+                          outcome="animal_list"/>
+        </h:form>
         <h:form id="animalDataForm">
-
-            <p:commandButton value="CSV" icon="fa fa-fw fa-file-excel-o" ajax="false">
-                <p:dataExporter type="csv" target="animalTable" fileName="Farmogo Animal list"/>
-            </p:commandButton>
-
-            <p:commandButton value="PDF" icon="fa fa-fw fa-file-pdf-o" ajax="false" >
-                <p:dataExporter type="pdf" target="animalTable" fileName="Farmogo Animal list"/>
-            </p:commandButton>
-
 
             <p:dataTable
                     id="animalTable"
@@ -29,6 +22,22 @@
                     var="elem"
                     rowKey="#{elem.uuid}"
                     selection="#{animalDataView.animal}">
+                <f:facet name="header">
+                    <div class="ui-g">
+                        <div class="ui-g-4" style="padding: 0;"></div>
+                        <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Animal data</div>
+                        <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
+                            <h:commandLink>
+                                <p:graphicImage name="/img/csv.png" width="25" height=""/>
+                                <p:dataExporter type="csv" target="animalTable" fileName="animal"/>
+                            </h:commandLink>
+                            <h:commandLink>
+                                <p:graphicImage name="/img/pdf.png" width="25"/>
+                                <p:dataExporter type="pdf" target="animalTable" fileName="animal"/>
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </f:facet>
 
                 <!-- UUID (Only for development)-->
 <!--                <p:column headerText="UUID (Dev)">-->
@@ -135,8 +144,9 @@
             </p:dataTable>
         </h:form>
 
-        <h1>Incidences</h1>
-
+        <ui:include src="incidencesPanel.xhtml">
+            <ui:param name="animalId" value="#{animalDataView.animal.uuid}"></ui:param>
+        </ui:include>
 
     </ui:define>
 </ui:composition>

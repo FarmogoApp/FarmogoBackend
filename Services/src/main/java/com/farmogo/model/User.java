@@ -13,10 +13,6 @@ public class User implements Serializable {
     private String billData;
     private List<Incidence> incidencesList;
 
-    public User(){
-
-    }
-
     public String getUuid() {
         return uuid;
     }

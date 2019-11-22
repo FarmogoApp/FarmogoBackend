@@ -105,7 +105,7 @@ public class AnimalListView implements Serializable {
         animalService.save(animal);
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Animal added successfully"));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Animal saved successfully"));
         init();
     }
 

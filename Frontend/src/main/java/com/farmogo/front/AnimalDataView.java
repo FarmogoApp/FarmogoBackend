@@ -59,10 +59,8 @@ public class AnimalDataView implements Serializable {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
-
-        if (params.containsKey("animal")){
-            String animalId = params.get("animal");
-            animal = animalService.getAnimalById(animalId);
+        if (params.containsKey("animalId")){
+            animal = animalService.getAnimalById(params.get("animalId"));
         } else {
             animal = new Animal();
         }

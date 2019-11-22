@@ -57,10 +57,10 @@ public class IncidenceMongoDao implements IncidenceDao {
     }
 
     @Override
-    public List<Incidence> getAll(Animal animal) {
+    public List<Incidence> getAll(String animalid) {
         return StreamSupport.stream(
                 mongoCollection.find()
-                        .filter(Filters.eq("animalId", new ObjectId(animal.getUuid())))
+                        .filter(Filters.eq("animalId", new ObjectId(animalid)))
                         .spliterator(), false)
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());

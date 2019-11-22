@@ -8,10 +8,6 @@ public class Division implements Serializable {
     private String uuid;
     private String name;
 
-    public Division(){
-
-    }
-
     public String getUuid() {
         return uuid;
     }

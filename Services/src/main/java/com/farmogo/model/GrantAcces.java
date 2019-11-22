@@ -8,9 +8,6 @@ public class GrantAcces implements Serializable {
     private  String farmId;
     private int role;
     private List<User> userList;
-    public GrantAcces(){
-
-    }
 
     public String getUserId() {
         return userId;

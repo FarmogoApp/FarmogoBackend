@@ -25,10 +25,11 @@ public abstract class Incidence {
     private String observations;
     private LocalDate dueDate;
     private boolean done;
+    private boolean complete;
     private LocalDateTime created;
-    private User createdBy;
-    private Animal animal;
-    private Farm farm;
+    private String createdBy;
+    private String animalId;
+    private String farmId;
 
     public Incidence(IncidenceType incidenceType) {
         type = incidenceType;
@@ -80,28 +81,37 @@ public abstract class Incidence {
         this.created = created;
     }
 
-    public Animal getAnimal() {
-        return animal;
+
+    public boolean isComplete() {
+        return complete;
     }
 
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 
-    public User getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Farm getFarm() {
-        return farm;
+    public String getAnimalId() {
+        return animalId;
     }
 
-    public void setFarm(Farm farm) {
-        this.farm = farm;
+    public void setAnimalId(String animalId) {
+        this.animalId = animalId;
+    }
+
+    public String getFarmId() {
+        return farmId;
+    }
+
+    public void setFarmId(String farmId) {
+        this.farmId = farmId;
     }
 
     public abstract void accept(IncidenceVisitor visitor);

@@ -36,21 +36,16 @@ public class IncidencesRS {
     @Path("test")
     public String test() {
 
-        User user = new User();
-        user.setUuid("5dd0227098aa388b4499f5b0");
-
-        Farm farm = new Farm();
-        farm.setUuid("5dd0227098aa388b4499f5b1");
-
-        Animal animal = new Animal();
-        animal.setUuid("5dd0227098aa388b4499f5b9");
+        String user ="5dd0227098aa388b4499f5b0";
+        String farm = "5dd0227098aa388b4499f5b1";
+        String animal = "5dd0227098aa388b4499f5b9";
 
         IncidenceWeight incidence = new IncidenceWeight();
         incidence.setDone(true);
         incidence.setWeight(100);
-        incidence.setAnimal(animal);
+        incidence.setAnimalId(animal);
         incidence.setCreatedBy(user);
-        incidence.setFarm(farm);
+        incidence.setFarmId(farm);
         incidencesService.save(incidence);
 
 
@@ -59,20 +54,20 @@ public class IncidencesRS {
         incidenceGetoff.setGetoffType(GetoffType.Slaughterhouse);
         incidenceGetoff.setObservations("observations");
         incidenceGetoff.setDone(false);
-        incidenceGetoff.setAnimal(animal);
+        incidenceGetoff.setAnimalId(animal);
         incidenceGetoff.setCreatedBy(user);
-        incidenceGetoff.setFarm(farm);
+        incidenceGetoff.setFarmId(farm);
         incidencesService.save(incidenceGetoff);
 
         incidenceGetoff.setHealthRegister("test register updated");
         incidenceGetoff.setDueDate(LocalDate.now());
-        incidenceGetoff.setAnimal(animal);
+        incidenceGetoff.setAnimalId(animal);
         incidencesService.save(incidenceGetoff);
 
         IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
         incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
         incidencePregnancy.setCreatedBy(user);
-        incidencePregnancy.setFarm(farm);
+        incidencePregnancy.setFarmId(farm);
         incidencesService.save(incidencePregnancy);
 
         IncidenceTreatment incidenceTreatment = new IncidenceTreatment();
@@ -80,7 +75,7 @@ public class IncidencesRS {
         incidenceTreatment.setMedicine("tetanus");
         incidenceTreatment.setDose("100mg");
         incidenceTreatment.setCreatedBy(user);
-        incidenceTreatment.setFarm(farm);
+        incidenceTreatment.setFarmId(farm);
         incidencesService.save(incidenceTreatment);
 
         return "ok";
