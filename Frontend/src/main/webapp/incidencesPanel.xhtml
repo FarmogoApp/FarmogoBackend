@@ -23,6 +23,7 @@
                     <p:commandButton value="Add"
                                      icon="pi pi-plus-circle"
                                      actionListener="#{incidenceView.resetIncidence()}"
+                                     rendered="#{not empty incidenceView.animalId}"
                                      update="incidenceDialog"
                                      oncomplete="PF('incidenceDialog').show()" />
                 </div>
@@ -47,6 +48,11 @@
         </p:column>
         <p:column headerText="Type" sortBy="#{elem.type}" filterBy="#{elem.type}">
             <h:outputText value="#{elem.type}"/>
+        </p:column>
+        <p:column headerText="Animal" rendered="#{empty incidenceView.animalId}">
+            <p:link outcome="animal_data"  value="${incidenceView.getAnimalOfficialId(elem.animalId)}">
+                <f:param name="animalId" value="${elem.animalId}"/>
+            </p:link>
         </p:column>
         <p:column headerText="Created" sortBy="#{elem.created}">
             <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>

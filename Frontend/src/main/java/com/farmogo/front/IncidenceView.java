@@ -1,6 +1,8 @@
 package com.farmogo.front;
 
+import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.*;
+import com.farmogo.services.AnimalService;
 import com.farmogo.services.IncidencesService;
 import com.farmogo.services.UserService;
 
@@ -25,6 +27,9 @@ public class IncidenceView implements Serializable {
 
     @Inject
     UserService userService;
+
+    @Inject
+    AnimalService animalService;
 
     List<Incidence> incidenceList;
 
@@ -137,5 +142,11 @@ public class IncidenceView implements Serializable {
         return GetoffType.values();
     }
 
+    public String getAnimalOfficialId(String animalId){
+        if (animalId == null || "".equals(animalId)) return "";
+        Animal animal = animalService.get(animalId);
+        if (animal== null) return "";
+        return animal.getOfficialId();
+    }
 
 }

@@ -103,6 +103,7 @@ public class TestRs {
 
         /*Create animals*/
         Animal animal = new Animal();
+        animal.setOfficialId("1234567890123");
         animal.setOrigin("Lleida");
         animal.setSex("Female");
         animal.setAnimalTypeId(animalTypeId.getAnimalType());
@@ -115,6 +116,7 @@ public class TestRs {
         Animal animalA = animalService.save(animal);
 
         Animal animal2 = new Animal();
+        animal2.setOfficialId("78901234567890");
         animal2.setOrigin("Ainsa");
         animal2.setSex("Male");
         animal2.setAnimalTypeId(animalTypeId2.getAnimalType());
