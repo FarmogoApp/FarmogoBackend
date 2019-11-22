@@ -6,6 +6,8 @@ import com.farmogo.model.Division;
 import com.farmogo.model.Farm;
 import com.farmogo.services.BuildingService;
 import com.farmogo.services.FarmService;
+import com.farmogo.services.GlobalSessionService;
+import com.sun.corba.se.spi.ior.ObjectId;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -13,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -30,58 +33,28 @@ public class ConfigView implements Serializable {
     private Farm farm;
     private List<Building> buildingsList;
     private Building building;
-    private Division division;
-    private List<Division> divisionList;
 
     @PostConstruct
-    public void init() {
+    public void init(){
         farm = farmService.getCurrentFarm();
         buildingsList = farm.getBuildings();
         building = buildingsList.get(0);
     }
 
-    public void clearFarmSelection() {
-        farm = new Farm();
-    }
-
-    public void clearBuildingSelection() {
+    public void clearBuildingSelection(){
         building = new Building();
-    }
-
-    public void clearDivisionSelection() {
-        division = new Division();
-    }
-
-    public void setFarm(String name, String officialId, String prefix, int counter){
-        this.farm.setName(name);
-        this.farm.setOfficialId(officialId);
-        AnimalCounter AC = new AnimalCounter(prefix, counter);
-        this.farm.setAnimalCounter(AC);
     }
 
     public Building getBuilding() {
         return building;
     }
 
-    public void setBuilding(Building building) {
+    public void setBuilding(Building building){
         this.building = building;
     }
 
-    public List<Building> getBuildings() {
+    public List<Building> getBuildings(){
         return buildingsList;
-    }
-
-    public Division getDivision() {
-        return division;
-    }
-
-    public void setDivision(Division division) {
-        this.division = division;
-    }
-
-    public List<Division> getDivisionList() {
-        divisionList = this.building.getDivisions();
-        return divisionList;
     }
 
     public AnimalCounter getAnimalCounter() {
@@ -92,55 +65,28 @@ public class ConfigView implements Serializable {
         this.farm.setAnimalCounter(animalCounter);
     }
 
-    public Farm getFarm() {
+    public Farm getFarm(){
         return farm;
     }
 
-    public void saveNewFarm(String name, String officialId, String prefix, int counter) {
-        System.out.println(name);
-
-        setFarm(name, officialId, prefix, counter);
-        clearBuildingSelection();
-        clearDivisionSelection();
-        division.setName("division 1.1");
-        building.setDivisions(Arrays.asList(division));
-        farm.setBuildings(Arrays.asList(building));
-
-        farm = farmService.save(farm);
-        buildingsList = farm.getBuildings();
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
-    }
-
-    public void saveBuilding() {
+    public void saveBuilding(){
+        //this.building.setUuid("8888");
         Division d11 = new Division();
         d11.setName("division 1.1");
+        //d11.setUuid("5555");
 
         this.building.setDivisions(Arrays.asList(d11));
-        farm.getBuildings().add(this.building);
-        farm = farmService.save(farm);
-        buildingsList = farm.getBuildings();
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
-    }
-
-    public void saveDivision() {
-        divisionList = this.building.getDivisions();
-        divisionList.add(division);
-        this.building.setDivisions(divisionList);
-
-        farm = farmService.save(farm);
-        buildingsList = farm.getBuildings();
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
-    }
-
-    public void save() {
+        buildingsList.add(this.building);
+        farm.setBuildings(buildingsList);
         farmService.save(farm);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Farm saved") );
+        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+    }
+
+    public void save(){
+        farmService.save(farm);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
     }
 }
