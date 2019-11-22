@@ -1,6 +1,5 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.IncidenceType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.GET;
@@ -17,7 +16,7 @@ public class IncidenceTypeRS {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<IncidenceType> getAll() {
+    public List getAll() {
         return null;
     }
 }
