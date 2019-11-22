@@ -2,8 +2,10 @@ package com.farmogo.front;
 
 import com.farmogo.front.Utils.AnimalUtils;
 import com.farmogo.model.*;
-import com.farmogo.services.*;
-import org.primefaces.component.datatable.DataTable;
+import com.farmogo.services.AnimalService;
+import com.farmogo.services.AnimalTypesService;
+import com.farmogo.services.FarmService;
+import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -13,9 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Named
 @ViewScoped

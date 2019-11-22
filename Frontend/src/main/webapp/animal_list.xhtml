@@ -167,7 +167,7 @@
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.dischargeDate}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                <!-- <f:convertDateTime pattern="dd/MM/yyyy" />-->
                             </h:outputText>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
@@ -225,6 +225,7 @@
                     <!-- Mother Id -->
                     <h:outputLabel value="Mother ID"/>
                     <p:column id="motherIdColumn">
+                        <!-- FIXME: If selectOneMenu is editable, then it's not a valid ObjectId -->
                         <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}" editable="true">
                             <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother"
                                            itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}"/>

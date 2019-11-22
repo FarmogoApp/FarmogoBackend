@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 
 @Stateless
@@ -67,5 +68,15 @@ public class FarmService {
         return divisions;
 
 
+    }
+
+    public Division getDivisionById(String divisionId){
+        List<Division> divisionList = getFarmDivisions(getCurrentFarm());
+
+        Optional<Division> division = divisionList.stream()
+                .filter(p -> p.getUuid().equals(divisionId))
+                .findFirst();
+
+        return division.orElseGet(Division::new);
     }
 }
