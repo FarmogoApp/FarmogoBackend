@@ -65,13 +65,9 @@
 
                 <!-- Mother ID -->
                 <p:column headerText="Mother official ID">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText
-                                value="#{animalDataView.motherId}"/></f:facet>
-                        <f:facet name="input"><p:inputText
-                                value="#{animalDataView.motherId}"
-                                style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                    <p:link outcome="animal_data"  value="#{animalDataView.motherId}">
+                        <f:param name="animalId" value="#{elem.motherId}"/>
+                    </p:link>
                 </p:column>
 
                 <!-- Race -->
