@@ -5,18 +5,21 @@ import com.farmogo.services.AnimalService;
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.services.FarmService;
 import com.farmogo.services.RaceService;
+import org.primefaces.event.ToggleEvent;
+import org.primefaces.model.Visibility;
 
 import javax.annotation.PostConstruct;
+import javax.el.MethodExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Named
@@ -45,11 +48,12 @@ public class AnimalListView implements Serializable {
     private Map<String, String> divisions = new HashMap<>();
     private Map<String, String> mothers = new HashMap<>();
 
+
+
     @PostConstruct
     public void init() {
         farm = farmService.getCurrentFarm();
-
-        if(farm != null) {
+        if (farm != null) {
             animalList = animalService.getAnimalsByFarmId(farm.getUuid());
             HashMothers();
             HashRaces();
@@ -76,12 +80,12 @@ public class AnimalListView implements Serializable {
                 .collect(Collectors.toMap(AnimalType::getAnimalType, AnimalType::getDescription));
     }
 
-    private void HashRaces(){
+    private void HashRaces() {
         races = raceService.getAll().stream()
                 .collect(Collectors.toMap(Race::getUuid, Race::getName));
     }
 
-    public String getBuildingContainingDivision(String divisionId){
+    public String getBuildingContainingDivision(String divisionId) {
         return farmService.getBuildingContainingDivision(divisionId).getName();
     }
 
@@ -110,19 +114,19 @@ public class AnimalListView implements Serializable {
         this.animal = animal;
     }
 
-    public void clearSelection(){
+    public void clearSelection() {
         animal = new Animal();
     }
 
-    public void save(){
+    public void save() {
 
         animal.setFarmId(farm.getUuid());
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             animalService.save(animal);
-            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Animal saved successfully"));
+            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Animal saved successfully"));
         } catch (Exception e) {
-            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error has occurred while saving"));
+            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "An error has occurred while saving"));
         }
 
         init();
@@ -159,5 +163,8 @@ public class AnimalListView implements Serializable {
     public void setFarm(Farm farm) {
         this.farm = farm;
     }
+
+
+
 
 }
