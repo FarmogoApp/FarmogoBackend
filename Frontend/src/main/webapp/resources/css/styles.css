@@ -42,3 +42,7 @@ button.leftmenu{
     width: 400px;
     margin: 40px auto;
 }
+
+.incomplete{
+    background-color: khaki !important;
+}

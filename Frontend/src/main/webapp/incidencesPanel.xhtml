@@ -15,7 +15,9 @@
             value="#{incidenceView.incidenceList}"
             var="elem"
             sortMode="multiple"
-            widgetVar="incidencesTable">
+            widgetVar="incidencesTable"
+            rowStyleClass="#{elem.complete ? '' : 'incomplete'}"
+    >
 
         <f:facet name="header">
             <div class="ui-g">
@@ -25,9 +27,10 @@
                                      actionListener="#{incidenceView.resetIncidence()}"
                                      rendered="#{not empty incidenceView.animalId}"
                                      update="incidenceDialog"
-                                     oncomplete="PF('incidenceDialog').show()" />
+                                     oncomplete="PF('incidenceDialog').show()"/>
                 </div>
-                <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">${incidenceView.title}</div>
+                <div class="ui-g-4"
+                     style="padding: 0;text-align: center; line-height: 30px;">${incidenceView.title}</div>
                 <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
                     <h:commandLink>
                         <p:graphicImage name="/img/csv.png" width="25" height=""/>
@@ -50,7 +53,7 @@
             <h:outputText value="#{elem.type}"/>
         </p:column>
         <p:column headerText="Animal" rendered="#{empty incidenceView.animalId}">
-            <p:link outcome="animal_data"  value="${incidenceView.getAnimalOfficialId(elem.animalId)}">
+            <p:link outcome="animal_data" value="${incidenceView.getAnimalOfficialId(elem.animalId)}">
                 <f:param name="animalId" value="${elem.animalId}"/>
             </p:link>
         </p:column>
