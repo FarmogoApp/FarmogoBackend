@@ -1,12 +1,10 @@
 package com.farmogo.front;
 
-import com.farmogo.front.Utils.AnimalUtils;
 import com.farmogo.model.*;
 import com.farmogo.services.AnimalService;
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.services.FarmService;
 import com.farmogo.services.RaceService;
-import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,7 +13,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
@@ -33,16 +34,14 @@ public class AnimalListView implements Serializable {
     @Inject
     AnimalTypesService animalTypesService;
 
-
-    private AnimalUtils animalUtils;
     private Farm farm;
     private Animal animal;
 
     private List<Animal> animalList;
-    private List<Race> raceList;
-    private List<AnimalType> animalTypeList;
-    private List<Division> divisionList;
-
+    private Map<String, String> races = new HashMap<>();
+    private Map<String, String> animalTypes = new HashMap<>();
+    private Map<String, String> divisions = new HashMap<>();
+    private Map<String, String> mothers = new HashMap<>();
 
     @PostConstruct
     public void init() {
@@ -50,23 +49,48 @@ public class AnimalListView implements Serializable {
 
         if(farm != null) {
             animalList = animalService.getAnimalsByFarmId(farm.getUuid());
-            divisionList = farmService.getFarmDivisions(farm);
-            raceList = raceService.getAll();
-            animalTypeList = animalTypesService.getAll();
-            animalUtils = new AnimalUtils(animalList, raceList, animalTypeList, divisionList);
+            HashMothers();
+            HashRaces();
+            HashAnimalTypes();
+            HashDivisions(farm);
         }
 
         animal = new Animal();
     }
 
+    private void HashMothers() {
+        mothers = animalList.stream()
+                .filter(p -> p.getSex().equals("Female"))
+                .collect(Collectors.toMap(Animal::getUuid, Animal::getOfficialId));
+    }
+
+    private void HashDivisions(Farm farm) {
+        divisions = farmService.getFarmDivisions(farm).stream()
+                .collect(Collectors.toMap(Division::getUuid, Division::getName));
+    }
+
+    private void HashAnimalTypes() {
+        animalTypes = animalTypesService.getAll().stream()
+                .collect(Collectors.toMap(AnimalType::getAnimalType, AnimalType::getDescription));
+    }
+
+    private void HashRaces(){
+        races = raceService.getAll().stream()
+                .collect(Collectors.toMap(Race::getUuid, Race::getName));
+    }
+
+    public Map<String, String> getAnimalTypes() {
+        return animalTypes;
+    }
+
+    public void setAnimalTypes(Map<String, String> animalTypes) {
+        this.animalTypes = animalTypes;
+    }
 
     public List<Animal> getAnimalList() {
         return animalList;
     }
 
-    public List<Race> getRaceList() {
-        return raceList;
-    }
 
     public void setAnimalList(List<Animal> animalList) {
         this.animalList = animalList;
@@ -80,21 +104,6 @@ public class AnimalListView implements Serializable {
         this.animal = animal;
     }
 
-    public List<AnimalType> getAnimalTypeList() {
-        return animalTypeList;
-    }
-
-    public void setAnimalTypeList(List<AnimalType> animalTypeList) {
-        this.animalTypeList = animalTypeList;
-    }
-
-    public void onRowEdit(RowEditEvent event) {
-        Animal animalEvent = (Animal) event.getObject();
-        animalEvent.setFarmId(farm.getUuid());
-        animalService.save(animalEvent);
-        init();
-    }
-
     public void clearSelection(){
         animal = new Animal();
     }
@@ -102,27 +111,38 @@ public class AnimalListView implements Serializable {
     public void save(){
 
         animal.setFarmId(farm.getUuid());
-        animalService.save(animal);
-
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Animal saved successfully"));
+        try {
+            animalService.save(animal);
+            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_INFO,"Successful", "Animal saved successfully"));
+        } catch (Exception e) {
+            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "An error has occurred while saving"));
+        }
+
         init();
     }
 
-
-    public AnimalUtils getAnimalUtils() {
-        return animalUtils;
+    public Map<String, String> getRaces() {
+        return races;
     }
 
-    public void setAnimalUtils(AnimalUtils animalUtils) {
-        this.animalUtils = animalUtils;
+    public void setRaces(Map<String, String> races) {
+        this.races = races;
     }
 
-    public List<Division> getDivisionList() {
-        return divisionList;
+    public Map<String, String> getDivisions() {
+        return divisions;
     }
 
-    public void setDivisionList(List<Division> divisionList) {
-        this.divisionList = divisionList;
+    public void setDivisions(Map<String, String> divisions) {
+        this.divisions = divisions;
+    }
+
+    public Map<String, String> getMothers() {
+        return mothers;
+    }
+
+    public void setMothers(Map<String, String> mothers) {
+        this.mothers = mothers;
     }
 }

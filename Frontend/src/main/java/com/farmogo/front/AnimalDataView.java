@@ -1,8 +1,8 @@
 package com.farmogo.front;
 
 
-import com.farmogo.front.Utils.AnimalUtils;
-import com.farmogo.model.*;
+import com.farmogo.model.Animal;
+import com.farmogo.model.Farm;
 import com.farmogo.services.AnimalService;
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.services.FarmService;
@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Named

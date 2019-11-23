@@ -67,45 +67,38 @@
                 </p:column>
 
                 <!-- Mother ID -->
-                <p:column headerText="Mother ID" filterBy="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" filterMatchMode="contains">
+                <p:column headerText="Mother ID" filterBy="#{animalListView.mothers[elem.motherId]}" filterMatchMode="contains">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.mothers[elem.motherId]}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.mothers[elem.motherId]}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Race -->
-                <p:column headerText="Race" filterBy="#{animalListView.animalUtils.raceIdToName(elem.raceId)}" filterMatchMode="exact">
+                <p:column headerText="Race" filterBy="#{animalListView.races[elem.raceId]}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}" itemValue="#{race.name}" />
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{animalListView.races.entrySet()}" var="entity" itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
-
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText
-                                value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText
-                                value="#{animalListView.animalUtils.raceIdToName(elem.raceId)}"
-                                style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.races[elem.raceId]}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.races[elem.raceId]}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type" filterBy="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}" filterMatchMode="exact">
+                <p:column headerText="Animal type" filterBy="#{animalListView.animalTypes[elem.animalTypeId]}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType" itemLabel="#{animalType.description}" itemValue="#{animalType.description}" />
+                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity" itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText
-                                value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText
-                                value="#{animalListView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"
-                                style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalTypes[elem.animalTypeId]}"/></f:facet>
+                        <f:facet name="input"><p:inputText  value="#{animalListView.animalTypes[elem.animalTypeId]}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -133,17 +126,17 @@
                 </p:column>
 
                 <!-- Division -->
-                <p:column headerText="Division" filterBy="#{animalListView.animalUtils.divisionIdToName(elem.divisionId)}" filterMatchMode="exact">
+                <p:column headerText="Division" filterBy="#{animalListView.divisions[elem.divisionId]}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.divisionList}" var="division" itemLabel="#{division.name}" itemValue="#{division.name}" />
+                            <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity" itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
 
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.divisionIdToName(elem.divisionId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.divisionIdToName(elem.divisionId)}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.divisions[elem.divisionId]}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.divisions[elem.divisionId]}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -225,8 +218,8 @@
                         <!-- TODO: If selectOneMenu is editable, then it's not a valid ObjectId -->
                         <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}">
                             <f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother"
-                                           itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}"/>
+                            <f:selectItems value="#{animalListView.mothers.entrySet()}" var="entity"
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
                         </p:selectOneMenu>
                         <p:message for="motherIdSelect"/>
                     </p:column>
@@ -252,8 +245,8 @@
                     <h:outputLabel value="Animal type"/>
                     <p:column id="animalTypeColumn">
                         <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
-                            <f:selectItems value="#{animalListView.animalTypeList}" var="animalType"
-                                           itemLabel="#{animalType.description}" itemValue="#{animalType.animalType}"/>
+                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>
@@ -262,8 +255,8 @@
                     <h:outputLabel value="Race"/>
                     <p:column id="raceColumn">
                         <p:selectOneMenu id="raceSelect" value="#{animalListView.animal.raceId}">
-                            <f:selectItems value="#{animalListView.raceList}" var="race" itemLabel="#{race.name}"
-                                           itemValue="#{race.uuid}"/>
+                            <f:selectItems value="#{animalListView.races.entrySet()}" var="entity"
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>
@@ -272,7 +265,8 @@
                     <h:outputLabel value="Division"/>
                     <p:column id="divisionColumn">
                         <p:selectOneMenu id="divisionSelect" value="#{animalListView.animal.divisionId}">
-                            <f:selectItems value="#{animalListView.divisionList}" var="division" itemLabel="#{division.name}" itemValue="#{division.uuid}" />
+                            <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity"
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
                         </p:selectOneMenu>
                         <p:message for="divisionSelect"/>
                     </p:column>
