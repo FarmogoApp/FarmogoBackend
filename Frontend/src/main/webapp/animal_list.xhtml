@@ -59,18 +59,16 @@
 
                 <!-- Official ID -->
                 <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                    <p:link outcome="animal_data"  value="#{elem.officialId}">
+                        <f:param name="animalId" value="#{elem.uuid}"/>
+                    </p:link>
                 </p:column>
 
                 <!-- Mother ID -->
                 <p:column headerText="Mother ID" filterBy="#{animalListView.mothers[elem.motherId]}" filterMatchMode="contains">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.mothers[elem.motherId]}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.mothers[elem.motherId]}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                    <p:link outcome="animal_data"  value="#{animalListView.mothers[elem.motherId]}">
+                        <f:param name="animalId" value="#{elem.motherId}"/>
+                    </p:link>
                 </p:column>
 
                 <!-- Race -->
