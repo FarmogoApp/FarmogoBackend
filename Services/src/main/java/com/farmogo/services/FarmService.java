@@ -1,12 +1,17 @@
 package com.farmogo.services;
 
 import com.farmogo.dao.FarmDao;
+import com.farmogo.model.Building;
+import com.farmogo.model.Division;
 import com.farmogo.model.Farm;
 import com.farmogo.model.User;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
 
 @Stateless
 public class FarmService {
@@ -53,5 +58,25 @@ public class FarmService {
             }
         }
         return farm;
+    }
+
+    public List<Division> getFarmDivisions(Farm farm){
+        ArrayList<Division> divisions = new ArrayList<>();
+
+        for (Building b: farm.getBuildings()) divisions.addAll(b.getDivisions());
+
+        return divisions;
+
+
+    }
+
+    public Division getDivisionById(String divisionId){
+        List<Division> divisionList = getFarmDivisions(getCurrentFarm());
+
+        Optional<Division> division = divisionList.stream()
+                .filter(p -> p.getUuid().equals(divisionId))
+                .findFirst();
+
+        return division.orElseGet(Division::new);
     }
 }

@@ -49,19 +49,16 @@ public class TestRs {
         animalType.setDescription("Cow");
         animalType.setIcon("CowIcon");
         AnimalType animalTypeId = animalTypesService.save(animalType);
-        animalTypesService.save(animalType);
 
         AnimalType animalType2 = new AnimalType();
         animalType2.setDescription("Bull");
         animalType2.setIcon("BullIcon");
         AnimalType animalTypeId2 = animalTypesService.save(animalType2);
-        animalTypesService.save(animalType2);
 
         AnimalType animalType3 = new AnimalType();
         animalType3.setDescription("Calf");
         animalType3.setIcon("CalfIcon");
         AnimalType animalTypeId3 = animalTypesService.save(animalType3);
-        animalTypesService.save(animalType3);
 
 
         /*Create races*/
@@ -111,16 +108,22 @@ public class TestRs {
         animal.setAnimalTypeId(animalTypeId.getAnimalType());
         animal.setRaceId(raceA.getUuid());
         animal.setFarmId(farmA.getUuid());
+        animal.setOfficialId("ES001202059231");
+        animal.setBirthDay(LocalDate.of(2018, 1, 1));
+        animal.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
        // animal.setMotherId("");
         Animal animalA = animalService.save(animal);
 
         Animal animal2 = new Animal();
         animal2.setOrigin("Ainsa");
         animal2.setSex("Male");
-        animal2.setAnimalTypeId(animalTypeId.getAnimalType());
+        animal2.setAnimalTypeId(animalTypeId2.getAnimalType());
         animal2.setRaceId(raceB.getUuid());
         animal2.setFarmId(farmA.getUuid());
-        //animal2.setMotherId()
+        animal2.setOfficialId("ES051400239970");
+        animal2.setMotherId(animalA.getUuid());
+        animal2.setBirthDay(LocalDate.of(2019, 9, 1));
+        animal2.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
         Animal animalB = animalService.save(animal2);
 
         User user = new User();

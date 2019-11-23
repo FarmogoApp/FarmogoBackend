@@ -1,24 +1,21 @@
 package com.farmogo.front;
 
 
-import com.farmogo.front.Utils.AnimalUtils;
 import com.farmogo.model.Animal;
-import com.farmogo.model.AnimalType;
 import com.farmogo.model.Farm;
-import com.farmogo.model.Race;
-import com.farmogo.services.*;
+import com.farmogo.services.AnimalService;
+import com.farmogo.services.AnimalTypesService;
+import com.farmogo.services.FarmService;
+import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Named
@@ -37,39 +34,44 @@ public class AnimalDataView implements Serializable {
     @Inject
     FarmService farmService;
 
+    private String race;
+    private String animalType;
+    private String division;
+    private String motherId;
 
-    private List<Animal> animalList;
-    private List<Race> raceList;
-    private List<AnimalType> animalTypeList;
-
-    private Animal animal;
-    private AnimalUtils animalUtils;
     private Farm farm;
-
+    private Animal animal;
     private ArrayList<Animal> animalData;
-
 
     @PostConstruct
     public void init() {
         farm = farmService.getCurrentFarm();
-        if(farm != null) animalList = animalService.getAnimalsByFarmId(farm.getUuid());
 
-        raceList = raceService.getAll();
-        animalTypeList = animalTypesService.getAll();
+        if(farm != null) {
 
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
-        if (params.containsKey("animalId")){
-            animal = animalService.getAnimalById(params.get("animalId"));
-        } else {
-            animal = new Animal();
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+
+            if (params.containsKey("animalId")){
+                animal = animalService.getAnimalById(params.get("animalId"));
+                setAnimalDescription();
+
+            } else {
+                animal = new Animal();
+            }
+
+            // Exporter needs a list...
+            animalData = new ArrayList<>();
+            animalData.add(animal);
+
         }
+    }
 
-        // Exporter needs a list...
-        animalData = new ArrayList<>();
-        animalData.add(animal);
-
-        animalUtils = new AnimalUtils(animalList, raceList, animalTypeList);
+    private void setAnimalDescription() {
+        if (animal.getRaceId() != null)         race = raceService.get(animal.getRaceId()).getName();
+        if (animal.getAnimalTypeId() != null)   animalType = animalTypesService.get(animal.getAnimalTypeId()).getDescription();
+        if (animal.getMotherId() != null)       motherId = animalService.getAnimalById(animal.getMotherId()).getOfficialId();
+        if (animal.getDivisionId() != null)     division = farmService.getDivisionById(animal.getDivisionId()).getName();
     }
 
 
@@ -79,22 +81,6 @@ public class AnimalDataView implements Serializable {
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
-    }
-
-    public List<AnimalType> getAnimalTypeList() {
-        return animalTypeList;
-    }
-
-    public void setAnimalTypeList(List<AnimalType> animalTypeList) {
-        this.animalTypeList = animalTypeList;
-    }
-
-    public List<Race> getRaceList() {
-        return raceList;
-    }
-
-    public void setRaceList(List<Race> raceList) {
-        this.raceList = raceList;
     }
 
     public void onRowEdit(RowEditEvent event) {
@@ -111,20 +97,36 @@ public class AnimalDataView implements Serializable {
         init();
     }
 
-    public AnimalUtils getAnimalUtils() {
-        return animalUtils;
+    public String getRace() {
+        return race;
     }
 
-    public void setAnimalUtils(AnimalUtils animalUtils) {
-        this.animalUtils = animalUtils;
+    public void setRace(String race) {
+        this.race = race;
     }
 
-    public List<Animal> getAnimalList() {
-        return animalList;
+    public String getAnimalType() {
+        return animalType;
     }
 
-    public void setAnimalList(List<Animal> animalList) {
-        this.animalList = animalList;
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public String getMotherId() {
+        return motherId;
+    }
+
+    public void setMotherId(String motherId) {
+        this.motherId = motherId;
     }
 
     public ArrayList<Animal> getAnimalData() {
