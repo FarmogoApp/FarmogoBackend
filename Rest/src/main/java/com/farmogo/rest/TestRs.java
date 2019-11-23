@@ -151,11 +151,6 @@ public class TestRs {
             incidenceDischarge.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceDischarge);
 
-            incidenceDischarge.setHealthRegister("test register updated");
-            incidenceDischarge.setDueDate(LocalDate.now());
-            incidenceDischarge.setAnimalId(animalB.getUuid());
-            incidenceDischarge.setFarmId(farmA.getUuid());
-            incidencesService.save(incidenceDischarge);
 
             IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
             incidencePregnancy.setPregnancyType(PregnancyType.Zeal);

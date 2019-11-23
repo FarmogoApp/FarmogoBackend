@@ -35,6 +35,9 @@ public class IncidenceView implements Serializable {
     @Inject
     FarmService farmService;
 
+    @Inject
+    AnimalDataView animalDataView;
+
     List<Incidence> incidenceList;
 
     Incidence incidence;
@@ -136,6 +139,7 @@ public class IncidenceView implements Serializable {
     public void save() {
         incidencesService.save(incidence);
         updateIncidenceList();
+        animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
     }
 
     public IncidenceType[] getIncidenceTypes(){

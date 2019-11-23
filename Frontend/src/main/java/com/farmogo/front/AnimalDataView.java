@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Named
@@ -41,7 +43,7 @@ public class AnimalDataView implements Serializable {
 
     private Farm farm;
     private Animal animal;
-    private ArrayList<Animal> animalData;
+    private List<Animal> animalData;
 
     @PostConstruct
     public void init() {
@@ -61,9 +63,7 @@ public class AnimalDataView implements Serializable {
             }
 
             // Exporter needs a list...
-            animalData = new ArrayList<>();
-            animalData.add(animal);
-
+            animalData = Arrays.asList(animal);
         }
     }
 
@@ -79,6 +79,11 @@ public class AnimalDataView implements Serializable {
                         + " - "
                         + farmService.getDivisionById(animal.getDivisionId()).getName();
         }
+    }
+
+    public void updateAnimal(Animal animal){
+        this.setAnimal(animal);
+        this.animalData = Arrays.asList(animal);
     }
 
     public Animal getAnimal() {
@@ -135,11 +140,11 @@ public class AnimalDataView implements Serializable {
         this.motherId = motherId;
     }
 
-    public ArrayList<Animal> getAnimalData() {
+    public List<Animal> getAnimalData() {
         return animalData;
     }
 
-    public void setAnimalData(ArrayList<Animal> animalData) {
+    public void setAnimalData(List<Animal> animalData) {
         this.animalData = animalData;
     }
 
