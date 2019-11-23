@@ -20,7 +20,8 @@
             <p:selectOneMenu value="#{farmSwitcherView.farm}" converter="#{farmConverter}">
                 <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId}"
                                itemValue="#{farm}"/>
-                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect" update=":panelCenter"/>
+                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect" oncomplete="window.location.href = 'index.xhtml';"/>
+
             </p:selectOneMenu>
         </h:form>
     </div>

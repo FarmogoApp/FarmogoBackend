@@ -1,8 +1,6 @@
 package com.farmogo.dao.mongo;
 
 
-import com.farmogo.dao.mongo.dto.AnimalTypeMongo;
-import com.farmogo.model.AnimalType;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
