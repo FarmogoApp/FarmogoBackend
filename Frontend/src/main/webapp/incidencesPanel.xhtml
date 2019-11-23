@@ -49,7 +49,14 @@
         <p:column headerText="Id">
             <h:outputText value="#{elem.uuid}"/>
         </p:column>
-        <p:column headerText="Type" sortBy="#{elem.type}" filterBy="#{elem.type}">
+        <p:column headerText="Type" filterBy="#{elem.type}" filterMatchMode="exact">
+            <f:facet name="filter">
+                <p:selectOneMenu onchange="PF('incidencesTable').filter()">
+                    <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{incidenceView.incidenceTypes}" var="entity"
+                                   itemValue="#{entity}" itemLabel="#{entity.name()}"/>
+                </p:selectOneMenu>
+            </f:facet>
             <h:outputText value="#{elem.type}"/>
         </p:column>
         <p:column headerText="Animal" rendered="#{empty incidenceView.animalId}">
@@ -57,7 +64,7 @@
                 <f:param name="animalId" value="${elem.animalId}"/>
             </p:link>
         </p:column>
-        <p:column headerText="Created" sortBy="#{elem.created}">
+        <p:column headerText="Created">
             <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
         </p:column>
         <p:column style="width: 16px;" exportable="false">
