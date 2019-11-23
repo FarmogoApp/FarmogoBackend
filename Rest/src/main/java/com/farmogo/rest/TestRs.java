@@ -141,21 +141,21 @@ public class TestRs {
             incidence.setFarmId(farmA.getUuid());
             incidencesService.save(incidence);
 
-            IncidenceGetoff incidenceGetoff = new IncidenceGetoff();
-            incidenceGetoff.setHealthRegister("test register");
-            incidenceGetoff.setGetoffType(GetoffType.Slaughterhouse);
-            incidenceGetoff.setObservations("observations");
-            incidenceGetoff.setDone(false);
-            incidenceGetoff.setAnimalId(animalA.getUuid());
-            incidenceGetoff.setCreatedBy(user.getUuid());
-            incidenceGetoff.setFarmId(farmA.getUuid());
-            incidencesService.save(incidenceGetoff);
+            IncidenceDischarge incidenceDischarge = new IncidenceDischarge();
+            incidenceDischarge.setHealthRegister("test register");
+            incidenceDischarge.setDischargeType(DischargeType.Slaughterhouse);
+            incidenceDischarge.setObservations("observations");
+            incidenceDischarge.setDone(false);
+            incidenceDischarge.setAnimalId(animalA.getUuid());
+            incidenceDischarge.setCreatedBy(user.getUuid());
+            incidenceDischarge.setFarmId(farmA.getUuid());
+            incidencesService.save(incidenceDischarge);
 
-            incidenceGetoff.setHealthRegister("test register updated");
-            incidenceGetoff.setDueDate(LocalDate.now());
-            incidenceGetoff.setAnimalId(animalB.getUuid());
-            incidenceGetoff.setFarmId(farmA.getUuid());
-            incidencesService.save(incidenceGetoff);
+            incidenceDischarge.setHealthRegister("test register updated");
+            incidenceDischarge.setDueDate(LocalDate.now());
+            incidenceDischarge.setAnimalId(animalB.getUuid());
+            incidenceDischarge.setFarmId(farmA.getUuid());
+            incidencesService.save(incidenceDischarge);
 
             IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
             incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
