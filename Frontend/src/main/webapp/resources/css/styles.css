@@ -37,3 +37,8 @@ button.leftmenu{
     padding: 0px !important;
     margin: 0px !important;
 }
+
+#loginPanel{
+    width: 400px;
+    margin: 40px auto;
+}
