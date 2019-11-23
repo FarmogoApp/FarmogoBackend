@@ -3,6 +3,7 @@ package com.farmogo.front;
 import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.*;
 import com.farmogo.services.AnimalService;
+import com.farmogo.services.FarmService;
 import com.farmogo.services.IncidencesService;
 import com.farmogo.services.UserService;
 
@@ -31,11 +32,15 @@ public class IncidenceView implements Serializable {
     @Inject
     AnimalService animalService;
 
+    @Inject
+    FarmService farmService;
+
     List<Incidence> incidenceList;
 
     Incidence incidence;
     String animalId;
     IncidenceType incidenceType;
+    String title;
 
     @PostConstruct
     public void init() {
@@ -53,9 +58,16 @@ public class IncidenceView implements Serializable {
     private void updateIncidenceList() {
         if (animalId != null) {
             incidenceList = incidencesService.getAll(animalId);
+            Animal animal = animalService.get(animalId);
+            title = "Incidences of " + animal.getOfficialId();
         } else {
-            incidenceList = incidencesService.getAll();
+            incidenceList = incidencesService.getNotCompleted(farmService.getCurrentFarm().getUuid());
+            title = "Incidences Incompleted";
         }
+    }
+
+    public String getTitle(){
+        return title;
     }
 
 

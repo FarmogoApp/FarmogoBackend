@@ -65,4 +65,17 @@ public class IncidenceMongoDao implements IncidenceDao {
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Incidence> getNotCompleted(String farmId) {
+        return StreamSupport.stream(
+                mongoCollection.find()
+                        .filter(Filters.and(
+                                Filters.eq("farmId", new ObjectId(farmId)),
+                                Filters.eq("complete", false)
+                        ))
+                        .spliterator(), false)
+                .map(IncidenceMongo::convert)
+                .collect(Collectors.toList());
+    }
 }

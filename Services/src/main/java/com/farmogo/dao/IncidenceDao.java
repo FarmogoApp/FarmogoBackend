@@ -11,4 +11,6 @@ public interface IncidenceDao {
     List<Incidence> getAll();
 
     List<Incidence> getAll(String animalId);
+
+    List<Incidence> getNotCompleted(String farmId);
 }
