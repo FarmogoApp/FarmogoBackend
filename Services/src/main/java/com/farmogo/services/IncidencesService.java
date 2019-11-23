@@ -17,6 +17,9 @@ public class IncidencesService {
     @Inject
     IncidenceDao incidenceDAO;
 
+    @Inject
+    IncidenceOnSaveActions incidenceOnSaveActions;
+
     public List<Incidence> getAll() {
         return incidenceDAO.getAll();
     }
@@ -33,8 +36,7 @@ public class IncidencesService {
 
 
     public void save(Incidence incidence){
-        IncidenceCompleteCheck incidenceCompleteCheck = new IncidenceCompleteCheck();
-        incidence.setComplete(incidenceCompleteCheck.check(incidence));
+        incidenceOnSaveActions.action(incidence);
         incidenceDAO.save(incidence);
     }
 

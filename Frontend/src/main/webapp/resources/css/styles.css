@@ -10,6 +10,9 @@ div.top>div{
 .ui-layout-unit{
     padding: 0px !important;;
 }
+.ui-datatable-header img{
+    vertical-align: middle !important;
+}
 
 div#content>.ui-layout-unit-content,
 div#top>.ui-layout-unit-content{
@@ -41,4 +44,8 @@ button.leftmenu{
 #loginPanel{
     width: 400px;
     margin: 40px auto;
+}
+
+.incomplete{
+    background-color: khaki !important;
 }

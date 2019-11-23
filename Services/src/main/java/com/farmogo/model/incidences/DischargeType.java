@@ -1,6 +1,6 @@
 package com.farmogo.model.incidences;
 
-public enum GetoffType {
+public enum DischargeType {
     Defeat,
     Sale,
     Slaughterhouse,

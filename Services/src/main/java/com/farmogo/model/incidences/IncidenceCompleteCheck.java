@@ -13,8 +13,8 @@ public class IncidenceCompleteCheck implements IncidenceVisitor {
 
 
     @Override
-    public void visit(IncidenceGetoff obj) {
-        check = obj.getGetoffType()!=null &&
+    public void visit(IncidenceDischarge obj) {
+        check = obj.getDischargeType()!=null &&
                 obj.getHealthRegister()!=null &&
                 !obj.getHealthRegister().isEmpty();
     }

@@ -15,7 +15,9 @@
             value="#{incidenceView.incidenceList}"
             var="elem"
             sortMode="multiple"
-            widgetVar="incidencesTable">
+            widgetVar="incidencesTable"
+            rowStyleClass="#{elem.complete ? '' : 'incomplete'}"
+    >
 
         <f:facet name="header">
             <div class="ui-g">
@@ -25,9 +27,10 @@
                                      actionListener="#{incidenceView.resetIncidence()}"
                                      rendered="#{not empty incidenceView.animalId}"
                                      update="incidenceDialog"
-                                     oncomplete="PF('incidenceDialog').show()" />
+                                     oncomplete="PF('incidenceDialog').show()"/>
                 </div>
-                <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">${incidenceView.title}</div>
+                <div class="ui-g-4"
+                     style="padding: 0;text-align: center; line-height: 30px;">${incidenceView.title}</div>
                 <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
                     <h:commandLink>
                         <p:graphicImage name="/img/csv.png" width="25" height=""/>
@@ -46,15 +49,22 @@
         <p:column headerText="Id">
             <h:outputText value="#{elem.uuid}"/>
         </p:column>
-        <p:column headerText="Type" sortBy="#{elem.type}" filterBy="#{elem.type}">
+        <p:column headerText="Type" filterBy="#{elem.type}" filterMatchMode="exact">
+            <f:facet name="filter">
+                <p:selectOneMenu onchange="PF('incidencesTable').filter()">
+                    <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItems value="#{incidenceView.incidenceTypes}" var="entity"
+                                   itemValue="#{entity}" itemLabel="#{entity.name()}"/>
+                </p:selectOneMenu>
+            </f:facet>
             <h:outputText value="#{elem.type}"/>
         </p:column>
         <p:column headerText="Animal" rendered="#{empty incidenceView.animalId}">
-            <p:link outcome="animal_data"  value="${incidenceView.getAnimalOfficialId(elem.animalId)}">
+            <p:link outcome="animal_data" value="${incidenceView.getAnimalOfficialId(elem.animalId)}">
                 <f:param name="animalId" value="${elem.animalId}"/>
             </p:link>
         </p:column>
-        <p:column headerText="Created" sortBy="#{elem.created}">
+        <p:column headerText="Created">
             <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
         </p:column>
         <p:column style="width: 16px;" exportable="false">
@@ -66,11 +76,11 @@
         </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="2" columnClasses="ui-grid-col-2 bold,ui-grid-col-10" layout="grid">
-                <h:outputText value="Get off type" rendered="#{elem.type eq 'GETOFF'}"/>
-                <h:outputText value="#{elem.getoffType}" rendered="#{elem.type eq 'GETOFF'}"/>
+                <h:outputText value="Get off type" rendered="#{elem.type eq 'DISCHARGE'}"/>
+                <h:outputText value="#{elem.dischargeType}" rendered="#{elem.type eq 'DISCHARGE'}"/>
 
-                <h:outputText value="Health Register" rendered="#{elem.type eq 'GETOFF'}"/>
-                <h:outputText value="#{elem.healthRegister}" rendered="#{elem.type eq 'GETOFF'}"/>
+                <h:outputText value="Health Register" rendered="#{elem.type eq 'DISCHARGE'}"/>
+                <h:outputText value="#{elem.healthRegister}" rendered="#{elem.type eq 'DISCHARGE'}"/>
 
                 <h:outputText value="Pregnancy Type" rendered="#{elem.type eq 'PREGNANCY'}"/>
                 <h:outputText value="#{elem.pregnancyType}" rendered="#{elem.type eq 'PREGNANCY'}"/>

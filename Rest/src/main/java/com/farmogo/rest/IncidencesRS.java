@@ -1,8 +1,5 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.Animal;
-import com.farmogo.model.Farm;
-import com.farmogo.model.User;
 import com.farmogo.model.incidences.*;
 import com.farmogo.services.IncidencesService;
 
@@ -49,20 +46,20 @@ public class IncidencesRS {
         incidencesService.save(incidence);
 
 
-        IncidenceGetoff incidenceGetoff = new IncidenceGetoff();
-        incidenceGetoff.setHealthRegister("test register");
-        incidenceGetoff.setGetoffType(GetoffType.Slaughterhouse);
-        incidenceGetoff.setObservations("observations");
-        incidenceGetoff.setDone(false);
-        incidenceGetoff.setAnimalId(animal);
-        incidenceGetoff.setCreatedBy(user);
-        incidenceGetoff.setFarmId(farm);
-        incidencesService.save(incidenceGetoff);
+        IncidenceDischarge incidenceDischarge = new IncidenceDischarge();
+        incidenceDischarge.setHealthRegister("test register");
+        incidenceDischarge.setDischargeType(DischargeType.Slaughterhouse);
+        incidenceDischarge.setObservations("observations");
+        incidenceDischarge.setDone(false);
+        incidenceDischarge.setAnimalId(animal);
+        incidenceDischarge.setCreatedBy(user);
+        incidenceDischarge.setFarmId(farm);
+        incidencesService.save(incidenceDischarge);
 
-        incidenceGetoff.setHealthRegister("test register updated");
-        incidenceGetoff.setDueDate(LocalDate.now());
-        incidenceGetoff.setAnimalId(animal);
-        incidencesService.save(incidenceGetoff);
+        incidenceDischarge.setHealthRegister("test register updated");
+        incidenceDischarge.setDueDate(LocalDate.now());
+        incidenceDischarge.setAnimalId(animal);
+        incidencesService.save(incidenceDischarge);
 
         IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
         incidencePregnancy.setPregnancyType(PregnancyType.Zeal);

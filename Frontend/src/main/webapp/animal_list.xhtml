@@ -37,10 +37,14 @@
                                 <p:graphicImage name="/img/pdf.png" width="25"/>
                                 <p:dataExporter type="pdf" target="animalTable" fileName="animal" pageOnly="true"/>
                             </h:commandLink>
+                            <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
+                            <p:columnToggler datasource="animalTable" trigger="toggler">
+                                <p:ajax event="toggle" listener="#{animalColumnToogler.onColumnsTooggle}" />
+                            </p:columnToggler>
+
                         </div>
                     </div>
                 </f:facet>
-
                 <!-- UUID (Only for development)-->
                 <!--                <p:column headerText="UUID (Dev)">-->
                 <!--                    <p:cellEditor>-->
@@ -58,50 +62,58 @@
                 <!--                </p:column>-->
 
                 <!-- Official ID -->
-                <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains">
-                    <p:link outcome="animal_data"  value="#{elem.officialId}">
+                <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains" toggleable="false">
+                    <p:link outcome="animal_data" value="#{elem.officialId}">
                         <f:param name="animalId" value="#{elem.uuid}"/>
                     </p:link>
                 </p:column>
 
                 <!-- Mother ID -->
-                <p:column headerText="Mother ID" filterBy="#{animalListView.mothers[elem.motherId]}" filterMatchMode="contains">
-                    <p:link outcome="animal_data"  value="#{animalListView.mothers[elem.motherId]}">
+                <p:column headerText="Mother ID" filterBy="#{animalListView.mothers[elem.motherId]}"
+                          filterMatchMode="contains" visible="#{animalColumnToogler.visibility[1]}">
+                    <p:link outcome="animal_data" value="#{animalListView.mothers[elem.motherId]}">
                         <f:param name="animalId" value="#{elem.motherId}"/>
                     </p:link>
                 </p:column>
 
                 <!-- Race -->
-                <p:column headerText="Race" filterBy="#{animalListView.races[elem.raceId]}" filterMatchMode="exact">
+                <p:column headerText="Race" filterBy="#{animalListView.races[elem.raceId]}"
+                          filterMatchMode="exact" visible="#{animalColumnToogler.visibility[2]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{animalListView.races.entrySet()}" var="entity" itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
+                            <f:selectItems value="#{animalListView.races.entrySet()}" var="entity"
+                                           itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.races[elem.raceId]}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.races[elem.raceId]}" style="width:100%"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.races[elem.raceId]}"
+                                                           style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type" filterBy="#{animalListView.animalTypes[elem.animalTypeId]}" filterMatchMode="exact">
+                <p:column headerText="Animal type" filterBy="#{animalListView.animalTypes[elem.animalTypeId]}"
+                          filterMatchMode="exact" visible="#{animalColumnToogler.visibility[3]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity" itemValue="#{entity.value}"
+                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
+                                           itemValue="#{entity.value}"
                                            itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalTypes[elem.animalTypeId]}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.animalTypes[elem.animalTypeId]}" style="width:100%"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalTypes[elem.animalTypeId]}"
+                                                           style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
                 <!-- Origin-->
-                <p:column headerText="Origin" filterBy="#{elem.origin}" filterMatchMode="contains">
+                <p:column headerText="Origin" filterBy="#{elem.origin}" filterMatchMode="contains"
+                          visible="#{animalColumnToogler.visibility[4]}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
@@ -109,7 +121,8 @@
                 </p:column>
 
                 <!-- Sex -->
-                <p:column headerText="Sex" filterBy="#{elem.sex}" filterMatchMode="exact">
+                <p:column headerText="Sex" filterBy="#{elem.sex}" filterMatchMode="exact"
+                          visible="#{animalColumnToogler.visibility[5]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
@@ -124,11 +137,13 @@
                 </p:column>
 
                 <!-- Location -->
-                <p:column headerText="Location" filterBy="#{animalListView.divisions[elem.divisionId]}" filterMatchMode="exact">
+                <p:column headerText="Location" filterBy="#{animalListView.divisions[elem.divisionId]}"
+                          filterMatchMode="exact" visible="#{animalColumnToogler.visibility[6]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity" itemValue="#{entity.value}"
+                            <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity"
+                                           itemValue="#{entity.value}"
                                            itemLabel="#{animalListView.getBuildingContainingDivision(entity.key)} - #{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
@@ -143,7 +158,7 @@
                 </p:column>
 
                 <!-- Birth date -->
-                <p:column headerText="Birth date" sortBy="#{elem.birthDay}">
+                <p:column headerText="Birth date" sortBy="#{elem.birthDay}" visible="#{animalColumnToogler.visibility[7]}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.birthDay}">
@@ -155,7 +170,8 @@
                 </p:column>
 
                 <!-- Discharge Date -->
-                <p:column headerText="Discharge date" sortBy="#{elem.dischargeDate}">
+                <p:column headerText="Discharge date" sortBy="#{elem.dischargeDate}"
+                          visible="#{animalColumnToogler.visibility[8]}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.dischargeDate}">
@@ -166,16 +182,8 @@
                     </p:cellEditor>
                 </p:column>
 
-                <!-- Animal Data -->
-                <p:column exportable="false" style="width: 16px;">
-                    <p:link outcome="animal_data">
-                        <li class="pi pi-info-circle"/>
-                        <f:param name="animalId" value="#{elem.uuid}"/>
-                    </p:link>
-                </p:column>
-
                 <!-- Edit Animal -->
-                <p:column exportable="false" style="width: 16px;">
+                <p:column exportable="false" style="width: 16px;" toggleable="false">
                     <p:commandLink update="newAnimalDialog"
                                    oncomplete="PF('newAnimalDialog').show()"
                                    actionListener="#{animalListView.setAnimal(elem)}">

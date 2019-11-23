@@ -26,15 +26,15 @@
                 <p:outputLabel value="Type"/>
                 <p:inputText readonly="true" value="#{incidenceView.incidence.type}"/>
 
-                <p:outputLabel value="Get off type" rendered="#{incidenceView.incidence.type eq 'GETOFF'}"/>
-                <p:selectOneRadio value="#{incidenceView.incidence.getoffType}"
-                                  rendered="#{incidenceView.incidence.type eq 'GETOFF'}">
-                    <f:selectItems value="#{incidenceView.getoffTypes}"/>
+                <p:outputLabel value="Get off type" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
+                <p:selectOneRadio value="#{incidenceView.incidence.dischargeType}"
+                                  rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}">
+                    <f:selectItems value="#{incidenceView.dischargeTypes}"/>
                 </p:selectOneRadio>
 
-                <p:outputLabel value="Health Register" rendered="#{incidenceView.incidence.type eq 'GETOFF'}"/>
+                <p:outputLabel value="Health Register" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
                 <p:inputText value="#{incidenceView.incidence.healthRegister}"
-                             rendered="#{incidenceView.incidence.type eq 'GETOFF'}"/>
+                             rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
 
                 <p:outputLabel value="Pregnancy Type" rendered="#{incidenceView.incidence.type eq 'PREGNANCY'}"/>
                 <p:selectOneRadio value="#{incidenceView.incidence.pregnancyType}"
@@ -66,7 +66,7 @@
                 <p:column/>
                 <p:commandButton value="Save" icon="pi pi-save"
                                  actionListener="#{incidenceView.save}"
-                                 update=":listAnimalForm:incidencesTable"
+                                 update=":panelCenter"
                                  oncomplete="PF('incidenceDialog').hide()"/>
 
             </p:panelGrid>

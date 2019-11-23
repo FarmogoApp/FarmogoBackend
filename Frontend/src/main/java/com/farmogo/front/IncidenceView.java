@@ -35,6 +35,9 @@ public class IncidenceView implements Serializable {
     @Inject
     FarmService farmService;
 
+    @Inject
+    AnimalDataView animalDataView;
+
     List<Incidence> incidenceList;
 
     Incidence incidence;
@@ -95,8 +98,8 @@ public class IncidenceView implements Serializable {
             case TREATMENT:
                 incidence = new IncidenceTreatment();
                 break;
-            case GETOFF:
-                incidence = new IncidenceGetoff();
+            case DISCHARGE:
+                incidence = new IncidenceDischarge();
         }
         incidence.setAnimalId(animalId);
         incidence.setCreatedBy(userService.getCurrentUser().getUuid());
@@ -136,6 +139,7 @@ public class IncidenceView implements Serializable {
     public void save() {
         incidencesService.save(incidence);
         updateIncidenceList();
+        animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
     }
 
     public IncidenceType[] getIncidenceTypes(){
@@ -150,8 +154,8 @@ public class IncidenceView implements Serializable {
         return TreatmentType.values();
     }
 
-    public GetoffType[] getGetoffTypes() {
-        return GetoffType.values();
+    public DischargeType[] getDischargeTypes() {
+        return DischargeType.values();
     }
 
     public String getAnimalOfficialId(String animalId){

@@ -1,20 +1,20 @@
 package com.farmogo.model.incidences;
 
-public class IncidenceGetoff extends Incidence {
+public class IncidenceDischarge extends Incidence {
 
-    private GetoffType getoffType;
+    private DischargeType dischargeType;
     private String healthRegister;
 
-    public IncidenceGetoff() {
-        super(IncidenceType.GETOFF);
+    public IncidenceDischarge() {
+        super(IncidenceType.DISCHARGE);
     }
 
-    public GetoffType getGetoffType() {
-        return getoffType;
+    public DischargeType getDischargeType() {
+        return dischargeType;
     }
 
-    public void setGetoffType(GetoffType getoffType) {
-        this.getoffType = getoffType;
+    public void setDischargeType(DischargeType dischargeType) {
+        this.dischargeType = dischargeType;
     }
 
     public String getHealthRegister() {
