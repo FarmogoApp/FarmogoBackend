@@ -1,8 +1,5 @@
 package com.farmogo.model.incidences;
 
-import com.farmogo.model.Animal;
-import com.farmogo.model.Farm;
-import com.farmogo.model.User;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
