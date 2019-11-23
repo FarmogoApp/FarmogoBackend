@@ -17,7 +17,7 @@
                     rowKey="#{elem.uuid}"
                     widgetVar="animalTableWidget">
 
-            <f:facet name="header">
+                <f:facet name="header">
                     <div class="ui-g">
                         <div class="ui-g-4" style="padding: 0; text-align: left;">
                             <p:commandButton value="Add"
@@ -40,23 +40,22 @@
                         </div>
                     </div>
                 </f:facet>
-                    widgetVar="animalTableWidget">
 
                 <!-- UUID (Only for development)-->
-<!--                <p:column headerText="UUID (Dev)">-->
-<!--                    <p:cellEditor>-->
-<!--                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>-->
-<!--                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>-->
-<!--                    </p:cellEditor>-->
-<!--                </p:column>-->
+                <!--                <p:column headerText="UUID (Dev)">-->
+                <!--                    <p:cellEditor>-->
+                <!--                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>-->
+                <!--                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>-->
+                <!--                    </p:cellEditor>-->
+                <!--                </p:column>-->
 
                 <!-- Tag ID (Only for development)-->
-<!--                <p:column headerText="Tag ID (Dev)">-->
-<!--                    <p:cellEditor>-->
-<!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
-<!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
-<!--                    </p:cellEditor>-->
-<!--                </p:column>-->
+                <!--                <p:column headerText="Tag ID (Dev)">-->
+                <!--                    <p:cellEditor>-->
+                <!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
+                <!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
+                <!--                    </p:cellEditor>-->
+                <!--                </p:column>-->
 
                 <!-- Official ID -->
                 <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains">
@@ -92,13 +91,14 @@
                 <p:column headerText="Animal type" filterBy="#{animalListView.animalTypes[elem.animalTypeId]}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity" itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity" itemValue="#{entity.value}"
+                                           itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalListView.animalTypes[elem.animalTypeId]}"/></f:facet>
-                        <f:facet name="input"><p:inputText  value="#{animalListView.animalTypes[elem.animalTypeId]}" style="width:100%"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalTypes[elem.animalTypeId]}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -114,9 +114,9 @@
                 <p:column headerText="Sex" filterBy="#{elem.sex}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItem itemLabel="Male" itemValue="Male" />
-                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Male" itemValue="Male"/>
+                            <f:selectItem itemLabel="Female" itemValue="Female"/>
                         </p:selectOneMenu>
                     </f:facet>
                     <p:cellEditor>
@@ -125,18 +125,22 @@
                     </p:cellEditor>
                 </p:column>
 
-                <!-- Division -->
-                <p:column headerText="Division" filterBy="#{animalListView.divisions[elem.divisionId]}" filterMatchMode="exact">
+                <!-- Location -->
+                <p:column headerText="Location" filterBy="#{animalListView.divisions[elem.divisionId]}" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity" itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
+                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity" itemValue="#{entity.value}"
+                                           itemLabel="#{animalListView.getBuildingContainingDivision(entity.key)} - #{entity.value}"/>
                         </p:selectOneMenu>
                     </f:facet>
 
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{animalListView.divisions[elem.divisionId]}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{animalListView.divisions[elem.divisionId]}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText
+                                value="#{animalListView.getBuildingContainingDivision(elem.divisionId)} - #{animalListView.divisions[elem.divisionId]}"/></f:facet>
+                        <f:facet name="input"><p:inputText
+                                value="#{animalListView.getBuildingContainingDivision(elem.divisionId)} - #{animalListView.divisions[elem.divisionId]}"
+                                style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -217,9 +221,9 @@
                     <p:column id="motherIdColumn">
                         <!-- TODO: If selectOneMenu is editable, then it's not a valid ObjectId -->
                         <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}">
-                            <f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{animalListView.mothers.entrySet()}" var="entity"
-                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                         <p:message for="motherIdSelect"/>
                     </p:column>
@@ -246,7 +250,7 @@
                     <p:column id="animalTypeColumn">
                         <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
                             <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
-                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>
@@ -256,19 +260,20 @@
                     <p:column id="raceColumn">
                         <p:selectOneMenu id="raceSelect" value="#{animalListView.animal.raceId}">
                             <f:selectItems value="#{animalListView.races.entrySet()}" var="entity"
-                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
                         <p:message for="raceSelect"/>
                     </p:column>
 
-                    <!-- Division -->
-                    <h:outputLabel value="Division"/>
-                    <p:column id="divisionColumn">
-                        <p:selectOneMenu id="divisionSelect" value="#{animalListView.animal.divisionId}">
+                    <!-- Location -->
+                    <h:outputLabel value="Location"/>
+                    <p:column id="locationColumn">
+                        <p:selectOneMenu id="locationSelect" value="#{animalListView.animal.divisionId}">
                             <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity"
-                                           itemValue="#{entity.key}" itemLabel="#{entity.value}" />
+                                           itemValue="#{entity.key}"
+                                           itemLabel="#{animalListView.getBuildingContainingDivision(entity.key)} - #{entity.value}"/>
                         </p:selectOneMenu>
-                        <p:message for="divisionSelect"/>
+                        <p:message for="locationSelect"/>
                     </p:column>
 
                     <p:column/>

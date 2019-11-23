@@ -79,4 +79,13 @@ public class FarmService {
 
         return division.orElseGet(Division::new);
     }
+
+    public Building getBuildingContainingDivision(String divisionId){
+        for (Building building: getCurrentFarm().getBuildings()) {
+            for (Division division: building.getDivisions()){
+                if(division.getUuid().equals(divisionId)) return building;
+            }
+        }
+        return new Building();
+    }
 }

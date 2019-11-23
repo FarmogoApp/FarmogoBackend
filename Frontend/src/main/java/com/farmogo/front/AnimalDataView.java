@@ -36,7 +36,7 @@ public class AnimalDataView implements Serializable {
 
     private String race;
     private String animalType;
-    private String division;
+    private String location;
     private String motherId;
 
     private Farm farm;
@@ -47,12 +47,12 @@ public class AnimalDataView implements Serializable {
     public void init() {
         farm = farmService.getCurrentFarm();
 
-        if(farm != null) {
+        if (farm != null) {
 
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+            Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
 
-            if (params.containsKey("animalId")){
+            if (params.containsKey("animalId")) {
                 animal = animalService.getAnimalById(params.get("animalId"));
                 setAnimalDescription();
 
@@ -68,12 +68,18 @@ public class AnimalDataView implements Serializable {
     }
 
     private void setAnimalDescription() {
-        if (animal.getRaceId() != null)         race = raceService.get(animal.getRaceId()).getName();
-        if (animal.getAnimalTypeId() != null)   animalType = animalTypesService.get(animal.getAnimalTypeId()).getDescription();
-        if (animal.getMotherId() != null)       motherId = animalService.getAnimalById(animal.getMotherId()).getOfficialId();
-        if (animal.getDivisionId() != null)     division = farmService.getDivisionById(animal.getDivisionId()).getName();
-    }
+        if (animal.getRaceId() != null) race = raceService.get(animal.getRaceId()).getName();
 
+        if (animal.getAnimalTypeId() != null) animalType = animalTypesService.get(animal.getAnimalTypeId()).getDescription();
+
+        if (animal.getMotherId() != null) motherId = animalService.getAnimalById(animal.getMotherId()).getOfficialId();
+
+        if (animal.getDivisionId() != null){
+            location = farmService.getBuildingContainingDivision(animal.getDivisionId()).getName()
+                        + " - "
+                        + farmService.getDivisionById(animal.getDivisionId()).getName();
+        }
+    }
 
     public Animal getAnimal() {
         return animal;
@@ -88,11 +94,11 @@ public class AnimalDataView implements Serializable {
         init();
     }
 
-    public void clearSelection(){
+    public void clearSelection() {
         animal = new Animal();
     }
 
-    public void save(){
+    public void save() {
         animalService.save(animal);
         init();
     }
@@ -113,12 +119,12 @@ public class AnimalDataView implements Serializable {
         this.animalType = animalType;
     }
 
-    public String getDivision() {
-        return division;
+    public String getLocation() {
+        return location;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getMotherId() {

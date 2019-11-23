@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Named
@@ -33,6 +34,7 @@ public class AnimalListView implements Serializable {
 
     @Inject
     AnimalTypesService animalTypesService;
+
 
     private Farm farm;
     private Animal animal;
@@ -52,7 +54,7 @@ public class AnimalListView implements Serializable {
             HashMothers();
             HashRaces();
             HashAnimalTypes();
-            HashDivisions(farm);
+            HashDivisions();
         }
 
         animal = new Animal();
@@ -64,7 +66,7 @@ public class AnimalListView implements Serializable {
                 .collect(Collectors.toMap(Animal::getUuid, Animal::getOfficialId));
     }
 
-    private void HashDivisions(Farm farm) {
+    private void HashDivisions() {
         divisions = farmService.getFarmDivisions(farm).stream()
                 .collect(Collectors.toMap(Division::getUuid, Division::getName));
     }
@@ -77,6 +79,10 @@ public class AnimalListView implements Serializable {
     private void HashRaces(){
         races = raceService.getAll().stream()
                 .collect(Collectors.toMap(Race::getUuid, Race::getName));
+    }
+
+    public String getBuildingContainingDivision(String divisionId){
+        return farmService.getBuildingContainingDivision(divisionId).getName();
     }
 
     public Map<String, String> getAnimalTypes() {
@@ -145,4 +151,13 @@ public class AnimalListView implements Serializable {
     public void setMothers(Map<String, String> mothers) {
         this.mothers = mothers;
     }
+
+    public Farm getFarm() {
+        return farm;
+    }
+
+    public void setFarm(Farm farm) {
+        this.farm = farm;
+    }
+
 }
