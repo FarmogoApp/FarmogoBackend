@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+/**
+ * Animal Utils class used to minimize DB access
+ */
 public class AnimalUtils {
 
     private List<Animal> animalList;

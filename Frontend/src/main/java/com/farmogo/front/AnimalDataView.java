@@ -55,10 +55,7 @@ public class AnimalDataView implements Serializable {
 
             if (params.containsKey("animalId")){
                 animal = animalService.getAnimalById(params.get("animalId"));
-                race = raceService.get(animal.getRaceId()).getName();
-                animalType = animalTypesService.get(animal.getAnimalTypeId()).getDescription();
-                motherId = animalService.getAnimalById(animal.getMotherId()).getOfficialId();
-                division = farmService.getDivisionById(animal.getDivisionId()).getName();
+                setAnimalDescription();
 
             } else {
                 animal = new Animal();
@@ -69,6 +66,13 @@ public class AnimalDataView implements Serializable {
             animalData.add(animal);
 
         }
+    }
+
+    private void setAnimalDescription() {
+        if (animal.getRaceId() != null)         race = raceService.get(animal.getRaceId()).getName();
+        if (animal.getAnimalTypeId() != null)   animalType = animalTypesService.get(animal.getAnimalTypeId()).getDescription();
+        if (animal.getMotherId() != null)       motherId = animalService.getAnimalById(animal.getMotherId()).getOfficialId();
+        if (animal.getDivisionId() != null)     division = farmService.getDivisionById(animal.getDivisionId()).getName();
     }
 
 

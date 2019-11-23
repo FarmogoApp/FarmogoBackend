@@ -69,11 +69,8 @@
                 <!-- Mother ID -->
                 <p:column headerText="Mother ID" filterBy="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" filterMatchMode="contains">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText
-                                value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText
-                                value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"
-                                style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalListView.animalUtils.motherIdToOfficialId(elem.motherId)}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -225,8 +222,9 @@
                     <!-- Mother Id -->
                     <h:outputLabel value="Mother ID"/>
                     <p:column id="motherIdColumn">
-                        <!-- FIXME: If selectOneMenu is editable, then it's not a valid ObjectId -->
-                        <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}" editable="true">
+                        <!-- TODO: If selectOneMenu is editable, then it's not a valid ObjectId -->
+                        <p:selectOneMenu id="motherIdSelect" value="#{animalListView.animal.motherId}">
+                            <f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true" />
                             <f:selectItems value="#{animalListView.animalUtils.mothersList}" var="mother"
                                            itemLabel="#{mother.officialId}" itemValue="#{mother.uuid}"/>
                         </p:selectOneMenu>
