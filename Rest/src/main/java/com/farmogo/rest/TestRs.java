@@ -141,23 +141,6 @@ public class TestRs {
             incidence.setFarmId(farmA.getUuid());
             incidencesService.save(incidence);
 
-            IncidenceDischarge incidenceDischarge = new IncidenceDischarge();
-            incidenceDischarge.setHealthRegister("test register");
-            incidenceDischarge.setDischargeType(DischargeType.Slaughterhouse);
-            incidenceDischarge.setObservations("observations");
-            incidenceDischarge.setDone(false);
-            incidenceDischarge.setAnimalId(animalA.getUuid());
-            incidenceDischarge.setCreatedBy(user.getUuid());
-            incidenceDischarge.setFarmId(farmA.getUuid());
-            incidencesService.save(incidenceDischarge);
-
-
-            IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
-            incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
-            incidencePregnancy.setCreatedBy(user.getUuid());
-            incidencePregnancy.setFarmId(farm.getUuid());
-            incidencePregnancy.setAnimalId(animalB.getUuid());
-            incidencesService.save(incidencePregnancy);
 
             IncidenceTreatment incidenceTreatment = new IncidenceTreatment();
             incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
@@ -175,6 +158,23 @@ public class TestRs {
             incidenceTreatmentIncomplete.setAnimalId(animalA.getUuid());
             incidenceTreatmentIncomplete.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceTreatmentIncomplete);
+
+            IncidenceDischarge incidenceDischarge = new IncidenceDischarge();
+            incidenceDischarge.setHealthRegister("test register");
+            incidenceDischarge.setDischargeType(DischargeType.Slaughterhouse);
+            incidenceDischarge.setObservations("observations");
+            incidenceDischarge.setDone(false);
+            incidenceDischarge.setAnimalId(animalA.getUuid());
+            incidenceDischarge.setCreatedBy(user.getUuid());
+            incidenceDischarge.setFarmId(farmA.getUuid());
+            incidencesService.save(incidenceDischarge);
+
+            IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
+            incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
+            incidencePregnancy.setCreatedBy(user.getUuid());
+            incidencePregnancy.setFarmId(farm.getUuid());
+            incidencePregnancy.setAnimalId(animalB.getUuid());
+            incidencesService.save(incidencePregnancy);
         }
 
         // FARM 2
