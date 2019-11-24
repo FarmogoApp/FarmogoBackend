@@ -22,7 +22,7 @@
             <f:facet name="header">
                 <div class="ui-g">
                     <div class="ui-g-4" style="padding: 0; text-align: left;">
-                        <p:commandButton value="Add"
+                        <p:commandButton value="Add Farm"
                                          icon="pi pi-plus-circle"
                                          actionListener="#{configView.clearFarmSelection}"
                                          update="newFarmDialog"
@@ -57,7 +57,7 @@
             <f:facet name="header">
                 <div class="ui-g">
                     <div class="ui-g-4" style="padding: 0; text-align: left;">
-                        <p:commandButton value="Add"
+                        <p:commandButton value="Add Building"
                                          icon="pi pi-plus-circle"
                                          actionListener="#{configView.clearBuildingSelection}"
                                          update="newBuildingDialog"
@@ -96,7 +96,7 @@
             <f:facet name="header">
                 <div class="ui-g">
                     <div class="ui-g-4" style="padding: 0; text-align: left;">
-                        <p:commandButton value="Add"
+                        <p:commandButton value="Add Division"
                                          icon="pi pi-plus-circle"
                                          actionListener="#{configView.clearDivisionSelection}"
                                          update="newDivisionDialog"
@@ -125,11 +125,11 @@
             </p:column>
         </p:dataTable>
     </h:form>
-    <!--<h:form id="SaveFarm">
+    <h:form id="SaveFarm">
     <p:commandButton value="Save" icon="pi pi-save"
                      actionListener="#{configView.save}"
                      update="growl"/>
-    </h:form>-->
+    </h:form>
     </h:body>
 
         <p:dialog modal="false" closable="true" id="newBuildingDialog" widgetVar="newBuildingDialog">
