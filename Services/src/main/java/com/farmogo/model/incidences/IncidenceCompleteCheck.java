@@ -6,7 +6,8 @@ public class IncidenceCompleteCheck implements IncidenceVisitor {
     boolean check;
 
     public boolean check(Incidence incidence){
-        check =  incidence.getFarmId()!=null;
+        if (incidence.getRemoveDate()!=null) return true;
+        if (incidence.getFarmId()==null) return false;
         if (check) incidence.accept(this);
         return check;
     }
