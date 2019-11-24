@@ -5,18 +5,14 @@ import com.farmogo.services.AnimalService;
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.services.FarmService;
 import com.farmogo.services.RaceService;
-import org.primefaces.event.ToggleEvent;
-import org.primefaces.model.Visibility;
 
 import javax.annotation.PostConstruct;
-import javax.el.MethodExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,21 +43,42 @@ public class AnimalListView implements Serializable {
     private Map<String, String> animalTypes = new HashMap<>();
     private Map<String, String> divisions = new HashMap<>();
     private Map<String, String> mothers = new HashMap<>();
-
-
+    private FilterAnimal filter;
 
     @PostConstruct
     public void init() {
-        farm = farmService.getCurrentFarm();
-        if (farm != null) {
-            animalList = animalService.getAnimalsByFarmId(farm.getUuid());
-            HashMothers();
-            HashRaces();
-            HashAnimalTypes();
-            HashDivisions();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        if (params.containsKey("filter")){
+            filter = FilterAnimal.valueOf(params.get("filter"));
+        }else{
+            filter =  FilterAnimal.Current;
         }
 
+        farm = farmService.getCurrentFarm();
+        if (farm != null) {
+            loadAnimals();
+        }
         animal = new Animal();
+
+    }
+
+    public void loadAnimals() {
+        switch (filter) {
+            case All:
+                animalList = animalService.getAnimalsByFarmId(farm.getUuid());
+                break;
+            case Current:
+                animalList = animalService.getCurrentAnimalsByFarmId(farm.getUuid());
+                break;
+            case Discharged:
+                animalList = animalService.getDischagedAnimalsByFarmId(farm.getUuid());
+                break;
+        }
+        HashMothers();
+        HashRaces();
+        HashAnimalTypes();
+        HashDivisions();
     }
 
     private void HashMothers() {
@@ -100,7 +117,6 @@ public class AnimalListView implements Serializable {
     public List<Animal> getAnimalList() {
         return animalList;
     }
-
 
     public void setAnimalList(List<Animal> animalList) {
         this.animalList = animalList;
@@ -164,7 +180,35 @@ public class AnimalListView implements Serializable {
         this.farm = farm;
     }
 
+    public FilterAnimal getFilter() {
+        return filter;
+    }
 
+    public void setFilter(FilterAnimal filter) {
+        this.filter = filter;
+    }
 
+    public FilterAnimal[] getFilters(){
+        return FilterAnimal.values();
+    }
 
+    public enum FilterAnimal {
+        All, Current, Discharged;
+    }
+
+    public int getTotalAnimals(){
+        return animalService.getAll().size();
+    }
+
+    public int getTotalAnimalsOfFarm(FilterAnimal filter){
+        switch (filter) {
+            case All:
+                return animalService.getAnimalsByFarmId(farm.getUuid()).size();
+            case Current:
+                return animalService.getCurrentAnimalsByFarmId(farm.getUuid()).size();
+            case Discharged:
+               return animalService.getDischagedAnimalsByFarmId(farm.getUuid()).size();
+        }
+        return 0;
+    }
 }

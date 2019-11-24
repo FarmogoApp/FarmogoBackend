@@ -41,13 +41,35 @@ public class AnimalMongoDao implements AnimalDao {
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public List<Animal> getAnimalsByFarmId(String farmId) {
+    public List<Animal> getCurrentAnimalsByFarmId(String farmId) {
+        return StreamSupport.stream(mongoCollection.find()
+                .filter(Filters.and(
+                        Filters.eq("farmId", new ObjectId(farmId)),
+                        Filters.not( Filters.exists("dischargeDate"))
+                )).spliterator(), false)
+                .map(AnimalMongo::convert)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Animal> getAllAnimalsByFarmId(String farmId) {
         return StreamSupport.stream(mongoCollection.find()
                 .filter(Filters.eq("farmId", new ObjectId(farmId))).spliterator(), false)
                 .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<Animal> getDischargedAnimalsByFarmId(String farmId) {
+        return StreamSupport.stream(mongoCollection.find()
+                .filter(Filters.and(
+                        Filters.eq("farmId", new ObjectId(farmId)),
+                        Filters.exists("dischargeDate")
+                )).spliterator(), false)
+                .map(AnimalMongo::convert)
+                .collect(Collectors.toList());
     }
 
     @Override
