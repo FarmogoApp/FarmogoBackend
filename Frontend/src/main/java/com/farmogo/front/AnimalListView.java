@@ -94,7 +94,7 @@ public class AnimalListView implements Serializable {
 
     private void HashAnimalTypes() {
         animalTypes = animalTypesService.getAll().stream()
-                .collect(Collectors.toMap(AnimalType::getAnimalType, AnimalType::getDescription));
+                .collect(Collectors.toMap(AnimalType::getUuid, AnimalType::getDescription));
     }
 
     private void HashRaces() {

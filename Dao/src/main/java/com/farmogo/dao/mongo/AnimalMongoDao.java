@@ -110,4 +110,14 @@ public class AnimalMongoDao implements AnimalDao {
                 .collect(Collectors.toList());
         return collect;
     }
+
+    @Override
+    public List<Animal> getByAnimalType(String animalTypeId) {
+        List<Animal> collect = StreamSupport.stream(mongoCollection.find()
+                .filter(Filters.eq("animalTypeId", new ObjectId(animalTypeId)))
+                .spliterator(), false)
+                .map(AnimalMongo::convert)
+                .collect(Collectors.toList());
+        return collect;
+    }
 }

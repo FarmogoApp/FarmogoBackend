@@ -66,7 +66,7 @@ public class RaceView implements Serializable {
             raceService.delete(race);
             Messages.info("Race " + race.getName()+ " has been deleted","");
         }catch (HasRelationatedDataException ex){
-            Messages.error("Race is assignet to animal","If race is assignet tho animal you can't delete");
+            Messages.error("Race is assigned to animal","If race is assigned tho animal you can't delete this");
         }
         init();
     }

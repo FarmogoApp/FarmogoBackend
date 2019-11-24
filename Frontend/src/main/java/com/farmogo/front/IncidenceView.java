@@ -136,6 +136,7 @@ public class IncidenceView implements Serializable {
         incidencesService.save(incidence);
         updateIncidenceList();
         animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
+        Messages.info("Incidence saved",null);
     }
 
     public void remove(){

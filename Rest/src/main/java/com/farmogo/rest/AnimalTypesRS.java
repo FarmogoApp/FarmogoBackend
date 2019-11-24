@@ -2,6 +2,7 @@ package com.farmogo.rest;
 
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.model.AnimalType;
+import com.farmogo.services.HasRelationatedDataException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class AnimalTypesRS {
 
     @DELETE
     @Path("{id}")
-    public AnimalType delete(@PathParam("id") String id) {
+    public AnimalType delete(@PathParam("id") String id) throws HasRelationatedDataException {
         AnimalType animalType = animalTypesService.get(id);
         if(animalType== null) throw new NotFoundException();
         animalTypesService.delete(animalType);
