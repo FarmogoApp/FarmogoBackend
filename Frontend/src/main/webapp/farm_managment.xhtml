@@ -49,6 +49,9 @@
             <p:inputText value="#{configView.farm.officialId}"/>
 
         </p:panelGrid>
+        <p:commandButton value="Save" icon="pi pi-save"
+                         actionListener="#{configView.save}"
+                         update="growl"/>
     </h:form>
 
 
@@ -125,11 +128,7 @@
             </p:column>
         </p:dataTable>
     </h:form>
-    <h:form id="SaveFarm">
-    <p:commandButton value="Save" icon="pi pi-save"
-                     actionListener="#{configView.save}"
-                     update="growl"/>
-    </h:form>
+
     </h:body>
 
         <p:dialog modal="false" closable="true" id="newBuildingDialog" widgetVar="newBuildingDialog">
@@ -233,30 +232,30 @@
                     <!-- Name -->
                     <h:outputLabel value="Farm Name"/>
                     <p:column id="newFarmNameColumn">
-                        <p:inputText id="newFarmName" value="#{configView.farm.name}"/>
+                        <p:inputText id="newFarmName" value="#{configView.farm.name}" var="newFarmName"/>
                     </p:column>
 
                     <!-- AnimalCounter Prefix -->
                     <h:outputLabel value="Farm AnimalCounter Prefix"/>
                     <p:column id="newFarmAnimalCounterPrefixColumn">
-                        <p:inputText id="newFarmAnimalCounterPrefix" value="#{configView.farm.animalCounter.prefix}"/>
+                        <p:inputText id="newFarmAnimalCounterPrefix" value="#{configView.farm.animalCounter.prefix}" var="newFarmAnimalCounterPrefix"/>
                     </p:column>
 
                     <!-- AnimalCounter Counter -->
                     <h:outputLabel value="Farm AnimalCounter Counter"/>
                     <p:column id="newFarmAnimalCounterCounterColumn">
-                        <p:inputText id="newFarmAnimalCounterCounter" value="#{configView.farm.animalCounter.counter}"/>
+                        <p:inputText id="newFarmAnimalCounterCounter" value="#{configView.farm.animalCounter.counter}" var="newFarmAnimalCounterCounter"/>
                     </p:column>
 
                     <!-- Official ID -->
                     <h:outputLabel value="Farm Official ID"/>
                     <p:column id="newFarmOfficialIDColumn">
-                        <p:inputText id="newFarmOfficialID" value="#{configView.farm.officialId}"/>
+                        <p:inputText id="newFarmOfficialID" value="#{configView.farm.officialId}" var="newFarmOfficialID"/>
                     </p:column>
 
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
-                                     actionListener="#{configView.saveNewFarm}"
+                                     actionListener="#{configView.saveNewFarm(newFarmName,newFarmOfficialID,newFarmAnimalCounterPrefix,newFarmAnimalCounterCounter)}"
                                      update="Buildingform, Divisionsform"
                                      oncomplete="PF('newFarmDialog').hide()"/>
                 </p:panelGrid>
