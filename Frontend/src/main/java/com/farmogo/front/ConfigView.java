@@ -52,12 +52,12 @@ public class ConfigView implements Serializable {
         division = new Division();
     }
 
-    public void setFarm(String name, String officialId, String prefix, int counter){
+    /*public void setFarm(String name, String officialId, String prefix, int counter){
         this.farm.setName(name);
         this.farm.setOfficialId(officialId);
         AnimalCounter AC = new AnimalCounter(prefix, counter);
         this.farm.setAnimalCounter(AC);
-    }
+    }*/
 
     public Building getBuilding() {
         return building;
@@ -96,20 +96,21 @@ public class ConfigView implements Serializable {
         return farm;
     }
 
-    public void saveNewFarm(String name, String officialId, String prefix, int counter) {
-        System.out.println(name);
-        setFarm(name, officialId, prefix, counter);
+    public void saveNewFarm() {
+        //System.out.println(name);
+        //setFarm(name, officialId, prefix, counter);
         clearBuildingSelection();
         clearDivisionSelection();
         division.setName("division 1.1");
         building.setDivisions(Arrays.asList(division));
+        building.setName("Build 1.1");
         farm.setBuildings(Arrays.asList(building));
 
         farm = farmService.save(farm);
         buildingsList = farm.getBuildings();
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+        context.addMessage(null, new FacesMessage("New Farm Created") );
     }
 
     public void saveBuilding() {
@@ -122,7 +123,7 @@ public class ConfigView implements Serializable {
         buildingsList = farm.getBuildings();
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+        context.addMessage(null, new FacesMessage("Building saved"));
     }
 
     public void saveDivision() {
@@ -134,7 +135,7 @@ public class ConfigView implements Serializable {
         buildingsList = farm.getBuildings();
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful", farm.getAnimalCounter().toString()) );
+        context.addMessage(null, new FacesMessage("Division saved"));
     }
 
     public void save() {

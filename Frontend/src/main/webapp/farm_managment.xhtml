@@ -147,7 +147,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveBuilding}"
-                                     update="Buildingform, Divisionsform"
+                                     update="Buildingform, Divisionsform,:growl"
                                      oncomplete="PF('newBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -170,7 +170,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save}"
-                                     update="Buildingform, Divisionsform"
+                                     update="Buildingform, Divisionsform,:growl"
                                      oncomplete="PF('modifyBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -193,7 +193,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save}"
-                                     update="Buildingform, Divisionsform"
+                                     update="Buildingform, Divisionsform,:growl"
                                      oncomplete="PF('modifyDivisionDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -215,7 +215,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveDivision}"
-                                     update="Buildingform, Divisionsform"
+                                     update="Buildingform, Divisionsform,:growl"
                                      oncomplete="PF('newDivisionDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -255,8 +255,8 @@
 
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
-                                     actionListener="#{configView.saveNewFarm(newFarmName,newFarmOfficialID,newFarmAnimalCounterPrefix,newFarmAnimalCounterCounter)}"
-                                     update="Buildingform, Divisionsform"
+                                     actionListener="#{configView.saveNewFarm()}"
+                                     update="Buildingform, Divisionsform, farmSwitch, FarmInfo,:growl"
                                      oncomplete="PF('newFarmDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
