@@ -80,9 +80,9 @@
                     <p:commandButton value="Save" icon="pi pi-save"
                                      validateClient="true"
                                      actionListener="#{incidenceView.save}"
-                                     update=":incidenceForm"
+                                     update=":incidenceForm :growl"
                                      oncomplete="if (!args.validationFailed){ PF('incidenceDialog').hide(); updatePanel();}"/>
-                    <p:remoteCommand name="updatePanel" update=":panelCenter"/>
+                    <p:remoteCommand name="updatePanel" update=":panelCenter :growl"/>
                 </p:column>
 
             </p:panelGrid>

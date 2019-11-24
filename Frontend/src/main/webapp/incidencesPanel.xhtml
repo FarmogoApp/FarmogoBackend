@@ -77,7 +77,7 @@
                            rendered="#{empty elem.removeDate}"
                            oncomplete="PF('incidenceRemoveDialog').show()"><i class="pi pi-trash"/></p:commandLink>
             <p:commandLink actionListener="#{incidenceView.recover(elem)}"
-                           update="incidencesTable"
+                           update="incidencesTable :growl"
                            rendered="#{not empty elem.removeDate}"><i class="pi pi-refresh"/></p:commandLink>
         </p:column>
         <p:rowExpansion>
