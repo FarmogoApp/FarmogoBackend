@@ -61,8 +61,11 @@
                 <f:param name="animalId" value="${elem.animalId}"/>
             </p:link>
         </p:column>
+        <p:column headerText="Date">
+            <h:outputText value="#{elem.date}"/>
+        </p:column>
         <p:column headerText="Created">
-            <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
+            <h:outputText value="#{elem.created}"/>
         </p:column>
         <p:column style="width: 70px;" exportable="false" styleClass="tools">
             <p:commandLink actionListener="#{incidenceView.setIncidence(elem)}"

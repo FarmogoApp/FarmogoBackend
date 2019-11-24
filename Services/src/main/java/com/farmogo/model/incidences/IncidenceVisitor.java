@@ -2,9 +2,9 @@ package com.farmogo.model.incidences;
 
 public interface IncidenceVisitor {
 
-    void visit(IncidenceDischarge obj);
-    void visit(IncidencePregnancy obj);
-    void visit(IncidenceTreatment obj);
-    void visit(IncidenceWeight obj);
+    default void visit(IncidenceDischarge obj) {}
+    default void visit(IncidencePregnancy obj) {}
+    default void visit(IncidenceTreatment obj) {}
+    default void visit(IncidenceWeight obj) {}
 
 }

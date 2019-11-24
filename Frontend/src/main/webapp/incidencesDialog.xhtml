@@ -7,7 +7,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-<p:dialog modal="false" closable="true" id="incidenceDialog" widgetVar="incidenceDialog">
+<p:dialog modal="false" closable="true" id="incidenceDialog" widgetVar="incidenceDialog"
+          minHeight="380" closeOnEscape="true" height="380" fitViewport="true">
 
     <f:facet name="header">
         Incidence
@@ -19,13 +20,17 @@
                 <p:ajax update="incidenceDialog" event="change" oncomplete="PF('incidenceDialog').show()"/>
             </p:selectOneButton>
         </h:form>
-
     </ui:fragment>
     <ui:fragment rendered="#{not empty incidenceView.incidence}">
         <h:form id="incidenceForm">
             <p:panelGrid columns="2">
                 <p:outputLabel value="Type"/>
                 <p:inputText readonly="true" value="#{incidenceView.incidence.type}"/>
+
+                <h:outputLabel value="Date" for="@next"/>
+                <p:datePicker value="#{incidenceView.incidence.date}" monthNavigator="true"
+                              pattern="dd/MM/yyyy"/>
+
 
                 <p:outputLabel value="Get off type" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"
                                for="@next"/>
@@ -67,7 +72,7 @@
                     <f:validateLongRange minimum="1" maximum="9999"/>
                 </p:inputText>
 
-                <p:outputLabel value="observations" for="@next"/>
+                <p:outputLabel value="Observations" for="@next"/>
                 <p:inputTextarea rows="4" cols="40" value="#{incidenceView.incidence.observations}"/>
 
                 <p:column/>

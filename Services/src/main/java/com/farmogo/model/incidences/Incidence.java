@@ -20,6 +20,7 @@ public abstract class Incidence {
     private String uuid;
     private IncidenceType type;
     private String observations;
+    private LocalDate date;
     private LocalDate dueDate;
     private boolean done;
     private boolean complete;
@@ -33,6 +34,7 @@ public abstract class Incidence {
     public Incidence(IncidenceType incidenceType) {
         type = incidenceType;
         created = LocalDateTime.now();
+        date = LocalDate.now();
     }
 
     public IncidenceType getType() {
@@ -55,6 +57,13 @@ public abstract class Incidence {
         this.observations = observations;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public LocalDate getDueDate() {
         return dueDate;
