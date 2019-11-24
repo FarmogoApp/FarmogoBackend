@@ -15,7 +15,7 @@
 </h:head>
 
 <h:body>
-    <p:growl id="growl" showDetail="true"/>
+    <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" globalOnly="true"/>
     <p:layout style="min-width:400px;min-height:200px;" fullPage="true">
         <p:layoutUnit position="west" resizable="false" size="275px" id="menu">
             <ui:include src="menu.xhtml"/>
@@ -23,7 +23,7 @@
         <p:layoutUnit position="north" size="50" id="top">
             <ui:include src="top.xhtml"/>
         </p:layoutUnit>
-        <p:layoutUnit position="center" style="z-index:999" id="content">
+        <p:layoutUnit position="center" id="content">
             <p:panel id="panelCenter" styleClass="noPadding noMargin">
                 <ui:insert name="content"/>
             </p:panel>

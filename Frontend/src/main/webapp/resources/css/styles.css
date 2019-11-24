@@ -14,6 +14,10 @@ div.top>div{
     vertical-align: middle !important;
 }
 
+.ui-growl {
+    z-index: 999999 !important;
+}
+
 div#content>.ui-layout-unit-content,
 div#top>.ui-layout-unit-content{
     padding-right: 5px;

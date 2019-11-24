@@ -47,7 +47,7 @@ public class AnimalMongoDao implements AnimalDao {
         return StreamSupport.stream(mongoCollection.find()
                 .filter(Filters.and(
                         Filters.eq("farmId", new ObjectId(farmId)),
-                        Filters.not( Filters.exists("dischargeDate"))
+                        Filters.not(Filters.exists("dischargeDate"))
                 )).spliterator(), false)
                 .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
@@ -63,23 +63,24 @@ public class AnimalMongoDao implements AnimalDao {
 
     @Override
     public List<Animal> getDischargedAnimalsByFarmId(String farmId) {
-        return StreamSupport.stream(mongoCollection.find()
+        List<Animal> collect = StreamSupport.stream(mongoCollection.find()
                 .filter(Filters.and(
                         Filters.eq("farmId", new ObjectId(farmId)),
                         Filters.exists("dischargeDate")
                 )).spliterator(), false)
                 .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
+        return collect;
     }
 
     @Override
     public Animal save(Animal animal) {
 
         ObjectId key = null;
-        if(animal.getUuid() != null){
+        if (animal.getUuid() != null) {
             key = new ObjectId(animal.getUuid());
         }
-        if (key == null){
+        if (key == null) {
             AnimalMongo convert = AnimalMongo.convert(animal);
             convert.setUuid(new ObjectId());
             animal.setUuid(convert.getUuid().toString());
@@ -98,5 +99,15 @@ public class AnimalMongoDao implements AnimalDao {
     @Override
     public Animal get(String id) {
         return AnimalMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
+    }
+
+    @Override
+    public List<Animal> getByRace(String raceId) {
+        List<Animal> collect = StreamSupport.stream(mongoCollection.find()
+                .filter(Filters.eq("raceId", new ObjectId(raceId)))
+                .spliterator(), false)
+                .map(AnimalMongo::convert)
+                .collect(Collectors.toList());
+        return collect;
     }
 }

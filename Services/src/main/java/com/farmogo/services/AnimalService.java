@@ -46,7 +46,9 @@ public class AnimalService {
     }
 
 
-
+    public List<Animal> getByRace(String raceId) {
+        return animalDao.getByRace(raceId);
+    }
 }
 
 
