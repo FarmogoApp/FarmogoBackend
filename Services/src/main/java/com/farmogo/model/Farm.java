@@ -11,6 +11,10 @@ public class Farm implements Serializable {
     private List<Building> buildings;
     private AnimalCounter animalCounter;
 
+    public Farm() {
+        animalCounter = new AnimalCounter();
+    }
+
     public String getUuid() {
         return uuid;
     }

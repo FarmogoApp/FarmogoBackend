@@ -39,4 +39,9 @@ public class MarketHistoryMongoDao implements MarketHistoryDao {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public MarketHistory save(MarketHistory marketHistory) {
+        return null;
+    }
+
 }

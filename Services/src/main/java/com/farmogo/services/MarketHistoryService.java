@@ -19,4 +19,7 @@ public class MarketHistoryService {
     }
 
 
+    public MarketHistory save(MarketHistory marketHistory) {
+        return markethistoryDao.save(marketHistory);
+    }
 }
