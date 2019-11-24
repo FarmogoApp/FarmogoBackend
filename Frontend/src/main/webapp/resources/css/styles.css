@@ -49,6 +49,9 @@ button.leftmenu{
 .incomplete{
     background-color: khaki !important;
 }
+.removed :not(i):not(a){
+    text-decoration: line-through !important;
+}
 
 .title{
     font-weight: bold;

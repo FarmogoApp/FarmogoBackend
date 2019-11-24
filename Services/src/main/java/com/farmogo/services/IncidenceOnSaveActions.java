@@ -14,7 +14,9 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     Animal animal;
 
     public void action(Incidence incidence){
+
         animal = animalService.get(incidence.getAnimalId());
+
         if (incidence.getFarmId()== null  || incidence.getFarmId().isEmpty()){
             incidence.setFarmId(animal.getFarmId());
         }
@@ -33,18 +35,4 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
         }
     }
 
-    @Override
-    public void visit(IncidencePregnancy obj) {
-
-    }
-
-    @Override
-    public void visit(IncidenceTreatment obj) {
-
-    }
-
-    @Override
-    public void visit(IncidenceWeight obj) {
-
-    }
 }

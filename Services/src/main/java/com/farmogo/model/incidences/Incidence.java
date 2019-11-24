@@ -20,6 +20,7 @@ public abstract class Incidence {
     private String uuid;
     private IncidenceType type;
     private String observations;
+    private LocalDate date;
     private LocalDate dueDate;
     private boolean done;
     private boolean complete;
@@ -27,10 +28,13 @@ public abstract class Incidence {
     private String createdBy;
     private String animalId;
     private String farmId;
+    private LocalDate removeDate;
+    private String removeReason;
 
     public Incidence(IncidenceType incidenceType) {
         type = incidenceType;
         created = LocalDateTime.now();
+        date = LocalDate.now();
     }
 
     public IncidenceType getType() {
@@ -53,6 +57,13 @@ public abstract class Incidence {
         this.observations = observations;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public LocalDate getDueDate() {
         return dueDate;
@@ -109,6 +120,22 @@ public abstract class Incidence {
 
     public void setFarmId(String farmId) {
         this.farmId = farmId;
+    }
+
+    public LocalDate getRemoveDate() {
+        return removeDate;
+    }
+
+    public void setRemoveDate(LocalDate removeDate) {
+        this.removeDate = removeDate;
+    }
+
+    public String getRemoveReason() {
+        return removeReason;
+    }
+
+    public void setRemoveReason(String removeReason) {
+        this.removeReason = removeReason;
     }
 
     public abstract void accept(IncidenceVisitor visitor);

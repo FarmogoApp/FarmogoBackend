@@ -16,7 +16,7 @@
             var="elem"
             sortMode="multiple"
             widgetVar="incidencesTable"
-            rowStyleClass="#{elem.complete ? '' : 'incomplete'}"
+            rowStyleClass="#{(not empty elem.removeDate )? 'removed' :elem.complete ? '' : 'incomplete'}"
     >
 
         <f:facet name="header">
@@ -46,9 +46,6 @@
         <p:column style="width: 16px;" exportable="false">
             <p:rowToggler/>
         </p:column>
-        <p:column headerText="Id">
-            <h:outputText value="#{elem.uuid}"/>
-        </p:column>
         <p:column headerText="Type" filterBy="#{elem.type}" filterMatchMode="exact">
             <f:facet name="filter">
                 <p:selectOneMenu onchange="PF('incidencesTable').filter()">
@@ -64,15 +61,24 @@
                 <f:param name="animalId" value="${elem.animalId}"/>
             </p:link>
         </p:column>
-        <p:column headerText="Created">
-            <h:outputText value="#{incidenceView.formatDate(elem.created)}"/>
+        <p:column headerText="Date">
+            <h:outputText value="#{elem.date}"/>
         </p:column>
-        <p:column style="width: 16px;" exportable="false">
+        <p:column headerText="Created">
+            <h:outputText value="#{elem.created}"/>
+        </p:column>
+        <p:column style="width: 70px;" exportable="false" styleClass="tools">
             <p:commandLink actionListener="#{incidenceView.setIncidence(elem)}"
                            update="incidenceDialog"
-                           oncomplete="PF('incidenceDialog').show()">
-                <i class="pi pi-pencil"/>
-            </p:commandLink>
+                           style="margin-right: 4px"
+                           oncomplete="PF('incidenceDialog').show()"><i class="pi pi-pencil"/></p:commandLink>
+            <p:commandLink actionListener="#{incidenceView.setIncidence(elem)}"
+                           update="incidenceRemoveDialog"
+                           rendered="#{empty elem.removeDate}"
+                           oncomplete="PF('incidenceRemoveDialog').show()"><i class="pi pi-trash"/></p:commandLink>
+            <p:commandLink actionListener="#{incidenceView.recover(elem)}"
+                           update="incidencesTable"
+                           rendered="#{not empty elem.removeDate}"><i class="pi pi-refresh"/></p:commandLink>
         </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="2" columnClasses="ui-grid-col-2 bold,ui-grid-col-10" layout="grid">
@@ -100,10 +106,17 @@
                 <h:outputText value="Observations"/>
                 <h:outputText value="#{elem.observations}" styleClass="preformatted"/>
 
+                <h:outputText value="Remove Reason" rendered="#{not empty elem.removeDate}"/>
+                <h:outputText value="#{elem.removeReason}" styleClass="preformatted"/>
+
+                <h:outputText value="Remove Date" rendered="#{not empty elem.removeReason}"/>
+                <h:outputText value="#{elem.removeDate}"/>
+
             </p:panelGrid>
         </p:rowExpansion>
     </p:dataTable>
 </h:form>
 <ui:include src="incidencesDialog.xhtml"/>
+<ui:include src="incidencesRemoveDialog.xhtml"/>
 
 </html>
