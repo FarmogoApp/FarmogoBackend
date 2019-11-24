@@ -43,11 +43,17 @@ public class AnimalListView implements Serializable {
     private Map<String, String> animalTypes = new HashMap<>();
     private Map<String, String> divisions = new HashMap<>();
     private Map<String, String> mothers = new HashMap<>();
-    private FilterAnimals filter;
+    private FilterAnimal filter;
 
     @PostConstruct
     public void init() {
-        filter =  FilterAnimals.Current;
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        if (params.containsKey("filter")){
+            filter = FilterAnimal.valueOf(params.get("filter"));
+        }else{
+            filter =  FilterAnimal.Current;
+        }
 
         farm = farmService.getCurrentFarm();
         if (farm != null) {
@@ -174,20 +180,35 @@ public class AnimalListView implements Serializable {
         this.farm = farm;
     }
 
-    public FilterAnimals getFilter() {
+    public FilterAnimal getFilter() {
         return filter;
     }
 
-    public void setFilter(FilterAnimals filter) {
+    public void setFilter(FilterAnimal filter) {
         this.filter = filter;
     }
 
-    public FilterAnimals[] getFilters(){
-        return FilterAnimals.values();
+    public FilterAnimal[] getFilters(){
+        return FilterAnimal.values();
     }
 
-    public enum FilterAnimals {
+    public enum FilterAnimal {
         All, Current, Discharged;
+    }
 
+    public int getTotalAnimals(){
+        return animalService.getAll().size();
+    }
+
+    public int getTotalAnimalsOfFarm(FilterAnimal filter){
+        switch (filter) {
+            case All:
+                return animalService.getAnimalsByFarmId(farm.getUuid()).size();
+            case Current:
+                return animalService.getCurrentAnimalsByFarmId(farm.getUuid()).size();
+            case Discharged:
+               return animalService.getDischagedAnimalsByFarmId(farm.getUuid()).size();
+        }
+        return 0;
     }
 }
