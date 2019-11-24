@@ -21,6 +21,7 @@ div.top>div{
 div#content>.ui-layout-unit-content,
 div#top>.ui-layout-unit-content{
     padding-right: 5px;
+    overflow-x: hidden;
 }
 div#menu>.ui-layout-unit-content,
 div#top>.ui-layout-unit-content{

@@ -10,6 +10,7 @@
 >
 
 <h:head>
+    <title>FARMOGO</title>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
     <h:outputStylesheet name="styles.css" library="css"/>
 </h:head>
@@ -23,7 +24,7 @@
         <p:layoutUnit position="north" size="50" id="top">
             <ui:include src="top.xhtml"/>
         </p:layoutUnit>
-        <p:layoutUnit position="center" style="z-index:999" id="content">
+        <p:layoutUnit position="center" style="z-index:999; padding: 0" id="content">
             <p:panel id="panelCenter" styleClass="noPadding noMargin">
                 <ui:insert name="content"/>
             </p:panel>
