@@ -52,6 +52,13 @@ public class ConfigView implements Serializable {
         division = new Division();
     }
 
+    public void setFarm(String name, String officialId, String prefix, int counter){
+        this.farm.setName(name);
+        this.farm.setOfficialId(officialId);
+        AnimalCounter AC = new AnimalCounter(prefix, counter);
+        this.farm.setAnimalCounter(AC);
+    }
+
     public Building getBuilding() {
         return building;
     }
@@ -89,13 +96,17 @@ public class ConfigView implements Serializable {
         return farm;
     }
 
-    public void saveNewFarm() {
+    public void saveNewFarm(String name, String officialId, String prefix, int counter) {
+        System.out.println(name);
+
+        setFarm(name, officialId, prefix, counter);
         clearBuildingSelection();
         clearDivisionSelection();
         division.setName("division 1.1");
         building.setDivisions(Arrays.asList(division));
         farm.setBuildings(Arrays.asList(building));
-        farmService.save(farm);
+
+        farm = farmService.save(farm);
         buildingsList = farm.getBuildings();
 
         FacesContext context = FacesContext.getCurrentInstance();
