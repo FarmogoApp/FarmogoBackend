@@ -14,6 +14,7 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -140,6 +141,17 @@ public class IncidenceView implements Serializable {
         incidencesService.save(incidence);
         updateIncidenceList();
         animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
+    }
+
+    public void remove(){
+        incidence.setRemoveDate(LocalDate.now());
+        this.save();
+    }
+    public void recover(Incidence incidence){
+        this.incidence = incidence;
+        this.incidence.setRemoveDate(null);
+        this.incidence.setRemoveReason(null);
+        this.save();
     }
 
     public IncidenceType[] getIncidenceTypes(){

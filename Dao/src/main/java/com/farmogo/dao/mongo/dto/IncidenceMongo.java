@@ -26,6 +26,8 @@ public abstract class IncidenceMongo {
     private ObjectId createdBy;
     private ObjectId animalId;
     private ObjectId farmId;
+    private LocalDate removeDate;
+    private String removeReason;
 
     public IncidenceMongo(IncidenceType incidenceType) {
         type = incidenceType;
@@ -103,6 +105,22 @@ public abstract class IncidenceMongo {
 
     public void setFarmId(ObjectId farmId) {
         this.farmId = farmId;
+    }
+
+    public LocalDate getRemoveDate() {
+        return removeDate;
+    }
+
+    public void setRemoveDate(LocalDate removeDate) {
+        this.removeDate = removeDate;
+    }
+
+    public String getRemoveReason() {
+        return removeReason;
+    }
+
+    public void setRemoveReason(String removeReason) {
+        this.removeReason = removeReason;
     }
 
     public static IncidenceMongo convert(Incidence incidence) {

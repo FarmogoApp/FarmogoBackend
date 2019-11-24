@@ -27,6 +27,8 @@ public abstract class Incidence {
     private String createdBy;
     private String animalId;
     private String farmId;
+    private LocalDate removeDate;
+    private String removeReason;
 
     public Incidence(IncidenceType incidenceType) {
         type = incidenceType;
@@ -109,6 +111,22 @@ public abstract class Incidence {
 
     public void setFarmId(String farmId) {
         this.farmId = farmId;
+    }
+
+    public LocalDate getRemoveDate() {
+        return removeDate;
+    }
+
+    public void setRemoveDate(LocalDate removeDate) {
+        this.removeDate = removeDate;
+    }
+
+    public String getRemoveReason() {
+        return removeReason;
+    }
+
+    public void setRemoveReason(String removeReason) {
+        this.removeReason = removeReason;
     }
 
     public abstract void accept(IncidenceVisitor visitor);
