@@ -12,6 +12,7 @@ public interface AnimalDao {
     Animal save(Animal animal);
     void delete(Animal animal);
     Animal get(String id);
-
+    List<Animal> getByRace(String raceId);
+    List<Animal> getByAnimalType(String animalTypeId);
 }
 

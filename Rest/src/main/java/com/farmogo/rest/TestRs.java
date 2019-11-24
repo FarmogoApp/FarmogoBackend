@@ -110,7 +110,7 @@ public class TestRs {
             animal.setOfficialId("1234567890123");
             animal.setOrigin("Lleida");
             animal.setSex("Female");
-            animal.setAnimalTypeId(animalTypeId.getAnimalType());
+            animal.setAnimalTypeId(animalTypeId.getUuid());
             animal.setRaceId(raceA.getUuid());
             animal.setFarmId(farmA.getUuid());
             animal.setOfficialId("ES001202059231");
@@ -123,7 +123,7 @@ public class TestRs {
             animal2.setOfficialId("78901234567890");
             animal2.setOrigin("Ainsa");
             animal2.setSex("Male");
-            animal2.setAnimalTypeId(animalTypeId2.getAnimalType());
+            animal2.setAnimalTypeId(animalTypeId2.getUuid());
             animal2.setRaceId(raceB.getUuid());
             animal2.setFarmId(farmA.getUuid());
             animal2.setOfficialId("ES051400239970");
@@ -210,7 +210,7 @@ public class TestRs {
             animal.setOfficialId("573457456543634");
             animal.setOrigin("Lleida");
             animal.setSex("Female");
-            animal.setAnimalTypeId(animalTypeId.getAnimalType());
+            animal.setAnimalTypeId(animalTypeId.getUuid());
             animal.setRaceId(raceA.getUuid());
             animal.setFarmId(farmA.getUuid());
             animal.setOfficialId("ES542356436432");

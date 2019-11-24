@@ -45,7 +45,7 @@
             <p:contextMenu for="raceTable">
                 <p:menuitem value="Edit" update="newRaceDialog"
                             oncomplete="PF('newRaceDialog').show()"/>
-                <p:menuitem value="Delete" update="raceTable" action="#{raceView.delete}">
+                <p:menuitem value="Delete" update="raceTable :growl" action="#{raceView.delete}">
                     <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
                 </p:menuitem>
             </p:contextMenu>
@@ -70,7 +70,7 @@
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{raceView.save}"
-                                     update=":listRaceForm:raceTable"
+                                     update=":listRaceForm:raceTable :growl"
                                      oncomplete="PF('newRaceDialog').hide()"/>
                 </p:panelGrid>
             </h:form>

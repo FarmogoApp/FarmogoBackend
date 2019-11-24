@@ -294,7 +294,7 @@
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{animalListView.save}"
-                                     update=":animalListForm:animalTable,originColumn,:growl"
+                                     update=":animalListForm:animalTable originColumn :growl"
                                      oncomplete="PF('newAnimalDialog').hide()"/>
                 </p:panelGrid>
             </h:form>

@@ -38,7 +38,7 @@ public class MarketHistoryRS {
         AnimalType animalType = new AnimalType();
         animalType.setIcon("bull");
         animalType.setDescription("xxxxxxxx");
-        animalType.setAnimalType("1");
+        animalType.setUuid("1");
 
 
         for (int i = 1; i < 11; i++) {

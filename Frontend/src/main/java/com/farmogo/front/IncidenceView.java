@@ -136,17 +136,22 @@ public class IncidenceView implements Serializable {
         incidencesService.save(incidence);
         updateIncidenceList();
         animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
+        Messages.info("Incidence has been saved", "");
     }
 
     public void remove(){
         incidence.setRemoveDate(LocalDate.now());
-        this.save();
+        incidencesService.save(incidence);
+        updateIncidenceList();
+        Messages.info("Incidence has been removed", "");
     }
     public void recover(Incidence incidence){
         this.incidence = incidence;
         this.incidence.setRemoveDate(null);
         this.incidence.setRemoveReason(null);
-        this.save();
+        incidencesService.save(incidence);
+        updateIncidenceList();
+        Messages.info("Incidence has been recovered", "");
     }
 
     public IncidenceType[] getIncidenceTypes(){

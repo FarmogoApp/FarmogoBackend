@@ -94,7 +94,7 @@ public class AnimalListView implements Serializable {
 
     private void HashAnimalTypes() {
         animalTypes = animalTypesService.getAll().stream()
-                .collect(Collectors.toMap(AnimalType::getAnimalType, AnimalType::getDescription));
+                .collect(Collectors.toMap(AnimalType::getUuid, AnimalType::getDescription));
     }
 
     private void HashRaces() {
@@ -140,9 +140,9 @@ public class AnimalListView implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             animalService.save(animal);
-            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Animal saved successfully"));
+            Messages.info("Animal Has been saved", "");
         } catch (Exception e) {
-            context.addMessage("growl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "An error has occurred while saving"));
+            Messages.error("An error has occurred while saving", e.getMessage());
         }
 
         init();

@@ -50,13 +50,13 @@ public class AnimalTypeMongoDao implements AnimalTypeDao {
 
     public AnimalType save(AnimalType animalType) {
         ObjectId key = null;
-        if (animalType.getAnimalType() != null) {
-            key = new ObjectId(animalType.getAnimalType());
+        if (animalType.getUuid() != null) {
+            key = new ObjectId(animalType.getUuid());
         }
         if (key == null) {
 
             AnimalTypeMongo convert = AnimalTypeMongo.convert(animalType);
-            convert.setAnimalType(new ObjectId());
+            convert.setUuid(new ObjectId());
             mongoCollection.insertOne(convert);
             return AnimalTypeMongo.convert(convert);
         } else {
@@ -66,8 +66,8 @@ public class AnimalTypeMongoDao implements AnimalTypeDao {
     }
 
     public void delete(AnimalType animalType) {
-        if (animalType.getAnimalType() != null) {
-            ObjectId key = new ObjectId(animalType.getAnimalType());
+        if (animalType.getUuid() != null) {
+            ObjectId key = new ObjectId(animalType.getUuid());
             mongoCollection.deleteOne(Filters.eq("_id", key));
         }
     }
