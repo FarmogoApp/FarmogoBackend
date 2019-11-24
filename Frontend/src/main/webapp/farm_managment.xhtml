@@ -51,7 +51,7 @@
                 </p:panelGrid>
                 <p:commandButton value="Save" icon="pi pi-save"
                                  actionListener="#{configView.save}"
-                                 update="growl"/>
+                                 update=":farmSwitch :growl"/>
             </h:form>
 
 
@@ -147,7 +147,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveBuilding}"
-                                     update="Buildingform, Divisionsform,:growl"
+                                     update="Buildingform Divisionsform :growl :farmSwitch"
                                      oncomplete="PF('newBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>

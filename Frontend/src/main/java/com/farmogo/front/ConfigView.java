@@ -25,6 +25,9 @@ public class ConfigView implements Serializable {
     FarmService farmService;
 
     @Inject
+    FarmSwitcherView farmSwitcherView;
+
+    @Inject
     BuildingService buildingService;
 
     private Farm farm;
@@ -108,6 +111,8 @@ public class ConfigView implements Serializable {
 
         farm = farmService.save(farm);
         buildingsList = farm.getBuildings();
+        farmSwitcherView.init();
+        farmSwitcherView.setFarm(farm);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("New Farm Created") );
@@ -140,6 +145,8 @@ public class ConfigView implements Serializable {
 
     public void save() {
         farmService.save(farm);
+        farmSwitcherView.init();
+        farmSwitcherView.setFarm(farm);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Farm saved") );
     }
