@@ -69,7 +69,7 @@ public class IncidenceMongoDao implements IncidenceDao {
         return StreamSupport.stream(
                 mongoCollection.find()
                         .filter(Filters.eq("animalId", new ObjectId(animalid)))
-                        .sort(orderBy(ascending("created")))
+                        .sort(orderBy(ascending("date")))
                         .spliterator(), false)
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
@@ -83,7 +83,7 @@ public class IncidenceMongoDao implements IncidenceDao {
                                 Filters.eq("farmId", new ObjectId(farmId)),
                                 Filters.eq("complete", false)
                         ))
-                        .sort(orderBy(ascending("created")))
+                        .sort(orderBy(ascending("date")))
                         .spliterator(), false)
 
                 .map(IncidenceMongo::convert)

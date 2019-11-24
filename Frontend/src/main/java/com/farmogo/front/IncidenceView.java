@@ -132,11 +132,6 @@ public class IncidenceView implements Serializable {
         newIncidence(incidenceType);
     }
 
-    public String formatDate(LocalDateTime dateTime) {
-        if (dateTime == null) return "";
-        return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
-    }
-
     public void save() {
         incidencesService.save(incidence);
         updateIncidenceList();

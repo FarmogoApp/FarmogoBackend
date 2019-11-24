@@ -1,6 +1,5 @@
 package com.farmogo.dao.mongo.dto;
 
-import com.farmogo.model.AnimalType;
 import com.farmogo.model.incidences.Incidence;
 import com.farmogo.model.incidences.IncidenceType;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
@@ -19,6 +18,7 @@ public abstract class IncidenceMongo {
     @BsonIgnore
     private IncidenceType type;
     private String observations;
+    private LocalDate date;
     private LocalDate dueDate;
     private boolean done;
     private boolean complete;
@@ -33,6 +33,13 @@ public abstract class IncidenceMongo {
         type = incidenceType;
     }
 
+    public static IncidenceMongo convert(Incidence incidence) {
+        return Mapper.getInstance().map(incidence, IncidenceMongo.class);
+    }
+
+    public static Incidence convert(IncidenceMongo incidenceMongo) {
+        return Mapper.getInstance().map(incidenceMongo, Incidence.class);
+    }
 
     public ObjectId getUuid() {
         return uuid;
@@ -50,6 +57,13 @@ public abstract class IncidenceMongo {
         this.observations = observations;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public LocalDate getDueDate() {
         return dueDate;
@@ -121,14 +135,6 @@ public abstract class IncidenceMongo {
 
     public void setRemoveReason(String removeReason) {
         this.removeReason = removeReason;
-    }
-
-    public static IncidenceMongo convert(Incidence incidence) {
-        return Mapper.getInstance().map(incidence, IncidenceMongo.class);
-    }
-
-    public static Incidence convert(IncidenceMongo incidenceMongo) {
-        return Mapper.getInstance().map(incidenceMongo, Incidence.class);
     }
 
 }
