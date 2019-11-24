@@ -18,7 +18,10 @@
                     widgetVar="animalTableWidget">
 
                 <f:facet name="header">
-                    <div class="ui-g">
+                    <div class="ui-g" style="padding-right: 25px;">
+                        <div class="ui-g-12" style="padding: 0;text-align: center; ">Animal data</div>
+                    </div>
+                    <div class="ui-g" style="padding-right: 25px;">
                         <div class="ui-g-4" style="padding: 0; text-align: left;">
                             <p:commandButton value="Add"
                                              icon="pi pi-plus-circle"
@@ -27,21 +30,25 @@
                                              oncomplete="PF('newAnimalDialog').show()"
                             />
                         </div>
-                        <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Animal data</div>
-                        <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
+                        <div class="ui-g-4" style="line-height: 30px;padding: 0;text-align: center;">
+                            <p:selectOneButton value="#{animalListView.filter}">
+                                <f:selectItems value="#{animalListView.filters}"/>
+                                <p:ajax event="change" listener="#{animalListView.loadAnimals()}" update="animalTable"/>
+                            </p:selectOneButton>
+                        </div>
+                        <div class="ui-g-4" style="text-align: right; padding: 0;">
                             <h:commandLink>
                                 <p:graphicImage name="/img/csv.png" width="25" height=""/>
                                 <p:dataExporter type="csv" target="animalTable" fileName="animal" pageOnly="true"/>
                             </h:commandLink>
                             <h:commandLink>
-                                <p:graphicImage name="/img/pdf.png" width="25"/>
+                                <p:graphicImage name="/img/pdf.png" width="25" style="margin-right: 5px"/>
                                 <p:dataExporter type="pdf" target="animalTable" fileName="animal" pageOnly="true"/>
                             </h:commandLink>
                             <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
                             <p:columnToggler datasource="animalTable" trigger="toggler">
-                                <p:ajax event="toggle" listener="#{animalColumnToogler.onColumnsTooggle}" />
+                                <p:ajax event="toggle" listener="#{animalColumnToogler.onColumnsTooggle}"/>
                             </p:columnToggler>
-
                         </div>
                     </div>
                 </f:facet>
@@ -62,7 +69,8 @@
                 <!--                </p:column>-->
 
                 <!-- Official ID -->
-                <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains" toggleable="false">
+                <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains"
+                          toggleable="false">
                     <p:link outcome="animal_data" value="#{elem.officialId}">
                         <f:param name="animalId" value="#{elem.uuid}"/>
                     </p:link>
@@ -158,7 +166,8 @@
                 </p:column>
 
                 <!-- Birth date -->
-                <p:column headerText="Birth date" sortBy="#{elem.birthDay}" visible="#{animalColumnToogler.visibility[7]}">
+                <p:column headerText="Birth date" sortBy="#{elem.birthDay}"
+                          visible="#{animalColumnToogler.visibility[7]}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.birthDay}">
