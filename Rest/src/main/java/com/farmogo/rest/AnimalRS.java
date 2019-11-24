@@ -9,7 +9,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
 import java.util.List;
 
 @RequestScoped
@@ -61,7 +60,7 @@ public class AnimalRS {
         AnimalType animalTypeId = animalTypesService.save(animalType);
 
         animal.setFarmId("5dd2da5155d353e9ef6df9eb");
-        animal.setAnimalTypeId(animalTypeId.getAnimalType());
+        animal.setAnimalTypeId(animalTypeId.getUuid());
         animal.setRaceId("");
         animal.setMotherId("");
         animalService.save(animal);

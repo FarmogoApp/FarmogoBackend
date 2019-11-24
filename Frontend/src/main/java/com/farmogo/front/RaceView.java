@@ -2,6 +2,7 @@ package com.farmogo.front;
 
 import com.farmogo.model.AnimalType;
 import com.farmogo.model.Race;
+import com.farmogo.services.HasRelationatedDataException;
 import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
@@ -56,12 +57,17 @@ public class RaceView implements Serializable {
 
     public void save(){
         raceService.save(race);
+        Messages.info("Race " + race.getName()+ " has been saved","");
         init();
     }
 
-    public void delete(){
-
-        raceService.delete(race);
+    public void delete() {
+        try {
+            raceService.delete(race);
+            Messages.info("Race " + race.getName()+ " has been deleted","");
+        }catch (HasRelationatedDataException ex){
+            Messages.error("Race is assigned to animal","If race is assigned tho animal you can't delete this");
+        }
         init();
     }
 

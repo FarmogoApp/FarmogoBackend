@@ -7,17 +7,17 @@ import org.bson.types.ObjectId;
 public class AnimalTypeMongo {
 
     @BsonId
-    private ObjectId animalType;
+    private ObjectId uuid;
     private String description;
     private String icon;
 
 
-    public ObjectId getAnimalType() {
-        return animalType;
+    public ObjectId getUuid() {
+        return uuid;
     }
 
-    public void setAnimalType(ObjectId animalType) {
-        this.animalType = animalType;
+    public void setUuid(ObjectId uuid) {
+        this.uuid = uuid;
     }
 
     public String getDescription() {

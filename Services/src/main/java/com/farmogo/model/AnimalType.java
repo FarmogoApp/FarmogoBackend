@@ -4,21 +4,20 @@ package com.farmogo.model;
 
 
 import java.io.Serializable;
-import java.util.UUID;
 
 
 public class AnimalType implements Serializable {
 
-    private String animalType;
+    private String uuid;
     private String description;
     private String icon;
 
-    public String getAnimalType() {
-        return animalType;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setAnimalType(String animalType) {
-        this.animalType = animalType;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getDescription() {

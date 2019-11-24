@@ -46,7 +46,13 @@ public class AnimalService {
     }
 
 
+    public List<Animal> getByRace(String raceId) {
+        return animalDao.getByRace(raceId);
+    }
 
+    public List<Animal> getByAnimalType(String animalTypeId) {
+        return animalDao.getByAnimalType(animalTypeId);
+    }
 }
 
 

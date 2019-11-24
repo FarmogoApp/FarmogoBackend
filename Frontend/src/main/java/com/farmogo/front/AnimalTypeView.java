@@ -2,6 +2,7 @@ package com.farmogo.front;
 
 import com.farmogo.services.AnimalTypesService;
 import com.farmogo.model.AnimalType;
+import com.farmogo.services.HasRelationatedDataException;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -48,6 +49,7 @@ public class AnimalTypeView implements Serializable {
     public void onRowEdit(RowEditEvent event) {
         animalTypesService.save((AnimalType) event.getObject());
         init();
+
     }
 
 
@@ -57,12 +59,17 @@ public class AnimalTypeView implements Serializable {
 
     public void save(){
         animalTypesService.save(animalType);
+        Messages.info("AnimalType " + animalType.getDescription()+ " has been saved","");
         init();
     }
 
     public void delete(){
-
-        animalTypesService.delete(animalType);
+        try {
+            animalTypesService.delete(animalType);
+            Messages.info("AnimalType " + animalType.getDescription()+ " has been deleted","");
+        }catch (HasRelationatedDataException ex){
+            Messages.error("AnimalType is assigned to animal","If AnimalType is assigned tho animal you can't delete this");
+        }
         init();
     }
 
