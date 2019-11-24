@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
 
 <p:dialog modal="false" closable="true" id="incidenceDialog" widgetVar="incidenceDialog">
+
     <f:facet name="header">
         Incidence
     </f:facet>
@@ -26,48 +27,58 @@
                 <p:outputLabel value="Type"/>
                 <p:inputText readonly="true" value="#{incidenceView.incidence.type}"/>
 
-                <p:outputLabel value="Get off type" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
-                <p:selectOneRadio value="#{incidenceView.incidence.dischargeType}"
+                <p:outputLabel value="Get off type" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"
+                               for="@next"/>
+                <p:selectOneRadio value="#{incidenceView.incidence.dischargeType}" required="true"
                                   rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}">
                     <f:selectItems value="#{incidenceView.dischargeTypes}"/>
                 </p:selectOneRadio>
 
-                <p:outputLabel value="Health Register" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
+                <p:outputLabel value="Health Register" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"
+                               for="@next"/>
                 <p:inputText value="#{incidenceView.incidence.healthRegister}"
                              rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
 
-                <p:outputLabel value="Pregnancy Type" rendered="#{incidenceView.incidence.type eq 'PREGNANCY'}"/>
-                <p:selectOneRadio value="#{incidenceView.incidence.pregnancyType}"
+                <p:outputLabel value="Pregnancy Type" rendered="#{incidenceView.incidence.type eq 'PREGNANCY'}"
+                               for="@next"/>
+                <p:selectOneRadio value="#{incidenceView.incidence.pregnancyType}" required="true"
                                   rendered="#{incidenceView.incidence.type eq 'PREGNANCY'}">
                     <f:selectItems value="#{incidenceView.pregnancyTypes}"/>
                 </p:selectOneRadio>
 
-                <p:outputLabel value="Treatment Type" rendered="#{incidenceView.incidence.type eq 'TREATMENT'}"/>
-                <p:selectOneRadio value="#{incidenceView.incidence.treatmentType}"
+                <p:outputLabel value="Treatment Type" rendered="#{incidenceView.incidence.type eq 'TREATMENT'}"
+                               for="@next"/>
+                <p:selectOneRadio value="#{incidenceView.incidence.treatmentType}" required="true"
                                   rendered="#{incidenceView.incidence.type eq 'TREATMENT'}">
                     <f:selectItems value="#{incidenceView.treatmentTypes}"/>
                 </p:selectOneRadio>
 
-                <p:outputLabel value="Medicine" rendered="#{incidenceView.incidence.type eq 'TREATMENT'}"/>
+                <p:outputLabel value="Medicine" rendered="#{incidenceView.incidence.type eq 'TREATMENT'}" for="@next"/>
                 <p:inputText value="#{incidenceView.incidence.medicine}"
                              rendered="#{incidenceView.incidence.type eq 'TREATMENT'}"/>
 
-                <p:outputLabel value="Dose" rendered="#{incidenceView.incidence.type eq 'TREATMENT'}"/>
+                <p:outputLabel value="Dose" rendered="#{incidenceView.incidence.type eq 'TREATMENT'}" for="@next"/>
                 <p:inputText value="#{incidenceView.incidence.dose}"
                              rendered="#{incidenceView.incidence.type eq 'TREATMENT'}"/>
 
-                <p:outputLabel value="Weight" rendered="#{incidenceView.incidence.type eq 'WEIGHT'}"/>
-                <p:inputText value="#{incidenceView.incidence.weight}"
-                             rendered="#{incidenceView.incidence.type eq 'WEIGHT'}"/>
+                <p:outputLabel value="Weight" rendered="#{incidenceView.incidence.type eq 'WEIGHT'}" for="@next"/>
+                <p:inputText value="#{incidenceView.incidence.weight}" required="true" onfocus="this.select()"
+                             rendered="#{incidenceView.incidence.type eq 'WEIGHT'}">
+                    <f:validateLongRange minimum="1" maximum="9999"/>
+                </p:inputText>
 
-                <p:outputLabel value="observations"/>
+                <p:outputLabel value="observations" for="@next"/>
                 <p:inputTextarea rows="4" cols="40" value="#{incidenceView.incidence.observations}"/>
 
                 <p:column/>
-                <p:commandButton value="Save" icon="pi pi-save"
-                                 actionListener="#{incidenceView.save}"
-                                 update=":panelCenter"
-                                 oncomplete="PF('incidenceDialog').hide()"/>
+                <p:column>
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     validateClient="true"
+                                     actionListener="#{incidenceView.save}"
+                                     update=":incidenceForm"
+                                     oncomplete="if (!args.validationFailed){ PF('incidenceDialog').hide(); updatePanel();}"/>
+                    <p:remoteCommand name="updatePanel" update=":panelCenter"/>
+                </p:column>
 
             </p:panelGrid>
 
