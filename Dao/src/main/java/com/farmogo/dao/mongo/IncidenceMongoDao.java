@@ -5,9 +5,12 @@ import com.farmogo.dao.mongo.dto.IncidenceMongo;
 import com.farmogo.dao.mongo.dto.Mapper;
 import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.Incidence;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.operation.OrderBy;
+import org.bson.BsonDocument;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
 
@@ -17,6 +20,9 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static com.mongodb.client.model.Sorts.ascending;
+import static com.mongodb.client.model.Sorts.orderBy;
 
 
 @Stateless
@@ -51,7 +57,9 @@ public class IncidenceMongoDao implements IncidenceDao {
 
     @Override
     public List<Incidence> getAll() {
-        return StreamSupport.stream(mongoCollection.find().spliterator(), false)
+        return StreamSupport.stream(mongoCollection.find()
+                .sort(orderBy(ascending("created")))
+                .spliterator(), false)
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
     }
@@ -61,7 +69,23 @@ public class IncidenceMongoDao implements IncidenceDao {
         return StreamSupport.stream(
                 mongoCollection.find()
                         .filter(Filters.eq("animalId", new ObjectId(animalid)))
+                        .sort(orderBy(ascending("created")))
                         .spliterator(), false)
+                .map(IncidenceMongo::convert)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Incidence> getNotCompleted(String farmId) {
+        return StreamSupport.stream(
+                mongoCollection.find()
+                        .filter(Filters.and(
+                                Filters.eq("farmId", new ObjectId(farmId)),
+                                Filters.eq("complete", false)
+                        ))
+                        .sort(orderBy(ascending("created")))
+                        .spliterator(), false)
+
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
     }

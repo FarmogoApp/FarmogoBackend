@@ -9,11 +9,6 @@
         <h:head>
             <title>Animal data</title>
         </h:head>
-        <h:form>
-            <p:linkButton value="Back"
-                          icon="pi pi-arrow-circle-left"
-                          outcome="animal_list"/>
-        </h:form>
         <h:form id="animalDataForm">
 
             <p:dataTable
@@ -40,20 +35,20 @@
                 </f:facet>
 
                 <!-- UUID (Only for development)-->
-                <p:column headerText="UUID (Dev)">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+<!--                <p:column headerText="UUID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
 
                 <!-- Tag ID (Only for development)-->
-                <p:column headerText="Tag ID (Dev)">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+<!--                <p:column headerText="Tag ID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
 
                 <!-- Official ID -->
                 <p:column headerText="Official ID">
@@ -65,22 +60,18 @@
 
                 <!-- Mother ID -->
                 <p:column headerText="Mother official ID">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText
-                                value="#{animalDataView.animalUtils.motherIdToOfficialId(elem.motherId)}"/></f:facet>
-                        <f:facet name="input"><p:inputText
-                                value="#{animalDataView.animalUtils.motherIdToOfficialId(elem.motherId)}"
-                                style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                    <p:link outcome="animal_data"  value="#{animalDataView.motherId}">
+                        <f:param name="animalId" value="#{elem.motherId}"/>
+                    </p:link>
                 </p:column>
 
                 <!-- Race -->
                 <p:column headerText="Race">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText
-                                value="#{animalDataView.animalUtils.raceIdToName(elem.raceId)}"/></f:facet>
+                                value="#{animalDataView.race}"/></f:facet>
                         <f:facet name="input"><p:inputText
-                                value="#{animalDataView.animalUtils.raceIdToName(elem.raceId)}"
+                                value="#{animalDataView.race}"
                                 style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
@@ -89,9 +80,9 @@
                 <p:column headerText="Animal type">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText
-                                value="#{animalDataView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"/></f:facet>
+                                value="#{animalDataView.animalType}"/></f:facet>
                         <f:facet name="input"><p:inputText
-                                value="#{animalDataView.animalUtils.animalTypeToDescription(elem.animalTypeId)}"
+                                value="#{animalDataView.animalType}"
                                 style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
@@ -112,12 +103,20 @@
                     </p:cellEditor>
                 </p:column>
 
+                <!-- Location -->
+                <p:column headerText="Location">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalDataView.location}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalDataView.location}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
                 <!-- Birth date -->
                 <p:column headerText="Birth date">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.birthDay}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <!-- <f:convertDateTime pattern="dd/MM/yyyy"/>-->
                             </h:outputText>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.birthDay}" style="width:100%"/></f:facet>
@@ -129,7 +128,7 @@
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.dischargeDate}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <!-- <f:convertDateTime pattern="dd/MM/yyyy"/>-->
                             </h:outputText>
                         </f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
@@ -143,9 +142,9 @@
 
             </p:dataTable>
         </h:form>
-
+        <br/>
         <ui:include src="incidencesPanel.xhtml">
-            <ui:param name="animalId" value="#{animalDataView.animal.uuid}"></ui:param>
+            <ui:param name="animalId" value="#{animalDataView.animal.uuid}"/>
         </ui:include>
 
     </ui:define>

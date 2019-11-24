@@ -10,6 +10,9 @@ div.top>div{
 .ui-layout-unit{
     padding: 0px !important;;
 }
+.ui-datatable-header img{
+    vertical-align: middle !important;
+}
 
 div#content>.ui-layout-unit-content,
 div#top>.ui-layout-unit-content{
@@ -36,4 +39,25 @@ button.leftmenu{
 #panelCenter, #panelCenter_content{
     padding: 0px !important;
     margin: 0px !important;
+}
+
+#loginPanel{
+    width: 400px;
+    margin: 40px auto;
+}
+
+.incomplete{
+    background-color: khaki !important;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 14px;
+}
+.bignumber{
+    font-size: 50px !important;
+    text-decoration: none !important;
+}
+.center{
+    text-align: center !important;
 }

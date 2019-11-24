@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface AnimalDao {
     List<Animal> getAll();
-    List<Animal> getAnimalsByFarmId(String farmId);
+    List<Animal> getCurrentAnimalsByFarmId(String farmId);
+    List<Animal> getAllAnimalsByFarmId(String farmId);
+    List<Animal> getDischargedAnimalsByFarmId(String farmId);
     Animal save(Animal animal);
     void delete(Animal animal);
     Animal get(String id);
+
 }
+

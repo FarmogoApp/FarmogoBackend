@@ -20,7 +20,8 @@
             <p:selectOneMenu value="#{farmSwitcherView.farm}" converter="#{farmConverter}">
                 <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId}"
                                itemValue="#{farm}"/>
-                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect" update=":panelCenter"/>
+                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect" oncomplete="window.location.href = 'home.xhtml';"/>
+
             </p:selectOneMenu>
         </h:form>
     </div>
@@ -30,7 +31,7 @@
             <pe:letterAvatar value="Lonely Farmer" height="40" width="40"  rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
             <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
-            <p:commandButton type="button" icon="pi pi-home" value="Logout" action="logout?faces-redirect=true"/>
+            <p:button type="button" icon="pi pi-sign-out" value="Logout" outcome="index"/>
         </h:form>
     </div>
 </div>

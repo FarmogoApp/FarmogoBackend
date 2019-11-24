@@ -11,7 +11,7 @@ public class AnimalMongo {
 
     @BsonId
     private ObjectId uuid;
-    private String animalTypeId;
+    private ObjectId animalTypeId;
     private String officialId;
     private String tagId;
     private String sex;
@@ -19,7 +19,7 @@ public class AnimalMongo {
     private LocalDate birthDay;
     private LocalDate dischargeDate;
     private ObjectId farmId;
-    private String divisionId;
+    private ObjectId divisionId;
     private ObjectId motherId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
@@ -40,13 +40,6 @@ public class AnimalMongo {
         this.uuid = uuid;
     }
 
-    public String getAnimalTypeId() {
-        return animalTypeId;
-    }
-
-    public void setAnimalTypeId(String animalTypeId) {
-        this.animalTypeId = animalTypeId;
-    }
 
     public String getOfficialId() {
         return officialId;
@@ -104,11 +97,11 @@ public class AnimalMongo {
         this.farmId = farmId;
     }
 
-    public String getDivisionId() {
+    public ObjectId getDivisionId() {
         return divisionId;
     }
 
-    public void setDivisionId(String divisionId) {
+    public void setDivisionId(ObjectId divisionId) {
         this.divisionId = divisionId;
     }
 
@@ -134,5 +127,13 @@ public class AnimalMongo {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public ObjectId getAnimalTypeId() {
+        return animalTypeId;
+    }
+
+    public void setAnimalTypeId(ObjectId animalTypeId) {
+        this.animalTypeId = animalTypeId;
     }
 }

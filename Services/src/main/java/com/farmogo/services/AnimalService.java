@@ -2,7 +2,6 @@ package com.farmogo.services;
 
 import com.farmogo.dao.AnimalDao;
 import com.farmogo.model.Animal;
-import com.farmogo.model.Farm;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,8 +18,14 @@ public class AnimalService {
         return animalDao.getAll();
     }
 
-    public List<Animal> getAnimalsByFarmId(String farmId){
-        return animalDao.getAnimalsByFarmId(farmId);
+    public List<Animal> getAnimalsByFarmId(String farmId) {
+        return animalDao.getAllAnimalsByFarmId(farmId);
+    }
+    public List<Animal> getCurrentAnimalsByFarmId(String farmId){
+        return animalDao.getCurrentAnimalsByFarmId(farmId);
+    }
+    public List<Animal> getDischagedAnimalsByFarmId(String farmId) {
+        return animalDao.getDischargedAnimalsByFarmId(farmId);
     }
 
     public Animal get(String id) {
@@ -39,6 +44,9 @@ public class AnimalService {
     public Animal getAnimalById(String animalId){
         return animalDao.get(animalId);
     }
+
+
+
 }
 
 
