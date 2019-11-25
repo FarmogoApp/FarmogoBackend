@@ -1,7 +1,7 @@
 package com.farmogo.model.incidences;
 
 public enum DischargeType {
-    Defeat,
+    Death,
     Sale,
     Slaughterhouse,
 }
