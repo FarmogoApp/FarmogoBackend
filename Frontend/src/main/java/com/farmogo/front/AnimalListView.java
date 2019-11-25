@@ -37,13 +37,15 @@ public class AnimalListView implements Serializable {
 
     private Farm farm;
     private Animal animal;
+    private Animal mother;
+    private String motherOfficialId;
 
     private List<Animal> animalList;
     private Map<String, String> races = new HashMap<>();
     private Map<String, String> animalTypes = new HashMap<>();
     private Map<String, String> divisions = new HashMap<>();
-    private Map<String, String> mothers = new HashMap<>();
     private FilterAnimal filter;
+    private List<Animal> mothers;
 
     @PostConstruct
     public void init() {
@@ -60,7 +62,9 @@ public class AnimalListView implements Serializable {
             loadAnimals();
         }
         animal = new Animal();
-
+        mothers = animalService.getCurrentAnimalsByFarmId(farm.getUuid()).stream()
+                .filter(p -> p.getSex().equals("Female"))
+                .collect(Collectors.toList());
     }
 
     public void loadAnimals() {
@@ -75,16 +79,9 @@ public class AnimalListView implements Serializable {
                 animalList = animalService.getDischagedAnimalsByFarmId(farm.getUuid());
                 break;
         }
-        HashMothers();
         HashRaces();
         HashAnimalTypes();
         HashDivisions();
-    }
-
-    private void HashMothers() {
-        mothers = animalList.stream()
-                .filter(p -> p.getSex().equals("Female"))
-                .collect(Collectors.toMap(Animal::getUuid, Animal::getOfficialId));
     }
 
     private void HashDivisions() {
@@ -137,7 +134,7 @@ public class AnimalListView implements Serializable {
     public void save() {
 
         animal.setFarmId(farm.getUuid());
-        FacesContext context = FacesContext.getCurrentInstance();
+        updateMotherData();
         try {
             animalService.save(animal);
             Messages.info("Animal Has been saved", "");
@@ -162,14 +159,6 @@ public class AnimalListView implements Serializable {
 
     public void setDivisions(Map<String, String> divisions) {
         this.divisions = divisions;
-    }
-
-    public Map<String, String> getMothers() {
-        return mothers;
-    }
-
-    public void setMothers(Map<String, String> mothers) {
-        this.mothers = mothers;
     }
 
     public Farm getFarm() {
@@ -210,5 +199,37 @@ public class AnimalListView implements Serializable {
                return animalService.getDischagedAnimalsByFarmId(farm.getUuid()).size();
         }
         return 0;
+    }
+
+    public List<Animal> getMothers(){
+        return mothers;
+    }
+
+
+    public Animal getMother() {
+        return mother;
+    }
+
+    public void setMother(Animal mother) {
+        this.mother = mother;
+        this.setMotherOfficialId("");
+    }
+
+    private void updateMotherData(){
+        if (mother == null){
+            this.animal.setMotherId(null);
+            this.animal.setMotherOfficialId(this.getMotherOfficialId());
+        }else{
+            this.animal.setMotherId(mother.getUuid());
+            this.animal.setMotherOfficialId(mother.getOfficialId());
+        }
+    }
+
+    public String getMotherOfficialId() {
+        return motherOfficialId;
+    }
+
+    public void setMotherOfficialId(String motherOfficialId) {
+        this.motherOfficialId = motherOfficialId;
     }
 }

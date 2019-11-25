@@ -128,6 +128,7 @@ public class TestRs {
             animal2.setFarmId(farmA.getUuid());
             animal2.setOfficialId("ES051400239970");
             animal2.setMotherId(animalA.getUuid());
+            animal2.setMotherOfficialId(animalA.getOfficialId());
             animal2.setBirthDay(LocalDate.of(2019, 9, 1));
             animal2.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
             Animal animalB = animalService.save(animal2);

@@ -21,6 +21,7 @@ public class AnimalMongo {
     private ObjectId farmId;
     private ObjectId divisionId;
     private ObjectId motherId;
+    private String motherOfficialId;
     private LocalDateTime createdLocalDateTime;
     private String origin;
 
@@ -111,6 +112,14 @@ public class AnimalMongo {
 
     public void setMotherId(ObjectId motherId) {
         this.motherId = motherId;
+    }
+
+    public String getMotherOfficialId() {
+        return motherOfficialId;
+    }
+
+    public void setMotherOfficialId(String motherOfficialId) {
+        this.motherOfficialId = motherOfficialId;
     }
 
     public LocalDateTime getCreatedLocalDateTime() {
