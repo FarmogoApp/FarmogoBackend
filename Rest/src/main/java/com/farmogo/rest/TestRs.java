@@ -133,7 +133,7 @@ public class TestRs {
             animal2.setAnimalTypeId(animalTypeId2.getUuid());
             animal2.setRaceId(raceB.getUuid());
             animal2.setFarmId(farmA.getUuid());
-            animal2.setOfficialId("ES051400239970");
+            animal2.setOfficialId("ES0514002399770");
             animal2.setMotherId(animalA.getUuid());
             animal2.setMotherOfficialId(animalA.getOfficialId());
             animal2.setBirthDay(LocalDate.of(2019, 9, 1));
@@ -182,6 +182,7 @@ public class TestRs {
             incidence.setAnimalId(animalA.getUuid());
             incidence.setCreatedBy(user.getUuid());
             incidence.setFarmId(farmA.getUuid());
+            incidence.setDate(LocalDate.of(2018, 5, 1));
             incidencesService.save(incidence);
 
 
@@ -192,6 +193,7 @@ public class TestRs {
             incidenceTreatment.setCreatedBy(user.getUuid());
             incidenceTreatment.setAnimalId(animalA.getUuid());
             incidenceTreatment.setFarmId(farmA.getUuid());
+            incidenceTreatment.setDate(LocalDate.of(2018, 6, 2));
             incidencesService.save(incidenceTreatment);
 
 
@@ -200,6 +202,8 @@ public class TestRs {
             incidenceTreatmentIncomplete.setCreatedBy(user.getUuid());
             incidenceTreatmentIncomplete.setAnimalId(animalA.getUuid());
             incidenceTreatmentIncomplete.setFarmId(farmA.getUuid());
+            incidenceTreatmentIncomplete.setDate(LocalDate.of(2018, 7, 3));
+
             incidencesService.save(incidenceTreatmentIncomplete);
 
             IncidenceDischarge incidenceDischarge = new IncidenceDischarge();
@@ -250,7 +254,6 @@ public class TestRs {
             Farm farmA = farmService.save(farm);
 
             Animal animal = new Animal();
-            animal.setOfficialId("573457456543634");
             animal.setOrigin("Lleida");
             animal.setSex("Female");
             animal.setAnimalTypeId(animalTypeId.getUuid());
