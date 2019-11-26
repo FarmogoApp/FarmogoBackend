@@ -150,13 +150,14 @@ public class ConfigView implements Serializable {
         buildingsList.add(this.building);
 
         for(Building b : farm.getBuildings() ){
-            if (!this.building.equals(b)){
+            if (this.building.equals(b)) {
+            } else {
                 buildingsList.add(b);
             }
         }
         farm.setBuildings(buildingsList);
         farm = farmService.save(farm);
-        divisionList = building.getDivisions();
+        init();
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Division saved"));
