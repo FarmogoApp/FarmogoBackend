@@ -156,7 +156,7 @@
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="buildingName"/>
+                    <h:outputLabel value="Building name"/>
                     <p:column id="modifybuildingNameColumn">
                         <p:inputText id="modifybuildingName" value="#{configView.building.name}"/>
                     </p:column>
@@ -179,7 +179,7 @@
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="divisionName"/>
+                    <h:outputLabel value="Division name"/>
                     <p:column id="modifyDivisionNameColumn">
                         <p:inputText id="modifyDivisionName" value="#{configView.division.name}"/>
                     </p:column>
@@ -201,7 +201,7 @@
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="divisionName"/>
+                    <h:outputLabel value="Division name"/>
                     <p:column id="newDivisionNameColumn">
                         <p:inputText id="newDivisionName" value="#{configView.division.name}"/>
                     </p:column>
@@ -291,7 +291,7 @@
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveNewFarm()}"
-                                     update=":Buildingform farmSwitch :growl"
+                                     update=":Buildingform :farmSwitch :growl"
                                      oncomplete="PF('newFarmDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
