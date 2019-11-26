@@ -15,119 +15,113 @@
     </h:head>
     <ui:define name="content">
         <h1>Farm Managment</h1>
-        <h2>Editing #{configView.farm.name}</h2>
         <h:body>
-            <h:form id="FarmInfo">
-                <p:panelGrid columns="2">
-                    <f:facet name="header">
-                        <div class="ui-g">
-                            <div class="ui-g-4" style="padding: 0; text-align: left;">
-                                <p:commandButton value="Add Farm"
-                                                 icon="pi pi-plus-circle"
-                                                 actionListener="#{configView.clearFarmSelection}"
-                                                 update="newFarmDialog"
-                                                 oncomplete="PF('newFarmDialog').show()"
-                                />
-                            </div>
-                            <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">FarmInfo</div>
-                            <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
-                            </div>
-                        </div>
-                    </f:facet>
-
-                    <h:outputLabel value="Prefix: "/>
-                    <p:inputText id="desc" value="#{configView.animalCounter.prefix}" />
-
-
-                    <h:outputLabel value="Counter: "/>
-                    <p:inputText value="#{configView.animalCounter.counter}"/>
-
-                    <h:outputLabel value="Name: "/>
-                    <p:inputText value="#{configView.farm.name}"/>
-
-                    <h:outputLabel value="OfficialId: "/>
-                    <p:inputText value="#{configView.farm.officialId}"/>
-
-                </p:panelGrid>
-                <p:commandButton value="Save" icon="pi pi-save"
-                                 actionListener="#{configView.save}"
-                                 update=":farmSwitch :growl"/>
-            </h:form>
-
 
             <h:form id="Buildingform">
-                <p:dataTable value="#{configView.buildings}" var="Building">
-                    <f:facet name="header">
-                        <div class="ui-g">
-                            <div class="ui-g-4" style="padding: 0; text-align: left;">
-                                <p:commandButton value="Add Building"
-                                                 icon="pi pi-plus-circle"
-                                                 actionListener="#{configView.clearBuildingSelection}"
-                                                 update="newBuildingDialog"
-                                                 oncomplete="PF('newBuildingDialog').show()"
-                                />
-                            </div>
-                            <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Buildings</div>
-                            <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
-                            </div>
-                        </div>
-                    </f:facet>
-                    <p:column headerText="Name">
-                        <p:commandLink id="ajax" update="Divisionsform" action="#{configView.setBuilding(Building)}" style="margin-right:20px;">
-                            <h:outputText value="#{Building.name}" />
-                        </p:commandLink>
-                    </p:column>
-                    <p:column headerText="UId">
-                        <h:outputText value="#{Building.uuid}" />
-                    </p:column>
-                    <p:column style="width:24px">
-                    </p:column>
+                <div class="ui-g">
 
-                    <p:column style="width: 16px;">
-                        <p:commandLink update="modifyBuildingDialog"
-                                       oncomplete="PF('modifyBuildingDialog').show()"
-                                       actionListener="#{configView.setBuilding(Building)}">
-                            <li class="pi pi-pencil"/>
-                        </p:commandLink>
-                    </p:column>
+                    <div class="ui-g-12 ui-md-12 ui-lg-12 ui-xl-4" style="padding-bottom:5px; text-align: left;">
+                        <p:dataTable value="#{configView.getFarmList()}" id="farmDataTable" style="width:400px;" var="farm" selectionMode="single" rowKey="#{farm.uuid}" selection="#{configView.farm}">
+                            <p:ajax event="rowSelect" update=":Buildingform:buildingDataTable :Buildingform:divisionDataTable :Buildingform:farmDataTable"/>
+                            <f:facet name="header">
+                                <div class="ui-g">
+                                    <div class="ui-g-4" style="padding: 0; text-align: left;">
+                                        <p:commandButton value="Add Farm"
+                                                         icon="pi pi-plus-circle"
+                                                         actionListener="#{configView.clearFarmSelection}"
+                                                         update="newFarmDialog"
+                                                         oncomplete="PF('newFarmDialog').show()"
+                                        />
+                                    </div>
+                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">Farms</div>
+                                </div>
+                            </f:facet>
+                            <p:column headerText="Name">
+                                    <h:outputText value="#{farm.name}" />
+                            </p:column>
+                            <p:column style="width:24px">
+                            </p:column>
 
-                </p:dataTable>
+                            <p:column style="width: 16px;">
+                                <p:commandLink update="modifyFarmDialog"
+                                               oncomplete="PF('modifyFarmDialog').show()"
+                                               actionListener="#{configView.setFarm(farm)}">
+                                    <li class="pi pi-pencil"/>
+                                </p:commandLink>
+                            </p:column>
+
+                        </p:dataTable>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-12 ui-xl-4" style="padding-bottom:5px; text-align: left;">
+                        <p:dataTable id="buildingDataTable"  value="#{configView.buildings}" style="width:400px;" var="building" selectionMode="single" rowKey="#{building.uuid}" selection="#{configView.building}">
+                            <p:ajax event="rowSelect" update=":Buildingform:divisionDataTable"/>
+                            <f:facet name="header">
+                                <div class="ui-g">
+                                    <div class="ui-g-4" style="padding: 0; text-align: left;">
+                                        <p:commandButton value="Add Building"
+                                                         icon="pi pi-plus-circle"
+                                                         actionListener="#{configView.clearBuildingSelection}"
+                                                         update="newBuildingDialog"
+                                                             oncomplete="PF('newBuildingDialog').show()"
+                                        />
+                                    </div>
+                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">Buildings #{configView.farm.name}</div>
+                                </div>
+                            </f:facet>
+                            <p:column headerText="Name">
+                                    <h:outputText value="#{building.name}" />
+                            </p:column>
+                            <p:column style="width:24px">
+                            </p:column>
+
+                            <p:column style="width: 16px;">
+                                <p:commandLink update="modifyBuildingDialog"
+                                               oncomplete="PF('modifyBuildingDialog').show()"
+                                               actionListener="#{configView.setBuilding(building)}">
+                                    <li class="pi pi-pencil"/>
+                                </p:commandLink>
+                            </p:column>
+
+                        </p:dataTable>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-12 ui-xl-4" style="padding-bottom:5px; text-align: left;">
+                        <p:dataTable value="#{configView.building.divisions}"  id="divisionDataTable" style="width:400px;" var="division" selectionMode="single" rowKey="#{division.name}" selection="#{configView.division}">
+                            <p:ajax event="rowSelect"/>
+                            <f:facet name="header">
+                                <div class="ui-g">
+                                    <div class="ui-g-4" style="padding: 0; text-align: left;">
+                                        <p:commandButton value="Add Division"
+                                                         icon="pi pi-plus-circle"
+                                                         actionListener="#{configView.clearDivisionSelection}"
+                                                         update="newDivisionDialog"
+                                                         oncomplete="PF('newDivisionDialog').show()"
+                                        />
+                                    </div>
+                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">Divisions #{configView.building.name}</div>
+
+                                </div>
+                            </f:facet>
+                            <p:column id="NameColumn" headerText="Name">
+                                <h:outputText value="#{division.name}" />
+                            </p:column>
+
+                            <p:column style="width:24px">
+                            </p:column>
+                            <p:column style="width: 16px;">
+                                <p:commandLink update="modifyDivisionDialog"
+                                               oncomplete="PF('modifyDivisionDialog').show()"
+                                               actionListener="#{configView.setDivision(division)}">
+                                    <li class="pi pi-pencil"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+
             </h:form>
 
-            <h:form id="Divisionsform">
-                <p:dataTable value="#{configView.building.divisions}" var="division">
-                    <f:facet name="header">
-                        <div class="ui-g">
-                            <div class="ui-g-4" style="padding: 0; text-align: left;">
-                                <p:commandButton value="Add Division"
-                                                 icon="pi pi-plus-circle"
-                                                 actionListener="#{configView.clearDivisionSelection}"
-                                                 update="newDivisionDialog"
-                                                 oncomplete="PF('newDivisionDialog').show()"
-                                />
-                            </div>
-                            <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Divisions #{configView.building.name}</div>
-                            <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
-                            </div>
-                        </div>
-                    </f:facet>
-                    <p:column id="NameColumn" headerText="Name">
-                        <h:outputText value="#{division.name}" />
-                    </p:column>
-                    <p:column headerText="UId">
-                        <h:outputText value="#{division.uuid}" />
-                    </p:column>
-                    <p:column style="width:24px">
-                    </p:column>
-                    <p:column style="width: 16px;">
-                        <p:commandLink update="modifyDivisionDialog"
-                                       oncomplete="PF('modifyDivisionDialog').show()"
-                                       actionListener="#{configView.setDivision(division)}">
-                            <li class="pi pi-pencil"/>
-                        </p:commandLink>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
 
         </h:body>
 
@@ -147,7 +141,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveBuilding}"
-                                     update="Buildingform Divisionsform :growl :farmSwitch"
+                                     update=":growl :Buildingform:divisionDataTable :Buildingform:buildingDataTable"
                                      oncomplete="PF('newBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -170,7 +164,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save}"
-                                     update="Buildingform, Divisionsform,:growl"
+                                     update="Buildingform :growl"
                                      oncomplete="PF('modifyBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -193,7 +187,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save}"
-                                     update="Buildingform, Divisionsform,:growl"
+                                     update="Buildingform :growl"
                                      oncomplete="PF('modifyDivisionDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -201,7 +195,7 @@
         </p:dialog>
         <p:dialog modal="false" closable="true" id="newDivisionDialog" widgetVar="newDivisionDialog">
             <f:facet name="header">
-                Modify Division
+                New Division
             </f:facet>
             <h:form id="newDivision">
                 <p:panelGrid columns="2">
@@ -215,8 +209,49 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveDivision}"
-                                     update="Buildingform, Divisionsform,:growl"
+                                     update=":Buildingform:divisionDataTable :Buildingform:buildingDataTable :growl"
                                      oncomplete="PF('newDivisionDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
+        <p:dialog modal="false" closable="true" id="modifyFarmDialog" widgetVar="modifyFarmDialog">
+            <f:facet name="header">
+                Modify Farm
+            </f:facet>
+            <h:form id="modifyFarm">
+                <p:panelGrid columns="2">
+
+                    <!-- Name -->
+                    <h:outputLabel value="Farm Name"/>
+                    <p:column id="modifyFarmNameColumn">
+                        <p:inputText id="modifyFarmName" value="#{configView.farm.name}" var="modifyFarmName"/>
+                    </p:column>
+
+                    <!-- AnimalCounter Prefix -->
+                    <h:outputLabel value="Farm AnimalCounter Prefix"/>
+                    <p:column id="modifyFarmAnimalCounterPrefixColumn">
+                        <p:inputText id="modifyFarmAnimalCounterPrefix" value="#{configView.farm.animalCounter.prefix}" var="modifyFarmAnimalCounterPrefix"/>
+                    </p:column>
+
+                    <!-- AnimalCounter Counter -->
+                    <h:outputLabel value="Farm AnimalCounter Counter"/>
+                    <p:column id="modifyFarmAnimalCounterCounterColumn">
+                        <p:inputText id="modifyFarmAnimalCounterCounter" value="#{configView.farm.animalCounter.counter}" var="modifyFarmAnimalCounterCounter"/>
+                    </p:column>
+
+                    <!-- Official ID -->
+                    <h:outputLabel value="Farm Official ID"/>
+                    <p:column id="modifyFarmOfficialIDColumn">
+                        <p:inputText id="modifyFarmOfficialID" value="#{configView.farm.officialId}" var="modifyFarmOfficialID"/>
+                    </p:column>
+
+                    <p:column/>
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{configView.save()}"
+                                     update="Buildingform, farmSwitch,:growl"
+                                     oncomplete="PF('modifyFarmDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
 
@@ -256,7 +291,7 @@
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveNewFarm()}"
-                                     update="Buildingform, Divisionsform, farmSwitch, FarmInfo,:growl"
+                                     update=":Buildingform farmSwitch :growl"
                                      oncomplete="PF('newFarmDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
