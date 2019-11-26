@@ -3,6 +3,7 @@ package com.farmogo.model;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Division implements Serializable {
     private String uuid;
@@ -24,5 +25,17 @@ public class Division implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Division division = (Division) o;
+        return Objects.equals(uuid, division.uuid) &&
+                Objects.equals(name, division.name);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name);
+    }
 }

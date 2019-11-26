@@ -15,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -145,9 +146,16 @@ public class ConfigView implements Serializable {
         this.divisionList = this.building.getDivisions();
         divisionList.add(division);
         this.building.setDivisions(divisionList);
+        buildingsList = new ArrayList<>();
+        buildingsList.add(this.building);
 
+        for(Building b : farm.getBuildings() ){
+            if (!this.building.equals(b)){
+                buildingsList.add(b);
+            }
+        }
+        farm.setBuildings(buildingsList);
         farm = farmService.save(farm);
-        buildingsList = farm.getBuildings();
         divisionList = building.getDivisions();
 
         FacesContext context = FacesContext.getCurrentInstance();

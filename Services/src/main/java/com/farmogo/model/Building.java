@@ -2,6 +2,7 @@ package com.farmogo.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class Building implements Serializable {
     private String uuid;
@@ -33,4 +34,18 @@ public class Building implements Serializable {
         this.divisions = divisions;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Building building = (Building) o;
+        return Objects.equals(uuid, building.uuid) &&
+                Objects.equals(name, building.name) &&
+                Objects.equals(divisions, building.divisions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name, divisions);
+    }
 }
