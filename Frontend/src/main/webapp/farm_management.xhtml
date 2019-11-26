@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="ui-g-12 ui-md-12 ui-lg-12 ui-xl-4" style="padding-bottom:5px; text-align: left;">
-                        <p:dataTable value="#{configView.building.divisions}"  id="divisionDataTable" style="width:400px;" var="division" selectionMode="single" rowKey="#{division.name}" selection="#{configView.division}">
+                        <p:dataTable value="#{configView.building.divisions}"  id="divisionDataTable" style="width:400px;" var="division" selectionMode="single" rowKey="#{division.uuid}" selection="#{configView.division}">
                             <p:ajax event="rowSelect"/>
                             <f:facet name="header">
                                 <div class="ui-g">
@@ -141,7 +141,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveBuilding}"
-                                     update=":growl :Buildingform:divisionDataTable :Buildingform:buildingDataTable"
+                                     update=":growl :Buildingform"
                                      oncomplete="PF('newBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -164,7 +164,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save}"
-                                     update="Buildingform :growl"
+                                     update=":Buildingform :growl"
                                      oncomplete="PF('modifyBuildingDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -187,7 +187,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save}"
-                                     update="Buildingform :growl"
+                                     update=":Buildingform :growl"
                                      oncomplete="PF('modifyDivisionDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -209,7 +209,7 @@
 
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.saveDivision}"
-                                     update=":Buildingform:divisionDataTable :Buildingform:buildingDataTable :growl"
+                                     update=":Buildingform :growl"
                                      oncomplete="PF('newDivisionDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
@@ -250,7 +250,7 @@
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
                                      actionListener="#{configView.save()}"
-                                     update="Buildingform, farmSwitch,:growl"
+                                     update=":Buildingform farmSwitch,:growl"
                                      oncomplete="PF('modifyFarmDialog').hide()"/>
                 </p:panelGrid>
             </h:form>
