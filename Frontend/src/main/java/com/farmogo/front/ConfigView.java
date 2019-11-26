@@ -7,6 +7,7 @@ import com.farmogo.model.Farm;
 import com.farmogo.services.BuildingService;
 import com.farmogo.services.FarmService;
 
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -14,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,12 +37,16 @@ public class ConfigView implements Serializable {
     private Building building;
     private Division division;
     private List<Division> divisionList;
+    private List<Farm> farmList;
 
     @PostConstruct
     public void init() {
         farm = farmService.getCurrentFarm();
         buildingsList = farm.getBuildings();
         building = buildingsList.get(0);
+        divisionList = building.getDivisions();
+        division = divisionList.get(0);
+        farmList = farmService.getFarms();
     }
 
     public void clearFarmSelection() {
@@ -55,12 +61,11 @@ public class ConfigView implements Serializable {
         division = new Division();
     }
 
-    /*public void setFarm(String name, String officialId, String prefix, int counter){
-        this.farm.setName(name);
-        this.farm.setOfficialId(officialId);
-        AnimalCounter AC = new AnimalCounter(prefix, counter);
-        this.farm.setAnimalCounter(AC);
-    }*/
+    public void setFarm(Farm farm){
+        this.farm = farm;
+        buildingsList = farm.getBuildings();
+        this.building = buildingsList.get(0);
+    }
 
     public Building getBuilding() {
         return building;
@@ -110,7 +115,10 @@ public class ConfigView implements Serializable {
         farm.setBuildings(Arrays.asList(building));
 
         farm = farmService.save(farm);
+        farmList = farmService.getFarms();
         buildingsList = farm.getBuildings();
+        building = buildingsList.get(0);
+        division = building.getDivisions().get(0);
         farmSwitcherView.init();
         farmSwitcherView.setFarm(farm);
 
@@ -126,28 +134,43 @@ public class ConfigView implements Serializable {
         farm.getBuildings().add(this.building);
         farm = farmService.save(farm);
         buildingsList = farm.getBuildings();
+        divisionList = building.getDivisions();
+        building = buildingsList.get(buildingsList.size()-1);
+        division = building.getDivisions().get(0);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Building saved"));
     }
 
     public void saveDivision() {
-        divisionList = this.building.getDivisions();
+        this.divisionList = this.building.getDivisions();
         divisionList.add(division);
         this.building.setDivisions(divisionList);
+        buildingsList = new ArrayList<>();
+        buildingsList.add(this.building);
 
+        for(Building b : farm.getBuildings() ){
+            if (!this.building.equals(b)){
+                buildingsList.add(b);
+            }
+        }
+        farm.setBuildings(buildingsList);
         farm = farmService.save(farm);
-        buildingsList = farm.getBuildings();
+        divisionList = building.getDivisions();
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Division saved"));
     }
 
     public void save() {
-        farmService.save(farm);
+        farm = farmService.save(farm);
         farmSwitcherView.init();
         farmSwitcherView.setFarm(farm);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Farm saved") );
+    }
+
+    public List<Farm> getFarmList() {
+        return farmList;
     }
 }
