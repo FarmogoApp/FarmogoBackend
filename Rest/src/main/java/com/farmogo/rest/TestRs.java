@@ -76,6 +76,15 @@ public class TestRs {
         Race race3 = new Race();
         race3.setName("Fleckvieh");
         Race raceC = raceService.save(race3);
+
+        Race race4 = new Race();
+        race4.setName("Holstein");
+        Race raceD = raceService.save(race4);
+
+        Race race5 = new Race();
+        race5.setName("Hereford");
+        Race raceE = raceService.save(race5);
+
         {
 
             /*Create Farms, Buildings and Divisions */
@@ -107,7 +116,6 @@ public class TestRs {
 
             /*Create animals*/
             Animal animal = new Animal();
-            animal.setOfficialId("1234567890123");
             animal.setOrigin("Lleida");
             animal.setSex("Female");
             animal.setAnimalTypeId(animalTypeId.getUuid());
@@ -120,7 +128,6 @@ public class TestRs {
             Animal animalA = animalService.save(animal);
 
             Animal animal2 = new Animal();
-            animal2.setOfficialId("78901234567890");
             animal2.setOrigin("Ainsa");
             animal2.setSex("Male");
             animal2.setAnimalTypeId(animalTypeId2.getUuid());
@@ -132,6 +139,41 @@ public class TestRs {
             animal2.setBirthDay(LocalDate.of(2019, 9, 1));
             animal2.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
             Animal animalB = animalService.save(animal2);
+
+            Animal animal3 = new Animal();
+            animal3.setOrigin("Massoteres");
+            animal3.setSex("Male");
+            animal3.setAnimalTypeId(animalTypeId2.getUuid());
+            animal3.setRaceId(raceC.getUuid());
+            animal3.setFarmId(farmA.getUuid());
+            animal3.setOfficialId("ES0514002354029");
+            animal3.setMotherOfficialId(animalA.getOfficialId());
+            animal3.setBirthDay(LocalDate.of(2019, 9, 29));
+            animal3.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
+            Animal animalC = animalService.save(animal3);
+
+            Animal animal4 = new Animal();
+            animal4.setOrigin("Guissona");
+            animal4.setSex("Female");
+            animal4.setAnimalTypeId(animalTypeId3.getUuid());
+            animal4.setRaceId(raceD.getUuid());
+            animal4.setFarmId(farmA.getUuid());
+            animal4.setOfficialId("ES0515552354029");
+            animal4.setBirthDay(LocalDate.of(2018, 9, 29));
+            animal4.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
+            Animal animalD = animalService.save(animal4);
+
+            Animal animal5 = new Animal();
+            animal5.setOrigin("Guarda-si-venes");
+            animal5.setSex("Male");
+            animal5.setAnimalTypeId(animalTypeId3.getUuid());
+            animal5.setRaceId(raceE.getUuid());
+            animal5.setFarmId(farmA.getUuid());
+            animal5.setOfficialId("ES0513332354029");
+            animal5.setBirthDay(LocalDate.of(2018, 9, 29));
+            animal5.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalF = animalService.save(animal5);
+
 
 
             IncidenceWeight incidence = new IncidenceWeight();
@@ -238,8 +280,6 @@ public class TestRs {
             incidencesService.save(incidenceTreatment);
 
         }
-
-
         return "ok";
 
     }

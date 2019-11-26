@@ -39,9 +39,6 @@
                             <p:column headerText="Name">
                                     <h:outputText value="#{farm.name}" />
                             </p:column>
-                            <p:column style="width:24px">
-                            </p:column>
-
                             <p:column style="width: 16px;">
                                 <p:commandLink update="modifyFarmDialog"
                                                oncomplete="PF('modifyFarmDialog').show()"
@@ -72,9 +69,6 @@
                             <p:column headerText="Name">
                                     <h:outputText value="#{building.name}" />
                             </p:column>
-                            <p:column style="width:24px">
-                            </p:column>
-
                             <p:column style="width: 16px;">
                                 <p:commandLink update="modifyBuildingDialog"
                                                oncomplete="PF('modifyBuildingDialog').show()"
@@ -105,9 +99,6 @@
                             </f:facet>
                             <p:column id="NameColumn" headerText="Name">
                                 <h:outputText value="#{division.name}" />
-                            </p:column>
-
-                            <p:column style="width:24px">
                             </p:column>
                             <p:column style="width: 16px;">
                                 <p:commandLink update="modifyDivisionDialog"

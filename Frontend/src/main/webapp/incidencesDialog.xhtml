@@ -32,7 +32,7 @@
                               pattern="dd/MM/yyyy"/>
 
 
-                <p:outputLabel value="Get off type" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"
+                <p:outputLabel value="Discharge type" rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"
                                for="@next"/>
                 <p:selectOneRadio value="#{incidenceView.incidence.dischargeType}" required="true"
                                   rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}">
