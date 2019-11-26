@@ -150,8 +150,11 @@ public class ConfigView implements Serializable {
         buildingsList.add(this.building);
 
         for(Building b : farm.getBuildings() ){
-            if (this.building.equals(b)) {
-            } else {
+            /*if (!this.building.equals(b)) {
+                buildingsList.add(b);
+            }*/
+            if (this.building.getName().equals(b.getName())) {
+            }else{
                 buildingsList.add(b);
             }
         }
