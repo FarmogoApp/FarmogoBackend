@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="ui-g-12 ui-md-12 ui-lg-12 ui-xl-4" style="padding-bottom:5px; text-align: left;">
-                        <p:dataTable id="buildingDataTable"  value="#{configView.buildings}" style="width:400px;" var="building" selectionMode="single" rowKey="#{building.uuid}" selection="#{configView.building}">
+                        <p:dataTable id="buildingDataTable"  value="#{configView.farm.buildings}" style="width:400px;" var="building" selectionMode="single" rowKey="#{building.uuid}" selection="#{configView.building}">
                             <p:ajax event="rowSelect" update=":Buildingform:divisionDataTable"/>
                             <f:facet name="header">
                                 <div class="ui-g">
