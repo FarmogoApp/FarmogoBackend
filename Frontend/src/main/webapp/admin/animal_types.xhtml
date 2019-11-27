@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+
+<ui:composition template="/WEB-INF/templates/admin/layout.xhtml">
+    <h:head>
+        <title>AnimalTypes</title>
+    </h:head>
+    <ui:define name="content">
+        <h:form id="listAnimalForm">
+            <p:commandButton value="Add"
+                             icon="pi pi-plus-circle"
+                             actionListener="#{animalTypeView.clearSelection}"
+                             update="newAnimalTypeDialog"
+                             oncomplete="PF('newAnimalTypeDialog').show()"
+            />
+            <p:dataTable
+                    id="animalTypesTable"
+                    value="#{animalTypeView.animalTypeList}"
+                    var="elem"
+                    rowKey="#{elem.uuid}"
+                    selectionMode="single"
+                    selection="#{animalTypeView.animalType}">
+                <f:facet name="header">
+                    Animal types
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{elem.uuid}"/>
+                </p:column>
+                <p:column headerText="Description">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.description}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.description}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Icon">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.icon}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.icon}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+            </p:dataTable>
+            <p:contextMenu for="animalTypesTable">
+                <p:menuitem value="Edit" update="newAnimalTypeDialog"
+                            oncomplete="PF('newAnimalTypeDialog').show()"/>
+                <p:menuitem value="Delete" update="animalTypesTable :growl" action="#{animalTypeView.delete}">
+                    <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+            </p:confirmDialog>
+        </h:form>
+
+
+        <p:dialog modal="false" closable="true" id="newAnimalTypeDialog" widgetVar="newAnimalTypeDialog">
+            <f:facet name="header">
+                New Animal Type
+            </f:facet>
+            <h:form id="newAnimal">
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel value="Description" for="desc"/>
+                    <p:inputText id="desc" value="#{animalTypeView.animalType.description}" required="true"/>
+
+
+                    <h:outputLabel value="Icon" for="icon"/>
+                    <p:inputText value="#{animalTypeView.animalType.icon}" id="icon"/>
+
+
+                    <p:column/>
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{animalTypeView.save}"
+                                     update=":listAnimalForm:animalTypesTable :growl"
+                                     oncomplete="PF('newAnimalTypeDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

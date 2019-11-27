@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: sta
+  Date: 07/11/2019
+  Time: 20:46
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<ui:composition template="/WEB-INF/templates/user/layout.xhtml">
+    <ui:define name="content">
+        <p:panel header="Global view" style="width: 400px; margin: 0 auto">
+            <p:panelGrid columns="2" layout="grid" columnClasses="center,center">
+                <h:outputText styleClass="title" value="FARMS"/>
+                <h:outputText styleClass="title" value="ANIMALS"/>
+
+                <h:outputText styleClass="bignumber" value="#{farmSwitcherView.farmList.size()}"/>
+                <h:outputText styleClass="bignumber" value=" #{animalListView.totalAnimals}"/>
+            </p:panelGrid>
+        </p:panel>
+        <p:panel header="Farm #{farmSwitcherView.farm.officialId}" style="width: 600px; margin: 0 auto">
+            <p:panelGrid columns="3" layout="grid" columnClasses="center,center,center">
+                <h:outputText styleClass="title" value="TOTAL ANIMALS"/>
+                <h:outputText styleClass="title" value="CURRENT ANIMALS"/>
+                <h:outputText styleClass="title" value="INCOMPLETED INCIDENCES"/>
+
+                <p:link outcome="animal_list" styleClass="bignumber"
+                        value="#{animalListView.getTotalAnimalsOfFarm('All')}">
+                    <f:param name="filter" value="All"/>
+                </p:link>
+                <p:link outcome="animal_list" styleClass="bignumber"
+                        value="#{animalListView.getTotalAnimalsOfFarm('Current')}">
+                    <f:param name="filter" value="Current"/>
+                </p:link>
+                <p:link outcome="incidences" styleClass="bignumber" value="#{incidenceView.incidenceList.size()}"/>
+            </p:panelGrid>
+        </p:panel>
+
+
+        <p:panel header="Finalcial KPI" style="width: 600px; margin: 0 auto">
+            <p:panelGrid columns="2" layout="grid" columnClasses="center,center">
+                <h:outputText styleClass="title" value="CURRENT VALUE"/>
+                <h:outputText styleClass="title" value="HISTORICAL PRICE"/>
+                <h:outputText styleClass="bignumber" value="532.56 €"/>
+                <p:chart type="line" model="#{financialView.evolutionData}" style="height:140px; width: 300px"/>
+            </p:panelGrid>
+        </p:panel>
+
+    </ui:define>
+</ui:composition>
+</html>

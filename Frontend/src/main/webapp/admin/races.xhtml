@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+
+<ui:composition template="/WEB-INF/templates/admin/layout.xhtml">
+    <h:head>
+        <title>Races</title>
+    </h:head>
+    <ui:define name="content">
+        <h:form id="listRaceForm">
+            <p:commandButton value="Add"
+                             icon="pi pi-plus-circle"
+                             actionListener="#{raceView.clearSelection}"
+                             update="newRaceDialog"
+                             oncomplete="PF('newRaceDialog').show()"
+            />
+            <p:dataTable
+                    id="raceTable"
+                    value="#{raceView.raceList}"
+                    var="elem"
+                    rowKey="#{elem.uuid}"
+                    selectionMode="single"
+                    selection="#{raceView.race}">
+                <f:facet name="header">
+                    Races
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{elem.uuid}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.name}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.name}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+            </p:dataTable>
+            <p:contextMenu for="raceTable">
+                <p:menuitem value="Edit" update="newRaceDialog"
+                            oncomplete="PF('newRaceDialog').show()"/>
+                <p:menuitem value="Delete" update="raceTable :growl" action="#{raceView.delete}">
+                    <p:confirm header="Delete" message="Are you sure?" icon="pi pi-exclamation-triange"/>
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+            </p:confirmDialog>
+        </h:form>
+
+
+        <p:dialog modal="false" closable="true" id="newRaceDialog" widgetVar="newRaceDialog">
+            <f:facet name="header">
+                New Race
+            </f:facet>
+            <h:form id="newRace">
+                <p:panelGrid columns="2">
+
+                    <h:outputLabel value="Description" for="desc"/>
+                    <p:inputText id="desc" value="#{raceView.race.name}" required="true"/>
+
+                    <p:column/>
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{raceView.save}"
+                                     update=":listRaceForm:raceTable :growl"
+                                     oncomplete="PF('newRaceDialog').hide()"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,151 @@
+<ui:composition template="WEB-INF/templates/user/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="content">
+        <h:head>
+            <title>Animal data</title>
+        </h:head>
+        <h:form id="animalDataForm">
+
+            <p:dataTable
+                    id="animalTable"
+                    value="#{animalDataView.animalData}"
+                    var="elem"
+                    rowKey="#{elem.uuid}"
+                    selection="#{animalDataView.animal}">
+                <f:facet name="header">
+                    <div class="ui-g">
+                        <div class="ui-g-4" style="padding: 0;"></div>
+                        <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Animal data</div>
+                        <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
+                            <h:commandLink>
+                                <p:graphicImage name="/img/csv.png" width="25" height=""/>
+                                <p:dataExporter type="csv" target="animalTable" fileName="animal"/>
+                            </h:commandLink>
+                            <h:commandLink>
+                                <p:graphicImage name="/img/pdf.png" width="25"/>
+                                <p:dataExporter type="pdf" target="animalTable" fileName="animal"/>
+                            </h:commandLink>
+                        </div>
+                    </div>
+                </f:facet>
+
+                <!-- UUID (Only for development)-->
+<!--                <p:column headerText="UUID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.uuid}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.uuid}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
+
+                <!-- Tag ID (Only for development)-->
+<!--                <p:column headerText="Tag ID (Dev)">-->
+<!--                    <p:cellEditor>-->
+<!--                        <f:facet name="output"><h:outputText value="#{elem.tagId}"/></f:facet>-->
+<!--                        <f:facet name="input"><p:inputText value="#{elem.tagId}" style="width:100%"/></f:facet>-->
+<!--                    </p:cellEditor>-->
+<!--                </p:column>-->
+
+                <!-- Official ID -->
+                <p:column headerText="Official ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Mother ID -->
+                <p:column headerText="Mother official ID">
+                    <p:link outcome="animal_data"  value="#{animalDataView.motherId}">
+                        <f:param name="animalId" value="#{elem.motherId}"/>
+                    </p:link>
+                </p:column>
+
+                <!-- Race -->
+                <p:column headerText="Race">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText
+                                value="#{animalDataView.race}"/></f:facet>
+                        <f:facet name="input"><p:inputText
+                                value="#{animalDataView.race}"
+                                style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Animal Type -->
+                <p:column headerText="Animal type">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText
+                                value="#{animalDataView.animalType}"/></f:facet>
+                        <f:facet name="input"><p:inputText
+                                value="#{animalDataView.animalType}"
+                                style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Origin-->
+                <p:column headerText="Origin">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Sex -->
+                <p:column headerText="Sex">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{elem.sex}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.sex}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Location -->
+                <p:column headerText="Location">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{animalDataView.location}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{animalDataView.location}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Birth date -->
+                <p:column headerText="Birth date">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{elem.birthDay}">
+                                <!-- <f:convertDateTime pattern="dd/MM/yyyy"/>-->
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.birthDay}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- Discharge Date -->
+                <p:column headerText="Discharge date">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{elem.dischargeDate}">
+                                <!-- <f:convertDateTime pattern="dd/MM/yyyy"/>-->
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input"><p:inputText value="#{elem.dischargeDate}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+                </p:confirmDialog>
+
+            </p:dataTable>
+        </h:form>
+        <br/>
+        <ui:include src="incidencesPanel.xhtml">
+            <ui:param name="animalId" value="#{animalDataView.animal.uuid}"/>
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
