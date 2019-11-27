@@ -160,7 +160,14 @@ public class ConfigView implements Serializable {
         }
         farm.setBuildings(buildingsList);
         farm = farmService.save(farm);
-        init();
+        farmService.setCurrentFarm(farm);
+
+        buildingsList = farm.getBuildings();
+
+        divisionList = building.getDivisions();
+        division = divisionList.get(divisionList.size()-1);
+        farmList = farmService.getFarms();
+
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Division saved"));
