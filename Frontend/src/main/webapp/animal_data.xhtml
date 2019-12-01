@@ -7,7 +7,7 @@
 >
     <ui:define name="content">
         <h:head>
-            <title>Animal data</title>
+            <title>#{i18n['animalViews.animalData']}</title>
         </h:head>
         <h:form id="animalDataForm">
 
@@ -20,7 +20,7 @@
                 <f:facet name="header">
                     <div class="ui-g">
                         <div class="ui-g-4" style="padding: 0;"></div>
-                        <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">Animal data</div>
+                        <div class="ui-g-4" style="padding: 0;text-align: center; line-height: 30px;">#{i18n['animalViews.animalData']}</div>
                         <div class="ui-g-4" style="text-align: right; padding: 0 16px 0 0;">
                             <h:commandLink>
                                 <p:graphicImage name="/img/csv.png" width="25" height=""/>
@@ -51,7 +51,7 @@
 <!--                </p:column>-->
 
                 <!-- Official ID -->
-                <p:column headerText="Official ID">
+                <p:column headerText="#{i18n['animalViews.officialID']}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.officialId}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.officialId}" style="width:100%"/></f:facet>
@@ -59,14 +59,14 @@
                 </p:column>
 
                 <!-- Mother ID -->
-                <p:column headerText="Mother official ID">
+                <p:column headerText="#{i18n['animalViews.motherID']}">
                     <p:link outcome="animal_data"  value="#{animalDataView.motherId}">
                         <f:param name="animalId" value="#{elem.motherId}"/>
                     </p:link>
                 </p:column>
 
                 <!-- Race -->
-                <p:column headerText="Race">
+                <p:column headerText="#{i18n['animalViews.race']}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText
                                 value="#{animalDataView.race}"/></f:facet>
@@ -77,7 +77,7 @@
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type">
+                <p:column headerText="#{i18n['animalViews.animalType']}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText
                                 value="#{animalDataView.animalType}"/></f:facet>
@@ -88,7 +88,7 @@
                 </p:column>
 
                 <!-- Origin-->
-                <p:column headerText="Origin">
+                <p:column headerText="#{i18n['animalViews.origin']}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.origin}" style="width:100%"/></f:facet>
@@ -96,7 +96,7 @@
                 </p:column>
 
                 <!-- Sex -->
-                <p:column headerText="Sex">
+                <p:column headerText="#{i18n['animalViews.sex']}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.sex}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{elem.sex}" style="width:100%"/></f:facet>
@@ -104,7 +104,7 @@
                 </p:column>
 
                 <!-- Location -->
-                <p:column headerText="Location">
+                <p:column headerText="#{i18n['animalViews.location']}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{animalDataView.location}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{animalDataView.location}" style="width:100%"/></f:facet>
@@ -112,7 +112,7 @@
                 </p:column>
 
                 <!-- Birth date -->
-                <p:column headerText="Birth date">
+                <p:column headerText="#{i18n['animalViews.birthDate']}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.birthDay}">
@@ -124,7 +124,7 @@
                 </p:column>
 
                 <!-- Discharge Date -->
-                <p:column headerText="Discharge date">
+                <p:column headerText="#{i18n['animalViews.dischargeDate']}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{elem.dischargeDate}">
