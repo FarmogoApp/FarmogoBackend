@@ -12,15 +12,15 @@
 <h:body>
     <div id="loginPanel">
         <h:graphicImage name="logo.png" library="img" width="400"/>
-        <p:panel header="Login">
+        <p:panel header="#{i18n['index.login']}">
             <h:form>
                 <p:panelGrid columns="2" style="width: 100%">
-                    <p:outputLabel for="@next" value="User"/>
+                    <p:outputLabel for="@next" value="#{i18n['index.user']}"/>
                     <p:inputText/>
-                    <p:outputLabel for="@next" value="Password"/>
+                    <p:outputLabel for="@next" value="#{i18n['index.password']}"/>
                     <p:password/>
                     <p:column/>
-                    <p:button outcome="home" value="Login"/>
+                    <p:button outcome="home" value="#{i18n['index.login']}"/>
                 </p:panelGrid>
             </h:form>
 
