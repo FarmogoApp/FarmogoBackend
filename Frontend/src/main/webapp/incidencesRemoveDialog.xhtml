@@ -9,16 +9,16 @@
 
 <p:dialog modal="false" closable="true" id="incidenceRemoveDialog" widgetVar="incidenceRemoveDialog">
     <f:facet name="header">
-        Incidence Remove
+        #{i18n['incidences.incidenceRemove']}
     </f:facet>
         <h:form id="incidenceRemoveForm">
             <p:panelGrid columns="2">
 
-                <p:outputLabel value="Remove Reason"/>
+                <p:outputLabel value="#{i18n['incidences.removeReason']}"/>
                 <p:inputTextarea rows="4" cols="40" value="#{incidenceView.incidence.removeReason}"/>
 
                 <p:column/>
-                <p:commandButton value="Save" icon="pi pi-save"
+                <p:commandButton value="#{i18n['incidences.save']}" icon="pi pi-save"
                                  actionListener="#{incidenceView.remove}"
                                  update=":panelCenter :growl"
                                  oncomplete="PF('incidenceDialog').hide()"/>
