@@ -30,14 +30,14 @@
 
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
-            <h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English"/>
-            <h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish"/>
-            <h:commandLink action="#{languageSwitcher.changeLanguage('ca')}" value="Catalan"/>
+            <h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="#{i18n['top.english']}"/>
+            <h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="#{i18n['top.spanish']}"/>
+            <h:commandLink action="#{languageSwitcher.changeLanguage('ca')}" value="#{i18n['top.catalan']}"/>
 
             <pe:letterAvatar value="Lonely Farmer" height="40" width="40"  rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
             <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
-            <p:button type="button" icon="pi pi-sign-out" value="Logout" outcome="index"/>
+            <p:button type="button" icon="pi pi-sign-out" value="#{i18n['top.logout']}" outcome="index"/>
         </h:form>
     </div>
 </div>
