@@ -30,9 +30,17 @@
 
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
-            <h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="#{i18n['top.english']}"/>
-            <h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="#{i18n['top.spanish']}"/>
-            <h:commandLink action="#{languageSwitcher.changeLanguage('ca')}" value="#{i18n['top.catalan']}"/>
+            <h:commandLink action="#{languageSwitcher.changeLanguage('en')}">
+                <p:graphicImage name="/img/uk_flag.png" width="30" height=""/>
+            </h:commandLink>
+
+            <h:commandLink action="#{languageSwitcher.changeLanguage('es')}">
+                <p:graphicImage name="/img/spain_flag.png" width="30" height=""/>
+            </h:commandLink>
+
+            <h:commandLink action="#{languageSwitcher.changeLanguage('ca')}">
+                <p:graphicImage name="/img/catalonia_flag.png" width="30" height=""/>
+            </h:commandLink>
 
             <pe:letterAvatar value="Lonely Farmer" height="40" width="40"  rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
