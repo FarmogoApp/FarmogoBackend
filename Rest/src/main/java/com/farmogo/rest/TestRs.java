@@ -24,6 +24,9 @@ public class TestRs {
     AdminService adminService;
 
     @Inject
+    FarmBookService farmBookService;
+
+    @Inject
     AnimalTypesService animalTypesService;
 
     @Inject
@@ -282,7 +285,20 @@ public class TestRs {
             incidenceTreatment.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceTreatment);
 
+            IncidenceBirth birth = new IncidenceBirth();
+            birth.setBirthDate(LocalDate.of(2019, 12, 17));
+            birth.setEnrollmentDate(LocalDate.of(2019, 12, 17));
+            birth.setOfficialId("ES12345566778");
+            birth.setRaceId(raceE.getUuid());
+            birth.setCreatedBy(user.getUuid());
+            birth.setOfficialId(farm.getAnimalCounter().toString());
+            birth.setSex("Male");
+            birth.setAnimalId(animalA.getUuid());
+
+            incidencesService.save(birth);
+
         }
+
         return "ok";
 
     }

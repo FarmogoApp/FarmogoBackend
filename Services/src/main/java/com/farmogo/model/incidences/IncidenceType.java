@@ -6,5 +6,6 @@ public enum IncidenceType {
     TREATMENT,
     PREGNANCY,
     DISCHARGE,
+    BIRTH,
 
 }
