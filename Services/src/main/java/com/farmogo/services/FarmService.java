@@ -33,11 +33,16 @@ public class FarmService {
          return farmDao.getAll();
     }
 
-    public com.farmogo.model.Farm get(String id) {
+    public Farm get(String id) {
         return farmDao.get(id);
     }
 
     public Farm save(Farm farm){
+        if (farm.getUuid()== null){
+            // Creator is the owner of farm
+            farm.setUserOwnerId(globalSessionService.getUser().getUuid());
+        }
+
         return farmDao.save(farm);
     }
 
