@@ -17,18 +17,18 @@ public class AplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> classes = new HashSet<>(super.getClasses());
         classes.add(JacksonFeature.class);
-        classes.add(com.farmogo.rest.ObjectMapperResolver.class);
-        classes.add(com.farmogo.rest.AnimalRS.class);
-        classes.add(com.farmogo.rest.AnimalTypesRS.class);
-        classes.add(com.farmogo.rest.FarmRs.class);
-        classes.add(com.farmogo.rest.GrantAccesRS.class);
-        classes.add(com.farmogo.rest.IncidencesRS.class);
-        classes.add(com.farmogo.rest.IncidenceTypeRS.class);
-        classes.add(com.farmogo.rest.MarketHistoryRS.class);
-        classes.add(com.farmogo.rest.RacesRS.class);
-        classes.add(com.farmogo.rest.TestRs.class);
-        classes.add(com.farmogo.rest.UserRS.class);
-
+        classes.add(ObjectMapperResolver.class);
+        classes.add(AnimalRS.class);
+        classes.add(AnimalTypesRS.class);
+        classes.add(FarmRs.class);
+        classes.add(GrantAccesRS.class);
+        classes.add(IncidencesRS.class);
+        classes.add(IncidenceTypeRS.class);
+        classes.add(MarketHistoryRS.class);
+        classes.add(RacesRS.class);
+        classes.add(TestRs.class);
+        classes.add(UserRS.class);
+        classes.add(FirebaseFilter.class);
         return classes;
     }
 
