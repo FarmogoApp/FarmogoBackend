@@ -70,4 +70,10 @@ public class UserMongoDao implements UserDao {
         ObjectId key = new ObjectId(id);
         return UserMongo.convert(mongoCollection.find(Filters.eq("_id", key)).first());
     }
+
+    @Override
+    public User getByFirebaseUuid(String firebaseUuid) {
+        if (firebaseUuid == null) return null;
+        return UserMongo.convert(mongoCollection.find(Filters.eq("firebaseUuid", firebaseUuid)).first());
+    }
 }

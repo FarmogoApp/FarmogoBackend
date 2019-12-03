@@ -31,5 +31,12 @@ public class UserService {
     }
 
 
+    public User getByFirebaseUuid(String firebaseUuid) {
+        return userDao.getByFirebaseUuid(firebaseUuid);
+    }
+
+    public void setCurrentUser(User user) {
+        globalSessionService.setUser(user);
+    }
 }
 
