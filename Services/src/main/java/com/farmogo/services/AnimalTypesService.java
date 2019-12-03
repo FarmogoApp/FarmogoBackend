@@ -27,6 +27,10 @@ public class AnimalTypesService {
         return animalTypeDAO.get(id);
     }
 
+    public AnimalType getAnimalTypeByDescription(String description) {
+        return animalTypeDAO.getAnimalTypeByDescription(description);
+    }
+
     public AnimalType save(AnimalType animalType) {
         return animalTypeDAO.save(animalType);
     }

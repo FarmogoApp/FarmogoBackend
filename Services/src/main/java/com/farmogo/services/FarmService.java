@@ -33,6 +33,10 @@ public class FarmService {
          return farmDao.getAll();
     }
 
+    public void updateAnimalCounter(String id){
+        farmDao.updateAnimalCounter(id);
+    }
+
     public com.farmogo.model.Farm get(String id) {
         return farmDao.get(id);
     }

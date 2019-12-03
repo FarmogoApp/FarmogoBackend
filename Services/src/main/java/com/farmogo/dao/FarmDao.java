@@ -11,4 +11,5 @@ public interface FarmDao {
     Farm get(String id);
     void delete(Farm farm);
     Farm save(Farm farm);
+    void updateAnimalCounter(String id);
 }

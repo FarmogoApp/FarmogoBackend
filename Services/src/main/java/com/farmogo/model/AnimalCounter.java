@@ -31,4 +31,8 @@ public class AnimalCounter {
     public String toString(){
         return prefix + " " + counter;
     }
+
+    public void incrementAnimalCounter(){
+        this.counter+=1;
+    }
 }

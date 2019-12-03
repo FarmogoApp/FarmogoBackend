@@ -24,9 +24,6 @@ public class TestRs {
     AdminService adminService;
 
     @Inject
-    FarmBookService farmBookService;
-
-    @Inject
     AnimalTypesService animalTypesService;
 
     @Inject
@@ -286,13 +283,14 @@ public class TestRs {
             incidencesService.save(incidenceTreatment);
 
             IncidenceBirth birth = new IncidenceBirth();
-            birth.setBirthDate(LocalDate.of(2019, 12, 17));
-            birth.setEnrollmentDate(LocalDate.of(2019, 12, 17));
+            birth.setBirthDate(LocalDate.of(2019, 11, 27));
             birth.setOfficialId("ES12345566778");
             birth.setRaceId(raceE.getUuid());
             birth.setCreatedBy(user.getUuid());
             birth.setOfficialId(farm.getAnimalCounter().toString());
             birth.setSex("Male");
+            birth.setFarmId(farmA.getUuid());
+            birth.setAnimalId(animalA.getUuid());
             birth.setAnimalId(animalA.getUuid());
 
             incidencesService.save(birth);

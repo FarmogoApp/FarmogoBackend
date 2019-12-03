@@ -50,5 +50,10 @@ public class FarmMockDao implements FarmDao {
         return null;
     }
 
+    @Override
+    public void updateAnimalCounter(String id) {
+
+    }
+
 
 }
