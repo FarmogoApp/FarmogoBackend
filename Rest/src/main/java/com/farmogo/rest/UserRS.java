@@ -26,6 +26,6 @@ public class UserRS {
 
     @POST
     public User create(User user){
-        return  userService.create(user);
+        return  userService.save(user);
     }
 }

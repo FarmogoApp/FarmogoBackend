@@ -1,6 +1,7 @@
 package com.farmogo.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +11,8 @@ public class Farm implements Serializable {
     private String officialId;
     private List<Building> buildings;
     private AnimalCounter animalCounter;
+    private String userOwnerId;
+    private LocalDate subscriptionExpiration;
 
     public Farm() {
         animalCounter = new AnimalCounter();
@@ -53,6 +56,23 @@ public class Farm implements Serializable {
 
     public void setAnimalCounter(AnimalCounter animalCounter) {
         this.animalCounter = animalCounter;
+    }
+
+
+    public String getUserOwnerId() {
+        return userOwnerId;
+    }
+
+    public void setUserOwnerId(String userOwnerId) {
+        this.userOwnerId = userOwnerId;
+    }
+
+    public LocalDate getSubscriptionExpiration() {
+        return subscriptionExpiration;
+    }
+
+    public void setSubscriptionExpiration(LocalDate subscriptionExpiration) {
+        this.subscriptionExpiration = subscriptionExpiration;
     }
 
     @Override

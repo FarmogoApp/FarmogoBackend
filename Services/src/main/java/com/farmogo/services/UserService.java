@@ -1,5 +1,6 @@
 package com.farmogo.services;
 
+import com.farmogo.dao.UserDao;
 import com.farmogo.model.User;
 
 import javax.ejb.Stateless;
@@ -13,21 +14,20 @@ public class UserService {
     @Inject
     GlobalSessionService globalSessionService;
 
+    @Inject
+    UserDao userDao;
 
 
     public List<User> getAll() {
-        return null;
-        //return userDAO.getAll();
+        return userDao.getAll();
     }
 
     public User getCurrentUser(){
         return globalSessionService.getUser();
     }
 
-    public User create(User user){
-        // userDao.create(user);
-        user.setUuid(UUID.randomUUID().toString());
-        return user;
+    public User save(User user){
+        return userDao.save(user);
     }
 
 
