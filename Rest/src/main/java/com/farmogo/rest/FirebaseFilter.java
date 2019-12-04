@@ -20,6 +20,8 @@ public class FirebaseFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
         if ("POST".equals(containerRequestContext.getMethod()) && "/users".equals(containerRequestContext.getUriInfo().getPath()))
             return;
+        if ("GET".equals(containerRequestContext.getMethod()) && "/test/database".equals(containerRequestContext.getUriInfo().getPath()))
+            return;
 
         String authorization = containerRequestContext.getHeaderString("Authorization");
         System.out.println("!!!!!!!!!!!!!!!AUTH rebuda" + authorization);
