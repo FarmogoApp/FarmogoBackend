@@ -14,4 +14,6 @@ public interface UserDao {
     User get(String id);
 
     User getByFirebaseUuid(String firebaseUuid);
+
+    User getByEmail(String email);
 }

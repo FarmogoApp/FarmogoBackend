@@ -38,5 +38,9 @@ public class UserService {
     public void setCurrentUser(User user) {
         globalSessionService.setUser(user);
     }
+
+    public User getByEmail(String email) {
+        return userDao.getByEmail(email);
+    }
 }
 

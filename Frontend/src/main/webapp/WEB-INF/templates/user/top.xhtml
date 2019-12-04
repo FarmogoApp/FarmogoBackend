@@ -28,7 +28,7 @@
     <div class="ui-g-2"/>
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
-            <pe:letterAvatar value="Lonely Farmer" height="40" width="40"  rounded="true"
+            <pe:letterAvatar value="#{userView.user.name}" height="40" width="40"  rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
             <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
             <p:button type="button" icon="pi pi-sign-out" value="Logout" outcome="index"/>

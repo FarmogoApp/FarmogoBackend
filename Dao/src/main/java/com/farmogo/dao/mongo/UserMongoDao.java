@@ -76,4 +76,10 @@ public class UserMongoDao implements UserDao {
         if (firebaseUuid == null) return null;
         return UserMongo.convert(mongoCollection.find(Filters.eq("firebaseUuid", firebaseUuid)).first());
     }
+
+    @Override
+    public User getByEmail(String email) {
+        if (email == null) return null;
+        return UserMongo.convert(mongoCollection.find(Filters.eq("email", email)).first());
+    }
 }
