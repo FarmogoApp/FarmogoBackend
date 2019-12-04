@@ -69,6 +69,7 @@ public class IncidencesService {
         animal.setEnrollmentCause("N");
         animal.setOrigin("");
         animal.setEnrollmentSanitaryRegister("");
+        animal.setDivisionId(animalService.get(incidenceBirth.getAnimalId()).getDivisionId());
         animal.setAnimalTypeId(animalTypesService.getAnimalTypeByDescription("Calf").getUuid());
         animalService.save(animal);
         farmService.updateAnimalCounter(incidenceBirth.getFarmId());

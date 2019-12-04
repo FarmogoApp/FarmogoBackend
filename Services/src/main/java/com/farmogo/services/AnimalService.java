@@ -34,6 +34,9 @@ public class AnimalService {
 
 
     public Animal save(Animal animal){
+        if (animal.getEnrollmentCause() == null){
+            animal.setEnrollmentCause("C");
+        }
         return animalDao.save(animal);
     }
 
