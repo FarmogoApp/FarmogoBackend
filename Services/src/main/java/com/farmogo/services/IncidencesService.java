@@ -2,6 +2,7 @@ package com.farmogo.services;
 
 
 import com.farmogo.dao.IncidenceDao;
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.incidences.Incidence;
 
 import javax.ejb.Stateless;
@@ -36,7 +37,7 @@ public class IncidencesService {
     }
 
 
-    public void save(Incidence incidence) {
+    public void save(Incidence incidence) throws AccessNotAllowed {
         incidenceOnSaveActions.action(incidence);
         incidenceDAO.save(incidence);
     }

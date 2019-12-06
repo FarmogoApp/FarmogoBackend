@@ -1,5 +1,6 @@
 package com.farmogo.services;
 
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.*;
 
@@ -13,7 +14,7 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
 
     Animal animal;
 
-    public void action(Incidence incidence){
+    public void action(Incidence incidence) throws AccessNotAllowed {
 
         animal = animalService.get(incidence.getAnimalId());
 

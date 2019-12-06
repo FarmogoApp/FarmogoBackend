@@ -1,5 +1,6 @@
 package com.farmogo.front;
 
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.*;
 import com.farmogo.services.AnimalService;
@@ -15,8 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -60,17 +59,25 @@ public class IncidenceView implements Serializable {
     }
 
     private void updateIncidenceList() {
-        if (animalId != null) {
-            incidenceList = incidencesService.getAll(animalId);
-            Animal animal = animalService.get(animalId);
-            title = "Incidences of " + animal.getOfficialId();
-        } else {
-            incidenceList = incidencesService.getNotCompleted(farmService.getCurrentFarm().getUuid());
-            title = "Incidences Incompleted";
+        try {
+            if (animalId != null) {
+                incidenceList = incidencesService.getAll(animalId);
+                Animal animal = null;
+
+                animal = animalService.get(animalId);
+
+                title = "Incidences of " + animal.getOfficialId();
+            } else {
+                incidenceList = incidencesService.getNotCompleted(farmService.getCurrentFarm().getUuid());
+                title = "Incidences Incompleted";
+            }
+        } catch (AccessNotAllowed accessNotAllowed) {
+
+            Messages.error("Not allowed to get this information","");
         }
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
@@ -133,28 +140,44 @@ public class IncidenceView implements Serializable {
     }
 
     public void save() {
-        incidencesService.save(incidence);
-        updateIncidenceList();
-        animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
-        Messages.info("Incidence has been saved", "");
+        try {
+            incidencesService.save(incidence);
+            updateIncidenceList();
+            animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
+            Messages.info("Incidence has been saved", "");
+        } catch (AccessNotAllowed accessNotAllowed) {
+            Messages.error("Not alloed to save", "");
+        }
+
     }
 
-    public void remove(){
+    public void remove() {
         incidence.setRemoveDate(LocalDate.now());
-        incidencesService.save(incidence);
-        updateIncidenceList();
-        Messages.info("Incidence has been removed", "");
-    }
-    public void recover(Incidence incidence){
-        this.incidence = incidence;
-        this.incidence.setRemoveDate(null);
-        this.incidence.setRemoveReason(null);
-        incidencesService.save(incidence);
-        updateIncidenceList();
-        Messages.info("Incidence has been recovered", "");
+        try {
+            incidencesService.save(incidence);
+            updateIncidenceList();
+            Messages.info("Incidence has been removed", "");
+        } catch (AccessNotAllowed accessNotAllowed) {
+            Messages.error("Not alloed to remove", "");
+        }
+
     }
 
-    public IncidenceType[] getIncidenceTypes(){
+    public void recover(Incidence incidence) {
+        try {
+            this.incidence = incidence;
+            this.incidence.setRemoveDate(null);
+            this.incidence.setRemoveReason(null);
+            incidencesService.save(incidence);
+            updateIncidenceList();
+            Messages.info("Incidence has been recovered", "");
+        } catch (AccessNotAllowed accessNotAllowed) {
+            Messages.error("Not alloed to recover", "");
+        }
+
+    }
+
+    public IncidenceType[] getIncidenceTypes() {
         return IncidenceType.values();
     }
 
@@ -170,11 +193,17 @@ public class IncidenceView implements Serializable {
         return DischargeType.values();
     }
 
-    public String getAnimalOfficialId(String animalId){
-        if (animalId == null || "".equals(animalId)) return "";
-        Animal animal = animalService.get(animalId);
-        if (animal== null) return "";
-        return animal.getOfficialId();
+    public String getAnimalOfficialId(String animalId) {
+        try {
+            if (animalId == null || "".equals(animalId)) return "";
+            Animal animal = null;
+            animal = animalService.get(animalId);
+            if (animal == null) return "";
+            return animal.getOfficialId();
+        } catch (AccessNotAllowed accessNotAllowed) {
+            Messages.error("Not alloed to get this information", "");
+        }
+        return "";
     }
 
 }

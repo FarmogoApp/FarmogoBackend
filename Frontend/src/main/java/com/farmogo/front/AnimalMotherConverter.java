@@ -1,5 +1,6 @@
 package com.farmogo.front;
 
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
 import com.farmogo.services.AnimalService;
 
@@ -18,8 +19,12 @@ public class AnimalMotherConverter implements Converter<Animal> {
     @Override
     public Animal getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         if (s == null || s.isEmpty() || "External Animal".equals(s)) return null;
-        Animal animal = animalService.get(s);
-        return animal;
+        Animal animal = null;
+        try {
+            return animalService.get(s);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            return null;
+        }
     }
 
     @Override

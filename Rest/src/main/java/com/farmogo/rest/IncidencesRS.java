@@ -1,5 +1,6 @@
 package com.farmogo.rest;
 
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.incidences.*;
 import com.farmogo.services.IncidencesService;
 
@@ -25,8 +26,12 @@ public class IncidencesRS {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(Incidence incidence) { 
-    	incidencesService.save(incidence);
+    public void save(Incidence incidence) {
+        try {
+            incidencesService.save(incidence);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException();
+        }
     }
 
 }
