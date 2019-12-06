@@ -89,4 +89,21 @@ public class IncidenceMongoDao implements IncidenceDao {
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Incidence> getLast(String farmId, int limit) {
+        return StreamSupport.stream(
+                mongoCollection.find()
+                        .filter(
+                                Filters.eq("farmId", new ObjectId(farmId))
+                        )
+                        .sort(orderBy(ascending("date")))
+                        .limit(limit)
+                        .spliterator(), false)
+
+                .map(IncidenceMongo::convert)
+                .collect(Collectors.toList());
+    }
+
+
 }

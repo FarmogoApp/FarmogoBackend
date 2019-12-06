@@ -13,4 +13,6 @@ public interface IncidenceDao {
     List<Incidence> getAll(String animalId);
 
     List<Incidence> getNotCompleted(String farmId);
+
+    List<Incidence> getLast(String farmId, int limit);
 }

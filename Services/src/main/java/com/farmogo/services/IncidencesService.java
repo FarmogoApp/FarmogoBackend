@@ -1,11 +1,8 @@
 package com.farmogo.services;
 
 
-
 import com.farmogo.dao.IncidenceDao;
-import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.Incidence;
-import com.farmogo.model.incidences.IncidenceCompleteCheck;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -30,16 +27,20 @@ public class IncidencesService {
     }
 
 
-    public List<Incidence> getNotCompleted(String farmId){
+    public List<Incidence> getNotCompleted(String farmId) {
         return incidenceDAO.getNotCompleted(farmId);
     }
 
 
-    public void save(Incidence incidence){
+    public List<Incidence> getLast(String farmId, int limit ) {
+        return incidenceDAO.getLast(farmId, limit);
+    }
+
+
+    public void save(Incidence incidence) {
         incidenceOnSaveActions.action(incidence);
         incidenceDAO.save(incidence);
     }
-
 
 
 }
