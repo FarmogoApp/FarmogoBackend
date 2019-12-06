@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -35,8 +36,10 @@ public class AnimalMongoDao implements AnimalDao {
     }
 
     @Override
-    public List<Animal> getAll() {
-        return StreamSupport.stream(mongoCollection.find().spliterator(), false)
+    public List<Animal> getAll(List<String> farmsId ) {
+        Objects.requireNonNull(farmsId);
+        List<ObjectId> farms = farmsId.stream().map(ObjectId::new).collect(Collectors.toList());
+        return StreamSupport.stream(mongoCollection.find(Filters.in("farmId",farms)).spliterator(), false)
                 .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
     }

@@ -20,10 +20,10 @@ public class AnimalService {
     FarmService farmService;
 
     @Inject
-    IncidencesService incidencesService;
+    GlobalSessionService globalSessionService;
 
     public List<Animal> getAll() {
-        return animalDao.getAll();
+        return animalDao.getAll(globalSessionService.getUser().getFarmsAccessible());
     }
 
     public List<Animal> getAnimalsByFarmId(String farmId) {

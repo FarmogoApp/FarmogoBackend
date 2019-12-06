@@ -19,7 +19,6 @@ public class AnimalMotherConverter implements Converter<Animal> {
     @Override
     public Animal getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         if (s == null || s.isEmpty() || "External Animal".equals(s)) return null;
-        Animal animal = null;
         try {
             return animalService.get(s);
         } catch (AccessNotAllowed accessNotAllowed) {
