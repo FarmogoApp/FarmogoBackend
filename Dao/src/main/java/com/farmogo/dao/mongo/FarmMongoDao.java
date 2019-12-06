@@ -3,6 +3,7 @@ package com.farmogo.dao.mongo;
 import com.farmogo.dao.FarmDao;
 import com.farmogo.dao.mongo.dto.FarmMongo;
 import com.farmogo.model.Farm;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -33,9 +34,16 @@ public class FarmMongoDao implements FarmDao {
         mongoCollection = mongoDatabase.getCollection(COLLECTION, FarmMongo.class).withCodecRegistry(codecRegistry);
     }
 
+
     @Override
-    public List<Farm> getFarmByUser(String userId) {
-        return null;
+    public List<Farm> getFarmByOwner(String userId) {
+        if (userId == null) return null;
+        ObjectId userOwnerId = new ObjectId(userId);
+        FindIterable<FarmMongo> findIterable = mongoCollection.find(Filters.eq("userOwnerId", userOwnerId));
+        return StreamSupport.stream(findIterable.spliterator(), false)
+                .map(FarmMongo::convert)
+                .collect(Collectors.toList());
+
     }
 
     @Override

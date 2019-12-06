@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Stateless
 public class FarmService {
@@ -30,9 +31,12 @@ public class FarmService {
     }
 
     public List<Farm> getFarms() {
-        // Todo: change to real user id
-        //return farmDao.getFarmByUser(globalSessionService.getUser().getUuid());
-        return farmDao.getAll();
+        return globalSessionService.getUser().getFarmsAccessible().stream().
+                map(f -> farmDao.get(f)).collect(Collectors.toList());
+    }
+
+    public List<Farm> getFarmsOwned(){
+        return farmDao.getFarmByOwner(globalSessionService.getUser().getUuid());
     }
 
     public Farm get(String id) {

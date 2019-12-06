@@ -41,12 +41,14 @@ public class ConfigView implements Serializable {
 
     @PostConstruct
     public void init() {
-        farm = farmService.getCurrentFarm();
-        buildingsList = farm.getBuildings();
-        building = buildingsList.get(0);
-        divisionList = building.getDivisions();
-        division = divisionList.get(0);
-        farmList = farmService.getFarms();
+        farmList = farmService.getFarmsOwned();
+        if (!farmList.isEmpty()) {
+            farm = farmList.get(0);
+            buildingsList = farm.getBuildings();
+            building = buildingsList.get(0);
+            divisionList = building.getDivisions();
+            division = divisionList.get(0);
+        }
     }
 
     public void clearFarmSelection() {
