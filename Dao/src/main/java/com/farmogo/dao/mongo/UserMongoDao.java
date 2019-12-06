@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -66,20 +67,28 @@ public class UserMongoDao implements UserDao {
 
     @Override
     public User get(String id) {
-        if (id == null) return null;
+        Objects.requireNonNull(id);
         ObjectId key = new ObjectId(id);
         return UserMongo.convert(mongoCollection.find(Filters.eq("_id", key)).first());
     }
 
     @Override
     public User getByFirebaseUuid(String firebaseUuid) {
-        if (firebaseUuid == null) return null;
+        Objects.requireNonNull(firebaseUuid);
         return UserMongo.convert(mongoCollection.find(Filters.eq("firebaseUuid", firebaseUuid)).first());
     }
 
     @Override
     public User getByEmail(String email) {
-        if (email == null) return null;
+        Objects.requireNonNull(email);
         return UserMongo.convert(mongoCollection.find(Filters.eq("email", email)).first());
+    }
+
+    @Override
+    public List<User> getByFarmAccessible(String farmId) {
+        Objects.requireNonNull(farmId);
+        return StreamSupport.stream(mongoCollection.find(Filters.eq("farmsAccessible", farmId)).spliterator(), false)
+                .map(UserMongo::convert)
+                .collect(Collectors.toList());
     }
 }

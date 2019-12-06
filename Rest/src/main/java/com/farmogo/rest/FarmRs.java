@@ -20,94 +20,38 @@ public class FarmRs {
 
     @GET
     public List<Farm> getAll() {
-        return farmService.getAll();
+        return farmService.getFarms();
     }
 
     @GET
     @Path("{id}")
     public Farm get(@PathParam("id") String id) {
-        return farmService.get(id);
+        Farm farm = farmService.get(id);
+        if (farm == null) throw new ForbiddenException();
+        return farm;
     }
 
     @POST
-    public Farm save(Farm farm) {  return farmService.save(farm);}
+    public Farm save(Farm farm) {
+        try {
+            return farmService.save(farm);
+        } catch (ModificationNotAllowed ex) {
+            throw new ForbiddenException();
+        }
+    }
 
     @DELETE
     @Path("{id}")
     public Farm delete(@PathParam("id") String id) {
         Farm farm = farmService.get(id);
-        if(farm== null) throw new NotFoundException();
-        farmService.delete(farm);
-        return farm;
-    }
-
-    @GET
-    @Path("test")
-    public String test(){
-
-
-        Farm f1 = new Farm();
-        f1.setOfficialId("1234");
-        f1.setName("farm 1");
-        AnimalCounter AN1 = new AnimalCounter();
-        AN1.setCounter(5555);
-        AN1.setPrefix("SD");
-        f1.setAnimalCounter(AN1);
-
-        Building b11 = new Building();
-        b11.setName("build 1.1");
-
-        Building b12 = new Building();
-        b12.setName("build 1.2");
-
-        Division d111 = new Division();
-        d111.setName("division 1.1.1");
-
-        Division d112 = new Division();
-        d112.setName("division 1.1.2");
-
-        Division d121 = new Division();
-        d121.setName("division 1.2.1");
-
-        b11.setDivisions(Arrays.asList(d111,d112));
-        b12.setDivisions(Arrays.asList(d121));
-
-        f1.setBuildings(Arrays.asList(b11,b12));
-
-        for (int i = 1; i < 11; i++) {
-            f1.setName("Farm " + i);
-            f1.setOfficialId("ID " + i);
-            f1.setAnimalCounter(new AnimalCounter("SD", i));
-            farmService.save(f1);
+        if (farm == null) throw new NotFoundException();
+        try {
+            farmService.delete(farm);
+        } catch (DeleteNotAllowed ex) {
+            throw new ForbiddenException();
+        } catch (DeleteNotPossible deleteNotPossible) {
+            throw new InternalServerErrorException("Are items that they requiere this farm");
         }
-
-
-        f1 = new Farm();
-        f1.setOfficialId("5678");
-        f1.setName("farm 2");
-
-        b11 = new Building();
-        b11.setName("build 2.1");
-
-        b12 = new Building();
-        b12.setName("build 2.2");
-
-        d111 = new Division();
-        d111.setName("division 2.1.1");
-
-        d112 = new Division();
-        d112.setName("division 2.1.2");
-
-        d121 = new Division();
-        d121.setName("division 2.2.1");
-
-        b11.setDivisions(Arrays.asList(d111,d112));
-        b12.setDivisions(Arrays.asList(d121));
-
-        f1.setBuildings(Arrays.asList(b11,b12));
-
-        farmService.save(f1);
-
-        return "ok";
+        return farm;
     }
 }

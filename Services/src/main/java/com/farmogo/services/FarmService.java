@@ -1,10 +1,7 @@
 package com.farmogo.services;
 
 import com.farmogo.dao.FarmDao;
-import com.farmogo.model.Building;
-import com.farmogo.model.Division;
-import com.farmogo.model.Farm;
-import com.farmogo.model.User;
+import com.farmogo.model.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,10 +22,9 @@ public class FarmService {
     @Inject
     UserService userService;
 
+    @Inject
+    AnimalService animalService;
 
-    public List<Farm> getAll() {
-        return farmDao.getAll();
-    }
 
     public List<Farm> getFarms() {
         return globalSessionService.getUser().getFarmsAccessible().stream().
@@ -40,14 +36,22 @@ public class FarmService {
     }
 
     public Farm get(String id) {
-        return farmDao.get(id);
+        Farm farm = farmDao.get(id);
+        if (globalSessionService.getUser().getFarmsAccessible().contains(farm.getUuid())) return farm;
+        return null;
     }
 
-    public Farm save(Farm farm) {
+    public Farm save(Farm farm) throws ModificationNotAllowed {
         boolean isNew = farm.getUuid() == null;
 
         if (isNew)
             farm.setUserOwnerId(globalSessionService.getUser().getUuid());
+        else{
+            if (globalSessionService.getUser() == null ||
+                    !globalSessionService.getUser().getUuid().equals(farm.getUserOwnerId())){
+                throw new ModificationNotAllowed();
+            }
+        }
 
         Farm newFarm = farmDao.save(farm);
 
@@ -67,7 +71,16 @@ public class FarmService {
         return newFarm;
     }
 
-    public void delete(Farm farm) {
+    public void delete(Farm farm) throws DeleteNotAllowed, DeleteNotPossible {
+        if (globalSessionService.getUser() == null ||
+                !globalSessionService.getUser().getUuid().equals(farm.getUserOwnerId())){
+            throw new DeleteNotAllowed();
+        }
+        List<Animal> animalsByFarmId = animalService.getAnimalsByFarmId(farm.getUuid());
+        if (!animalsByFarmId.isEmpty()){
+            throw new DeleteNotPossible();
+        }
+
         farmDao.delete(farm);
     }
 

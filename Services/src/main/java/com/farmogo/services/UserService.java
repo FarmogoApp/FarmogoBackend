@@ -42,5 +42,9 @@ public class UserService {
     public User getByEmail(String email) {
         return userDao.getByEmail(email);
     }
+
+    public List<User> getUsersThatFarmIsAccessible(String farmId){
+        return userDao.getByFarmAccessible(farmId);
+    }
 }
 

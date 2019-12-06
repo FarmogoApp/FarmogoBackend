@@ -16,4 +16,6 @@ public interface UserDao {
     User getByFirebaseUuid(String firebaseUuid);
 
     User getByEmail(String email);
+
+    List<User> getByFarmAccessible(String farmId);
 }
