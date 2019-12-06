@@ -1,9 +1,6 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.DeleteNotAllowed;
-import com.farmogo.model.DeleteNotPossible;
-import com.farmogo.model.Farm;
-import com.farmogo.model.ModificationNotAllowed;
+import com.farmogo.model.*;
 import com.farmogo.model.incidences.Incidence;
 import com.farmogo.services.FarmService;
 import com.farmogo.services.IncidencesService;
@@ -33,18 +30,26 @@ public class FarmRs {
     @GET
     @Path("{id}")
     public Farm get(@PathParam("id") String id) {
-        Farm farm = farmService.get(id);
-        if (farm == null) throw new ForbiddenException();
-        return farm;
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();
+            return farm;
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException();
+        }
     }
 
     @GET
     @Path("{id}/lastIncidences")
     public List<Incidence> getLastIncidences(@PathParam("id") String farmId,
                                              @QueryParam("limit") @DefaultValue("10") int limit) {
-        Farm farm = farmService.get(farmId);
-        if (farm == null) throw new ForbiddenException();
-        return incidencesService.getLast(farmId, limit);
+        try {
+            Farm farm = farmService.get(farmId);
+            if (farm == null) throw new NotFoundException();
+            return incidencesService.getLast(farmId, limit);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException();
+        }
     }
 
 
@@ -60,15 +65,15 @@ public class FarmRs {
     @DELETE
     @Path("{id}")
     public Farm delete(@PathParam("id") String id) {
-        Farm farm = farmService.get(id);
-        if (farm == null) throw new NotFoundException();
         try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();
             farmService.delete(farm);
-        } catch (DeleteNotAllowed ex) {
+            return farm;
+        } catch (DeleteNotAllowed | AccessNotAllowed ex) {
             throw new ForbiddenException();
         } catch (DeleteNotPossible deleteNotPossible) {
             throw new InternalServerErrorException("Are items that they requiere this farm");
         }
-        return farm;
     }
 }

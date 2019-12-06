@@ -1,4 +1,4 @@
 package com.farmogo.model;
 
-public class ModificationNotAllowed extends Throwable {
+public class ModificationNotAllowed extends Exception {
 }

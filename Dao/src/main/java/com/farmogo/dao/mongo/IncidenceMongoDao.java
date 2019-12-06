@@ -105,5 +105,21 @@ public class IncidenceMongoDao implements IncidenceDao {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Incidence> getByAnimalId(String animalId, int skip, int limit) {
+        return StreamSupport.stream(
+                mongoCollection.find()
+                        .filter(
+                                Filters.eq("animalId", new ObjectId(animalId))
+                        )
+                        .sort(orderBy(ascending("date")))
+                        .skip(skip)
+                        .limit(limit)
+                        .spliterator(), false)
+
+                .map(IncidenceMongo::convert)
+                .collect(Collectors.toList());
+    }
+
 
 }

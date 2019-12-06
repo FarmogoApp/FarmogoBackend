@@ -22,7 +22,6 @@ public class IncidencesService {
     }
 
     public List<Incidence> getAll(String animalId) {
-        // TODO: Verify is animal is in one farm that user has granted acces
         return incidenceDAO.getAll(animalId);
     }
 
@@ -43,4 +42,7 @@ public class IncidencesService {
     }
 
 
+    public List<Incidence> getByAnimal(String animalId, int skip, int limit) {
+        return incidenceDAO.getByAnimalId(animalId, skip,limit);
+    }
 }

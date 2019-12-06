@@ -1,7 +1,9 @@
 package com.farmogo.services;
 
 import com.farmogo.dao.AnimalDao;
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
+import com.farmogo.model.incidences.Incidence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,6 +16,12 @@ public class AnimalService {
     @Inject
     AnimalDao animalDao;
 
+    @Inject
+    FarmService farmService;
+
+    @Inject
+    IncidencesService incidencesService;
+
     public List<Animal> getAll() {
         return animalDao.getAll();
     }
@@ -21,18 +29,22 @@ public class AnimalService {
     public List<Animal> getAnimalsByFarmId(String farmId) {
         return animalDao.getAllAnimalsByFarmId(farmId);
     }
-    public List<Animal> getCurrentAnimalsByFarmId(String farmId){
+
+    public List<Animal> getCurrentAnimalsByFarmId(String farmId) {
         return animalDao.getCurrentAnimalsByFarmId(farmId);
     }
+
     public List<Animal> getDischagedAnimalsByFarmId(String farmId) {
         return animalDao.getDischargedAnimalsByFarmId(farmId);
     }
 
-    public Animal get(String id) {
-        return animalDao.get(id);
+    public Animal get(String id) throws AccessNotAllowed {
+        Animal animal = animalDao.get(id);
+        farmService.get(animal.getFarmId()); // verify acces to farm
+        return animal;
     }
 
-    public Animal save(Animal animal){
+    public Animal save(Animal animal) {
         return animalDao.save(animal);
     }
 
@@ -41,7 +53,7 @@ public class AnimalService {
         animalDao.delete(animalToDelete);
     }
 
-    public Animal getAnimalById(String animalId){
+    public Animal getAnimalById(String animalId) {
         return animalDao.get(animalId);
     }
 
@@ -53,6 +65,7 @@ public class AnimalService {
     public List<Animal> getByAnimalType(String animalTypeId) {
         return animalDao.getByAnimalType(animalTypeId);
     }
+
 }
 
 

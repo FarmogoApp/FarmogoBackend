@@ -1,4 +1,4 @@
 package com.farmogo.model;
 
-public class DeleteNotAllowed extends Throwable {
+public class DeleteNotAllowed extends Exception {
 }

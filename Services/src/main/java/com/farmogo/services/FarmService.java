@@ -35,10 +35,15 @@ public class FarmService {
         return farmDao.getFarmByOwner(globalSessionService.getUser().getUuid());
     }
 
-    public Farm get(String id) {
+    public Farm get(String id) throws AccessNotAllowed {
         Farm farm = farmDao.get(id);
-        if (globalSessionService.getUser().getFarmsAccessible().contains(farm.getUuid())) return farm;
-        return null;
+        if (farm == null) return null;
+        if (globalSessionService.getUser().getFarmsAccessible().contains(farm.getUuid())) {
+            return farm;
+        }else{
+            throw new AccessNotAllowed();
+        }
+
     }
 
     public Farm save(Farm farm) throws ModificationNotAllowed {
