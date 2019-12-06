@@ -31,7 +31,7 @@
             <pe:letterAvatar value="#{userView.user.name}" height="40" width="40"  rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
             <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
-            <p:button type="button" icon="pi pi-sign-out" value="Logout" outcome="index"/>
+            <p:commandButton action="#{userView.logout()}" value="Logout"/>
         </h:form>
     </div>
 </div>

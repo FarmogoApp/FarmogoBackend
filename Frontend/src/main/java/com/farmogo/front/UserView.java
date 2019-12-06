@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -29,9 +30,19 @@ public class UserView implements Serializable {
     String password;
 
     @PostConstruct
-    public void init() {
+    public void init() throws IOException {
         user = globalSessionService.getUser();
-        if (user == null) throw new javax.faces.application.ProtectedViewException();
+        if (user == null) {
+
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String url = request.getRequestURL().toString();
+            System.out.println(url);
+            if (!url.contains("index.xhtml")) {
+                context.getExternalContext().redirect("index.xhtml");
+            }
+        }
     }
 
     public User getUser() {
@@ -71,6 +82,11 @@ public class UserView implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Failed", "");
             context.addMessage(null,message);
         }
+    }
 
+    public void logout() throws IOException {
+        globalSessionService.setUser(null);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().redirect("index.xhtml");
     }
 }
