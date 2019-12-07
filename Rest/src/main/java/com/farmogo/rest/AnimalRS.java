@@ -1,9 +1,11 @@
 package com.farmogo.rest;
 
 
-import com.farmogo.model.*;
+import com.farmogo.model.AccessNotAllowed;
+import com.farmogo.model.Animal;
+import com.farmogo.model.incidences.Incidence;
 import com.farmogo.services.AnimalService;
-import com.farmogo.services.AnimalTypesService;
+import com.farmogo.services.IncidencesService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -18,8 +20,9 @@ import java.util.List;
 public class AnimalRS {
     @Inject
     AnimalService animalService;
+
     @Inject
-    AnimalTypesService animalTypesService;
+    IncidencesService incidencesService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -30,42 +33,45 @@ public class AnimalRS {
     @GET
     @Path("{id}")
     public Animal get(@PathParam("id") String id) {
-        return animalService.get(id);
+        try {
+            Animal animal = animalService.get(id);
+            if (animal == null) throw new NotFoundException();
+            return animal;
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException();
+        }
+    }
+
+
+    @GET
+    @Path("{id}/incidences")
+    public List<Incidence> getIncidences(@PathParam("id") String animalId,
+                                         @QueryParam("skip") @DefaultValue("0") int skip,
+                                         @QueryParam("limit") @DefaultValue("10") int limit ) {
+        try {
+            Animal animal = animalService.get(animalId);
+            if (animal == null) throw new  NotFoundException();
+            return incidencesService.getByAnimal(animalId, skip, limit);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException();
+        }
     }
 
     @POST
-    public Animal save(Animal animal) {  return animalService.save(animal);}
+    public Animal save(Animal animal) {
+        return animalService.save(animal);
+    }
 
     @DELETE
     @Path("{id}")
     public Animal delete(@PathParam("id") String id) {
-        Animal animal = animalService.get(id);
-        if(animal== null) throw new NotFoundException();
-        animalService.delete(animal);
-        return animal;
+        try {
+            Animal animal = animalService.get(id);
+            if (animal == null) throw new NotFoundException();
+            animalService.delete(animal);
+            return animal;
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException();
+        }
     }
-
-    @GET
-    @Path("test")
-    public String test(){
-
-        Animal animal = new Animal();
-        AnimalType animalType = new AnimalType();
-
-        animal.setOrigin("Lleida");
-        animal.setSex("Female");
-
-        animalType.setDescription("test");
-        animalType.setIcon("icon");
-        AnimalType animalTypeId = animalTypesService.save(animalType);
-
-        animal.setFarmId("5dd2da5155d353e9ef6df9eb");
-        animal.setAnimalTypeId(animalTypeId.getUuid());
-        animal.setRaceId("");
-        animal.setMotherId("");
-        animalService.save(animal);
-
-        return "ok";
-    }
-
 }

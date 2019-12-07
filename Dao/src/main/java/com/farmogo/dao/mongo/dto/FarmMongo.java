@@ -6,6 +6,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 public class FarmMongo implements Serializable {
@@ -16,6 +17,8 @@ public class FarmMongo implements Serializable {
     private String officialId;
     private List<BuildingMongo> buildings;
     private AnimalCounter animalCounter;
+    private ObjectId userOwnerId;
+    private LocalDate subscriptionExpiration;
 
     public static FarmMongo convert(Farm farm) {
         return Mapper.getInstance().map(farm, FarmMongo.class);
@@ -60,4 +63,20 @@ public class FarmMongo implements Serializable {
     public AnimalCounter getAnimalCounter() { return animalCounter;}
 
     public void setAnimalCounter(AnimalCounter animalCounter) {this.animalCounter = animalCounter;}
+
+    public ObjectId getUserOwnerId() {
+        return userOwnerId;
+    }
+
+    public void setUserOwnerId(ObjectId userOwnerId) {
+        this.userOwnerId = userOwnerId;
+    }
+
+    public LocalDate getSubscriptionExpiration() {
+        return subscriptionExpiration;
+    }
+
+    public void setSubscriptionExpiration(LocalDate subscriptionExpiration) {
+        this.subscriptionExpiration = subscriptionExpiration;
+    }
 }

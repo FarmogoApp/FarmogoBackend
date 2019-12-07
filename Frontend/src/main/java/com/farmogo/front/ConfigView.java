@@ -1,9 +1,6 @@
 package com.farmogo.front;
 
-import com.farmogo.model.AnimalCounter;
-import com.farmogo.model.Building;
-import com.farmogo.model.Division;
-import com.farmogo.model.Farm;
+import com.farmogo.model.*;
 import com.farmogo.services.BuildingService;
 import com.farmogo.services.FarmService;
 
@@ -41,12 +38,14 @@ public class ConfigView implements Serializable {
 
     @PostConstruct
     public void init() {
-        farm = farmService.getCurrentFarm();
-        buildingsList = farm.getBuildings();
-        building = buildingsList.get(0);
-        divisionList = building.getDivisions();
-        division = divisionList.get(0);
-        farmList = farmService.getFarms();
+        farmList = farmService.getFarmsOwned();
+        if (!farmList.isEmpty()) {
+            farm = farmList.get(0);
+            buildingsList = farm.getBuildings();
+            building = buildingsList.get(0);
+            divisionList = building.getDivisions();
+            division = divisionList.get(0);
+        }
     }
 
     public void clearFarmSelection() {
@@ -105,6 +104,7 @@ public class ConfigView implements Serializable {
     }
 
     public void saveNewFarm() {
+        FacesContext context = FacesContext.getCurrentInstance();
         //System.out.println(name);
         //setFarm(name, officialId, prefix, counter);
         clearBuildingSelection();
@@ -114,35 +114,45 @@ public class ConfigView implements Serializable {
         building.setName("Build 1.1");
         farm.setBuildings(Arrays.asList(building));
 
-        farm = farmService.save(farm);
-        farmList = farmService.getFarms();
-        buildingsList = farm.getBuildings();
-        building = buildingsList.get(0);
-        division = building.getDivisions().get(0);
-        farmSwitcherView.init();
-        farmSwitcherView.setFarm(farm);
+        try {
+            farm = farmService.save(farm);
+            farmList = farmService.getFarms();
+            buildingsList = farm.getBuildings();
+            building = buildingsList.get(0);
+            division = building.getDivisions().get(0);
+            farmSwitcherView.init();
+            farmSwitcherView.setFarm(farm);
+            context.addMessage(null, new FacesMessage("New Farm Created") );
+        } catch (ModificationNotAllowed modificationNotAllowed) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Can't save Farm","") );
+        }
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("New Farm Created") );
+
+
+
     }
 
     public void saveBuilding() {
+        FacesContext context = FacesContext.getCurrentInstance();
         Division d11 = new Division();
         d11.setName("division 1.1");
 
         this.building.setDivisions(Arrays.asList(d11));
         farm.getBuildings().add(this.building);
-        farm = farmService.save(farm);
-        buildingsList = farm.getBuildings();
-        divisionList = building.getDivisions();
-        building = buildingsList.get(buildingsList.size()-1);
-        division = building.getDivisions().get(0);
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Building saved"));
+        try {
+            farm = farmService.save(farm);
+            buildingsList = farm.getBuildings();
+            divisionList = building.getDivisions();
+            building = buildingsList.get(buildingsList.size()-1);
+            division = building.getDivisions().get(0);
+            context.addMessage(null, new FacesMessage("Building saved"));
+        } catch (ModificationNotAllowed modificationNotAllowed) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Can't save Farm","") );
+        }
     }
 
     public void saveDivision() {
+        FacesContext context = FacesContext.getCurrentInstance();
         this.divisionList = this.building.getDivisions();
         divisionList.add(division);
         this.building.setDivisions(divisionList);
@@ -159,26 +169,36 @@ public class ConfigView implements Serializable {
             }
         }
         farm.setBuildings(buildingsList);
-        farm = farmService.save(farm);
-        farmService.setCurrentFarm(farm);
+        try {
+            farm = farmService.save(farm);
+            farmService.setCurrentFarm(farm);
 
-        buildingsList = farm.getBuildings();
+            buildingsList = farm.getBuildings();
 
-        divisionList = building.getDivisions();
-        division = divisionList.get(divisionList.size()-1);
-        farmList = farmService.getFarms();
+            divisionList = building.getDivisions();
+            division = divisionList.get(divisionList.size()-1);
+            farmList = farmService.getFarms();
+            context.addMessage(null, new FacesMessage("Division saved"));
+        } catch (ModificationNotAllowed modificationNotAllowed) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Can't save Farm","") );
+        }
 
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Division saved"));
+
+
+
     }
 
     public void save() {
-        farm = farmService.save(farm);
-        farmSwitcherView.init();
-        farmSwitcherView.setFarm(farm);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Farm saved") );
+        try {
+            farm = farmService.save(farm);
+            farmSwitcherView.init();
+            farmSwitcherView.setFarm(farm);
+            context.addMessage(null, new FacesMessage("Farm saved") );
+        } catch (ModificationNotAllowed modificationNotAllowed) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Can't save Farm","") );
+        }
     }
 
     public List<Farm> getFarmList() {

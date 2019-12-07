@@ -12,16 +12,19 @@
 <h:body>
     <div id="loginPanel">
         <h:graphicImage name="logo.png" library="img" width="400"/>
-        <p:panel header="Login">
+        <p:panel header="#{i18n['index.login']}">
             <h:form>
                 <p:panelGrid columns="2" style="width: 100%">
-                    <p:outputLabel for="@next" value="User"/>
-                    <p:inputText/>
-                    <p:outputLabel for="@next" value="Password"/>
-                    <p:password/>
+                    <p:outputLabel for="@next" value="#{i18n['index.user']}"/>
+                    <p:inputText value="#{userView.email}" required="true"/>
+                    <p:outputLabel for="@next" value="#{i18n['index.password']}"/>
+                    <p:password value="#{userView.password}" required="true"/>
                     <p:column/>
-                    <p:button outcome="home" value="Login"/>
+                    <p:commandButton action="#{userView.login()}" value="Login"/>
                 </p:panelGrid>
+                <p:messages id="messages" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
             </h:form>
 
         </p:panel>

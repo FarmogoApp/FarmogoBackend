@@ -8,19 +8,27 @@ import java.util.Objects;
 
 public class Animal implements Serializable {
     private String uuid;
-    private String animalTypeId;
+    private String farmId;
     private String officialId;
-    private String tagId;
+    private LocalDate birthDay;
     private String sex;
     private String raceId;
-    private LocalDate birthDay;
-    private LocalDate dischargeDate;
-    private String motherId;
     private String motherOfficialId;
-    private LocalDateTime createdLocalDateTime;
+    private LocalDate enrrollementDate;
+    private String enrollmentCause;
     private String origin;
+    private String enrollmentSanitaryRegister;
+    private LocalDate dischargeDate;
+    private String dischargeCause;
+    private String dischargeDestination;
+    private String dischargeSanitaryRegister;
+    private LocalDate dateBonus1;
+    private LocalDate dateBonus2;
+    private String animalTypeId;
+    private String tagId;
+    private String motherId;
+    private LocalDateTime createdLocalDateTime;
     private String divisionId;
-    private String farmId;
 
 
     public Animal() {
@@ -35,6 +43,13 @@ public class Animal implements Serializable {
         this.uuid = uuid;
     }
 
+    public String getFarmId() {
+        return farmId;
+    }
+
+    public void setFarmId(String farmId) {
+        this.farmId = farmId;
+    }
 
     public String getOfficialId() {
         return officialId;
@@ -44,12 +59,12 @@ public class Animal implements Serializable {
         this.officialId = officialId;
     }
 
-    public String getTagId() {
-        return tagId;
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 
     public String getSex() {
@@ -68,46 +83,6 @@ public class Animal implements Serializable {
         this.raceId = raceId;
     }
 
-    public LocalDate getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(LocalDate birthDay) {
-        this.birthDay = birthDay;
-    }
-
-    public LocalDate getDischargeDate() {
-        return dischargeDate;
-    }
-
-    public void setDischargeDate(LocalDate dischargeDate) {
-        this.dischargeDate = dischargeDate;
-    }
-
-    public String getFarmId() {
-        return farmId;
-    }
-
-    public void setFarmId(String farmId) {
-        this.farmId = farmId;
-    }
-
-    public String getDivisionId() {
-        return divisionId;
-    }
-
-    public void setDivisionId(String divisionId) {
-        this.divisionId = divisionId;
-    }
-
-    public String getMotherId() {
-        return motherId;
-    }
-
-    public void setMotherId(String motherId) {
-        this.motherId = motherId;
-    }
-
     public String getMotherOfficialId() {
         return motherOfficialId;
     }
@@ -116,12 +91,20 @@ public class Animal implements Serializable {
         this.motherOfficialId = motherOfficialId;
     }
 
-    public LocalDateTime getCreatedLocalDateTime() {
-        return createdLocalDateTime;
+    public LocalDate getEnrrollementDate() {
+        return enrrollementDate;
     }
 
-    public void setCreatedLocalDateTime(LocalDateTime createdLocalDateTime) {
-        this.createdLocalDateTime = createdLocalDateTime;
+    public void setEnrrollementDate(LocalDate enrrollementDate) {
+        this.enrrollementDate = enrrollementDate;
+    }
+
+    public String getEnrollmentCause() {
+        return enrollmentCause;
+    }
+
+    public void setEnrollmentCause(String enrollmentCause) {
+        this.enrollmentCause = enrollmentCause;
     }
 
     public String getOrigin() {
@@ -132,12 +115,100 @@ public class Animal implements Serializable {
         this.origin = origin;
     }
 
+    public String getEnrollmentSanitaryRegister() {
+        return enrollmentSanitaryRegister;
+    }
+
+    public void setEnrollmentSanitaryRegister(String enrollmentSanitaryRegister) {
+        this.enrollmentSanitaryRegister = enrollmentSanitaryRegister;
+    }
+
+    public LocalDate getDischargeDate() {
+        return dischargeDate;
+    }
+
+    public void setDischargeDate(LocalDate dischargeDate) {
+        this.dischargeDate = dischargeDate;
+    }
+
+    public String getDischargeCause() {
+        return dischargeCause;
+    }
+
+    public void setDischargeCause(String dischargeCause) {
+        this.dischargeCause = dischargeCause;
+    }
+
+    public String getDischargeDestination() {
+        return dischargeDestination;
+    }
+
+    public void setDischargeDestination(String dischargeDestination) {
+        this.dischargeDestination = dischargeDestination;
+    }
+
+    public String getDischargeSanitaryRegister() {
+        return dischargeSanitaryRegister;
+    }
+
+    public void setDischargeSanitaryRegister(String dischargeSanitaryRegister) {
+        this.dischargeSanitaryRegister = dischargeSanitaryRegister;
+    }
+
+    public LocalDate getDateBonus1() {
+        return dateBonus1;
+    }
+
+    public void setDateBonus1(LocalDate dateBonus1) {
+        this.dateBonus1 = dateBonus1;
+    }
+
+    public LocalDate getDateBonus2() {
+        return dateBonus2;
+    }
+
+    public void setDateBonus2(LocalDate dateBonus2) {
+        this.dateBonus2 = dateBonus2;
+    }
+
     public String getAnimalTypeId() {
         return animalTypeId;
     }
 
     public void setAnimalTypeId(String animalTypeId) {
         this.animalTypeId = animalTypeId;
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(String tagId) {
+        this.tagId = tagId;
+    }
+
+    public String getMotherId() {
+        return motherId;
+    }
+
+    public void setMotherId(String motherId) {
+        this.motherId = motherId;
+    }
+
+    public LocalDateTime getCreatedLocalDateTime() {
+        return createdLocalDateTime;
+    }
+
+    public void setCreatedLocalDateTime(LocalDateTime createdLocalDateTime) {
+        this.createdLocalDateTime = createdLocalDateTime;
+    }
+
+    public String getDivisionId() {
+        return divisionId;
+    }
+
+    public void setDivisionId(String divisionId) {
+        this.divisionId = divisionId;
     }
 
     @Override

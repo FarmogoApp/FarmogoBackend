@@ -5,7 +5,7 @@ import com.farmogo.model.Animal;
 import java.util.List;
 
 public interface AnimalDao {
-    List<Animal> getAll();
+    List<Animal> getAll(List<String> farmsId);
     List<Animal> getCurrentAnimalsByFarmId(String farmId);
     List<Animal> getAllAnimalsByFarmId(String farmId);
     List<Animal> getDischargedAnimalsByFarmId(String farmId);
