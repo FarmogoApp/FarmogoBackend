@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RequestScoped
-@Path("incidence")
+@Path("incidences")
 public class IncidencesRS {
     @Inject
     IncidencesService incidencesService;
