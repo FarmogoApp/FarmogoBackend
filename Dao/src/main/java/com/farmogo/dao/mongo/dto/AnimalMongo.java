@@ -29,7 +29,7 @@ public class AnimalMongo {
     private LocalDate dateBonus2;
     private ObjectId animalTypeId;
     private String tagId;
-    private String motherId;
+    private ObjectId motherId;
     private LocalDateTime createdLocalDateTime;
     private ObjectId divisionId;
 
@@ -193,11 +193,11 @@ public class AnimalMongo {
         this.tagId = tagId;
     }
 
-    public String getMotherId() {
+    public ObjectId getMotherId() {
         return motherId;
     }
 
-    public void setMotherId(String motherId) {
+    public void setMotherId(ObjectId motherId) {
         this.motherId = motherId;
     }
 

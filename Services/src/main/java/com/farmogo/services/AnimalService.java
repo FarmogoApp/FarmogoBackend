@@ -3,10 +3,12 @@ package com.farmogo.services;
 import com.farmogo.dao.AnimalDao;
 import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
+import com.farmogo.model.User;
 import com.farmogo.model.incidences.Incidence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -23,7 +25,9 @@ public class AnimalService {
     GlobalSessionService globalSessionService;
 
     public List<Animal> getAll() {
-        return animalDao.getAll(globalSessionService.getUser().getFarmsAccessible());
+        User user = globalSessionService.getUser();
+        if (user == null || user.getFarmsAccessible() == null) return Collections.emptyList();
+        return animalDao.getAll(user.getFarmsAccessible());
     }
 
     public List<Animal> getAnimalsByFarmId(String farmId) {

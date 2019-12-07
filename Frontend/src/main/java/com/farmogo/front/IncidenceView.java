@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,11 @@ public class IncidenceView implements Serializable {
 
                 title = "Incidences of " + animal.getOfficialId();
             } else {
-                incidenceList = incidencesService.getNotCompleted(farmService.getCurrentFarm().getUuid());
+                if (farmService.getCurrentFarm() == null){
+                    incidenceList = Collections.emptyList();
+                }else {
+                    incidenceList = incidencesService.getNotCompleted(farmService.getCurrentFarm().getUuid());
+                }
                 title = "Incidences Incompleted";
             }
         } catch (AccessNotAllowed accessNotAllowed) {

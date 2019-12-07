@@ -62,9 +62,11 @@ public class AnimalListView implements Serializable {
             loadAnimals();
         }
         animal = new Animal();
-        mothers = animalService.getCurrentAnimalsByFarmId(farm.getUuid()).stream()
-                .filter(p -> p.getSex().equals("Female"))
-                .collect(Collectors.toList());
+        if (farm!=null) {
+            mothers = animalService.getCurrentAnimalsByFarmId(farm.getUuid()).stream()
+                    .filter(p -> p.getSex().equals("Female"))
+                    .collect(Collectors.toList());
+        }
     }
 
     public void loadAnimals() {
@@ -190,6 +192,7 @@ public class AnimalListView implements Serializable {
     }
 
     public int getTotalAnimalsOfFarm(FilterAnimal filter){
+        if (farm == null) return 0;
         switch (filter) {
             case All:
                 return animalService.getAnimalsByFarmId(farm.getUuid()).size();

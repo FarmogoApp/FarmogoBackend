@@ -6,6 +6,7 @@ import com.farmogo.model.*;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +28,9 @@ public class FarmService {
 
 
     public List<Farm> getFarms() {
-        return globalSessionService.getUser().getFarmsAccessible().stream().
+        User user = globalSessionService.getUser();
+        if (user == null || user.getFarmsAccessible() == null) return Collections.emptyList();
+        return user.getFarmsAccessible().stream().
                 map(f -> farmDao.get(f)).collect(Collectors.toList());
     }
 
@@ -40,13 +43,13 @@ public class FarmService {
         if (farm == null) return null;
         if (globalSessionService.getUser().getFarmsAccessible().contains(farm.getUuid())) {
             return farm;
-        }else{
+        } else {
             throw new AccessNotAllowed();
         }
 
     }
 
-    public void updateAnimalCounter(String id){
+    public void updateAnimalCounter(String id) {
         farmDao.updateAnimalCounter(id);
     }
 
@@ -55,9 +58,9 @@ public class FarmService {
 
         if (isNew)
             farm.setUserOwnerId(globalSessionService.getUser().getUuid());
-        else{
+        else {
             if (globalSessionService.getUser() == null ||
-                    !globalSessionService.getUser().getUuid().equals(farm.getUserOwnerId())){
+                    !globalSessionService.getUser().getUuid().equals(farm.getUserOwnerId())) {
                 throw new ModificationNotAllowed();
             }
         }
@@ -82,11 +85,11 @@ public class FarmService {
 
     public void delete(Farm farm) throws DeleteNotAllowed, DeleteNotPossible {
         if (globalSessionService.getUser() == null ||
-                !globalSessionService.getUser().getUuid().equals(farm.getUserOwnerId())){
+                !globalSessionService.getUser().getUuid().equals(farm.getUserOwnerId())) {
             throw new DeleteNotAllowed();
         }
         List<Animal> animalsByFarmId = animalService.getAnimalsByFarmId(farm.getUuid());
-        if (!animalsByFarmId.isEmpty()){
+        if (!animalsByFarmId.isEmpty()) {
             throw new DeleteNotPossible();
         }
 
@@ -97,7 +100,7 @@ public class FarmService {
         Farm farm = globalSessionService.getFarm();
         if (farm == null) {
             List<Farm> farms = getFarms();
-            if (!farms.isEmpty()) {
+            if (farms != null && !farms.isEmpty()) {
                 farm = farms.get(0);
             }
         }
