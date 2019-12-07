@@ -1,4 +1,4 @@
 package com.farmogo.model;
 
-public class ModificationNotAllowed extends Exception {
+public class ModificationNotAllowed extends PermissionError {
 }

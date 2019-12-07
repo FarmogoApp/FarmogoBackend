@@ -1,4 +1,4 @@
 package com.farmogo.model;
 
-public class DeleteNotPossible extends Exception {
+public class DeleteNotPossible extends PermissionError {
 }

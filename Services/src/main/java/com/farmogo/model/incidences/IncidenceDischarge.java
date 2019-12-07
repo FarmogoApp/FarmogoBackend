@@ -1,5 +1,7 @@
 package com.farmogo.model.incidences;
 
+import com.farmogo.model.PermissionError;
+
 public class IncidenceDischarge extends Incidence {
 
     private DischargeType dischargeType;
@@ -27,7 +29,7 @@ public class IncidenceDischarge extends Incidence {
 
 
     @Override
-    public void accept(IncidenceVisitor visitor) {
+    public void accept(IncidenceVisitor visitor) throws PermissionError {
         visitor.visit(this);
     }
 }

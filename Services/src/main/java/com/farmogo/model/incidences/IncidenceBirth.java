@@ -1,5 +1,7 @@
 package com.farmogo.model.incidences;
 
+import com.farmogo.model.PermissionError;
+
 import java.time.LocalDate;
 
 public class IncidenceBirth extends Incidence {
@@ -52,7 +54,7 @@ public class IncidenceBirth extends Incidence {
     }
 
     @Override
-    public void accept(IncidenceVisitor visitor) {
+    public void accept(IncidenceVisitor visitor) throws PermissionError {
         visitor.visit(this);
     }
 }

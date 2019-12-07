@@ -2,6 +2,7 @@ package com.farmogo.front;
 
 import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
+import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.*;
 import com.farmogo.services.AnimalService;
 import com.farmogo.services.FarmService;
@@ -145,7 +146,7 @@ public class IncidenceView implements Serializable {
             updateIncidenceList();
             animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
             Messages.info("Incidence has been saved", "");
-        } catch (AccessNotAllowed accessNotAllowed) {
+        } catch (PermissionError accessNotAllowed) {
             Messages.error("Not alloed to save", "");
         }
 
@@ -157,7 +158,7 @@ public class IncidenceView implements Serializable {
             incidencesService.save(incidence);
             updateIncidenceList();
             Messages.info("Incidence has been removed", "");
-        } catch (AccessNotAllowed accessNotAllowed) {
+        } catch (PermissionError accessNotAllowed) {
             Messages.error("Not alloed to remove", "");
         }
 
@@ -171,7 +172,7 @@ public class IncidenceView implements Serializable {
             incidencesService.save(incidence);
             updateIncidenceList();
             Messages.info("Incidence has been recovered", "");
-        } catch (AccessNotAllowed accessNotAllowed) {
+        } catch (PermissionError accessNotAllowed) {
             Messages.error("Not alloed to recover", "");
         }
 

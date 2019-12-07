@@ -40,7 +40,7 @@ public class TestRs {
 
     @GET
     @Path("database")
-    public String test() throws ModificationNotAllowed, AccessNotAllowed {
+    public String test() throws PermissionError {
         /* Drop All database */
         adminService.clearDatabase();
 
