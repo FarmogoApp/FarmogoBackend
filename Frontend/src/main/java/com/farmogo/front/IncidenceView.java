@@ -9,7 +9,9 @@ import com.farmogo.services.FarmService;
 import com.farmogo.services.IncidencesService;
 import com.farmogo.services.UserService;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.faces.view.facelets.FaceletContext;
@@ -17,41 +19,37 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Named
 @ViewScoped
+@ManagedBean
 public class IncidenceView implements Serializable {
 
     @Inject
     IncidencesService incidencesService;
-
     @Inject
     UserService userService;
-
     @Inject
     AnimalService animalService;
-
     @Inject
     FarmService farmService;
-
     @Inject
     AnimalDataView animalDataView;
-
     List<Incidence> incidenceList;
-
     Incidence incidence;
     String animalId;
     IncidenceType incidenceType;
     String title;
+    PropertyResourceBundle i18n;
 
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FaceletContext faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
         animalId = (String) faceletContext.getAttribute("animalId");
+        i18n = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{i18n}", PropertyResourceBundle.class);
+
         if (animalId == null) {
             Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
             animalId = params.get("animalId");
@@ -68,18 +66,18 @@ public class IncidenceView implements Serializable {
 
                 animal = animalService.get(animalId);
 
-                title = "Incidences of " + animal.getOfficialId();
+                title = i18n.getString("incidences.incidences") + " - " + animal.getOfficialId();
             } else {
-                if (farmService.getCurrentFarm() == null){
+                if (farmService.getCurrentFarm() == null) {
                     incidenceList = Collections.emptyList();
-                }else {
+                } else {
                     incidenceList = incidencesService.getNotCompleted(farmService.getCurrentFarm().getUuid());
                 }
-                title = "Incidences Incompleted";
+                title = i18n.getString("menu.incompletedIncidences");
             }
         } catch (AccessNotAllowed accessNotAllowed) {
 
-            Messages.error("Not allowed to get this information","");
+            Messages.error("Not allowed to get this information", "");
         }
     }
 
