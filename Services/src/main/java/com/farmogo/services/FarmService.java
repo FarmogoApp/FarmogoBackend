@@ -31,7 +31,7 @@ public class FarmService {
                 map(f -> farmDao.get(f)).collect(Collectors.toList());
     }
 
-    public List<Farm> getFarmsOwned(){
+    public List<Farm> getFarmsOwned() {
         return farmDao.getFarmByOwner(globalSessionService.getUser().getUuid());
     }
 
@@ -44,6 +44,10 @@ public class FarmService {
             throw new AccessNotAllowed();
         }
 
+    }
+
+    public void updateAnimalCounter(String id){
+        farmDao.updateAnimalCounter(id);
     }
 
     public Farm save(Farm farm) throws ModificationNotAllowed {

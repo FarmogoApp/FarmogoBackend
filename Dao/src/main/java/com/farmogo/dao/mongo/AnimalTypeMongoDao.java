@@ -41,6 +41,10 @@ public class AnimalTypeMongoDao implements AnimalTypeDao {
 
     }
 
+    public AnimalType getAnimalTypeByDescription(String description) {
+        return AnimalTypeMongo.convert(mongoCollection.find(Filters.eq("description", description)).first());
+
+    }
 
     public List<AnimalType> getAll() {
         return StreamSupport.stream(mongoCollection.find().spliterator(), false)

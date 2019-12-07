@@ -249,12 +249,28 @@
                                      disabled="#{not empty animalListView.mother}"/>
                     </p:column>
 
+                    <!-- Enrollament date -->
+                    <h:outputLabel value="Enrollament date"/>
+                    <p:column id="enrollamentDateColumn">
+                        <p:datePicker id="enrollamentDate" value="#{animalListView.animal.enrrollementDate}" monthNavigator="true"
+                                      pattern="dd/MM/yyyy"/>
+                        <p:message for="enrollamentDate"/>
+                    </p:column>
+
                     <!-- Origin -->
                     <h:outputLabel value="Origin"/>
                     <p:column id="originColumn">
                         <p:inputText id="origin" value="#{animalListView.animal.origin}"/>
                         <p:message for="origin"/>
                     </p:column>
+
+                    <!-- SanitaryRegister -->
+                    <h:outputLabel value="Sanitary Register"/>
+                    <p:column id="SanitaryRegisterColumn">
+                        <p:inputText id="SanitaryRegister" value="#{animalListView.animal.enrollmentSanitaryRegister}"/>
+                        <p:message for="SanitaryRegister"/>
+                    </p:column>
+
 
                     <!-- Sex -->
                     <h:outputLabel value="Sex"/>

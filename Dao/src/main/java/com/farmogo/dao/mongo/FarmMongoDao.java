@@ -77,6 +77,13 @@ public class FarmMongoDao implements FarmDao {
         return FarmMongo.convert(convert);
     }
 
+    @Override
+    public void updateAnimalCounter(String id) {
+        Farm farm = get(id);
+        farm.getAnimalCounter().incrementAnimalCounter();
+        save(farm);
+    }
+
     private void fillIds(FarmMongo convert) {
         if (convert.getUuid() == null) convert.setUuid(new ObjectId());
         if (convert.getBuildings() != null) {

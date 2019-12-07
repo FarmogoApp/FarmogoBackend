@@ -44,7 +44,10 @@ public class AnimalService {
         return animal;
     }
 
-    public Animal save(Animal animal) {
+    public Animal save(Animal animal){
+        if (animal.getEnrollmentCause() == null){
+            animal.setEnrollmentCause("C");
+        }
         return animalDao.save(animal);
     }
 

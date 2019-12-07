@@ -2,10 +2,7 @@ package com.farmogo.dao.mongo.dto;
 
 import com.farmogo.dao.mongo.ObjectIdConverter;
 import com.farmogo.model.*;
-import com.farmogo.model.incidences.IncidenceDischarge;
-import com.farmogo.model.incidences.IncidencePregnancy;
-import com.farmogo.model.incidences.IncidenceTreatment;
-import com.farmogo.model.incidences.IncidenceWeight;
+import com.farmogo.model.incidences.*;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
@@ -24,6 +21,7 @@ public class Mapper {
         mapperFactory.classMap(IncidencePregnancy.class, IncidenceMongoPregnancy.class).byDefault().register();
         mapperFactory.classMap(IncidenceTreatment.class, IncidenceMongoTreatment.class).byDefault().register();
         mapperFactory.classMap(IncidenceWeight.class, IncidenceMongoWeight.class).byDefault().register();
+        mapperFactory.classMap(IncidenceBirth.class, IncidenceMongoBirth.class).byDefault().register();
         mapperFactory.classMap(Farm.class, FarmMongo.class).byDefault().register();
         mapperFactory.classMap(Building.class, BuildingMongo.class).byDefault().register();
         mapperFactory.classMap(Division.class, DivisionMongo.class).byDefault().register();
