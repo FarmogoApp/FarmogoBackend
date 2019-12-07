@@ -10,13 +10,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
+
 <div class="ui-g top">
     <div class="ui-g-2">
         <h:graphicImage name="logo.png" library="img" height="50"/>
     </div>
     <div class="ui-g-2">
         <h:form id="farmSwitch">
-            <p:outputLabel for="@next" value="Farm:"/>
+            <p:outputLabel for="@next" value="#{i18n['top.farmSwitcher']}"/>
             <p:selectOneMenu value="#{farmSwitcherView.farm}" converter="#{farmConverter}">
                 <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId}"
                                itemValue="#{farm}"/>
@@ -26,12 +27,25 @@
         </h:form>
     </div>
     <div class="ui-g-2"/>
+
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
+            <h:commandLink action="#{languageSwitcher.changeLanguage('en')}">
+                <p:graphicImage name="/img/uk_flag.png" width="30" height=""/>
+            </h:commandLink>
+
+            <h:commandLink action="#{languageSwitcher.changeLanguage('es')}">
+                <p:graphicImage name="/img/spain_flag.png" width="30" height=""/>
+            </h:commandLink>
+
+            <h:commandLink action="#{languageSwitcher.changeLanguage('ca')}">
+                <p:graphicImage name="/img/catalonia_flag.png" width="30" height=""/>
+            </h:commandLink>
+
             <pe:letterAvatar value="#{userView.user.name}" height="40" width="40"  rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
             <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
-            <p:commandButton action="#{userView.logout()}" value="Logout"/>
+            <p:commandButton action="#{userView.logout()}" value="#{i18n['top.logout']}"/>
         </h:form>
     </div>
 </div>

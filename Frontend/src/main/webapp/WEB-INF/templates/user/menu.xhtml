@@ -6,10 +6,10 @@
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:form>
 
-    <p:button outcome="home" value="Dashboard" styleClass="leftmenu"/>
-    <p:button outcome="incidences" value="Incompleted incidences" styleClass="leftmenu"/>
-    <p:button outcome="animal_list" value="Animal list" styleClass="leftmenu"/>
-    <p:button outcome="farm_management" value="Farm Management" styleClass="leftmenu"/>
+    <p:button outcome="home" value="#{i18n['menu.dashboard']}" styleClass="leftmenu"/>
+    <p:button outcome="incidences" value="#{i18n['menu.incompletedIncidences']}" styleClass="leftmenu"/>
+    <p:button outcome="animal_list" value="#{i18n['menu.animalList']}" styleClass="leftmenu"/>
+    <p:button outcome="farm_management" value="#{i18n['menu.farmManagement']}" styleClass="leftmenu"/>
 
 </h:form>
 </html>
