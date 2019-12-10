@@ -88,6 +88,9 @@
                 <h:outputText value="#{i18n['incidences.healthRegister']}" rendered="#{elem.type eq 'DISCHARGE'}"/>
                 <h:outputText value="#{elem.healthRegister}" rendered="#{elem.type eq 'DISCHARGE'}"/>
 
+                <h:outputText value="Discharge Destination" rendered="#{elem.type eq 'DISCHARGE'}"/>
+                <h:outputText value="#{elem.dischargeDestination}" rendered="#{elem.type eq 'DISCHARGE'}"/>
+
                 <h:outputText value="#{i18n['incidences.pregnancyType']}" rendered="#{elem.type eq 'PREGNANCY'}"/>
                 <h:outputText value="#{elem.pregnancyType}" rendered="#{elem.type eq 'PREGNANCY'}"/>
 

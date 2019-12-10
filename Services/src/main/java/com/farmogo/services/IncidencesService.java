@@ -2,7 +2,6 @@ package com.farmogo.services;
 
 
 import com.farmogo.dao.IncidenceDao;
-import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.Incidence;
 
@@ -32,11 +31,9 @@ public class IncidencesService {
         return incidenceDAO.getNotCompleted(farmId);
     }
 
-
     public List<Incidence> getLast(String farmId, int limit) {
         return incidenceDAO.getLast(farmId, limit);
     }
-
 
     public void save(Incidence incidence) throws PermissionError {
         incidenceOnSaveActions.action(incidence);

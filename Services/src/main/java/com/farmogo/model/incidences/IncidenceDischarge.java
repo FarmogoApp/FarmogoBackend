@@ -6,6 +6,7 @@ public class IncidenceDischarge extends Incidence {
 
     private DischargeType dischargeType;
     private String healthRegister;
+    private String dischargeDestination;
 
     public IncidenceDischarge() {
         super(IncidenceType.DISCHARGE);
@@ -27,9 +28,17 @@ public class IncidenceDischarge extends Incidence {
         this.healthRegister = healthRegister;
     }
 
+    public String getDischargeDestination() {
+        return dischargeDestination;
+    }
+
+    public void setDischargeDestination(String dischargeDestination) {
+        this.dischargeDestination = dischargeDestination;
+    }
 
     @Override
     public void accept(IncidenceVisitor visitor) throws PermissionError {
         visitor.visit(this);
     }
+
 }
