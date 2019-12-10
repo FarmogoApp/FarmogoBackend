@@ -44,6 +44,29 @@
                 <p:inputText value="#{incidenceView.incidence.healthRegister}"
                              rendered="#{incidenceView.incidence.type eq 'DISCHARGE'}"/>
 
+                <p:outputLabel value="Sex" rendered="#{incidenceView.incidence.type eq 'BIRTH'}"
+                               for="@next"/>
+                <p:selectOneMenu id="sexSelect" value="#{incidenceView.incidence.sex}"
+                                 rendered="#{incidenceView.incidence.type eq 'BIRTH'}">
+                    <f:selectItem itemLabel="Male" itemValue="Male"/>
+                    <f:selectItem itemLabel="Female" itemValue="Female"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Birth Date" rendered="#{incidenceView.incidence.type eq 'BIRTH'}"
+                               for="@next"/>
+                <p:datePicker id="birthDate" value="#{incidenceView.incidence.birthDate}" monthNavigator="true"
+                              rendered="#{incidenceView.incidence.type eq 'BIRTH'}"
+                              pattern="dd/MM/yyyy"/>
+
+
+                <p:outputLabel value="Race" rendered="#{incidenceView.incidence.type eq 'BIRTH'}"
+                               for="@next"/>
+                <p:selectOneMenu id="raceSelect" value="#{incidenceView.incidence.raceId}"
+                                 rendered="#{incidenceView.incidence.type eq 'BIRTH'}">
+                    <f:selectItems value="#{incidenceView.races.entrySet()}" var="entity" required="true"
+                                   itemValue="#{entity.key}" itemLabel="#{entity.value}"/>
+                </p:selectOneMenu>
+
                 <p:outputLabel value="Pregnancy Type" rendered="#{incidenceView.incidence.type eq 'PREGNANCY'}"
                                for="@next"/>
                 <p:selectOneRadio value="#{incidenceView.incidence.pregnancyType}" required="true"

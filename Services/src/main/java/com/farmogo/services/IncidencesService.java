@@ -5,10 +5,7 @@ package com.farmogo.services;
 import com.farmogo.dao.IncidenceDao;
 import com.farmogo.model.Animal;
 import com.farmogo.model.AnimalType;
-import com.farmogo.model.incidences.Incidence;
-import com.farmogo.model.incidences.IncidenceBirth;
-import com.farmogo.model.incidences.IncidenceCompleteCheck;
-import com.farmogo.model.incidences.IncidenceType;
+import com.farmogo.model.incidences.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -51,14 +48,25 @@ public class IncidencesService {
     public void save(Incidence incidence){
         if(incidence.getType().equals(IncidenceType.BIRTH)){
             saveBirth((IncidenceBirth)incidence);
+        }else if (incidence.getType().equals(IncidenceType.DISCHARGE)){
+            saveDischarge((IncidenceDischarge) incidence);
         }
         incidenceOnSaveActions.action(incidence);
         incidenceDAO.save(incidence);
     }
 
+    private void saveDischarge(IncidenceDischarge incidenceDischarge) {
+        Animal animal = animalService.get(incidenceDischarge.getAnimalId());
+        animal.setDischargeDate(incidenceDischarge.getDate());
+        animal.setDischargeCause(incidenceDischarge.getDischargeType().toString());
+        animal.setDischargeDestination(incidenceDischarge.getDischargeDestination());
+        animal.setDischargeSanitaryRegister(incidenceDischarge.getHealthRegister());
+        animalService.save(animal);
+    }
+
     private void saveBirth(IncidenceBirth incidenceBirth){
         Animal animal = new Animal();
-        animal.setFarmId(incidenceBirth.getFarmId());
+        animal.setFarmId(animalService.get(incidenceBirth.getAnimalId()).getFarmId());
         animal.setOfficialId(incidenceBirth.getOfficialId());
         animal.setBirthDay(incidenceBirth.getBirthDate());
         animal.setRaceId(incidenceBirth.getRaceId());

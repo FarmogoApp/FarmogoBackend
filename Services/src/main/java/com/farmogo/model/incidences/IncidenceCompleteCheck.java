@@ -38,4 +38,5 @@ public class IncidenceCompleteCheck implements IncidenceVisitor {
     public void visit(IncidenceWeight obj) {
         check = obj.getWeight() > 0;
     }
+
 }
