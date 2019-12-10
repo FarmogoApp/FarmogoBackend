@@ -37,10 +37,11 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
 
     @Override
     public void visit(IncidenceDischarge obj) {
-        if (animal.getDischargeDate() == null) {
-            animal.setDischargeDate(LocalDate.now());
-            animalService.save(animal);
-        }
+        animal.setDischargeDate(obj.getDate());
+        animal.setDischargeCause(obj.getDischargeType().toString());
+        animal.setDischargeDestination(obj.getDischargeDestination());
+        animal.setDischargeSanitaryRegister(obj.getHealthRegister());
+        animalService.save(animal);
     }
 
     @Override

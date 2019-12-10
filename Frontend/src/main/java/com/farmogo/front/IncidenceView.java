@@ -1,17 +1,15 @@
 package com.farmogo.front;
 
+
 import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
 import com.farmogo.model.PermissionError;
+import com.farmogo.model.Race;
 import com.farmogo.model.incidences.*;
-import com.farmogo.services.AnimalService;
-import com.farmogo.services.FarmService;
-import com.farmogo.services.IncidencesService;
-import com.farmogo.services.UserService;
+import com.farmogo.services.*;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.faces.view.facelets.FaceletContext;
@@ -20,11 +18,15 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
 @ManagedBean
 public class IncidenceView implements Serializable {
+
+    @Inject
+    RaceService raceService;
 
     @Inject
     IncidencesService incidencesService;
@@ -39,6 +41,7 @@ public class IncidenceView implements Serializable {
     List<Incidence> incidenceList;
     Incidence incidence;
     String animalId;
+    private Map<String,String> races = new HashMap<>();
     IncidenceType incidenceType;
     String title;
     PropertyResourceBundle i18n;
@@ -55,6 +58,7 @@ public class IncidenceView implements Serializable {
             animalId = params.get("animalId");
         }
 
+        HashRaces();
         updateIncidenceList();
     }
 
@@ -112,11 +116,20 @@ public class IncidenceView implements Serializable {
                 break;
             case DISCHARGE:
                 incidence = new IncidenceDischarge();
+                break;
+            case BIRTH:
+                incidence = new IncidenceBirth();
+
         }
         incidence.setAnimalId(animalId);
         incidence.setCreatedBy(userService.getCurrentUser().getUuid());
     }
 
+    private void HashRaces() {
+
+        races = raceService.getAll().stream()
+                .collect(Collectors.toMap(Race::getUuid, Race::getName));
+    }
 
     public List<Incidence> getIncidenceList() {
         return incidenceList;
@@ -210,4 +223,11 @@ public class IncidenceView implements Serializable {
         return "";
     }
 
+    public Map<String, String> getRaces() {
+        return races;
+    }
+
+    public void setRaces(Map<String, String> races) {
+        this.races = races;
+    }
 }

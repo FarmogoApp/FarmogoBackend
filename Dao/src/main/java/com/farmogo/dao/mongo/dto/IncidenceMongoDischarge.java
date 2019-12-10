@@ -9,6 +9,7 @@ public class IncidenceMongoDischarge extends IncidenceMongo {
 
     private DischargeType dischargeType;
     private String healthRegister;
+    private String dischargeDestination;
 
     public IncidenceMongoDischarge() {
         super(IncidenceType.DISCHARGE);
@@ -31,4 +32,11 @@ public class IncidenceMongoDischarge extends IncidenceMongo {
     }
 
 
+    public String getDischargeDestination() {
+        return dischargeDestination;
+    }
+
+    public void setDischargeDestination(String dischargeDestination) {
+        this.dischargeDestination = dischargeDestination;
+    }
 }
