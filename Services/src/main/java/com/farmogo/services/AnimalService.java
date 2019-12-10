@@ -60,11 +60,6 @@ public class AnimalService {
         animalDao.delete(animalToDelete);
     }
 
-    public Animal getAnimalById(String animalId) {
-        return animalDao.get(animalId);
-    }
-
-
     public List<Animal> getByRace(String raceId) {
         return animalDao.getByRace(raceId);
     }
@@ -73,6 +68,9 @@ public class AnimalService {
         return animalDao.getByAnimalType(animalTypeId);
     }
 
+    public Animal getForced(String id) {
+       return animalDao.get(id);
+    }
 }
 
 

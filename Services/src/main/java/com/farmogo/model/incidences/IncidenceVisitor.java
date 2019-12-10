@@ -2,6 +2,8 @@ package com.farmogo.model.incidences;
 
 import com.farmogo.model.PermissionError;
 
+import java.time.format.DateTimeFormatter;
+
 public interface IncidenceVisitor {
 
     default void visit(IncidenceDischarge obj) throws PermissionError {

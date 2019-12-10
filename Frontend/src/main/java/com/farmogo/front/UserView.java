@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.ForbiddenException;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -30,7 +31,7 @@ public class UserView implements Serializable {
     String password;
 
     @PostConstruct
-    public void init() throws IOException {
+    public void init() {
         user = globalSessionService.getUser();
         if (user == null) {
 
@@ -40,7 +41,11 @@ public class UserView implements Serializable {
             String url = request.getRequestURL().toString();
             System.out.println(url);
             if (!url.contains("index.xhtml")) {
-                context.getExternalContext().redirect("index.xhtml");
+                try {
+                    context.getExternalContext().redirect("index.xhtml");
+                } catch (IOException e) {
+                    throw new ForbiddenException();
+                }
             }
         }
     }
