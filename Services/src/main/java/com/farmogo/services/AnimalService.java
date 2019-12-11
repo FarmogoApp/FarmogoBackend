@@ -8,6 +8,7 @@ import com.farmogo.model.incidences.Incidence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class AnimalService {
         if (animal.getEnrollmentCause() == null){
             animal.setEnrollmentCause("C");
         }
+        animal.setCreatedLocalDateTime(LocalDateTime.now());
         return animalDao.save(animal);
     }
 
@@ -59,11 +61,6 @@ public class AnimalService {
         Animal animalToDelete = animalDao.get(animal.getUuid());
         animalDao.delete(animalToDelete);
     }
-
-    public Animal getAnimalById(String animalId) {
-        return animalDao.get(animalId);
-    }
-
 
     public List<Animal> getByRace(String raceId) {
         return animalDao.getByRace(raceId);
@@ -73,6 +70,9 @@ public class AnimalService {
         return animalDao.getByAnimalType(animalTypeId);
     }
 
+    public Animal getForced(String id) {
+       return animalDao.get(id);
+    }
 }
 
 

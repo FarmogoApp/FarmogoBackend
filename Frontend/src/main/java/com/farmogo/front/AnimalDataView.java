@@ -1,6 +1,7 @@
 package com.farmogo.front;
 
 
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
 import com.farmogo.model.Farm;
 import com.farmogo.services.AnimalService;
@@ -10,6 +11,7 @@ import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -55,8 +57,13 @@ public class AnimalDataView implements Serializable {
             Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
 
             if (params.containsKey("animalId")) {
-                animal = animalService.getAnimalById(params.get("animalId"));
-                setAnimalDescription();
+                try {
+                    animal = animalService.get(params.get("animalId"));
+                    setAnimalDescription();
+                } catch (AccessNotAllowed accessNotAllowed) {
+                    animal = new Animal();
+                    Messages.error("Not Alloed to view this animal", "");
+                }
 
             } else {
                 animal = new Animal();
@@ -72,7 +79,7 @@ public class AnimalDataView implements Serializable {
 
         if (animal.getAnimalTypeId() != null) animalType = animalTypesService.get(animal.getAnimalTypeId()).getDescription();
 
-        if (animal.getMotherId() != null) motherId = animalService.getAnimalById(animal.getMotherId()).getOfficialId();
+        if (animal.getMotherId() != null) motherId = animalService.getForced(animal.getMotherId()).getOfficialId();
 
         if (animal.getDivisionId() != null){
             location = farmService.getBuildingContainingDivision(animal.getDivisionId()).getName()

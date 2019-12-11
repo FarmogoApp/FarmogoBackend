@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestScoped
@@ -35,7 +36,7 @@ public class FarmRs {
             if (farm == null) throw new NotFoundException();
             return farm;
         } catch (AccessNotAllowed accessNotAllowed) {
-            throw new ForbiddenException();
+            throw new ForbiddenException(accessNotAllowed);
         }
     }
 
@@ -48,7 +49,7 @@ public class FarmRs {
             if (farm == null) throw new NotFoundException();
             return incidencesService.getLast(farmId, limit);
         } catch (AccessNotAllowed accessNotAllowed) {
-            throw new ForbiddenException();
+            throw new ForbiddenException(accessNotAllowed);
         }
     }
 
@@ -58,7 +59,7 @@ public class FarmRs {
         try {
             return farmService.save(farm);
         } catch (ModificationNotAllowed ex) {
-            throw new ForbiddenException();
+            throw new ForbiddenException(ex);
         }
     }
 
@@ -71,9 +72,36 @@ public class FarmRs {
             farmService.delete(farm);
             return farm;
         } catch (DeleteNotAllowed | AccessNotAllowed ex) {
-            throw new ForbiddenException();
+            throw new ForbiddenException(ex);
         } catch (DeleteNotPossible deleteNotPossible) {
-            throw new InternalServerErrorException("Are items that they requiere this farm");
+            throw new InternalServerErrorException("Are items that they requiere this farm", deleteNotPossible);
+        }
+    }
+
+
+    @GET
+    @Path("{id}/subscription")
+    public LocalDate getSubscription(@PathParam("id") String id) {
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();;
+            return farm.getSubscriptionExpiration();
+        } catch (AccessNotAllowed ex) {
+            throw new ForbiddenException(ex);
+        }
+    }
+
+    @PUT
+    @Path("{id}/subscription")
+    public LocalDate renewSubscription(@PathParam("id") String id, int months) {
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();
+            farm.setSubscriptionExpiration(LocalDate.now().plusMonths(months));
+            farmService.save(farm);
+            return farm.getSubscriptionExpiration();
+        } catch (AccessNotAllowed | ModificationNotAllowed ex) {
+            throw new ForbiddenException(ex);
         }
     }
 }

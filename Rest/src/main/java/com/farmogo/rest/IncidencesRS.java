@@ -1,15 +1,13 @@
 package com.farmogo.rest;
 
-import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.PermissionError;
-import com.farmogo.model.incidences.*;
+import com.farmogo.model.incidences.Incidence;
 import com.farmogo.services.IncidencesService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.time.LocalDate;
 import java.util.List;
 
 

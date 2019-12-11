@@ -23,6 +23,16 @@ public class UserRS {
         return userService.getAll();
     }
 
+    @GET
+    @Path("firebase/{firebaseUuid}")
+    public User getUser(@PathParam("firebaseUuid") String firebaseUuid){
+        User user = userService.getByFirebaseUuid(firebaseUuid);
+        if (user == null){
+            throw new NullPointerException();
+        }
+        return user;
+    }
+
 
     @POST
     public User create(User user){

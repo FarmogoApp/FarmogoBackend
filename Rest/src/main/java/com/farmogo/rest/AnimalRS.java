@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestScoped
-@Path("animal")
+@Path("animals")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AnimalRS {
@@ -41,7 +41,6 @@ public class AnimalRS {
             throw new ForbiddenException();
         }
     }
-
 
     @GET
     @Path("{id}/incidences")
