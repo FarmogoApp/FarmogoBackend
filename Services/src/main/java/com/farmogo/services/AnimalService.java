@@ -8,6 +8,7 @@ import com.farmogo.model.incidences.Incidence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class AnimalService {
         if (animal.getEnrollmentCause() == null){
             animal.setEnrollmentCause("C");
         }
+        animal.setCreatedLocalDateTime(LocalDateTime.now());
         return animalDao.save(animal);
     }
 
