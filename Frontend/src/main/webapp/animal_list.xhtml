@@ -1,4 +1,4 @@
-<ui:composition template="WEB-INF/templates/user/layout.xhtml"
+    <ui:composition template="WEB-INF/templates/user/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -9,6 +9,12 @@
         <h:head>
             <title>#{i18n['animalViews.animalList']}</title>
         </h:head>
+        <h:form>
+            <p:commandButton value="Official pdf" ajax="false">
+                <p:fileDownload value="#{animalListView.reportDownload}"/>
+            </p:commandButton>
+
+        </h:form>
         <h:form id="animalListForm">
             <p:dataTable
                     id="animalTable"

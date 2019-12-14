@@ -23,6 +23,8 @@ public class FirebaseFilter implements ContainerRequestFilter {
             return;
         if ("GET".equals(containerRequestContext.getMethod()) && "/test/database".equals(containerRequestContext.getUriInfo().getPath()))
             return;
+        if ("GET".equals(containerRequestContext.getMethod()) && containerRequestContext.getUriInfo().getPath().startsWith("/users/firebase"))
+            return;
 
         String authorization = containerRequestContext.getHeaderString("Authorization");
 

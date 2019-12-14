@@ -36,10 +36,10 @@
                     <h:outputText value="#{elem.uuid}"/>
                 </p:column>
                 <p:column headerText="Name">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{elem.name}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{elem.name}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                    <h:outputText value="#{elem.name}"/>
+                </p:column>
+                <p:column headerText="Letter">
+                    <h:outputText value="#{elem.letter}"/>
                 </p:column>
             </p:dataTable>
             <p:contextMenu for="raceTable">
@@ -66,6 +66,11 @@
 
                     <h:outputLabel value="Description" for="desc"/>
                     <p:inputText id="desc" value="#{raceView.race.name}" required="true"/>
+
+                    <h:outputLabel value="Letter" for="letter"/>
+                    <p:inputText id="letter" value="#{raceView.race.letter}" required="true">
+                        <f:validateLength minimum="1" maximum="3" />
+                    </p:inputText>
 
                     <p:column/>
                     <p:commandButton value="Save" icon="pi pi-save"
