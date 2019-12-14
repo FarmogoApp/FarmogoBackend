@@ -1,8 +1,8 @@
 package com.farmogo.front;
 
-import com.farmogo.model.AnimalType;
 import com.farmogo.model.Race;
 import com.farmogo.services.HasRelationatedDataException;
+import com.farmogo.services.NotificationService;
 import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
@@ -13,6 +13,8 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.farmogo.services.NotificationService.ALL_TOPIC;
+
 @Named
 //@RequestScoped
 @ViewScoped
@@ -20,6 +22,10 @@ public class RaceView implements Serializable {
 
     @Inject
     RaceService raceService;
+
+    @Inject
+    NotificationService notificationService;
+
     private List<Race> raceList;
     private Race race;
 
@@ -57,6 +63,13 @@ public class RaceView implements Serializable {
 
     public void save(){
         raceService.save(race);
+
+        try {
+            notificationService.sendNotificationToTopic("Sync pending", "The animal races have been updated", ALL_TOPIC);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Messages.info("Race " + race.getName()+ " has been saved","");
         init();
     }
