@@ -2,15 +2,10 @@ package com.farmogo.dao.mongo;
 
 import com.farmogo.dao.IncidenceDao;
 import com.farmogo.dao.mongo.dto.IncidenceMongo;
-import com.farmogo.dao.mongo.dto.Mapper;
-import com.farmogo.model.Animal;
 import com.farmogo.model.incidences.Incidence;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.operation.OrderBy;
-import org.bson.BsonDocument;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
 

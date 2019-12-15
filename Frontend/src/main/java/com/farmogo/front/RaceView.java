@@ -13,10 +13,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.farmogo.services.NotificationService.ALL_TOPIC;
-
 @Named
-//@RequestScoped
 @ViewScoped
 public class RaceView implements Serializable {
 
@@ -53,38 +50,28 @@ public class RaceView implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         raceService.save((Race) event.getObject());
-        sendPushNotification();
         init();
     }
 
 
-    public void clearSelection(){
+    public void clearSelection() {
         race = new Race();
     }
 
-    public void save(){
+    public void save() {
         raceService.save(race);
-        sendPushNotification();
-        Messages.info("Race " + race.getName()+ " has been saved","");
+        Messages.info("Race " + race.getName() + " has been saved", "");
         init();
     }
 
     public void delete() {
         try {
             raceService.delete(race);
-            sendPushNotification();
-            Messages.info("Race " + race.getName()+ " has been deleted","");
-        }catch (HasRelationatedDataException ex){
-            Messages.error("Race is assigned to animal","If race is assigned to animal you can't delete this");
+            Messages.info("Race " + race.getName() + " has been deleted", "");
+        } catch (HasRelationatedDataException ex) {
+            Messages.error("Race is assigned to animal", "If race is assigned to animal you can't delete this");
         }
         init();
     }
 
-    private void sendPushNotification(){
-        try {
-            notificationService.sendNotificationToTopic("Sync pending", "The animal races have been updated", ALL_TOPIC);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -54,7 +54,6 @@ public class AnimalTypeView implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         animalTypesService.save((AnimalType) event.getObject());
-        sendPushNotification();
         init();
 
     }
@@ -66,7 +65,6 @@ public class AnimalTypeView implements Serializable {
 
     public void save(){
         animalTypesService.save(animalType);
-        sendPushNotification();
         Messages.info("AnimalType " + animalType.getDescription()+ " has been saved","");
         init();
     }
@@ -74,7 +72,6 @@ public class AnimalTypeView implements Serializable {
     public void delete(){
         try {
             animalTypesService.delete(animalType);
-            sendPushNotification();
             Messages.info("AnimalType " + animalType.getDescription()+ " has been deleted","");
         }catch (HasRelationatedDataException ex){
             Messages.error("AnimalType is assigned to animal","If AnimalType is assigned tho animal you can't delete this");
@@ -82,12 +79,6 @@ public class AnimalTypeView implements Serializable {
         init();
     }
 
-    private void sendPushNotification(){
-        try {
-            notificationService.sendNotificationToTopic("Sync pending", "The animal types have been updated", ALL_TOPIC);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
 }

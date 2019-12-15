@@ -19,6 +19,9 @@ public class AnimalTypesService {
     @Inject
     AnimalService animalService;
 
+    @Inject
+    NotificationService notificationService;
+
     public List<AnimalType> getAll() {
         return animalTypeDAO.getAll();
     }
@@ -32,7 +35,9 @@ public class AnimalTypesService {
     }
 
     public AnimalType save(AnimalType animalType) {
-        return animalTypeDAO.save(animalType);
+        AnimalType save = animalTypeDAO.save(animalType);
+        notificationService.sendNotificationToUpdate("animalType");
+        return save;
     }
 
     public void delete(AnimalType animalType) throws HasRelationatedDataException {
@@ -41,5 +46,6 @@ public class AnimalTypesService {
             throw new HasRelationatedDataException();
         }
         animalTypeDAO.delete(animalType);
+        notificationService.sendNotificationToUpdate("animalType");
     }
 }
