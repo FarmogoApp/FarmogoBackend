@@ -29,7 +29,7 @@ public class AnimalCounter {
     }
 
     public String toString(){
-        return prefix + " " + counter;
+        return prefix + counter;
     }
 
     public void incrementAnimalCounter(){
