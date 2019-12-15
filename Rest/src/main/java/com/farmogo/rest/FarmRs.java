@@ -2,6 +2,8 @@ package com.farmogo.rest;
 
 import com.farmogo.model.*;
 import com.farmogo.model.incidences.Incidence;
+import com.farmogo.rest.reporting.AnimalReport;
+import com.farmogo.rest.reporting.AnimalReporting;
 import com.farmogo.services.FarmService;
 import com.farmogo.services.IncidencesService;
 
@@ -9,6 +11,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,6 +28,9 @@ public class FarmRs {
 
     @Inject
     IncidencesService incidencesService;
+
+    @Inject
+    AnimalReporting animalReporting;
 
     @GET
     public List<Farm> getAll() {
@@ -48,6 +57,23 @@ public class FarmRs {
             Farm farm = farmService.get(farmId);
             if (farm == null) throw new NotFoundException();
             return incidencesService.getLast(farmId, limit);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException(accessNotAllowed);
+        }
+    }
+
+    @GET
+    @Path("{id}/report")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @Produces("application/pdf")
+    public Response generateReport(@PathParam("id") String farmId){
+        System.out.println("REPORT");
+
+        try {
+            Farm farm = farmService.get(farmId);
+            if (farm == null) throw new NotFoundException();
+            StreamingOutput stream = outputStream -> animalReporting.generate(farm, outputStream);
+            return Response.ok(stream).build();
         } catch (AccessNotAllowed accessNotAllowed) {
             throw new ForbiddenException(accessNotAllowed);
         }

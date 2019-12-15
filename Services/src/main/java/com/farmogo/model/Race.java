@@ -6,6 +6,7 @@ import java.util.UUID;
 public class Race implements Serializable {
     private String uuid;
     private String name;
+    private String letter;
 
     public Race(){
     }
@@ -29,5 +30,13 @@ public class Race implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 }

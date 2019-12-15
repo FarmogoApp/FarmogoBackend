@@ -9,6 +9,7 @@ public class RaceMongo {
     @BsonId
     private ObjectId uuid;
     private String name;
+    private String letter;
 
     public RaceMongo() {
     }
@@ -35,5 +36,13 @@ public class RaceMongo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 }
