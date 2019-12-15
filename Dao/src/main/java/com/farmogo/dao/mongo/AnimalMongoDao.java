@@ -101,6 +101,7 @@ public class AnimalMongoDao implements AnimalDao {
 
     @Override
     public Animal get(String id) {
+        if (id == null ) return null;
         return AnimalMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
     }
 
