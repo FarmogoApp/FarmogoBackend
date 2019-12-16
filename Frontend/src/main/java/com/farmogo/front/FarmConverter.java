@@ -27,6 +27,7 @@ public class FarmConverter implements Converter<Farm> {
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Farm farm) {
+        if (farm == null) return null;
         return farm.getUuid();
     }
 }
