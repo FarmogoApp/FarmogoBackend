@@ -27,7 +27,7 @@ public class AnimalRS {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Animal> getAll() {
-        return animalService.getAll();
+        return animalService.getCurrentAnimals();
     }
 
     @GET

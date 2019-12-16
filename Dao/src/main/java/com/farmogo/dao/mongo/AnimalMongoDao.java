@@ -36,10 +36,10 @@ public class AnimalMongoDao implements AnimalDao {
     }
 
     @Override
-    public List<Animal> getAll(List<String> farmsId ) {
+    public List<Animal> getAll(List<String> farmsId) {
         Objects.requireNonNull(farmsId);
         List<ObjectId> farms = farmsId.stream().map(ObjectId::new).collect(Collectors.toList());
-        return StreamSupport.stream(mongoCollection.find(Filters.in("farmId",farms)).spliterator(), false)
+        return StreamSupport.stream(mongoCollection.find(Filters.in("farmId", farms)).spliterator(), false)
                 .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
     }
@@ -52,6 +52,15 @@ public class AnimalMongoDao implements AnimalDao {
                         Filters.eq("farmId", new ObjectId(farmId)),
                         Filters.not(Filters.exists("dischargeDate"))
                 )).spliterator(), false)
+                .map(AnimalMongo::convert)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Animal> getCurrentAnimals() {
+        return StreamSupport.stream(mongoCollection.find()
+                .filter(Filters.not(Filters.exists("dischargeDate")))
+                .spliterator(), false)
                 .map(AnimalMongo::convert)
                 .collect(Collectors.toList());
     }
@@ -101,7 +110,7 @@ public class AnimalMongoDao implements AnimalDao {
 
     @Override
     public Animal get(String id) {
-        if (id == null ) return null;
+        if (id == null) return null;
         return AnimalMongo.convert(mongoCollection.find(Filters.eq("_id", new ObjectId(id))).first());
     }
 
@@ -124,4 +133,6 @@ public class AnimalMongoDao implements AnimalDao {
                 .collect(Collectors.toList());
         return collect;
     }
+
+
 }

@@ -14,5 +14,6 @@ public interface AnimalDao {
     Animal get(String id);
     List<Animal> getByRace(String raceId);
     List<Animal> getByAnimalType(String animalTypeId);
+    List<Animal> getCurrentAnimals();
 }
 
