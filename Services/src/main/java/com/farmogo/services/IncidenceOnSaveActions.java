@@ -46,22 +46,24 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
 
     @Override
     public void visit(IncidenceBirth incidenceBirth) {
-        Animal animalChild = new Animal();
-        animalChild.setFarmId(incidenceBirth.getFarmId());
-        animalChild.setOfficialId(incidenceBirth.getOfficialId());
-        animalChild.setBirthDay(incidenceBirth.getBirthDate());
-        animalChild.setRaceId(incidenceBirth.getRaceId());
-        animalChild.setSex(incidenceBirth.getSex());
-        animalChild.setMotherId(incidenceBirth.getAnimalId());
-        animalChild.setMotherOfficialId(animal.getOfficialId());
-        animalChild.setEnrrollementDate(incidenceBirth.getBirthDate());
-        animalChild.setEnrollmentCause("N");
-        animalChild.setOrigin("");
-        animalChild.setEnrollmentSanitaryRegister("");
-        animalChild.setDivisionId(animal.getDivisionId());
-        animalChild.setAnimalTypeId(animalTypesService.getAnimalTypeByDescription("Calf").getUuid());
-        animalService.save(animalChild);
-        farmService.updateAnimalCounter(incidenceBirth.getFarmId());
+        if(incidenceBirth.getUuid() == null){
+            Animal animalChild = new Animal();
+            animalChild.setFarmId(incidenceBirth.getFarmId());
+            animalChild.setOfficialId(incidenceBirth.getOfficialId());
+            animalChild.setBirthDay(incidenceBirth.getBirthDate());
+            animalChild.setRaceId(incidenceBirth.getRaceId());
+            animalChild.setSex(incidenceBirth.getSex());
+            animalChild.setMotherId(incidenceBirth.getAnimalId());
+            animalChild.setMotherOfficialId(animal.getOfficialId());
+            animalChild.setEnrrollementDate(incidenceBirth.getBirthDate());
+            animalChild.setEnrollmentCause("N");
+            animalChild.setOrigin("");
+            animalChild.setEnrollmentSanitaryRegister("");
+            animalChild.setDivisionId(animal.getDivisionId());
+            animalChild.setAnimalTypeId(animalTypesService.getAnimalTypeByDescription("Calf").getUuid());
+            animalService.save(animalChild);
+            farmService.updateAnimalCounter(incidenceBirth.getFarmId());
+        }
     }
 
 }
