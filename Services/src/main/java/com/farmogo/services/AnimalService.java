@@ -35,6 +35,10 @@ public class AnimalService {
         return animalDao.getAllAnimalsByFarmId(farmId);
     }
 
+    public List<Animal> getCurrentAnimals(){
+        return animalDao.getCurrentAnimals();
+    }
+
     public List<Animal> getCurrentAnimalsByFarmId(String farmId) {
         return animalDao.getCurrentAnimalsByFarmId(farmId);
     }
@@ -73,6 +77,8 @@ public class AnimalService {
     public Animal getForced(String id) {
        return animalDao.get(id);
     }
+
+
 }
 
 

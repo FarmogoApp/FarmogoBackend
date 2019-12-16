@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.mongodb.client.model.Sorts.ascending;
-import static com.mongodb.client.model.Sorts.orderBy;
+import static com.mongodb.client.model.Sorts.*;
 
 
 @Stateless
@@ -53,7 +52,7 @@ public class IncidenceMongoDao implements IncidenceDao {
     @Override
     public List<Incidence> getAll() {
         return StreamSupport.stream(mongoCollection.find()
-                .sort(orderBy(ascending("created")))
+                .sort(orderBy(descending("created")))
                 .spliterator(), false)
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
@@ -64,7 +63,7 @@ public class IncidenceMongoDao implements IncidenceDao {
         return StreamSupport.stream(
                 mongoCollection.find()
                         .filter(Filters.eq("animalId", new ObjectId(animalid)))
-                        .sort(orderBy(ascending("date")))
+                        .sort(orderBy(descending("date")))
                         .spliterator(), false)
                 .map(IncidenceMongo::convert)
                 .collect(Collectors.toList());
@@ -78,7 +77,7 @@ public class IncidenceMongoDao implements IncidenceDao {
                                 Filters.eq("farmId", new ObjectId(farmId)),
                                 Filters.eq("complete", false)
                         ))
-                        .sort(orderBy(ascending("date")))
+                        .sort(orderBy(descending("date")))
                         .spliterator(), false)
 
                 .map(IncidenceMongo::convert)
@@ -92,7 +91,7 @@ public class IncidenceMongoDao implements IncidenceDao {
                         .filter(
                                 Filters.eq("farmId", new ObjectId(farmId))
                         )
-                        .sort(orderBy(ascending("date")))
+                        .sort(orderBy(descending("date")))
                         .limit(limit)
                         .spliterator(), false)
 
@@ -107,7 +106,7 @@ public class IncidenceMongoDao implements IncidenceDao {
                         .filter(
                                 Filters.eq("animalId", new ObjectId(animalId))
                         )
-                        .sort(orderBy(ascending("date")))
+                        .sort(orderBy(descending("date")))
                         .skip(skip)
                         .limit(limit)
                         .spliterator(), false)

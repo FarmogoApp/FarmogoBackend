@@ -59,7 +59,14 @@ public class MongoClientProvider {
                 register(com.farmogo.dao.mongo.dto.IncidenceMongoPregnancy.class).
                 register(com.farmogo.dao.mongo.dto.IncidenceMongoTreatment.class).
                 register(com.farmogo.dao.mongo.dto.IncidenceMongoWeight.class).
-                register(IncidenceMongoDischarge.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongoBirth.class).
+                register(com.farmogo.dao.mongo.dto.IncidenceMongoDischarge.class).
+                register(com.farmogo.dao.mongo.dto.RaceMongo.class).
+                register(com.farmogo.dao.mongo.dto.AnimalMongo.class).
+                register(com.farmogo.dao.mongo.dto.BuildingMongo.class).
+                register(com.farmogo.dao.mongo.dto.DivisionMongo.class).
+                register(com.farmogo.dao.mongo.dto.FarmMongo.class).
+                register(com.farmogo.dao.mongo.dto.UserMongo.class).
                 automatic(true).build();
         return fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
     }
