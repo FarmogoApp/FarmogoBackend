@@ -74,15 +74,14 @@ public class AnimalReporting {
         row.setMotherOfficialId(animal.getMotherOfficialId());
         row.setEnrollmentDate(animal.getEnrrollementDate());
         row.setEnrollmentCause(animal.getEnrollmentCause());
-        //row.setEnrollmentOrigin(???);
+        row.setEnrollmentOrigin(animal.getOrigin());
         row.setEnrollmentSanitaryRegister(animal.getEnrollmentSanitaryRegister());
         row.setDischargeDate(animal.getDischargeDate());
         row.setDischargeCause(animal.getDischargeCause());
         row.setDischargeDestination(animal.getDischargeDestination());
         row.setDischargeSanitaryRegister(animal.getDischargeSanitaryRegister());
-        //row.setDateBonus1();
-        //row.setDateBonus2();
-
+        row.setDateBonus1(animal.getDateBonus1());
+        row.setDateBonus2(animal.getDateBonus2());
         return row;
     }
 }
