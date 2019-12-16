@@ -249,6 +249,7 @@ public class TestRs {
             /*Create Farms, Buildings and Divisions */
             Farm farm = new Farm();
             farm.setOfficialId("ES789612");
+            farm.setUserOwnerId(user.getUuid());
             farm.setName("farm 2");
             AnimalCounter counter = new AnimalCounter();
             counter.setCounter(1234);
