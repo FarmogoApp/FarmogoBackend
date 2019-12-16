@@ -18,7 +18,8 @@ public class AnimalCounter {
     }
 
     public void setPrefix(String prefix) {
-        this.prefix = prefix;
+        if (prefix != null)
+            this.prefix = prefix.trim();
     }
 
     public long getCounter() {
@@ -36,5 +37,5 @@ public class AnimalCounter {
     public void incrementAnimalCounter() {
         this.counter += 1;
     }
-    
+
 }
