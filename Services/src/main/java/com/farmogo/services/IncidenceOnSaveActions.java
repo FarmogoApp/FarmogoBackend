@@ -6,6 +6,7 @@ import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.*;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 
 public class IncidenceOnSaveActions implements IncidenceVisitor {
 

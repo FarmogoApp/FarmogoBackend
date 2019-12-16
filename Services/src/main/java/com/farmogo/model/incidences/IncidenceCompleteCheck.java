@@ -41,4 +41,15 @@ public class IncidenceCompleteCheck implements IncidenceVisitor {
         check = obj.getWeight() > 0;
     }
 
+    @Override
+    public void visit(IncidenceBirth obj) {
+        check = obj.getOfficialId() != null &&
+                !obj.getOfficialId().isEmpty() &&
+                obj.getSex() != null &&
+                !obj.getSex().isEmpty() &&
+                obj.getRaceId() != null &&
+                !obj.getRaceId().isEmpty() &&
+                obj.getBirthDate() != null;
+    }
+
 }

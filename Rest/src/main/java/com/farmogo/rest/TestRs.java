@@ -311,7 +311,6 @@ public class TestRs {
             birth.setSex("Male");
             birth.setFarmId(farmA.getUuid());
             birth.setAnimalId(animalA.getUuid());
-            birth.setAnimalId(animalA.getUuid());
 
             incidencesService.save(birth);
 
