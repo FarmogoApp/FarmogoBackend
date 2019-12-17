@@ -14,11 +14,11 @@
     <div class="ui-g-2">
         <h:graphicImage name="logo.png" library="img" height="50"/>
     </div>
-    <div class="ui-g-2">
+    <div class="ui-g-3">
         <h:form id="farmSwitch" rendered="#{farmSwitcherView.farmList.size() gt 1}">
             <p:outputLabel for="@next" value="#{i18n['top.farmSwitcher']}" style="vertical-align: sub;"/>
             <p:selectOneMenu value="#{farmSwitcherView.farm}" converter="#{farmConverter}">
-                <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId}"
+                <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId} - #{farm.name}"
                                itemValue="#{farm}"/>
                 <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect"
                         oncomplete="window.location.href = 'home.xhtml';"/>
@@ -29,7 +29,7 @@
                       rendered="#{farmSwitcherView.farmList.size() eq 1}"/>
 
     </div>
-    <div class="ui-g-2"/>
+    <div class="ui-g-1"/>
 
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
