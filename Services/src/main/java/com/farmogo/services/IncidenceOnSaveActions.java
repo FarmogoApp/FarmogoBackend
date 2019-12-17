@@ -56,7 +56,7 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
         if(incidenceBirth.getUuid() == null){
             Animal animalChild = new Animal();
             animalChild.setFarmId(incidenceBirth.getFarmId());
-            animalChild.setOfficialId(incidenceBirth.getOfficialId());
+            animalChild.setOfficialId(incidenceBirth.getChildOfficialId());
             animalChild.setBirthDay(incidenceBirth.getBirthDate());
             animalChild.setRaceId(incidenceBirth.getRaceId());
             animalChild.setSex(incidenceBirth.getSex());
@@ -68,9 +68,13 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
             animalChild.setEnrollmentSanitaryRegister("");
             animalChild.setDivisionId(animal.getDivisionId());
             animalChild.setAnimalTypeId(animalTypesService.getAnimalTypeByDescription("Calf").getUuid());
-            animalService.save(animalChild);
+            Animal save = animalService.save(animalChild);
+            incidenceBirth.setChildId(save.getUuid());
+            incidenceBirth.setChildOfficialId(save.getOfficialId());
             farmService.updateAnimalCounter(incidenceBirth.getFarmId());
+
         }
+
     }
 
 }

@@ -298,7 +298,7 @@ public class TestRs {
             IncidenceBirth birth = new IncidenceBirth();
             birth.setBirthDate(LocalDate.of(2019, 11, 27));
             birth.setRaceId(raceE.getUuid());
-            birth.setOfficialId(farm.getAnimalCounter().toString());
+            birth.setChildOfficialId(farm.getAnimalCounter().toString());
             birth.setSex("Male");
             birth.setFarmId(farmA.getUuid());
             birth.setAnimalId(animalA.getUuid());

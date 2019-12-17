@@ -43,8 +43,8 @@ public class IncidenceCompleteCheck implements IncidenceVisitor {
 
     @Override
     public void visit(IncidenceBirth obj) {
-        check = obj.getOfficialId() != null &&
-                !obj.getOfficialId().isEmpty() &&
+        check = obj.getChildOfficialId() != null &&
+                !obj.getChildOfficialId().isEmpty() &&
                 obj.getSex() != null &&
                 !obj.getSex().isEmpty() &&
                 obj.getRaceId() != null &&
