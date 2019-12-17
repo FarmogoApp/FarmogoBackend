@@ -26,6 +26,7 @@ public class IncidencesRS {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Incidence save(Incidence incidence) {
         try {
             return incidencesService.save(incidence);
