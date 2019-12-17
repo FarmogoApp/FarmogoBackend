@@ -1,6 +1,5 @@
 package com.farmogo.services;
 
-import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Animal;
 import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.*;
@@ -19,11 +18,15 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     @Inject
     FarmService farmService;
 
+    @Inject
+    UserService userService;
+
     Animal animal;
 
     public void action(Incidence incidence) throws PermissionError {
 
         animal = animalService.get(incidence.getAnimalId());
+        incidence.setCreatedBy(userService.getCurrentUser().getUuid());
 
         if (incidence.getFarmId() == null || incidence.getFarmId().isEmpty()) {
             incidence.setFarmId(animal.getFarmId());
