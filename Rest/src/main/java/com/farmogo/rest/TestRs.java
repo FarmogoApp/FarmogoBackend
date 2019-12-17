@@ -42,6 +42,7 @@ public class TestRs {
     @Inject
     UserService userService;
 
+
     @GET
     @Path("database")
     public String test() throws PermissionError {
@@ -56,7 +57,7 @@ public class TestRs {
         user.setEmail("a@b.com");
         user.setTelephone("987654321");
         user = userService.save(user);
-        System.out.println("User:" + user.getUuid());
+        userService.setCurrentUser(user);
 
         /*Create animal types*/
         AnimalType animalType = new AnimalType();
@@ -107,7 +108,6 @@ public class TestRs {
             Farm farm = new Farm();
             farm.setOfficialId("ES123987");
             farm.setName("Farm 1");
-            farm.setUserOwnerId(user.getUuid());
             AnimalCounter counter = new AnimalCounter();
             counter.setCounter(555);
             counter.setPrefix("HU");
@@ -131,7 +131,6 @@ public class TestRs {
             b2.setDivisions(Arrays.asList(d21, d22));
             farm.setBuildings(Arrays.asList(b1, b2));
             Farm farmA = farmService.save(farm);
-            user.getFarmsAccessible().add(farmA.getUuid());
 
 
             /*Create animals*/
@@ -200,7 +199,6 @@ public class TestRs {
             incidence.setDone(true);
             incidence.setWeight(100);
             incidence.setAnimalId(animalA.getUuid());
-            incidence.setCreatedBy(user.getUuid());
             incidence.setFarmId(farmA.getUuid());
             incidence.setDate(LocalDate.of(2018, 5, 1));
             incidencesService.save(incidence);
@@ -210,7 +208,6 @@ public class TestRs {
             incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
             incidenceTreatment.setMedicine("tetanus");
             incidenceTreatment.setDose("100mg");
-            incidenceTreatment.setCreatedBy(user.getUuid());
             incidenceTreatment.setAnimalId(animalA.getUuid());
             incidenceTreatment.setFarmId(farmA.getUuid());
             incidenceTreatment.setDate(LocalDate.of(2018, 6, 2));
@@ -219,7 +216,6 @@ public class TestRs {
 
             IncidenceTreatment incidenceTreatmentIncomplete = new IncidenceTreatment();
             incidenceTreatmentIncomplete.setTreatmentType(TreatmentType.Vaccine);
-            incidenceTreatmentIncomplete.setCreatedBy(user.getUuid());
             incidenceTreatmentIncomplete.setAnimalId(animalA.getUuid());
             incidenceTreatmentIncomplete.setFarmId(farmA.getUuid());
             incidenceTreatmentIncomplete.setDate(LocalDate.of(2018, 7, 3));
@@ -232,13 +228,11 @@ public class TestRs {
             incidenceDischarge.setObservations("observations");
             incidenceDischarge.setDone(false);
             incidenceDischarge.setAnimalId(animalA.getUuid());
-            incidenceDischarge.setCreatedBy(user.getUuid());
             incidenceDischarge.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceDischarge);
 
             IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
             incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
-            incidencePregnancy.setCreatedBy(user.getUuid());
             incidencePregnancy.setFarmId(farm.getUuid());
             incidencePregnancy.setAnimalId(animalB.getUuid());
             incidencesService.save(incidencePregnancy);
@@ -249,7 +243,6 @@ public class TestRs {
             /*Create Farms, Buildings and Divisions */
             Farm farm = new Farm();
             farm.setOfficialId("ES789612");
-            farm.setUserOwnerId(user.getUuid());
             farm.setName("farm 2");
             AnimalCounter counter = new AnimalCounter();
             counter.setCounter(1234);
@@ -273,7 +266,7 @@ public class TestRs {
             b2.setDivisions(Arrays.asList(d21, d22));
             farm.setBuildings(Arrays.asList(b1, b2));
             Farm farmA = farmService.save(farm);
-            user.getFarmsAccessible().add(farmA.getUuid());
+
 
             Animal animal = new Animal();
             animal.setOrigin("Lleida");
@@ -291,7 +284,6 @@ public class TestRs {
             incidence.setDone(true);
             incidence.setWeight(100);
             incidence.setAnimalId(animalA.getUuid());
-            incidence.setCreatedBy(user.getUuid());
             incidence.setFarmId(farmA.getUuid());
             incidencesService.save(incidence);
 
@@ -299,7 +291,6 @@ public class TestRs {
             incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
             incidenceTreatment.setMedicine("tetanus");
             incidenceTreatment.setDose("100mg");
-            incidenceTreatment.setCreatedBy(user.getUuid());
             incidenceTreatment.setAnimalId(animalA.getUuid());
             incidenceTreatment.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceTreatment);
@@ -307,7 +298,6 @@ public class TestRs {
             IncidenceBirth birth = new IncidenceBirth();
             birth.setBirthDate(LocalDate.of(2019, 11, 27));
             birth.setRaceId(raceE.getUuid());
-            birth.setCreatedBy(user.getUuid());
             birth.setOfficialId(farm.getAnimalCounter().toString());
             birth.setSex("Male");
             birth.setFarmId(farmA.getUuid());
@@ -317,7 +307,6 @@ public class TestRs {
 
         }
 
-        userService.save(user);
 
         return "ok";
 
