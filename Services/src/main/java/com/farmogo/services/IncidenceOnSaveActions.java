@@ -1,11 +1,11 @@
 package com.farmogo.services;
 
+import com.farmogo.model.ActionNotPermitted;
 import com.farmogo.model.Animal;
 import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.*;
 
 import javax.inject.Inject;
-import java.time.LocalDate;
 
 public class IncidenceOnSaveActions implements IncidenceVisitor {
 
@@ -26,6 +26,10 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     public void action(Incidence incidence) throws PermissionError {
 
         animal = animalService.get(incidence.getAnimalId());
+        if (animal.isDischarged()){
+            throw new ActionNotPermitted();
+        }
+
         incidence.setCreatedBy(userService.getCurrentUser().getUuid());
 
         if (incidence.getFarmId() == null || incidence.getFarmId().isEmpty()) {

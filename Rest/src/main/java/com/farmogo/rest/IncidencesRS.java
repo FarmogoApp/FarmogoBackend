@@ -1,5 +1,6 @@
 package com.farmogo.rest;
 
+import com.farmogo.model.ActionNotPermitted;
 import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.Incidence;
 import com.farmogo.services.IncidencesService;
@@ -28,6 +29,8 @@ public class IncidencesRS {
     public void save(Incidence incidence) {
         try {
             incidencesService.save(incidence);
+        }catch (ActionNotPermitted ex){
+            throw new NotAcceptableException();
         } catch (PermissionError accessNotAllowed) {
             throw new ForbiddenException();
         }

@@ -232,6 +232,10 @@ public class Animal implements Serializable {
                 Objects.equals(farmId, animal.farmId);
     }
 
+    public boolean isDischarged(){
+        return this.dischargeDate!=null;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(uuid, animalTypeId, officialId, tagId, sex, raceId, birthDay, dischargeDate, motherId, motherOfficialId, createdLocalDateTime, origin, divisionId, farmId);
