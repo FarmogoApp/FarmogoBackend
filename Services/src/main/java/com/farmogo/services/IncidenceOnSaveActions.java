@@ -43,7 +43,11 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     }
 
     @Override
-    public void visit(IncidenceDischarge obj) {
+    public void visit(IncidenceDischarge obj) throws ActionNotPermitted {
+        if (animal.getDischargeDate()!=null){
+            throw new ActionNotPermitted();
+        }
+
         animal.setDischargeDate(obj.getDate());
         animal.setDischargeCause(obj.getDischargeType().toString());
         animal.setDischargeDestination(obj.getDischargeDestination());
