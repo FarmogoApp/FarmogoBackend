@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.mongodb.client.model.Sorts.*;
+import static com.mongodb.client.model.Sorts.descending;
+import static com.mongodb.client.model.Sorts.orderBy;
 
 
 @Stateless
@@ -37,16 +38,18 @@ public class IncidenceMongoDao implements IncidenceDao {
     }
 
     @Override
-    public void save(Incidence incidence) {
+    public Incidence save(Incidence incidence) {
+        IncidenceMongo convert = IncidenceMongo.convert(incidence);
         ObjectId key = null;
-        if(incidence.getUuid() != null){
+        if (incidence.getUuid() != null) {
             key = new ObjectId(incidence.getUuid());
         }
-        if (key == null){
-            mongoCollection.insertOne(IncidenceMongo.convert(incidence));
+        if (key == null) {
+            mongoCollection.insertOne(convert);
         } else {
-            mongoCollection.replaceOne(Filters.eq("_id", key), IncidenceMongo.convert(incidence));
+            mongoCollection.replaceOne(Filters.eq("_id", key), convert);
         }
+        return IncidenceMongo.convert(convert);
     }
 
     @Override

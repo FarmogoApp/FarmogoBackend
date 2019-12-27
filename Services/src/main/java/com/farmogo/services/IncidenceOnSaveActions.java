@@ -1,12 +1,11 @@
 package com.farmogo.services;
 
-import com.farmogo.model.AccessNotAllowed;
+import com.farmogo.model.ActionNotPermitted;
 import com.farmogo.model.Animal;
 import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.*;
 
 import javax.inject.Inject;
-import java.time.LocalDate;
 
 public class IncidenceOnSaveActions implements IncidenceVisitor {
 
@@ -19,11 +18,19 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     @Inject
     FarmService farmService;
 
+    @Inject
+    UserService userService;
+
     Animal animal;
 
     public void action(Incidence incidence) throws PermissionError {
 
         animal = animalService.get(incidence.getAnimalId());
+        if (animal.isDischarged()){
+            throw new ActionNotPermitted();
+        }
+
+        incidence.setCreatedBy(userService.getCurrentUser().getUuid());
 
         if (incidence.getFarmId() == null || incidence.getFarmId().isEmpty()) {
             incidence.setFarmId(animal.getFarmId());
@@ -49,7 +56,7 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
         if(incidenceBirth.getUuid() == null){
             Animal animalChild = new Animal();
             animalChild.setFarmId(incidenceBirth.getFarmId());
-            animalChild.setOfficialId(incidenceBirth.getOfficialId());
+            animalChild.setOfficialId(incidenceBirth.getChildOfficialId());
             animalChild.setBirthDay(incidenceBirth.getBirthDate());
             animalChild.setRaceId(incidenceBirth.getRaceId());
             animalChild.setSex(incidenceBirth.getSex());
@@ -61,9 +68,13 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
             animalChild.setEnrollmentSanitaryRegister("");
             animalChild.setDivisionId(animal.getDivisionId());
             animalChild.setAnimalTypeId(animalTypesService.getAnimalTypeByDescription("Calf").getUuid());
-            animalService.save(animalChild);
+            Animal save = animalService.save(animalChild);
+            incidenceBirth.setChildId(save.getUuid());
+            incidenceBirth.setChildOfficialId(save.getOfficialId());
             farmService.updateAnimalCounter(incidenceBirth.getFarmId());
+
         }
+
     }
 
 }

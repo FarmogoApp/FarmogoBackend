@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IncidenceDao {
 
-    void save(Incidence incidence);
+    Incidence save(Incidence incidence);
 
     List<Incidence> getAll();
 

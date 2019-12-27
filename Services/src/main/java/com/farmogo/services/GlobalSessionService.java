@@ -16,9 +16,10 @@ public class GlobalSessionService implements Serializable {
     public void init(){
 
         // TODO: mock data. Remove when login are implemented
-        user = new User();
+        /*user = new User();
         user.setUuid("5ee8351342811bf1eecff968");
         user.setName("The Lonely Farmer");
+         */
     }
 
     public User getUser() {

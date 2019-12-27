@@ -1,9 +1,7 @@
 package com.farmogo.dao.mongo.dto;
 
 import com.farmogo.model.incidences.IncidenceType;
-import com.farmogo.model.incidences.PregnancyType;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
-import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
@@ -11,7 +9,8 @@ import java.time.LocalDate;
 @BsonDiscriminator(key = "type", value = "BIRTH")
 public class IncidenceMongoBirth extends IncidenceMongo {
 
-    private String officialId;
+    private String childOfficialId;
+    private ObjectId childId;
     private LocalDate birthDate;
     private ObjectId raceId;
     private String sex;
@@ -21,12 +20,20 @@ public class IncidenceMongoBirth extends IncidenceMongo {
         super(IncidenceType.BIRTH);
     }
 
-    public String getOfficialId() {
-        return officialId;
+    public String getChildOfficialId() {
+        return childOfficialId;
     }
 
-    public void setOfficialId(String officialId) {
-        this.officialId = officialId;
+    public void setChildOfficialId(String childOfficialId) {
+        this.childOfficialId = childOfficialId;
+    }
+
+    public ObjectId getChildId() {
+        return childId;
+    }
+
+    public void setChildId(ObjectId childId) {
+        this.childId = childId;
     }
 
     public LocalDate getBirthDate() {

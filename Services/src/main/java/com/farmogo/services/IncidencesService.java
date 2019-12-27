@@ -35,9 +35,9 @@ public class IncidencesService {
         return incidenceDAO.getLast(farmId, limit);
     }
 
-    public void save(Incidence incidence) throws PermissionError {
+    public Incidence save(Incidence incidence) throws PermissionError {
         incidenceOnSaveActions.action(incidence);
-        incidenceDAO.save(incidence);
+        return incidenceDAO.save(incidence);
     }
 
     public List<Incidence> getByAnimal(String animalId, int skip, int limit) {

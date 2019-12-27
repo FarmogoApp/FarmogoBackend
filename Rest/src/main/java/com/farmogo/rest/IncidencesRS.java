@@ -1,5 +1,6 @@
 package com.farmogo.rest;
 
+import com.farmogo.model.ActionNotPermitted;
 import com.farmogo.model.PermissionError;
 import com.farmogo.model.incidences.Incidence;
 import com.farmogo.services.IncidencesService;
@@ -25,9 +26,12 @@ public class IncidencesRS {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(Incidence incidence) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Incidence save(Incidence incidence) {
         try {
-            incidencesService.save(incidence);
+            return incidencesService.save(incidence);
+        }catch (ActionNotPermitted ex){
+            throw new NotAcceptableException();
         } catch (PermissionError accessNotAllowed) {
             throw new ForbiddenException();
         }

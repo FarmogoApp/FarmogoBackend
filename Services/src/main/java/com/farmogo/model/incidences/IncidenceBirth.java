@@ -5,7 +5,9 @@ import com.farmogo.model.PermissionError;
 import java.time.LocalDate;
 
 public class IncidenceBirth extends Incidence {
-    private String officialId;
+
+    private String childOfficialId;
+    private String childId;
     private LocalDate birthDate;
     private String raceId;
     private String sex;
@@ -13,12 +15,20 @@ public class IncidenceBirth extends Incidence {
 
     public IncidenceBirth() { super(IncidenceType.BIRTH); }
 
-    public String getOfficialId() {
-        return officialId;
+    public String getChildOfficialId() {
+        return childOfficialId;
     }
 
-    public void setOfficialId(String officialId) {
-        this.officialId = officialId;
+    public void setChildOfficialId(String childOfficialId) {
+        this.childOfficialId = childOfficialId;
+    }
+
+    public String getChildId() {
+        return childId;
+    }
+
+    public void setChildId(String childId) {
+        this.childId = childId;
     }
 
     public LocalDate getBirthDate() {

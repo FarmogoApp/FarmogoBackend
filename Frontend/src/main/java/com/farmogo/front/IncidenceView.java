@@ -119,7 +119,7 @@ public class IncidenceView implements Serializable {
                 break;
             case BIRTH:
                 IncidenceBirth i = new IncidenceBirth();
-                i.setOfficialId(farmService.getCurrentFarm().getAnimalCounter().toString());
+                i.setChildOfficialId(farmService.getCurrentFarm().getAnimalCounter().toString());
                 incidence = i;
                 break;
 
