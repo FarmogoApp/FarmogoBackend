@@ -56,7 +56,10 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     }
 
     @Override
-    public void visit(IncidenceBirth incidenceBirth) {
+    public void visit(IncidenceBirth incidenceBirth) throws ActionNotPermitted {
+        if (!"Female".equalsIgnoreCase(animal.getSex())){
+            throw new ActionNotPermitted();
+        }
         if(incidenceBirth.getUuid() == null){
             Animal animalChild = new Animal();
             animalChild.setFarmId(incidenceBirth.getFarmId());
