@@ -21,6 +21,7 @@
                 <configuration>
                     <defaultLibBundleDir>lib/</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
+                    <!--unpackTypes>ejb,war</unpackTypes-->
                     <modules>
                         <ejbModule>
                             <artifactId>Dao</artifactId>
