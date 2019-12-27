@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Named
 @ViewScoped
@@ -45,6 +46,7 @@ public class IncidenceView implements Serializable {
     IncidenceType incidenceType;
     String title;
     PropertyResourceBundle i18n;
+    private Animal animal;
 
     @PostConstruct
     public void init() {
@@ -67,7 +69,7 @@ public class IncidenceView implements Serializable {
             if (animalId != null) {
                 incidenceList = incidencesService.getAll(animalId);
 
-                Animal animal = animalService.get(animalId);
+                animal = animalService.get(animalId);
 
                 title = i18n.getString("incidences.incidences") + " - " + animal.getOfficialId();
             } else {
@@ -197,8 +199,12 @@ public class IncidenceView implements Serializable {
 
     }
 
-    public IncidenceType[] getIncidenceTypes() {
-        return IncidenceType.values();
+    public List<IncidenceType> getIncidenceTypes() {
+        Stream<IncidenceType> types = Arrays.stream(IncidenceType.values());
+        if (animal!=null && !"Female".equals(animal.getSex())){
+            types = types.filter( t -> !t.equals(IncidenceType.BIRTH) && !t.equals(IncidenceType.PREGNANCY));
+        }
+        return types.collect(Collectors.toList());
     }
 
     public PregnancyType[] getPregnancyTypes() {

@@ -84,5 +84,11 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
 
     }
 
+    @Override
+    public void visit(IncidencePregnancy obj) throws PermissionError {
+        if (!"Female".equalsIgnoreCase(animal.getSex())){
+            throw new ActionNotPermitted();
+        }
+    }
 }
 
