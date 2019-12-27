@@ -35,6 +35,7 @@ public class FarmService {
     }
 
     public List<Farm> getFarmsOwned() {
+        if (globalSessionService.getUser() == null) return Collections.emptyList();
         return farmDao.getFarmByOwner(globalSessionService.getUser().getUuid());
     }
 
