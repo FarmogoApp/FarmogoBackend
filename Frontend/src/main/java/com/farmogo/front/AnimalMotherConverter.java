@@ -17,9 +17,11 @@ public class AnimalMotherConverter implements Converter<Animal> {
 
     @Override
     public Animal getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        if (s == null || s.isEmpty() || "External Animal".equals(s)) return null;
-        Animal animal = animalService.get(s);
-        return animal;
+        try {
+            return animalService.get(s);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override

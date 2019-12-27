@@ -10,11 +10,11 @@
 
 <ui:composition template="/WEB-INF/templates/user/layout.xhtml">
     <h:head>
-        <title>Farm Management</title>
+        <title>#{i18n['farmManagement.farmManagement']}</title>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
     </h:head>
     <ui:define name="content">
-        <h1>Farm Management</h1>
+        <h1>#{i18n['farmManagement.farmManagement']}</h1>
         <h:body>
 
             <h:form id="Buildingform">
@@ -26,17 +26,17 @@
                             <f:facet name="header">
                                 <div class="ui-g">
                                     <div class="ui-g-4" style="padding: 0; text-align: left;">
-                                        <p:commandButton value="Add Farm"
+                                        <p:commandButton value="#{i18n['farmManagement.addFarm']}"
                                                          icon="pi pi-plus-circle"
                                                          actionListener="#{configView.clearFarmSelection}"
                                                          update="newFarmDialog"
                                                          oncomplete="PF('newFarmDialog').show()"
                                         />
                                     </div>
-                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">Farms</div>
+                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">#{i18n['farmManagement.farms']}</div>
                                 </div>
                             </f:facet>
-                            <p:column headerText="Name">
+                            <p:column headerText="#{i18n['farmManagement.name']}">
                                     <h:outputText value="#{farm.name}" />
                             </p:column>
                             <p:column style="width: 16px;">
@@ -56,17 +56,17 @@
                             <f:facet name="header">
                                 <div class="ui-g">
                                     <div class="ui-g-4" style="padding: 0; text-align: left;">
-                                        <p:commandButton value="Add Building"
+                                        <p:commandButton value="#{i18n['farmManagement.addBuilding']}"
                                                          icon="pi pi-plus-circle"
                                                          actionListener="#{configView.clearBuildingSelection}"
                                                          update="newBuildingDialog"
                                                              oncomplete="PF('newBuildingDialog').show()"
                                         />
                                     </div>
-                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">Buildings #{configView.farm.name}</div>
+                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">#{i18n['farmManagement.buildings']} #{configView.farm.name}</div>
                                 </div>
                             </f:facet>
-                            <p:column headerText="Name">
+                            <p:column headerText="#{i18n['farmManagement.name']}">
                                     <h:outputText value="#{building.name}" />
                             </p:column>
                             <p:column style="width: 16px;">
@@ -86,18 +86,18 @@
                             <f:facet name="header">
                                 <div class="ui-g">
                                     <div class="ui-g-4" style="padding: 0; text-align: left;">
-                                        <p:commandButton value="Add Division"
+                                        <p:commandButton value="#{i18n['farmManagement.addDivision']}"
                                                          icon="pi pi-plus-circle"
                                                          actionListener="#{configView.clearDivisionSelection}"
                                                          update="newDivisionDialog"
                                                          oncomplete="PF('newDivisionDialog').show()"
                                         />
                                     </div>
-                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">Divisions #{configView.building.name}</div>
+                                    <div class="ui-g-8" style="padding: 0;text-align: center; line-height: 50px;">#{i18n['farmManagement.divisions']} #{configView.building.name}</div>
 
                                 </div>
                             </f:facet>
-                            <p:column id="NameColumn" headerText="Name">
+                            <p:column id="NameColumn" headerText="#{i18n['farmManagement.name']}">
                                 <h:outputText value="#{division.name}" />
                             </p:column>
                             <p:column style="width: 16px;">
@@ -124,13 +124,13 @@
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="Building Name"/>
+                    <h:outputLabel value="#{i18n['farmManagement.buildingName']}"/>
                     <p:column id="newbuildingNameColumn">
                         <p:inputText id="newbuildingName" value="#{configView.building.name}"/>
                     </p:column>
 
 
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['farmManagement.save']}" icon="pi pi-save"
                                      actionListener="#{configView.saveBuilding}"
                                      update=":growl :Buildingform"
                                      oncomplete="PF('newBuildingDialog').hide()"/>
@@ -141,19 +141,19 @@
 
         <p:dialog modal="false" closable="true" id="modifyBuildingDialog" widgetVar="modifyBuildingDialog">
             <f:facet name="header">
-                Modify Building
+                #{i18n['farmManagement.modifyBuilding']}
             </f:facet>
             <h:form id="modifyBuilding">
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="Building name"/>
+                    <h:outputLabel value="#{i18n['farmManagement.buildingName']}"/>
                     <p:column id="modifybuildingNameColumn">
                         <p:inputText id="modifybuildingName" value="#{configView.building.name}"/>
                     </p:column>
 
 
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['farmManagement.save']}" icon="pi pi-save"
                                      actionListener="#{configView.save}"
                                      update=":Buildingform :growl"
                                      oncomplete="PF('modifyBuildingDialog').hide()"/>
@@ -164,19 +164,19 @@
 
         <p:dialog modal="false" closable="true" id="modifyDivisionDialog" widgetVar="modifyDivisionDialog">
             <f:facet name="header">
-                Modify Division
+                #{i18n['farmManagement.modifyDivision']}
             </f:facet>
             <h:form id="modifyDivision">
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="Division name"/>
+                    <h:outputLabel value="#{i18n['farmManagement.divisionName']}"/>
                     <p:column id="modifyDivisionNameColumn">
                         <p:inputText id="modifyDivisionName" value="#{configView.division.name}"/>
                     </p:column>
 
 
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['farmManagement.save']}" icon="pi pi-save"
                                      actionListener="#{configView.save}"
                                      update=":Buildingform :growl"
                                      oncomplete="PF('modifyDivisionDialog').hide()"/>
@@ -186,19 +186,19 @@
         </p:dialog>
         <p:dialog modal="false" closable="true" id="newDivisionDialog" widgetVar="newDivisionDialog">
             <f:facet name="header">
-                New Division
+                #{i18n['farmManagement.newDivision']}
             </f:facet>
             <h:form id="newDivision">
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="Division name"/>
+                    <h:outputLabel value="#{i18n['farmManagement.divisionName']}"/>
                     <p:column id="newDivisionNameColumn">
                         <p:inputText id="newDivisionName" value="#{configView.division.name}"/>
                     </p:column>
 
 
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['farmManagement.save']}" icon="pi pi-save"
                                      actionListener="#{configView.saveDivision}"
                                      update=":Buildingform :growl"
                                      oncomplete="PF('newDivisionDialog').hide()"/>
@@ -209,37 +209,37 @@
 
         <p:dialog modal="false" closable="true" id="modifyFarmDialog" widgetVar="modifyFarmDialog">
             <f:facet name="header">
-                Modify Farm
+                #{i18n['farmManagement.modifyFarm']}
             </f:facet>
             <h:form id="modifyFarm">
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="Farm Name"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmName']}"/>
                     <p:column id="modifyFarmNameColumn">
                         <p:inputText id="modifyFarmName" value="#{configView.farm.name}" var="modifyFarmName"/>
                     </p:column>
 
                     <!-- AnimalCounter Prefix -->
-                    <h:outputLabel value="Farm AnimalCounter Prefix"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmAnimalCounterPrefix']}"/>
                     <p:column id="modifyFarmAnimalCounterPrefixColumn">
                         <p:inputText id="modifyFarmAnimalCounterPrefix" value="#{configView.farm.animalCounter.prefix}" var="modifyFarmAnimalCounterPrefix"/>
                     </p:column>
 
                     <!-- AnimalCounter Counter -->
-                    <h:outputLabel value="Farm AnimalCounter Counter"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmAnimalCounterCounter']}"/>
                     <p:column id="modifyFarmAnimalCounterCounterColumn">
                         <p:inputText id="modifyFarmAnimalCounterCounter" value="#{configView.farm.animalCounter.counter}" var="modifyFarmAnimalCounterCounter"/>
                     </p:column>
 
                     <!-- Official ID -->
-                    <h:outputLabel value="Farm Official ID"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmOfficialID']}"/>
                     <p:column id="modifyFarmOfficialIDColumn">
                         <p:inputText id="modifyFarmOfficialID" value="#{configView.farm.officialId}" var="modifyFarmOfficialID"/>
                     </p:column>
 
                     <p:column/>
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['farmManagement.save']}" icon="pi pi-save"
                                      actionListener="#{configView.save()}"
                                      update=":Buildingform farmSwitch,:growl"
                                      oncomplete="PF('modifyFarmDialog').hide()"/>
@@ -250,37 +250,37 @@
 
         <p:dialog modal="false" closable="true" id="newFarmDialog" widgetVar="newFarmDialog">
             <f:facet name="header">
-                New Farm
+                #{i18n['farmManagement.newFarm']}
             </f:facet>
             <h:form id="newFarm">
                 <p:panelGrid columns="2">
 
                     <!-- Name -->
-                    <h:outputLabel value="Farm Name"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmName']}"/>
                     <p:column id="newFarmNameColumn">
                         <p:inputText id="newFarmName" value="#{configView.farm.name}" var="newFarmName"/>
                     </p:column>
 
                     <!-- AnimalCounter Prefix -->
-                    <h:outputLabel value="Farm AnimalCounter Prefix"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmAnimalCounterPrefix']}"/>
                     <p:column id="newFarmAnimalCounterPrefixColumn">
                         <p:inputText id="newFarmAnimalCounterPrefix" value="#{configView.farm.animalCounter.prefix}" var="newFarmAnimalCounterPrefix"/>
                     </p:column>
 
                     <!-- AnimalCounter Counter -->
-                    <h:outputLabel value="Farm AnimalCounter Counter"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmAnimalCounterCounter']}"/>
                     <p:column id="newFarmAnimalCounterCounterColumn">
                         <p:inputText id="newFarmAnimalCounterCounter" value="#{configView.farm.animalCounter.counter}" var="newFarmAnimalCounterCounter"/>
                     </p:column>
 
                     <!-- Official ID -->
-                    <h:outputLabel value="Farm Official ID"/>
+                    <h:outputLabel value="#{i18n['farmManagement.farmOfficialID']}"/>
                     <p:column id="newFarmOfficialIDColumn">
                         <p:inputText id="newFarmOfficialID" value="#{configView.farm.officialId}" var="newFarmOfficialID"/>
                     </p:column>
 
                     <p:column/>
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['farmManagement.save']}" icon="pi pi-save"
                                      actionListener="#{configView.saveNewFarm()}"
                                      update=":Buildingform :farmSwitch :growl"
                                      oncomplete="PF('newFarmDialog').hide()"/>

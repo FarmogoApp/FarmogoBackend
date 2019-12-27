@@ -1,5 +1,6 @@
 package com.farmogo.model.incidences;
 
+import com.farmogo.model.PermissionError;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -14,7 +15,8 @@ import java.time.LocalDateTime;
         @JsonSubTypes.Type(value = IncidenceWeight.class, name = "WEIGHT"),
         @JsonSubTypes.Type(value = IncidenceTreatment.class, name = "TREATMENT"),
         @JsonSubTypes.Type(value = IncidencePregnancy.class, name = "PREGNANCY"),
-        @JsonSubTypes.Type(value = IncidenceDischarge.class, name = "DISCHARGE")
+        @JsonSubTypes.Type(value = IncidenceDischarge.class, name = "DISCHARGE"),
+        @JsonSubTypes.Type(value = IncidenceBirth.class, name = "BIRTH")
 })
 public abstract class Incidence {
     private String uuid;
@@ -138,5 +140,5 @@ public abstract class Incidence {
         this.removeReason = removeReason;
     }
 
-    public abstract void accept(IncidenceVisitor visitor);
+    public abstract void accept(IncidenceVisitor visitor) throws PermissionError;
 }

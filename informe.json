@@ -1,0 +1,22 @@
+{
+  "farmOfficialId": "ES123456789",
+  "registers": [
+    {
+      "officialId": "ES123456789012",
+      "birthDate": "31/12/2019",
+      "race": "F",
+      "sex": "F",
+      "motherOfficialId": "987665",
+      "enrollmentDate": "2019-11-30",
+      "enrollmentCause": "N",
+      "enrollmentOrigin": "Vilafranca dels camins de tots els dies",
+      "enrollmentSanitaryRegister": "1234/643",
+      "dischargeDate": "2019-11-30",
+      "dischargeCause": "N",
+      "dischargeDestination": "Massoteres",
+      "dischargeSanitaryRegister": "1234/643",
+      "dateBonus1": "2019-11-01",
+      "dateBonus2": "2019-11-01"
+    }
+  ]
+}

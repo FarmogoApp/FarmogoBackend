@@ -18,6 +18,9 @@ public class RaceService {
     @Inject
     AnimalService animalService;
 
+    @Inject
+    NotificationService notificationService;
+
     public List<Race> getAll() {
         return raceDAO.getAll();
     }
@@ -25,7 +28,12 @@ public class RaceService {
     public Race get(String id) { return raceDAO.get(id); }
 
     public Race save(Race race){
-        return raceDAO.save(race);
+        Race save = raceDAO.save(race);
+        notificationService.sendNotificationToUpdate("race");
+        return save;
+
+
+
     }
 
     public void delete(Race race) throws HasRelationatedDataException {
@@ -34,5 +42,6 @@ public class RaceService {
             throw new HasRelationatedDataException();
         }
         raceDAO.delete(race);
+        notificationService.sendNotificationToUpdate("race");
     }
 }

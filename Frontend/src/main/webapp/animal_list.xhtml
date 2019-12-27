@@ -1,4 +1,4 @@
-<ui:composition template="WEB-INF/templates/user/layout.xhtml"
+    <ui:composition template="WEB-INF/templates/user/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -7,8 +7,14 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="content">
         <h:head>
-            <title>Animal List</title>
+            <title>#{i18n['animalViews.animalList']}</title>
         </h:head>
+        <h:form>
+            <p:commandButton value="Official pdf" ajax="false">
+                <p:fileDownload value="#{animalListView.reportDownload}"/>
+            </p:commandButton>
+
+        </h:form>
         <h:form id="animalListForm">
             <p:dataTable
                     id="animalTable"
@@ -19,11 +25,11 @@
 
                 <f:facet name="header">
                     <div class="ui-g" style="padding-right: 25px;">
-                        <div class="ui-g-12" style="padding: 0;text-align: center; ">Animal data</div>
+                        <div class="ui-g-12" style="padding: 0;text-align: center; ">#{i18n['animalViews.animalList']}</div>
                     </div>
                     <div class="ui-g" style="padding-right: 25px;">
                         <div class="ui-g-4" style="padding: 0; text-align: left;">
-                            <p:commandButton value="Add"
+                            <p:commandButton value="#{i18n['animalViews.add']}"
                                              icon="pi pi-plus-circle"
                                              actionListener="#{animalListView.clearSelection}"
                                              update="newAnimalDialog"
@@ -69,7 +75,7 @@
                 <!--                </p:column>-->
 
                 <!-- Official ID -->
-                <p:column headerText="Official ID" filterBy="#{elem.officialId}" filterMatchMode="contains"
+                <p:column headerText="#{i18n['animalViews.officialID']}" filterBy="#{elem.officialId}" filterMatchMode="contains"
                           toggleable="false">
                     <p:link outcome="animal_data" value="#{elem.officialId}">
                         <f:param name="animalId" value="#{elem.uuid}"/>
@@ -77,7 +83,7 @@
                 </p:column>
 
                 <!-- Mother ID -->
-                <p:column headerText="Mother ID" filterBy="#{elem.motherOfficialId}"
+                <p:column headerText="#{i18n['animalViews.motherID']}" filterBy="#{elem.motherOfficialId}"
                           filterMatchMode="contains" visible="#{animalColumnToogler.visibility[1]}">
 
                         <p:link outcome="animal_data" value="#{elem.motherOfficialId}" rendered="#{not empty elem.motherId}">
@@ -89,11 +95,11 @@
                 </p:column>
 
                 <!-- Race -->
-                <p:column headerText="Race" filterBy="#{animalListView.races[elem.raceId]}"
+                <p:column headerText="#{i18n['animalViews.race']}" filterBy="#{animalListView.races[elem.raceId]}"
                           filterMatchMode="exact" visible="#{animalColumnToogler.visibility[2]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.all']}" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{animalListView.races.entrySet()}" var="entity"
                                            itemValue="#{entity.value}" itemLabel="#{entity.value}"/>
                         </p:selectOneMenu>
@@ -106,11 +112,11 @@
                 </p:column>
 
                 <!-- Animal Type -->
-                <p:column headerText="Animal type" filterBy="#{animalListView.animalTypes[elem.animalTypeId]}"
+                <p:column headerText="#{i18n['animalViews.animalType']}" filterBy="#{animalListView.animalTypes[elem.animalTypeId]}"
                           filterMatchMode="exact" visible="#{animalColumnToogler.visibility[3]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.all']}" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
                                            itemValue="#{entity.value}"
                                            itemLabel="#{entity.value}"/>
@@ -124,7 +130,7 @@
                 </p:column>
 
                 <!-- Origin-->
-                <p:column headerText="Origin" filterBy="#{elem.origin}" filterMatchMode="contains"
+                <p:column headerText="#{i18n['animalViews.origin']}" filterBy="#{elem.origin}" filterMatchMode="contains"
                           visible="#{animalColumnToogler.visibility[4]}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{elem.origin}"/></f:facet>
@@ -133,13 +139,13 @@
                 </p:column>
 
                 <!-- Sex -->
-                <p:column headerText="Sex" filterBy="#{elem.sex}" filterMatchMode="exact"
+                <p:column headerText="#{i18n['animalViews.sex']}" filterBy="#{elem.sex}" filterMatchMode="exact"
                           visible="#{animalColumnToogler.visibility[5]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Male" itemValue="Male"/>
-                            <f:selectItem itemLabel="Female" itemValue="Female"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.all']}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.male']}" itemValue="Male"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.female']}" itemValue="Female"/>
                         </p:selectOneMenu>
                     </f:facet>
                     <p:cellEditor>
@@ -149,11 +155,11 @@
                 </p:column>
 
                 <!-- Location -->
-                <p:column headerText="Location" filterBy="#{animalListView.divisions[elem.divisionId]}"
+                <p:column headerText="#{i18n['animalViews.location']}" filterBy="#{animalListView.divisions[elem.divisionId]}"
                           filterMatchMode="exact" visible="#{animalColumnToogler.visibility[6]}">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('animalTableWidget').filter()">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.all']}" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity"
                                            itemValue="#{entity.value}"
                                            itemLabel="#{animalListView.getBuildingContainingDivision(entity.key)} - #{entity.value}"/>
@@ -170,7 +176,7 @@
                 </p:column>
 
                 <!-- Birth date -->
-                <p:column headerText="Birth date" sortBy="#{elem.birthDay}"
+                <p:column headerText="#{i18n['animalViews.birthDate']}" sortBy="#{elem.birthDay}"
                           visible="#{animalColumnToogler.visibility[7]}">
                     <p:cellEditor>
                         <f:facet name="output">
@@ -183,7 +189,7 @@
                 </p:column>
 
                 <!-- Discharge Date -->
-                <p:column headerText="Discharge date" sortBy="#{elem.dischargeDate}"
+                <p:column headerText="#{i18n['animalViews.dischargeDate']}" sortBy="#{elem.dischargeDate}"
                           visible="#{animalColumnToogler.visibility[8]}">
                     <p:cellEditor>
                         <f:facet name="output">
@@ -215,20 +221,20 @@
 
         <p:dialog modal="false" closable="true" id="newAnimalDialog" widgetVar="newAnimalDialog">
             <f:facet name="header">
-                New Animal
+                #{i18n['animalViews.newAnimal']}
             </f:facet>
             <h:form id="newAnimal">
                 <p:panelGrid columns="2">
 
                     <!-- Official ID -->
-                    <h:outputLabel value="Official ID"/>
+                    <h:outputLabel value="#{i18n['animalViews.officialID']}"/>
                     <p:column id="officialIdColumn">
                         <p:inputText id="officialID" value="#{animalListView.animal.officialId}"/>
                         <p:message for="officialID"/>
                     </p:column>
 
                     <!-- Birth date -->
-                    <h:outputLabel value="Birth date"/>
+                    <h:outputLabel value="#{i18n['animalViews.birthDate']}"/>
                     <p:column id="birthDateColumn">
                         <p:datePicker id="birthDate" value="#{animalListView.animal.birthDay}" monthNavigator="true"
                                       pattern="dd/MM/yyyy"/>
@@ -236,11 +242,11 @@
                     </p:column>
 
                     <!-- Mother Id -->
-                    <h:outputLabel value="Mother ID"/>
+                    <h:outputLabel value="#{i18n['animalViews.motherID']}"/>
                     <p:column id="motherIdColumn">
 
                         <p:selectOneMenu id="motherIdSelect" value="#{animalListView.mother}" converter="#{animalMotherConverter}" >
-                            <f:selectItem itemLabel="External Animal" itemValue="#{null}" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.externalAnimal']}" itemValue="#{null}" value="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{animalListView.mothers}" var="animal" itemLabel="#{animal.officialId}"/>
                             <p:ajax event="change" update="inputMotherOfficialId" process="@this" immediate="true"/>
                         </p:selectOneMenu>
@@ -249,25 +255,41 @@
                                      disabled="#{not empty animalListView.mother}"/>
                     </p:column>
 
+                    <!-- Enrollament date -->
+                    <h:outputLabel value="Enrollament date"/>
+                    <p:column id="enrollamentDateColumn">
+                        <p:datePicker id="enrollamentDate" value="#{animalListView.animal.enrrollementDate}" monthNavigator="true"
+                                      pattern="dd/MM/yyyy"/>
+                        <p:message for="enrollamentDate"/>
+                    </p:column>
+
                     <!-- Origin -->
-                    <h:outputLabel value="Origin"/>
+                    <h:outputLabel value="#{i18n['animalViews.origin']}"/>
                     <p:column id="originColumn">
                         <p:inputText id="origin" value="#{animalListView.animal.origin}"/>
                         <p:message for="origin"/>
                     </p:column>
 
+                    <!-- SanitaryRegister -->
+                    <h:outputLabel value="Sanitary Register"/>
+                    <p:column id="SanitaryRegisterColumn">
+                        <p:inputText id="SanitaryRegister" value="#{animalListView.animal.enrollmentSanitaryRegister}"/>
+                        <p:message for="SanitaryRegister"/>
+                    </p:column>
+
+
                     <!-- Sex -->
-                    <h:outputLabel value="Sex"/>
+                    <h:outputLabel value="#{i18n['animalViews.sex']}"/>
                     <p:column id="sexColumn">
                         <p:selectOneMenu id="sexSelect" value="#{animalListView.animal.sex}">
-                            <f:selectItem itemLabel="Male" itemValue="Male"/>
-                            <f:selectItem itemLabel="Female" itemValue="Female"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.male']}" itemValue="Male"/>
+                            <f:selectItem itemLabel="#{i18n['animalViews.female']}" itemValue="Female"/>
                         </p:selectOneMenu>
                         <p:message for="sexSelect"/>
                     </p:column>
 
                     <!-- Animal type-->
-                    <h:outputLabel value="Animal type"/>
+                    <h:outputLabel value="#{i18n['animalViews.animalType']}"/>
                     <p:column id="animalTypeColumn">
                         <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
                             <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
@@ -277,7 +299,7 @@
                     </p:column>
 
                     <!-- Race -->
-                    <h:outputLabel value="Race"/>
+                    <h:outputLabel value="#{i18n['animalViews.race']}"/>
                     <p:column id="raceColumn">
                         <p:selectOneMenu id="raceSelect" value="#{animalListView.animal.raceId}">
                             <f:selectItems value="#{animalListView.races.entrySet()}" var="entity"
@@ -287,7 +309,7 @@
                     </p:column>
 
                     <!-- Location -->
-                    <h:outputLabel value="Location"/>
+                    <h:outputLabel value="#{i18n['animalViews.location']}"/>
                     <p:column id="locationColumn">
                         <p:selectOneMenu id="locationSelect" value="#{animalListView.animal.divisionId}">
                             <f:selectItems value="#{animalListView.divisions.entrySet()}" var="entity"
@@ -298,7 +320,7 @@
                     </p:column>
 
                     <p:column/>
-                    <p:commandButton value="Save" icon="pi pi-save"
+                    <p:commandButton value="#{i18n['animalViews.save']}" icon="pi pi-save"
                                      actionListener="#{animalListView.save}"
                                      update=":animalListForm:animalTable originColumn :growl"
                                      oncomplete="PF('newAnimalDialog').hide()"/>

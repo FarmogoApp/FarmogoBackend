@@ -1,8 +1,8 @@
 package com.farmogo.front;
 
-import com.farmogo.model.AnimalType;
 import com.farmogo.model.Race;
 import com.farmogo.services.HasRelationatedDataException;
+import com.farmogo.services.NotificationService;
 import com.farmogo.services.RaceService;
 import org.primefaces.event.RowEditEvent;
 
@@ -14,12 +14,15 @@ import java.io.Serializable;
 import java.util.List;
 
 @Named
-//@RequestScoped
 @ViewScoped
 public class RaceView implements Serializable {
 
     @Inject
     RaceService raceService;
+
+    @Inject
+    NotificationService notificationService;
+
     private List<Race> raceList;
     private Race race;
 
@@ -51,22 +54,22 @@ public class RaceView implements Serializable {
     }
 
 
-    public void clearSelection(){
+    public void clearSelection() {
         race = new Race();
     }
 
-    public void save(){
+    public void save() {
         raceService.save(race);
-        Messages.info("Race " + race.getName()+ " has been saved","");
+        Messages.info("Race " + race.getName() + " has been saved", "");
         init();
     }
 
     public void delete() {
         try {
             raceService.delete(race);
-            Messages.info("Race " + race.getName()+ " has been deleted","");
-        }catch (HasRelationatedDataException ex){
-            Messages.error("Race is assigned to animal","If race is assigned tho animal you can't delete this");
+            Messages.info("Race " + race.getName() + " has been deleted", "");
+        } catch (HasRelationatedDataException ex) {
+            Messages.error("Race is assigned to animal", "If race is assigned to animal you can't delete this");
         }
         init();
     }

@@ -1,5 +1,6 @@
 package com.farmogo.front;
 
+import com.farmogo.model.AccessNotAllowed;
 import com.farmogo.model.Farm;
 import com.farmogo.services.FarmService;
 
@@ -17,11 +18,16 @@ public class FarmConverter implements Converter<Farm> {
 
     @Override
     public Farm getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
-        return farmService.get(s);
+        try {
+            return farmService.get(s);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            return null;
+        }
     }
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Farm farm) {
+        if (farm == null) return null;
         return farm.getUuid();
     }
 }

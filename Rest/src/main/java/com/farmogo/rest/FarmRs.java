@@ -1,13 +1,21 @@
 package com.farmogo.rest;
 
 import com.farmogo.model.*;
+import com.farmogo.model.incidences.Incidence;
+import com.farmogo.rest.reporting.AnimalReport;
+import com.farmogo.rest.reporting.AnimalReporting;
 import com.farmogo.services.FarmService;
+import com.farmogo.services.IncidencesService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestScoped
@@ -18,96 +26,108 @@ public class FarmRs {
     @Inject
     FarmService farmService;
 
+    @Inject
+    IncidencesService incidencesService;
+
+    @Inject
+    AnimalReporting animalReporting;
+
     @GET
     public List<Farm> getAll() {
-        return farmService.getAll();
+        return farmService.getFarms();
     }
 
     @GET
     @Path("{id}")
     public Farm get(@PathParam("id") String id) {
-        return farmService.get(id);
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();
+            return farm;
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException(accessNotAllowed);
+        }
     }
 
+    @GET
+    @Path("{id}/lastIncidences")
+    public List<Incidence> getLastIncidences(@PathParam("id") String farmId,
+                                             @QueryParam("limit") @DefaultValue("10") int limit) {
+        try {
+            Farm farm = farmService.get(farmId);
+            if (farm == null) throw new NotFoundException();
+            return incidencesService.getLast(farmId, limit);
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException(accessNotAllowed);
+        }
+    }
+
+    @GET
+    @Path("{id}/report")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @Produces("application/pdf")
+    public Response generateReport(@PathParam("id") String farmId){
+        System.out.println("REPORT");
+
+        try {
+            Farm farm = farmService.get(farmId);
+            if (farm == null) throw new NotFoundException();
+            StreamingOutput stream = outputStream -> animalReporting.generate(farm, outputStream);
+            return Response.ok(stream).build();
+        } catch (AccessNotAllowed accessNotAllowed) {
+            throw new ForbiddenException(accessNotAllowed);
+        }
+    }
+
+
     @POST
-    public Farm save(Farm farm) {  return farmService.save(farm);}
+    public Farm save(Farm farm) {
+        try {
+            return farmService.save(farm);
+        } catch (ModificationNotAllowed ex) {
+            throw new ForbiddenException(ex);
+        }
+    }
 
     @DELETE
     @Path("{id}")
     public Farm delete(@PathParam("id") String id) {
-        Farm farm = farmService.get(id);
-        if(farm== null) throw new NotFoundException();
-        farmService.delete(farm);
-        return farm;
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();
+            farmService.delete(farm);
+            return farm;
+        } catch (DeleteNotAllowed | AccessNotAllowed ex) {
+            throw new ForbiddenException(ex);
+        } catch (DeleteNotPossible deleteNotPossible) {
+            throw new InternalServerErrorException("Are items that they requiere this farm", deleteNotPossible);
+        }
     }
 
+
     @GET
-    @Path("test")
-    public String test(){
-
-
-        Farm f1 = new Farm();
-        f1.setOfficialId("1234");
-        f1.setName("farm 1");
-        AnimalCounter AN1 = new AnimalCounter();
-        AN1.setCounter(5555);
-        AN1.setPrefix("SD");
-        f1.setAnimalCounter(AN1);
-
-        Building b11 = new Building();
-        b11.setName("build 1.1");
-
-        Building b12 = new Building();
-        b12.setName("build 1.2");
-
-        Division d111 = new Division();
-        d111.setName("division 1.1.1");
-
-        Division d112 = new Division();
-        d112.setName("division 1.1.2");
-
-        Division d121 = new Division();
-        d121.setName("division 1.2.1");
-
-        b11.setDivisions(Arrays.asList(d111,d112));
-        b12.setDivisions(Arrays.asList(d121));
-
-        f1.setBuildings(Arrays.asList(b11,b12));
-
-        for (int i = 1; i < 11; i++) {
-            f1.setName("Farm " + i);
-            f1.setOfficialId("ID " + i);
-            f1.setAnimalCounter(new AnimalCounter("SD", i));
-            farmService.save(f1);
+    @Path("{id}/subscription")
+    public LocalDate getSubscription(@PathParam("id") String id) {
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();;
+            return farm.getSubscriptionExpiration();
+        } catch (AccessNotAllowed ex) {
+            throw new ForbiddenException(ex);
         }
+    }
 
-
-        f1 = new Farm();
-        f1.setOfficialId("5678");
-        f1.setName("farm 2");
-
-        b11 = new Building();
-        b11.setName("build 2.1");
-
-        b12 = new Building();
-        b12.setName("build 2.2");
-
-        d111 = new Division();
-        d111.setName("division 2.1.1");
-
-        d112 = new Division();
-        d112.setName("division 2.1.2");
-
-        d121 = new Division();
-        d121.setName("division 2.2.1");
-
-        b11.setDivisions(Arrays.asList(d111,d112));
-        b12.setDivisions(Arrays.asList(d121));
-
-        f1.setBuildings(Arrays.asList(b11,b12));
-
-        farmService.save(f1);
-
-        return "ok";
+    @PUT
+    @Path("{id}/subscription")
+    public LocalDate renewSubscription(@PathParam("id") String id, int months) {
+        try {
+            Farm farm = farmService.get(id);
+            if (farm == null) throw new NotFoundException();
+            farm.setSubscriptionExpiration(LocalDate.now().plusMonths(months));
+            farmService.save(farm);
+            return farm.getSubscriptionExpiration();
+        } catch (AccessNotAllowed | ModificationNotAllowed ex) {
+            throw new ForbiddenException(ex);
+        }
     }
 }

@@ -22,7 +22,7 @@
         <f:facet name="header">
             <div class="ui-g">
                 <div class="ui-g-4" style="padding: 0; text-align: left;">
-                    <p:commandButton value="Add"
+                    <p:commandButton value="#{i18n['incidences.add']}"
                                      icon="pi pi-plus-circle"
                                      actionListener="#{incidenceView.resetIncidence()}"
                                      rendered="#{not empty incidenceView.animalId}"
@@ -46,25 +46,25 @@
         <p:column style="width: 16px;" exportable="false">
             <p:rowToggler/>
         </p:column>
-        <p:column headerText="Type" filterBy="#{elem.type}" filterMatchMode="exact">
+        <p:column headerText="#{i18n['incidences.type']}" filterBy="#{elem.type}" filterMatchMode="exact">
             <f:facet name="filter">
                 <p:selectOneMenu onchange="PF('incidencesTable').filter()">
-                    <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="#{i18n['incidences.all']}" itemValue="#{null}" noSelectionOption="true"/>
                     <f:selectItems value="#{incidenceView.incidenceTypes}" var="entity"
                                    itemValue="#{entity}" itemLabel="#{entity.name()}"/>
                 </p:selectOneMenu>
             </f:facet>
             <h:outputText value="#{elem.type}"/>
         </p:column>
-        <p:column headerText="Animal" rendered="#{empty incidenceView.animalId}">
+        <p:column headerText="#{i18n['incidences.animal']}" rendered="#{empty incidenceView.animalId}">
             <p:link outcome="animal_data" value="${incidenceView.getAnimalOfficialId(elem.animalId)}">
                 <f:param name="animalId" value="${elem.animalId}"/>
             </p:link>
         </p:column>
-        <p:column headerText="Date">
+        <p:column headerText="#{i18n['incidences.date']}">
             <h:outputText value="#{elem.date}"/>
         </p:column>
-        <p:column headerText="Created">
+        <p:column headerText="#{i18n['incidences.created']}">
             <h:outputText value="#{elem.created}"/>
         </p:column>
         <p:column style="width: 70px;" exportable="false" styleClass="tools">
@@ -82,34 +82,37 @@
         </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="2" columnClasses="ui-grid-col-2 bold,ui-grid-col-10" layout="grid">
-                <h:outputText value="Discharge type" rendered="#{elem.type eq 'DISCHARGE'}"/>
+                <h:outputText value="#{i18n['incidences.dischargeType']}" rendered="#{elem.type eq 'DISCHARGE'}"/>
                 <h:outputText value="#{elem.dischargeType}" rendered="#{elem.type eq 'DISCHARGE'}"/>
 
-                <h:outputText value="Health Register" rendered="#{elem.type eq 'DISCHARGE'}"/>
+                <h:outputText value="#{i18n['incidences.healthRegister']}" rendered="#{elem.type eq 'DISCHARGE'}"/>
                 <h:outputText value="#{elem.healthRegister}" rendered="#{elem.type eq 'DISCHARGE'}"/>
 
-                <h:outputText value="Pregnancy Type" rendered="#{elem.type eq 'PREGNANCY'}"/>
+                <h:outputText value="Discharge Destination" rendered="#{elem.type eq 'DISCHARGE'}"/>
+                <h:outputText value="#{elem.dischargeDestination}" rendered="#{elem.type eq 'DISCHARGE'}"/>
+
+                <h:outputText value="#{i18n['incidences.pregnancyType']}" rendered="#{elem.type eq 'PREGNANCY'}"/>
                 <h:outputText value="#{elem.pregnancyType}" rendered="#{elem.type eq 'PREGNANCY'}"/>
 
-                <h:outputText value="Treatment Type" rendered="#{elem.type eq 'TREATMENT'}"/>
+                <h:outputText value="#{i18n['incidences.treatmentType']}" rendered="#{elem.type eq 'TREATMENT'}"/>
                 <h:outputText value="#{elem.treatmentType}" rendered="#{elem.type eq 'TREATMENT'}"/>
 
-                <h:outputText value="Medicine" rendered="#{elem.type eq 'TREATMENT'}"/>
+                <h:outputText value="#{i18n['incidences.medicine']}" rendered="#{elem.type eq 'TREATMENT'}"/>
                 <h:outputText value="#{elem.medicine}" rendered="#{elem.type eq 'TREATMENT'}"/>
 
-                <h:outputText value="Dose" rendered="#{elem.type eq 'TREATMENT'}"/>
+                <h:outputText value="#{i18n['incidences.dose']}" rendered="#{elem.type eq 'TREATMENT'}"/>
                 <h:outputText value="#{elem.dose}" rendered="#{elem.type eq 'TREATMENT'}"/>
 
-                <h:outputText value="Weight" rendered="#{elem.type eq 'WEIGHT'}"/>
+                <h:outputText value="#{i18n['incidences.weight']}" rendered="#{elem.type eq 'WEIGHT'}"/>
                 <h:outputText value="#{elem.weight}" rendered="#{elem.type eq 'WEIGHT'}"/>
 
-                <h:outputText value="Observations"/>
+                <h:outputText value="#{i18n['incidences.observations']}"/>
                 <h:outputText value="#{elem.observations}" styleClass="preformatted"/>
 
-                <h:outputText value="Remove Reason" rendered="#{not empty elem.removeDate}"/>
+                <h:outputText value="#{i18n['incidences.removeReason']}" rendered="#{not empty elem.removeDate}"/>
                 <h:outputText value="#{elem.removeReason}" styleClass="preformatted"/>
 
-                <h:outputText value="Remove Date" rendered="#{not empty elem.removeReason}"/>
+                <h:outputText value="#{i18n['incidences.removeDate']}" rendered="#{not empty elem.removeReason}"/>
                 <h:outputText value="#{elem.removeDate}"/>
 
             </p:panelGrid>

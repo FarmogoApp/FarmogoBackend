@@ -1,7 +1,5 @@
 package com.farmogo.model;
 
-import com.farmogo.model.incidences.Incidence;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,9 +7,10 @@ public class User implements Serializable {
     private String uuid;
     private String email;
     private String name;
-    private String password;
-    private String billData;
-    private List<Incidence> incidencesList;
+    private String telephone;
+    private List<String> farmsAccessible;
+    private String firebaseUuid;
+    private List<String> firebaseNotificationTokens;
 
     public String getUuid() {
         return uuid;
@@ -37,26 +36,35 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public List<String> getFarmsAccessible() {
+        return farmsAccessible;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFarmsAccessible(List<String> farmsAccessible) {
+        this.farmsAccessible = farmsAccessible;
     }
 
-    public String getBillData() {
-        return billData;
+    public String getFirebaseUuid() {
+        return firebaseUuid;
     }
 
-    public void setBillData(String billData) {
-        this.billData = billData;
-    }
-    public List<Incidence> getIncidencesList() {
-        return incidencesList;
+    public void setFirebaseUuid(String firebaseUuid) {
+        this.firebaseUuid = firebaseUuid;
     }
 
-    public void setIncidencesList(List<Incidence> incidencesList) {
-        this.incidencesList = incidencesList;
+    public List<String> getFirebaseNotificationTokens() {
+        return firebaseNotificationTokens;
+    }
+
+    public void setFirebaseNotificationTokens(List<String> firebaseNotificationTokens) {
+        this.firebaseNotificationTokens = firebaseNotificationTokens;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

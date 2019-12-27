@@ -12,6 +12,7 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.PropertyResourceBundle;
 
 
 @Named
@@ -48,11 +49,11 @@ public class LocalDateConverter implements Converter {
             DatePicker datePicker = (DatePicker) component;
             return datePicker.getPattern();
         }
-        if (component instanceof javax.faces.component.html.HtmlOutputText) {
-            return "dd/MM/yyyy";
-        }
-        if (component instanceof org.primefaces.component.inputtext.InputText) {
-            return "dd/MM/yyyy";
+
+        if (component instanceof org.primefaces.component.inputtext.InputText ||
+                component instanceof javax.faces.component.html.HtmlOutputText) {
+            PropertyResourceBundle i18n = context.getApplication().evaluateExpressionGet(context, "#{i18n}", PropertyResourceBundle.class);
+            return i18n.getString("date.format");
         }
         return null;
     }

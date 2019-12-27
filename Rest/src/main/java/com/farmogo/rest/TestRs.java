@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @RequestScoped
@@ -38,14 +39,25 @@ public class TestRs {
     @Inject
     IncidencesService incidencesService;
 
+    @Inject
+    UserService userService;
+
+
     @GET
     @Path("database")
-    public String test() {
+    public String test() throws PermissionError {
         /* Drop All database */
         adminService.clearDatabase();
 
         User user = new User();
-        user.setUuid("1dd6e8a242811bf1eecf90ac");
+        //user.setUuid("1dd6e8a242811bf1eecf90ac");
+        user.setFarmsAccessible(new ArrayList<>());
+        user.setFirebaseUuid("EGXfYFAz8SeXBm7wAVxKpXcH0cz1");
+        user.setName("User Farmer");
+        user.setEmail("a@b.com");
+        user.setTelephone("987654321");
+        user = userService.save(user);
+        userService.setCurrentUser(user);
 
         /*Create animal types*/
         AnimalType animalType = new AnimalType();
@@ -66,35 +78,46 @@ public class TestRs {
 
         /*Create races*/
         Race race = new Race();
-        race.setName("Blonda de Aquitania");
+        race.setName("Blonda");
+        race.setLetter("BA");
         Race raceA = raceService.save(race);
 
         Race race2 = new Race();
         race2.setName("Charolesa");
+        race2.setLetter("C");
         Race raceB = raceService.save(race2);
 
         Race race3 = new Race();
         race3.setName("Fleckvieh");
+        race3.setLetter("FL");
         Race raceC = raceService.save(race3);
 
         Race race4 = new Race();
         race4.setName("Holstein");
+        race4.setLetter("FR");
         Race raceD = raceService.save(race4);
 
         Race race5 = new Race();
         race5.setName("Hereford");
+        race5.setLetter("H");
         Race raceE = raceService.save(race5);
+
+        Race race6 = new Race();
+        race6.setName("Prirenaica");
+        race6.setLetter("P");
+        Race raceF = raceService.save(race);
 
         {
 
             /*Create Farms, Buildings and Divisions */
             Farm farm = new Farm();
-            farm.setOfficialId("1234");
-            farm.setName("farm ");
+            farm.setOfficialId("ES123987456385");
+            farm.setName("Farm 1");
             AnimalCounter counter = new AnimalCounter();
             counter.setCounter(555);
             counter.setPrefix("HU");
             farm.setAnimalCounter(counter);
+
 
             Building b1 = new Building();
             b1.setName("Build 1");
@@ -114,6 +137,7 @@ public class TestRs {
             farm.setBuildings(Arrays.asList(b1, b2));
             Farm farmA = farmService.save(farm);
 
+
             /*Create animals*/
             Animal animal = new Animal();
             animal.setOrigin("Lleida");
@@ -122,6 +146,7 @@ public class TestRs {
             animal.setRaceId(raceA.getUuid());
             animal.setFarmId(farmA.getUuid());
             animal.setOfficialId("ES001202059231");
+            animal.setMotherOfficialId("ES563847293847");
             animal.setBirthDay(LocalDate.of(2018, 1, 1));
             animal.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
             // animal.setMotherId("");
@@ -133,7 +158,7 @@ public class TestRs {
             animal2.setAnimalTypeId(animalTypeId2.getUuid());
             animal2.setRaceId(raceB.getUuid());
             animal2.setFarmId(farmA.getUuid());
-            animal2.setOfficialId("ES0514002399770");
+            animal2.setOfficialId("ES051400239977");
             animal2.setMotherId(animalA.getUuid());
             animal2.setMotherOfficialId(animalA.getOfficialId());
             animal2.setBirthDay(LocalDate.of(2019, 9, 1));
@@ -146,7 +171,7 @@ public class TestRs {
             animal3.setAnimalTypeId(animalTypeId2.getUuid());
             animal3.setRaceId(raceC.getUuid());
             animal3.setFarmId(farmA.getUuid());
-            animal3.setOfficialId("ES0514002354029");
+            animal3.setOfficialId("ES051400235582");
             animal3.setMotherOfficialId(animalA.getOfficialId());
             animal3.setBirthDay(LocalDate.of(2019, 9, 29));
             animal3.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
@@ -158,7 +183,8 @@ public class TestRs {
             animal4.setAnimalTypeId(animalTypeId3.getUuid());
             animal4.setRaceId(raceD.getUuid());
             animal4.setFarmId(farmA.getUuid());
-            animal4.setOfficialId("ES0515552354029");
+            animal4.setOfficialId("ES051555235408");
+            animal4.setMotherOfficialId("ES982356837591");
             animal4.setBirthDay(LocalDate.of(2018, 9, 29));
             animal4.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(1).getUuid());
             Animal animalD = animalService.save(animal4);
@@ -169,7 +195,8 @@ public class TestRs {
             animal5.setAnimalTypeId(animalTypeId3.getUuid());
             animal5.setRaceId(raceE.getUuid());
             animal5.setFarmId(farmA.getUuid());
-            animal5.setOfficialId("ES0513332354029");
+            animal5.setOfficialId("ES051333235463");
+            animal4.setMotherOfficialId("ES982356837595");
             animal5.setBirthDay(LocalDate.of(2018, 9, 29));
             animal5.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
             Animal animalF = animalService.save(animal5);
@@ -180,7 +207,6 @@ public class TestRs {
             incidence.setDone(true);
             incidence.setWeight(100);
             incidence.setAnimalId(animalA.getUuid());
-            incidence.setCreatedBy(user.getUuid());
             incidence.setFarmId(farmA.getUuid());
             incidence.setDate(LocalDate.of(2018, 5, 1));
             incidencesService.save(incidence);
@@ -190,7 +216,6 @@ public class TestRs {
             incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
             incidenceTreatment.setMedicine("tetanus");
             incidenceTreatment.setDose("100mg");
-            incidenceTreatment.setCreatedBy(user.getUuid());
             incidenceTreatment.setAnimalId(animalA.getUuid());
             incidenceTreatment.setFarmId(farmA.getUuid());
             incidenceTreatment.setDate(LocalDate.of(2018, 6, 2));
@@ -199,7 +224,6 @@ public class TestRs {
 
             IncidenceTreatment incidenceTreatmentIncomplete = new IncidenceTreatment();
             incidenceTreatmentIncomplete.setTreatmentType(TreatmentType.Vaccine);
-            incidenceTreatmentIncomplete.setCreatedBy(user.getUuid());
             incidenceTreatmentIncomplete.setAnimalId(animalA.getUuid());
             incidenceTreatmentIncomplete.setFarmId(farmA.getUuid());
             incidenceTreatmentIncomplete.setDate(LocalDate.of(2018, 7, 3));
@@ -212,13 +236,11 @@ public class TestRs {
             incidenceDischarge.setObservations("observations");
             incidenceDischarge.setDone(false);
             incidenceDischarge.setAnimalId(animalA.getUuid());
-            incidenceDischarge.setCreatedBy(user.getUuid());
             incidenceDischarge.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceDischarge);
 
             IncidencePregnancy incidencePregnancy = new IncidencePregnancy();
             incidencePregnancy.setPregnancyType(PregnancyType.Zeal);
-            incidencePregnancy.setCreatedBy(user.getUuid());
             incidencePregnancy.setFarmId(farm.getUuid());
             incidencePregnancy.setAnimalId(animalB.getUuid());
             incidencesService.save(incidencePregnancy);
@@ -228,7 +250,7 @@ public class TestRs {
         {
             /*Create Farms, Buildings and Divisions */
             Farm farm = new Farm();
-            farm.setOfficialId("7896");
+            farm.setOfficialId("ES789612673868");
             farm.setName("farm 2");
             AnimalCounter counter = new AnimalCounter();
             counter.setCounter(1234);
@@ -253,6 +275,7 @@ public class TestRs {
             farm.setBuildings(Arrays.asList(b1, b2));
             Farm farmA = farmService.save(farm);
 
+
             Animal animal = new Animal();
             animal.setOrigin("Lleida");
             animal.setSex("Female");
@@ -262,14 +285,13 @@ public class TestRs {
             animal.setOfficialId("ES542356436432");
             animal.setBirthDay(LocalDate.of(2019, 12, 17));
             animal.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
-            // animal.setMotherId("");
+            animal.setMotherOfficialId("FR783459294852");
             Animal animalA = animalService.save(animal);
 
             IncidenceWeight incidence = new IncidenceWeight();
             incidence.setDone(true);
             incidence.setWeight(100);
             incidence.setAnimalId(animalA.getUuid());
-            incidence.setCreatedBy(user.getUuid());
             incidence.setFarmId(farmA.getUuid());
             incidencesService.save(incidence);
 
@@ -277,12 +299,23 @@ public class TestRs {
             incidenceTreatment.setTreatmentType(TreatmentType.Vaccine);
             incidenceTreatment.setMedicine("tetanus");
             incidenceTreatment.setDose("100mg");
-            incidenceTreatment.setCreatedBy(user.getUuid());
             incidenceTreatment.setAnimalId(animalA.getUuid());
             incidenceTreatment.setFarmId(farmA.getUuid());
             incidencesService.save(incidenceTreatment);
 
+            IncidenceBirth birth = new IncidenceBirth();
+            birth.setBirthDate(LocalDate.of(2019, 11, 27));
+            birth.setRaceId(raceE.getUuid());
+            birth.setChildOfficialId(farm.getAnimalCounter().toString());
+            birth.setSex("Male");
+            birth.setFarmId(farmA.getUuid());
+            birth.setAnimalId(animalA.getUuid());
+
+            incidencesService.save(birth);
+
         }
+
+
         return "ok";
 
     }

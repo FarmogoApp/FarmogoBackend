@@ -14,24 +14,41 @@
     <div class="ui-g-2">
         <h:graphicImage name="logo.png" library="img" height="50"/>
     </div>
-    <div class="ui-g-2">
-        <h:form id="farmSwitch">
-            <p:outputLabel for="@next" value="Farm:"/>
+    <div class="ui-g-3">
+        <h:form id="farmSwitch" rendered="#{farmSwitcherView.farmList.size() gt 1}">
+            <p:outputLabel for="@next" value="#{i18n['top.farmSwitcher']}" style="vertical-align: sub;"/>
             <p:selectOneMenu value="#{farmSwitcherView.farm}" converter="#{farmConverter}">
-                <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId}"
+                <f:selectItems value="#{farmSwitcherView.farmList}" var="farm" itemLabel="#{farm.officialId} - #{farm.name}"
                                itemValue="#{farm}"/>
-                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect" oncomplete="window.location.href = 'home.xhtml';"/>
-
+                <p:ajax listener="#{farmSwitcherView.changeSessionFarm}" event="itemSelect"
+                        oncomplete="window.location.href = 'home.xhtml';"/>
             </p:selectOneMenu>
         </h:form>
+
+        <h:outputText value="#{i18n['top.farmSwitcher']} #{farmSwitcherView.farm.officialId}"
+                      rendered="#{farmSwitcherView.farmList.size() eq 1}"/>
+
     </div>
-    <div class="ui-g-2"/>
+    <div class="ui-g-1"/>
+
     <div class="ui-g-6" style="text-align: right">
         <h:form id="logOut">
-            <pe:letterAvatar value="Lonely Farmer" height="40" width="40"  rounded="true"
+            <h:commandLink action="#{languageSwitcher.changeLanguage('en')}">
+                <p:graphicImage name="/img/uk_flag.png" width="30" height="" style="display:inline; vertical-align: middle;"/>
+            </h:commandLink>
+
+            <h:commandLink action="#{languageSwitcher.changeLanguage('es')}">
+                <p:graphicImage name="/img/spain_flag.png" width="30" height="" style="display:inline; vertical-align: middle;"/>
+            </h:commandLink>
+
+            <h:commandLink action="#{languageSwitcher.changeLanguage('ca')}">
+                <p:graphicImage name="/img/catalonia_flag.png" width="30" height="" style="display:inline; vertical-align: middle; margin-right: 10px"/>
+            </h:commandLink>
+
+            <pe:letterAvatar value="#{userView.user.name}" height="40" width="40" rounded="true"
                              style="display:inline; vertical-align:middle; margin-right: 5px;"/>
             <h:outputText value="#{userView.user.name}" style="padding-right: 4px"/>
-            <p:button type="button" icon="pi pi-sign-out" value="Logout" outcome="index"/>
+            <p:commandButton action="#{userView.logout()}" value="#{i18n['top.logout']}"/>
         </h:form>
     </div>
 </div>

@@ -1,18 +1,21 @@
 package com.farmogo.front;
 
 import com.farmogo.model.*;
-import com.farmogo.services.AnimalService;
-import com.farmogo.services.AnimalTypesService;
-import com.farmogo.services.FarmService;
-import com.farmogo.services.RaceService;
+import com.farmogo.services.*;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,9 @@ public class AnimalListView implements Serializable {
     @Inject
     AnimalTypesService animalTypesService;
 
+    @Inject
+    UserService userService;
+
 
     private Farm farm;
     private Animal animal;
@@ -51,10 +57,10 @@ public class AnimalListView implements Serializable {
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
-        if (params.containsKey("filter")){
+        if (params.containsKey("filter")) {
             filter = FilterAnimal.valueOf(params.get("filter"));
-        }else{
-            filter =  FilterAnimal.Current;
+        } else {
+            filter = FilterAnimal.Current;
         }
 
         farm = farmService.getCurrentFarm();
@@ -62,9 +68,11 @@ public class AnimalListView implements Serializable {
             loadAnimals();
         }
         animal = new Animal();
-        mothers = animalService.getCurrentAnimalsByFarmId(farm.getUuid()).stream()
-                .filter(p -> p.getSex().equals("Female"))
-                .collect(Collectors.toList());
+        if (farm != null) {
+            mothers = animalService.getCurrentAnimalsByFarmId(farm.getUuid()).stream()
+                    .filter(p -> p.getSex().equals("Female"))
+                    .collect(Collectors.toList());
+        }
     }
 
     public void loadAnimals() {
@@ -177,34 +185,60 @@ public class AnimalListView implements Serializable {
         this.filter = filter;
     }
 
-    public FilterAnimal[] getFilters(){
+    public FilterAnimal[] getFilters() {
         return FilterAnimal.values();
     }
 
-    public enum FilterAnimal {
-        All, Current, Discharged;
+    public StreamedContent getReportDownload() {
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        DefaultStreamedContent defaultStreamedContent = new DefaultStreamedContent();
+        defaultStreamedContent.setContentType("application/pdf");
+        defaultStreamedContent.setName("animalsOfficial.pdf");
+
+        try {
+            URL rq = new URL(request.getRequestURL().toString());
+            String queryUrl = rq.getProtocol() + "://" + rq.getAuthority() + "/api/farms/" + farm.getUuid() + "/report";
+            System.out.println("URL:" + queryUrl);
+            URL query = new URL(queryUrl);
+            HttpURLConnection urlConnection = (HttpURLConnection) query.openConnection();
+            urlConnection.setRequestProperty("Authorization", "Bearer " + userService.getCurrentUser().getFirebaseUuid());
+            urlConnection.setRequestMethod("GET");
+
+            urlConnection.setDoInput(true);
+            defaultStreamedContent.setStream(urlConnection.getInputStream());
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return defaultStreamedContent;
+
     }
 
-    public int getTotalAnimals(){
+    public int getTotalAnimals() {
         return animalService.getAll().size();
     }
 
-    public int getTotalAnimalsOfFarm(FilterAnimal filter){
+    public int getTotalAnimalsOfFarm(FilterAnimal filter) {
+        if (farm == null) return 0;
         switch (filter) {
             case All:
                 return animalService.getAnimalsByFarmId(farm.getUuid()).size();
             case Current:
                 return animalService.getCurrentAnimalsByFarmId(farm.getUuid()).size();
             case Discharged:
-               return animalService.getDischagedAnimalsByFarmId(farm.getUuid()).size();
+                return animalService.getDischagedAnimalsByFarmId(farm.getUuid()).size();
         }
         return 0;
     }
 
-    public List<Animal> getMothers(){
+    public List<Animal> getMothers() {
         return mothers;
     }
-
 
     public Animal getMother() {
         return mother;
@@ -215,11 +249,11 @@ public class AnimalListView implements Serializable {
         this.setMotherOfficialId("");
     }
 
-    private void updateMotherData(){
-        if (mother == null){
+    private void updateMotherData() {
+        if (mother == null) {
             this.animal.setMotherId(null);
             this.animal.setMotherOfficialId(this.getMotherOfficialId());
-        }else{
+        } else {
             this.animal.setMotherId(mother.getUuid());
             this.animal.setMotherOfficialId(mother.getOfficialId());
         }
@@ -231,5 +265,9 @@ public class AnimalListView implements Serializable {
 
     public void setMotherOfficialId(String motherOfficialId) {
         this.motherOfficialId = motherOfficialId;
+    }
+
+    public enum FilterAnimal {
+        All, Current, Discharged;
     }
 }
