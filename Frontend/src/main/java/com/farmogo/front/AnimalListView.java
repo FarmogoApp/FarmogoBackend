@@ -16,9 +16,7 @@ import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Named
@@ -52,6 +50,8 @@ public class AnimalListView implements Serializable {
     private Map<String, String> divisions = new HashMap<>();
     private FilterAnimal filter;
     private List<Animal> mothers;
+    PropertyResourceBundle i18n;
+
 
     @PostConstruct
     public void init() {
@@ -62,12 +62,16 @@ public class AnimalListView implements Serializable {
         } else {
             filter = FilterAnimal.Current;
         }
+        i18n = facesContext.getApplication().evaluateExpressionGet(facesContext, "#{i18n}", PropertyResourceBundle.class);
+
 
         farm = farmService.getCurrentFarm();
         if (farm != null) {
             loadAnimals();
         }
         animal = new Animal();
+
+
         if (farm != null) {
             mothers = animalService.getCurrentAnimalsByFarmId(farm.getUuid()).stream()
                     .filter(p -> p.getSex().equals("Female"))
@@ -258,6 +262,47 @@ public class AnimalListView implements Serializable {
             this.animal.setMotherOfficialId(mother.getOfficialId());
         }
     }
+
+    /**
+     * If sex is defined by the animal type, then don't let the user choose the sex of the animal
+     * @return A boolean indicating if the sex is defined or not
+     */
+    public boolean isSexDefined(){
+        if(animal.getAnimalTypeId() == null) animal.setAnimalTypeId(animalTypes.keySet().iterator().next());
+
+        String animalDesc = animalTypes.get(animal.getAnimalTypeId());
+
+        return (animalDesc.equals("Bull") || animalDesc.equals("Cow"));
+    }
+
+    public List<String> getSexListByAnimalType(){
+        if(animal.getAnimalTypeId() == null) animal.setAnimalTypeId(animalTypes.keySet().iterator().next());
+
+        String animalDesc = animalTypes.get(animal.getAnimalTypeId());
+
+        if (animalDesc.equals("Bull")) {
+            // Set to male
+            animal.setSex("Male");
+            return generateSexList(true, false);
+
+        } else if (animalDesc.equals("Cow")) {
+            // Set to female
+            animal.setSex("Female");
+            return generateSexList(false, true);
+
+        } else {
+            // Calf can be male or female
+            return generateSexList(true, true);
+        }
+    }
+
+    private List<String>  generateSexList(boolean male, boolean female){
+        List<String> sexList = new ArrayList<>();
+        if(male) sexList.add("Male");
+        if(female) sexList.add("Female");
+        return sexList;
+    }
+
 
     public String getMotherOfficialId() {
         return motherOfficialId;
