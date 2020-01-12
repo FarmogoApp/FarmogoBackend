@@ -43,7 +43,11 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     }
 
     @Override
-    public void visit(IncidenceDischarge obj) {
+    public void visit(IncidenceDischarge obj) throws ActionNotPermitted {
+        if (animal.getDischargeDate()!=null){
+            throw new ActionNotPermitted();
+        }
+
         animal.setDischargeDate(obj.getDate());
         animal.setDischargeCause(obj.getDischargeType().toString());
         animal.setDischargeDestination(obj.getDischargeDestination());
@@ -52,7 +56,10 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
     }
 
     @Override
-    public void visit(IncidenceBirth incidenceBirth) {
+    public void visit(IncidenceBirth incidenceBirth) throws ActionNotPermitted {
+        if (!"Female".equalsIgnoreCase(animal.getSex())){
+            throw new ActionNotPermitted();
+        }
         if(incidenceBirth.getUuid() == null){
             Animal animalChild = new Animal();
             animalChild.setFarmId(incidenceBirth.getFarmId());
@@ -77,5 +84,11 @@ public class IncidenceOnSaveActions implements IncidenceVisitor {
 
     }
 
+    @Override
+    public void visit(IncidencePregnancy obj) throws PermissionError {
+        if (!"Female".equalsIgnoreCase(animal.getSex())){
+            throw new ActionNotPermitted();
+        }
+    }
 }
 
