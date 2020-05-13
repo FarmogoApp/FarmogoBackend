@@ -310,9 +310,121 @@ public class TestRs {
             birth.setSex("Male");
             birth.setFarmId(farmA.getUuid());
             birth.setAnimalId(animalA.getUuid());
-
             incidencesService.save(birth);
 
+        }
+
+        // FARM1 Pruebas con usuarios
+        {
+            /*Create Farms, Buildings and Divisions */
+            Farm farm = new Farm();
+            farm.setOfficialId("ES789612678528");
+            farm.setName("farm1");
+            AnimalCounter counter = new AnimalCounter();
+            counter.setCounter(9876);
+            counter.setPrefix("HU");
+            farm.setAnimalCounter(counter);
+
+            /*Building b1 = new Building();
+            b1.setName("Build 1");
+            Division d11 = new Division();
+            d11.setName("division 1.1");
+            Division d12 = new Division();
+            d12.setName("division 1.2");
+            b1.setDivisions(Arrays.asList(d11, d12));
+
+            Building b2 = new Building();
+            b2.setName("Build 2");
+            Division d21 = new Division();
+            d21.setName("division 2.1");
+            Division d22 = new Division();
+            d22.setName("division 2.2");
+            b2.setDivisions(Arrays.asList(d21, d22));
+            farm.setBuildings(Arrays.asList(b1, b2));*/
+            Farm farmA = farmService.save(farm);
+
+        }
+
+        // FARM2 Pruebas con usuarios
+        {
+            /*Create Farms, Buildings and Divisions */
+            Farm farm = new Farm();
+            farm.setOfficialId("ES789675343868");
+            farm.setName("farm2");
+            AnimalCounter counter = new AnimalCounter();
+            counter.setCounter(4598);
+            counter.setPrefix("HU");
+            farm.setAnimalCounter(counter);
+
+            Building b1 = new Building();
+            b1.setName("Build 1");
+            Division d11 = new Division();
+            d11.setName("division 1.1");
+            Division d12 = new Division();
+            d12.setName("division 1.2");
+            b1.setDivisions(Arrays.asList(d11, d12));
+
+            Building b2 = new Building();
+            b2.setName("Build 2");
+            Division d21 = new Division();
+            d21.setName("division 2.1");
+            Division d22 = new Division();
+            d22.setName("division 2.2");
+            b2.setDivisions(Arrays.asList(d21, d22));
+            farm.setBuildings(Arrays.asList(b1, b2));
+            Farm farmA = farmService.save(farm);
+
+            /*Create animals 111111111234-222222222345-333333333456-444444444567*/
+
+            Animal animal = new Animal();
+            animal.setOrigin("Lleida");
+            animal.setSex("Female");
+            animal.setAnimalTypeId(animalTypeId.getUuid());
+            animal.setRaceId(raceA.getUuid());
+            animal.setFarmId(farmA.getUuid());
+            animal.setOfficialId("ES111111111234");
+            animal.setMotherOfficialId("ES563847293847");
+            animal.setBirthDay(LocalDate.of(2018, 1, 1));
+            animal.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            // animal.setMotherId("");
+            Animal animalA = animalService.save(animal);
+
+            Animal animal2 = new Animal();
+            animal2.setOrigin("Ainsa");
+            animal2.setSex("Male");
+            animal2.setAnimalTypeId(animalTypeId2.getUuid());
+            animal2.setRaceId(raceB.getUuid());
+            animal2.setFarmId(farmA.getUuid());
+            animal2.setOfficialId("ES222222222345");
+            animal2.setMotherId(animalA.getUuid());
+            animal2.setMotherOfficialId(animalA.getOfficialId());
+            animal2.setBirthDay(LocalDate.of(2019, 9, 1));
+            animal2.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalB = animalService.save(animal2);
+
+            Animal animal3 = new Animal();
+            animal3.setOrigin("Massoteres");
+            animal3.setSex("Male");
+            animal3.setAnimalTypeId(animalTypeId2.getUuid());
+            animal3.setRaceId(raceC.getUuid());
+            animal3.setFarmId(farmA.getUuid());
+            animal3.setOfficialId("ES333333333456");
+            animal3.setMotherOfficialId(animalA.getOfficialId());
+            animal3.setBirthDay(LocalDate.of(2019, 9, 29));
+            animal3.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalC = animalService.save(animal3);
+
+            Animal animal4 = new Animal();
+            animal4.setOrigin("Guissona");
+            animal4.setSex("Female");
+            animal4.setAnimalTypeId(animalTypeId3.getUuid());
+            animal4.setRaceId(raceD.getUuid());
+            animal4.setFarmId(farmA.getUuid());
+            animal4.setOfficialId("ES444444444567");
+            animal4.setMotherOfficialId("ES982356837591");
+            animal4.setBirthDay(LocalDate.of(2018, 9, 29));
+            animal4.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalD = animalService.save(animal4);
         }
 
 
