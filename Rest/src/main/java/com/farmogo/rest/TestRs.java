@@ -351,7 +351,7 @@ public class TestRs {
             /*Create Farms, Buildings and Divisions */
             Farm farm = new Farm();
             farm.setOfficialId("ES789675343868");
-            farm.setName("farm2");
+            farm.setName("Farm usertesting2");
             AnimalCounter counter = new AnimalCounter();
             counter.setCounter(4598);
             counter.setPrefix("HU");
