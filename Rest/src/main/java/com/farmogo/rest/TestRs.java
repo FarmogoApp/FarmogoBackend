@@ -315,8 +315,9 @@ public class TestRs {
         }
 
         // FARM1 Pruebas con usuarios
-        {
+        /*{
             /*Create Farms, Buildings and Divisions */
+        /*
             Farm farm = new Farm();
             farm.setOfficialId("ES789612678528");
             farm.setName("farm1");
@@ -324,7 +325,7 @@ public class TestRs {
             counter.setCounter(9876);
             counter.setPrefix("HU");
             farm.setAnimalCounter(counter);
-
+*/
             /*Building b1 = new Building();
             b1.setName("Build 1");
             Division d11 = new Division();
@@ -341,9 +342,9 @@ public class TestRs {
             d22.setName("division 2.2");
             b2.setDivisions(Arrays.asList(d21, d22));
             farm.setBuildings(Arrays.asList(b1, b2));*/
-            Farm farmA = farmService.save(farm);
+            //Farm farmA = farmService.save(farm);
 
-        }
+        //}
 
         // FARM2 Pruebas con usuarios
         {
