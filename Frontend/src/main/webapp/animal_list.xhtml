@@ -277,26 +277,26 @@
                         <p:message for="SanitaryRegister"/>
                     </p:column>
 
+                    <!-- Animal type-->
+                    <h:outputLabel value="#{i18n['animalViews.animalType']}"/>
+                    <p:column id="animalTypeColumn">
+                        <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}" required="">
+                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
+                                           itemValue="#{entity.key}" itemLabel="#{entity.value}"/>
+                            <p:ajax update="sexSelect"/>
+                        </p:selectOneMenu>
+                        <p:message for="raceSelect"/>
+                    </p:column>
 
                     <!-- Sex -->
                     <h:outputLabel value="#{i18n['animalViews.sex']}"/>
                     <p:column id="sexColumn">
-                        <p:selectOneMenu id="sexSelect" value="#{animalListView.animal.sex}">
-                            <f:selectItem itemLabel="#{i18n['animalViews.male']}" itemValue="Male"/>
-                            <f:selectItem itemLabel="#{i18n['animalViews.female']}" itemValue="Female"/>
+                        <p:selectOneMenu id="sexSelect" value="#{animalListView.animal.sex}"  disabled="#{animalListView.isSexDefined()}">
+                            <f:selectItems value="#{animalListView.getSexListByAnimalType()}" var="sex" itemLabel="#{sex}" itemValue="#{sex}"/>
                         </p:selectOneMenu>
                         <p:message for="sexSelect"/>
                     </p:column>
 
-                    <!-- Animal type-->
-                    <h:outputLabel value="#{i18n['animalViews.animalType']}"/>
-                    <p:column id="animalTypeColumn">
-                        <p:selectOneMenu id="animalTypeSelect" value="#{animalListView.animal.animalTypeId}">
-                            <f:selectItems value="#{animalListView.animalTypes.entrySet()}" var="entity"
-                                           itemValue="#{entity.key}" itemLabel="#{entity.value}"/>
-                        </p:selectOneMenu>
-                        <p:message for="raceSelect"/>
-                    </p:column>
 
                     <!-- Race -->
                     <h:outputLabel value="#{i18n['animalViews.race']}"/>

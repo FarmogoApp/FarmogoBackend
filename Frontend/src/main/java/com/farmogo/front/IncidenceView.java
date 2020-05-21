@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Named
 @ViewScoped
@@ -45,6 +46,7 @@ public class IncidenceView implements Serializable {
     IncidenceType incidenceType;
     String title;
     PropertyResourceBundle i18n;
+    private Animal animal;
 
     @PostConstruct
     public void init() {
@@ -66,7 +68,6 @@ public class IncidenceView implements Serializable {
         try {
             if (animalId != null) {
                 incidenceList = incidencesService.getAll(animalId);
-                Animal animal = null;
 
                 animal = animalService.get(animalId);
 
@@ -172,33 +173,38 @@ public class IncidenceView implements Serializable {
     }
 
     public void remove() {
-        incidence.setRemoveDate(LocalDate.now());
         try {
-            incidencesService.save(incidence);
+            incidencesService.remove(incidence);
             updateIncidenceList();
+            animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
             Messages.info("Incidence has been removed", "");
         } catch (PermissionError accessNotAllowed) {
+
             Messages.error("Not alloed to remove", "");
         }
 
     }
 
     public void recover(Incidence incidence) {
+        this.incidence = incidence;
         try {
-            this.incidence = incidence;
-            this.incidence.setRemoveDate(null);
-            this.incidence.setRemoveReason(null);
-            incidencesService.save(incidence);
+            incidencesService.recover(incidence);
             updateIncidenceList();
+            animalDataView.updateAnimal(animalService.get(incidence.getAnimalId()));
             Messages.info("Incidence has been recovered", "");
         } catch (PermissionError accessNotAllowed) {
+            accessNotAllowed.printStackTrace();
             Messages.error("Not alloed to recover", "");
         }
 
     }
 
-    public IncidenceType[] getIncidenceTypes() {
-        return IncidenceType.values();
+    public List<IncidenceType> getIncidenceTypes() {
+        Stream<IncidenceType> types = Arrays.stream(IncidenceType.values());
+        if (animal!=null && !"Female".equals(animal.getSex())){
+            types = types.filter( t -> !t.equals(IncidenceType.BIRTH) && !t.equals(IncidenceType.PREGNANCY));
+        }
+        return types.collect(Collectors.toList());
     }
 
     public PregnancyType[] getPregnancyTypes() {
