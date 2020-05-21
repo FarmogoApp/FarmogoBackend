@@ -59,26 +59,6 @@ public class TestRs {
         user = userService.save(user);
         userService.setCurrentUser(user);
 
-        /*Users UserTesting*/
-        User usertesting1 = new User();
-        //usertesting1.setUuid("1dd6e8a242811bf1eecf90ac");
-        usertesting1.setFarmsAccessible(new ArrayList<>());
-        usertesting1.setFirebaseUuid("4uy2Wl3g6wgqYfPvjrwyJ9Ij9Mp1");
-        usertesting1.setName("UserTesting Farmer");
-        usertesting1.setEmail("test1@farmogo.com");
-        usertesting1.setTelephone("988954321");
-        usertesting1 = userService.save(usertesting1);
-        userService.setCurrentUser(usertesting1);
-
-        User usertesting2 = new User();
-        //usertesting2.setUuid("1dd6e8a242811bf1eecf90ac");
-        usertesting2.setFarmsAccessible(new ArrayList<>());
-        usertesting2.setFirebaseUuid("NjJZUkv5AMZsa0BruwqXFyr6Zqi2");
-        usertesting2.setName("UserTesting Farmer");
-        usertesting2.setEmail("test2@farmogo.com");
-        usertesting2.setTelephone("988957821");
-        usertesting2 = userService.save(usertesting2);
-        userService.setCurrentUser(usertesting2);
 
         /*Create animal types*/
         AnimalType animalType = new AnimalType();
@@ -335,6 +315,16 @@ public class TestRs {
 
         }
 
+        /*Users UserTesting*/
+        User usertesting1 = new User();
+        //usertesting1.setUuid("1dd6e8a242811bf1eecf90ac");
+        usertesting1.setFarmsAccessible(new ArrayList<>());
+        usertesting1.setFirebaseUuid("4uy2Wl3g6wgqYfPvjrwyJ9Ij9Mp1");
+        usertesting1.setName("UserTesting Farmer");
+        usertesting1.setEmail("test1@farmogo.com");
+        usertesting1.setTelephone("988954321");
+        usertesting1 = userService.save(usertesting1);
+        userService.setCurrentUser(usertesting1);
         // FARM1 Pruebas con usuarios
         /*{
             /*Create Farms, Buildings and Divisions */
@@ -367,6 +357,15 @@ public class TestRs {
 
         //}
 
+        User usertesting2 = new User();
+        //usertesting2.setUuid("1dd6e8a242811bf1eecf90ac");
+        usertesting2.setFarmsAccessible(new ArrayList<>());
+        usertesting2.setFirebaseUuid("NjJZUkv5AMZsa0BruwqXFyr6Zqi2");
+        usertesting2.setName("UserTesting Farmer");
+        usertesting2.setEmail("test2@farmogo.com");
+        usertesting2.setTelephone("988957821");
+        usertesting2 = userService.save(usertesting2);
+        userService.setCurrentUser(usertesting2);
         // FARM2 Pruebas con usuarios
         {
             /*Create Farms, Buildings and Divisions */
@@ -413,8 +412,8 @@ public class TestRs {
 
             Animal animal2 = new Animal();
             animal2.setOrigin("Ainsa");
-            animal2.setSex("Male");
-            animal2.setAnimalTypeId(animalTypeId2.getUuid());
+            animal2.setSex("Female");
+            animal2.setAnimalTypeId(animalTypeId.getUuid());
             animal2.setRaceId(raceB.getUuid());
             animal2.setFarmId(farmA.getUuid());
             animal2.setOfficialId("ES222222222345");
@@ -426,8 +425,8 @@ public class TestRs {
 
             Animal animal3 = new Animal();
             animal3.setOrigin("Massoteres");
-            animal3.setSex("Male");
-            animal3.setAnimalTypeId(animalTypeId2.getUuid());
+            animal3.setSex("Female");
+            animal3.setAnimalTypeId(animalTypeId.getUuid());
             animal3.setRaceId(raceC.getUuid());
             animal3.setFarmId(farmA.getUuid());
             animal3.setOfficialId("ES333333333456");
@@ -439,7 +438,7 @@ public class TestRs {
             Animal animal4 = new Animal();
             animal4.setOrigin("Guissona");
             animal4.setSex("Female");
-            animal4.setAnimalTypeId(animalTypeId3.getUuid());
+            animal4.setAnimalTypeId(animalTypeId.getUuid());
             animal4.setRaceId(raceD.getUuid());
             animal4.setFarmId(farmA.getUuid());
             animal4.setOfficialId("ES444444444567");
@@ -447,6 +446,56 @@ public class TestRs {
             animal4.setBirthDay(LocalDate.of(2018, 9, 29));
             animal4.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
             Animal animalD = animalService.save(animal4);
+
+            Animal animal5 = new Animal();
+            animal5.setOrigin("Lleida");
+            animal5.setSex("Female");
+            animal5.setAnimalTypeId(animalTypeId3.getUuid());
+            animal5.setRaceId(raceA.getUuid());
+            animal5.setFarmId(farmA.getUuid());
+            animal5.setOfficialId("ES111852311234");
+            animal5.setMotherOfficialId("ES563847293847");
+            animal5.setBirthDay(LocalDate.of(2018, 1, 1));
+            animal5.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            // animal5.setMotherId("");
+            Animal animalE = animalService.save(animal5);
+
+            Animal animal6 = new Animal();
+            animal6.setOrigin("Ainsa");
+            animal6.setSex("Male");
+            animal6.setAnimalTypeId(animalTypeId2.getUuid());
+            animal6.setRaceId(raceB.getUuid());
+            animal6.setFarmId(farmA.getUuid());
+            animal6.setOfficialId("ES229856222345");
+            animal6.setMotherId(animalA.getUuid());
+            animal6.setMotherOfficialId(animalA.getOfficialId());
+            animal6.setBirthDay(LocalDate.of(2019, 6, 1));
+            animal6.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalF = animalService.save(animal6);
+
+            Animal animal7 = new Animal();
+            animal7.setOrigin("Pueyo");
+            animal7.setSex("Male");
+            animal7.setAnimalTypeId(animalTypeId2.getUuid());
+            animal7.setRaceId(raceC.getUuid());
+            animal7.setFarmId(farmA.getUuid());
+            animal7.setOfficialId("ES378543333456");
+            animal7.setMotherOfficialId(animalA.getOfficialId());
+            animal7.setBirthDay(LocalDate.of(2019, 8, 15));
+            animal7.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalG = animalService.save(animal7);
+
+            Animal animal8 = new Animal();
+            animal8.setOrigin("Barbastro");
+            animal8.setSex("Female");
+            animal8.setAnimalTypeId(animalTypeId3.getUuid());
+            animal8.setRaceId(raceD.getUuid());
+            animal8.setFarmId(farmA.getUuid());
+            animal8.setOfficialId("ES445687444567");
+            animal8.setMotherOfficialId("ES982356837591");
+            animal8.setBirthDay(LocalDate.of(2018, 9, 23));
+            animal8.setDivisionId(farmA.getBuildings().get(0).getDivisions().get(0).getUuid());
+            Animal animalH = animalService.save(animal8);
         }
 
 
