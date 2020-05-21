@@ -59,6 +59,27 @@ public class TestRs {
         user = userService.save(user);
         userService.setCurrentUser(user);
 
+        /*Users UserTesting*/
+        User usertesting1 = new User();
+        //usertesting1.setUuid("1dd6e8a242811bf1eecf90ac");
+        usertesting1.setFarmsAccessible(new ArrayList<>());
+        usertesting1.setFirebaseUuid("4uy2Wl3g6wgqYfPvjrwyJ9Ij9Mp1");
+        usertesting1.setName("UserTesting Farmer");
+        usertesting1.setEmail("test1@farmogo.com");
+        usertesting1.setTelephone("988954321");
+        usertesting1 = userService.save(usertesting1);
+        userService.setCurrentUser(usertesting1);
+
+        User usertesting2 = new User();
+        //usertesting2.setUuid("1dd6e8a242811bf1eecf90ac");
+        usertesting2.setFarmsAccessible(new ArrayList<>());
+        usertesting2.setFirebaseUuid("NjJZUkv5AMZsa0BruwqXFyr6Zqi2");
+        usertesting2.setName("UserTesting Farmer");
+        usertesting2.setEmail("test2@farmogo.com");
+        usertesting2.setTelephone("988957821");
+        usertesting2 = userService.save(usertesting2);
+        userService.setCurrentUser(usertesting2);
+
         /*Create animal types*/
         AnimalType animalType = new AnimalType();
         animalType.setDescription("Cow");
